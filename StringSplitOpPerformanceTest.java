@@ -29,7 +29,7 @@ public class StringSplitOpPerformanceTest {
         try {
             printOutput();
         } catch (Exception e) {
-            System.err.println("Exception while printing output: "+e);
+            System.err.println("Exception while printing output: "+e.getMessage());
         }
     }
 
