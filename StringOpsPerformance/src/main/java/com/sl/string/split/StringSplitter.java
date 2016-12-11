@@ -16,8 +16,14 @@ public class StringSplitter {
     private static final int METHOD_INVOCATION_COUNT = 2000000;
 
     public static void main(String[] args) {
+        if (args == null || args.length == 0) {
+            System.err.println("Please provide an input string to split");
+            System.exit(-1);
+        }
         long[][] outputStats = new long[STATS_RANGE][4];
         String inputString = buildInput(args);
+
+        System.out.println("Input String is: " + inputString);
 
         for (int i = 0; i < STATS_RANGE; i++) {
             System.out.println("Iteration # " + i);
