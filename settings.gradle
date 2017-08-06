@@ -1,3 +1,5 @@
 rootProject.name = 'SimplifyLearning'
 
 include 'StringOpsPerformance'
+include 'KinderRESTService'
+
