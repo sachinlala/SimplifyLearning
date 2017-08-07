@@ -1,9 +1,11 @@
 ### SimplifyLearning
-A reference for simple Java projects built with Gradle.
+Reference for simple Java projects built with Gradle.
 
 #### [KinderRESTService](KinderRESTService)
-A simple 'Hello World' RESTful service, based on SpringBoot.
+A SpringBoot based RESTful service.
+
+#### [Algorithms](Algorithms)
+Basic Algorithms.
 
 #### [StringOpsPerformance](StringOpsPerformance)
 Performance Tests to compare different operations on a String.
-

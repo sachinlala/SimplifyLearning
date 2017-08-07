@@ -1,5 +1,6 @@
 group 'KinderRESTService'
 sourceCompatibility = JDKVersion
+apply plugin: 'org.springframework.boot'
 
 buildscript {
     repositories {
@@ -10,15 +11,10 @@ buildscript {
     }
 }
 
-apply plugin: 'org.springframework.boot'
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
-repositories {
-    mavenCentral()
+    compile project(':Algorithms')
 }
 
 jar {
