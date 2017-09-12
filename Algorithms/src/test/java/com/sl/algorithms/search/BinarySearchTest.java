@@ -1,4 +1,4 @@
-package com.sl.algorithms;
+package com.sl.algorithms.search;
 
 import org.junit.Assert;
 import org.junit.Test;
