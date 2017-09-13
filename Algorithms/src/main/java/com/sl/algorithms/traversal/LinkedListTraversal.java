@@ -24,7 +24,6 @@ public class LinkedListTraversal {
     // O(1)
     public static Node insertAfter(Node index, int newElement) {
         if (index == null) {
-            System.err.println("Inside insertAfter: Input is null");
             return null;
         }
         Node newNode = new Node(newElement);
@@ -45,5 +44,66 @@ public class LinkedListTraversal {
         }
         head.next = newNode;
         return latest;
+    }
+
+    // O(1)
+    public static Node deleteAtStart(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node temp = head;
+        head = temp.next;
+        return head;
+    }
+
+    // O(N)
+    public static Node deleteAtPosition(Node head, int deleteIndex) {
+        Node prev = null;
+        Node curr = head;
+        int index = 1;
+        while (curr != null) {
+            if (index == deleteIndex) {
+                if (prev == null) {
+                    head = curr.next;
+                    return head;
+                }
+                prev.next = curr.next;
+            }
+            prev = curr;
+            curr = curr.next;
+            index++;
+        }
+        return head;
+    }
+
+    // O(N)
+    public static Node deleteAtEnd(Node head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        Node temp = head;
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+        temp.next = null;
+        return head;
+    }
+
+    // O(N)
+    public static Node deleteSpecificData(Node head, int data) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            if (curr.data == data) {
+                if (prev == null) {
+                    head = curr.next;
+                    return head;
+                }
+                prev.next = curr.next;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        return head;
     }
 }
