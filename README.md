@@ -9,3 +9,7 @@ Basic Algorithms.
 
 #### [StringOpsPerformance](StringOpsPerformance)
 Performance Tests to compare different operations on a String.
+
+References:
+* [How to Contribute](CONTRIBUTING)
+* [Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)
