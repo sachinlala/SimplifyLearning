@@ -11,5 +11,5 @@ Basic Algorithms.
 Performance Tests to compare different operations on a String.
 
 References:
-* [How to Contribute](CONTRIBUTING)
+* [How to Contribute](CONTRIBUTING.md)
 * [Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)
