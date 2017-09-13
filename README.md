@@ -1,4 +1,4 @@
-### SimplifyLearning ![](https://travis-ci.org/sachinlala/SimplifyLearning.svg) 
+### SimplifyLearning ![https://travis-ci.org/sachinlala/SimplifyLearning](https://travis-ci.org/sachinlala/SimplifyLearning.svg) 
 Reference for simple Java projects built with Gradle.
 
 #### [KinderRESTService](KinderRESTService)
