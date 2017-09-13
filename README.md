@@ -11,5 +11,6 @@ Basic Algorithms.
 Performance Tests to compare different operations on a String.
 
 **Help**:
+* [Travis CI Dashboard](https://travis-ci.org/sachinlala/SimplifyLearning)
 * [How to Contribute](CONTRIBUTING.md)
 * [Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)
