@@ -1,5 +1,6 @@
-### [ SimplifyLearning ](https://travis-ci.org/sachinlala/SimplifyLearning)![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg) 
+### SimplifyLearning [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning)
 Reference for simple Java projects built with Gradle.
+[![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
 
 #### [KinderRESTService](KinderRESTService)
 A SpringBoot based RESTful service.
