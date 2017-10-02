@@ -2,11 +2,14 @@
 Reference for simple Java projects built with Gradle.
 [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
 
-#### [KinderRESTService](KinderRESTService)
-A SpringBoot based RESTful service.
-
 #### [Algorithms](Algorithms)
 Basic Algorithms.
+
+#### [LanguageSemantics](LanguageSemantics)
+Examples to demonstrate few of the Java language semantics.
+
+#### [KinderRESTService](KinderRESTService)
+A SpringBoot based RESTful service.
 
 #### [StringOpsPerformance](StringOpsPerformance)
 Performance Tests to compare different operations on a String.

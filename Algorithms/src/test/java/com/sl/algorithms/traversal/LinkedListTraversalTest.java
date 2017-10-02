@@ -2,6 +2,7 @@ package com.sl.algorithms.traversal;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.sl.algorithms.traversal.LinkedListTraversal.*;
@@ -191,6 +192,56 @@ public class LinkedListTraversalTest {
     public void testDeleteSpecificDataEnd() {
         String output = new String("[1234]");
         Node newHead = deleteSpecificData(testNode, 5);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testReverseNull() {
+        String output = new String("[]");
+        Node newHead = reverseList(null);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testReverseSingle() {
+        String output = new String("[1]");
+        Node newHead = reverseList(new Node(1));
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testReverse() {
+        String output = new String("[54321]");
+        Node newHead = reverseList(testNode);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testPartialReverseNull() {
+        String output = new String("[]");
+        Node newHead = reverseList(null, 1);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testPartialReverseSingle() {
+        String output = new String("[1]");
+        Node newHead = reverseList(new Node(1), 1);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Ignore
+    @Test
+    public void testPartialReverse() {
+        String output = new String("[32145]");
+        Node newHead = reverseList(testNode, 3);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testPartialReverseFull() {
+        String output = new String("[54321]");
+        Node newHead = reverseList(testNode, 5);
         Assert.assertEquals(output, printList(newHead));
     }
 }

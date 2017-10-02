@@ -1,0 +1,7 @@
+group 'SimplifyLearning'
+sourceCompatibility = JDKVersion
+
+jar {
+    baseName = 'java-semantics'
+    version =  '0.1.0'
+}

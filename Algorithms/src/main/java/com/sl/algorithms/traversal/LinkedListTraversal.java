@@ -106,4 +106,48 @@ public class LinkedListTraversal {
         }
         return head;
     }
+
+    // O(n)
+    public static Node reverseList(Node head) {
+        Node prev, curr, next;
+        prev = null;
+        curr = head;
+        next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+
+    public static Node reverseList(Node head, int k) {
+        Node prev=null, curr=head, next=null, tail=head;
+        int i = 1;
+        while (curr != null) {
+            if (i > k) {
+                break;
+            }
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            i++;
+        }
+        if (k > 1) {
+            System.out.println(prev);
+            System.out.println(head);
+            System.out.println(tail);
+            System.out.println(curr);
+            System.out.println(next);
+        }
+        head = prev;
+        return head;
+    }
+
+    public static Node rotateList(Node head, int k) {
+        return head;
+    }
 }
