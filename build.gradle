@@ -3,6 +3,7 @@ version '1.0-SNAPSHOT'
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'jacoco'
 
     repositories {
         mavenCentral()
@@ -11,6 +12,30 @@ subprojects {
     dependencies {
         testCompile group: 'junit', name: 'junit', version: JUnitVersion
     }
+
+    jacoco {
+        toolVersion = JaCoCoVersion
+        reportsDir = file("$buildDir/reports/jacoco")
+    }
+
+    jacocoTestReport {
+        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+        additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
+        classDirectories =  files(sourceSets.main.output)
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+        onlyIf = {
+            true
+        }
+        doFirst {
+            executionData = files(executionData.findAll {
+                it.exists()
+            })
+        }
+    }
+
+    check.dependsOn jacocoTestReport
 }
-
-
