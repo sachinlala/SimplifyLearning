@@ -1,27 +1,26 @@
+allprojects {
+    apply plugin: 'base'
+    apply plugin: 'jacoco'
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    jacoco {
+        toolVersion = JaCoCoVersion
+    }
+}
+
 group 'SimplifyLearning'
 version '1.0-SNAPSHOT'
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'jacoco'
-
-    repositories {
-        mavenCentral()
-    }
-
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     dependencies {
         testCompile group: 'junit', name: 'junit', version: JUnitVersion
     }
-
-    jacoco {
-        toolVersion = JaCoCoVersion
-        reportsDir = file("$buildDir/reports/jacoco")
-    }
-
     jacocoTestReport {
-        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-        additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
-        classDirectories =  files(sourceSets.main.output)
         reports {
             html.enabled = true
             xml.enabled = true
@@ -36,6 +35,25 @@ subprojects {
             })
         }
     }
-
     check.dependsOn jacocoTestReport
+}
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+    onlyIf = {
+        true
+    }
+    doFirst {
+        executionData = files(executionData.findAll {
+            it.exists()
+        })
+    }
 }

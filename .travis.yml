@@ -9,3 +9,5 @@ cache:
     - $HOME/.gradle/wrapper/
 before_install:
  - chmod +x gradlew
+after_success:
+- ./gradlew jacocoRootReport coveralls
