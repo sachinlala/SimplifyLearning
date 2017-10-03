@@ -2,7 +2,6 @@ package com.sl.algorithms.traversal;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.sl.algorithms.traversal.LinkedListTraversal.*;
@@ -230,7 +229,6 @@ public class LinkedListTraversalTest {
         Assert.assertEquals(output, printList(newHead));
     }
 
-    @Ignore
     @Test
     public void testPartialReverse() {
         String output = new String("[32145]");
