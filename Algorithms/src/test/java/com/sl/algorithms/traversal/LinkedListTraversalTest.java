@@ -230,6 +230,13 @@ public class LinkedListTraversalTest {
     }
 
     @Test
+    public void testPartialReverseZeroIndex() {
+        String output = new String("[12345]");
+        Node newHead = reverseList(testNode, 0);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
     public void testPartialReverse() {
         String output = new String("[32145]");
         Node newHead = reverseList(testNode, 3);

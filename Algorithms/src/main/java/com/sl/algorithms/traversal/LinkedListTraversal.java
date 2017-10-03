@@ -124,6 +124,9 @@ public class LinkedListTraversal {
 
     // O(n)
     public static Node reverseList(Node head, int k) {
+        if (k <= 0) {
+            return head;
+        }
         Node prev=null, curr=head, next=null, tail=head;
         int i = 1;
         while (curr != null) {
