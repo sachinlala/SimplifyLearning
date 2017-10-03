@@ -1,3 +1,5 @@
+A basic Java & Spring Boot based RESTful service.
+
 ### Build & bring up the application
 `./gradlew clean build`
 <br>
