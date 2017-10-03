@@ -1,3 +1,7 @@
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
 allprojects {
     apply plugin: 'base'
     apply plugin: 'jacoco'
@@ -56,4 +60,13 @@ task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
             it.exists()
         })
     }
+}
+
+coveralls {
+    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+}
+
+tasks.coveralls {
+    dependsOn jacocoRootReport
 }
