@@ -2,6 +2,7 @@ package com.sl.algorithms.traversal;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.sl.algorithms.traversal.LinkedListTraversal.*;
@@ -247,6 +248,43 @@ public class LinkedListTraversalTest {
     public void testPartialReverseFull() {
         String output = new String("[54321]");
         Node newHead = reverseList(testNode, 5);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testRotateNull() {
+        String output = new String("[]");
+        Node newHead = rotateList(null, 1);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testRotateSingle() {
+        String output = new String("[1]");
+        Node newHead = rotateList(new Node(1), 1);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Test
+    public void testRotateIndexZero() {
+        String output = new String("[12345]");
+        Node newHead = rotateList(testNode, 0);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Ignore
+    @Test
+    public void testRotateAntiClockwisePartial() {
+        String output = new String("[54123]");
+        Node newHead = rotateList(testNode, 3);
+        Assert.assertEquals(output, printList(newHead));
+    }
+
+    @Ignore
+    @Test
+    public void testRotateAntiClockwiseFull() {
+        String output = new String("[12345]");
+        Node newHead = rotateList(testNode, 5);
         Assert.assertEquals(output, printList(newHead));
     }
 }

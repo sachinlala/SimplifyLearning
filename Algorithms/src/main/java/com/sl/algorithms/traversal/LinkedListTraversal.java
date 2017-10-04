@@ -2,7 +2,7 @@ package com.sl.algorithms.traversal;
 
 public class LinkedListTraversal {
 
-    // O(N)
+    // O(n)
     public static String printList(Node node) {
         StringBuilder output = new StringBuilder("[");
         while (node != null) {
@@ -32,7 +32,7 @@ public class LinkedListTraversal {
         return index;
     }
 
-    // O(N)
+    // O(n)
     public static Node insertAtEnd(Node head, int newElement) {
         Node newNode = new Node(newElement);
         if (head == null) {
@@ -56,7 +56,7 @@ public class LinkedListTraversal {
         return head;
     }
 
-    // O(N)
+    // O(n)
     public static Node deleteAtPosition(Node head, int deleteIndex) {
         Node prev = null;
         Node curr = head;
@@ -76,7 +76,7 @@ public class LinkedListTraversal {
         return head;
     }
 
-    // O(N)
+    // O(n)
     public static Node deleteAtEnd(Node head) {
         if (head == null || head.next == null) {
             return null;
@@ -89,7 +89,7 @@ public class LinkedListTraversal {
         return head;
     }
 
-    // O(N)
+    // O(n)
     public static Node deleteSpecificData(Node head, int data) {
         Node prev = null;
         Node curr = head;
@@ -145,6 +145,9 @@ public class LinkedListTraversal {
     }
 
     public static Node rotateList(Node head, int k) {
+        if (k <= 0) {
+            return head;
+        }
         return head;
     }
 }
