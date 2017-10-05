@@ -13,23 +13,31 @@ public class LinkedListTraversal {
         return output.toString();
     }
 
+    // O(n)
+    public static int getSize(Node head) {
+        if (head == null) {
+            return 0;
+        }
+        return (1 + getSize(head.next));
+    }
+
     // O(1)
-    public static Node insertAtStart(Node head, int newElement) {
-        Node newNode = new Node(newElement);
+    public static Node insertAtStart(Node head, int newData) {
+        Node newNode = new Node(newData);
         newNode.next = head;
         head = newNode;
         return head;
     }
 
     // O(1)
-    public static Node insertAfter(Node index, int newElement) {
-        if (index == null) {
+    public static Node insertAfter(Node node, int newData) {
+        if (node == null) {
             return null;
         }
-        Node newNode = new Node(newElement);
-        newNode.next = index.next;
-        index.next = newNode;
-        return index;
+        Node newNode = new Node(newData);
+        newNode.next = node.next;
+        node.next = newNode;
+        return node;
     }
 
     // O(n)
@@ -124,23 +132,24 @@ public class LinkedListTraversal {
 
     // O(n)
     public static Node reverseList(Node head, int k) {
-        if (k <= 0) {
+        if (head == null || head.next == null) {
             return head;
         }
-        Node prev=null, curr=head, next=null, tail=head;
-        int i = 1;
-        while (curr != null) {
+        Node prev=null, curr=head, next=null;
+        int i = 0;
+        while (curr != null && i < k) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
-            if (i == k) {
-                tail.next = next;
-                break;
-            }
             i++;
         }
-        head = prev;
+        if (next != null) {
+            head.next = reverseList(next, k);
+        }
+        if (prev != null) {
+            head = prev;
+        }
         return head;
     }
 
