@@ -3,7 +3,7 @@ package com.sl.algorithms.strings;
 import java.util.Stack;
 
 //TODO
-public class StringValidator {
+public class ParenthesisValidator {
 
     public static final String OPENING_BRACE = "(";
     public static final String CLOSING_BRACE = ")";
