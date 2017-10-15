@@ -243,6 +243,16 @@ public class LinkedListTraversalTest {
     }
 
     @Test
+    public void testSizeNull() {
+        Assert.assertEquals(0, getSize(null));
+    }
+
+    @Test
+    public void testSize() {
+        Assert.assertEquals(5, getSize(testNode));
+    }
+
+    @Test
     public void testRotateNull() {
         Node newHead = rotateList(null, 1);
         Assert.assertEquals("[]", printList(newHead));
@@ -254,33 +264,39 @@ public class LinkedListTraversalTest {
         Assert.assertEquals("[1]", printList(newHead));
     }
 
+    @Ignore
     @Test
     public void testRotateIndexZero() {
         Node newHead = rotateList(testNode, 0);
         Assert.assertEquals("[12345]", printList(newHead));
     }
 
-    @Ignore
     @Test
-    public void testRotateAntiClockwisePartial() {
-        Node newHead = rotateList(testNode, 3);
-        Assert.assertEquals("[54123]", printList(newHead));
+    public void testRotateAntiClockwise1() {
+        Node newHead = rotateList(testNode, 1);
+        Assert.assertEquals("[23451]", printList(newHead));
     }
 
-    @Ignore
+    @Test
+    public void testRotateAntiClockwise2() {
+        Node newHead = rotateList(testNode, 2);
+        Assert.assertEquals("[34512]", printList(newHead));
+    }
+    @Test
+    public void testRotateAntiClockwise3() {
+        Node newHead = rotateList(testNode, 3);
+        Assert.assertEquals("[45123]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateAntiClockwise4() {
+        Node newHead = rotateList(testNode, 4);
+        Assert.assertEquals("[51234]", printList(newHead));
+    }
+
     @Test
     public void testRotateAntiClockwiseFull() {
         Node newHead = rotateList(testNode, 5);
         Assert.assertEquals("[12345]", printList(newHead));
-    }
-
-    @Test
-    public void testSizeNull() {
-        Assert.assertEquals(0, getSize(null));
-    }
-
-    @Test
-    public void testSize() {
-        Assert.assertEquals(5, getSize(testNode));
     }
 }

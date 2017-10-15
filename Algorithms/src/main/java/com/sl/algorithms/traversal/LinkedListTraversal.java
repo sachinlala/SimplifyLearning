@@ -153,10 +153,40 @@ public class LinkedListTraversal {
         return head;
     }
 
+    // O(n)
+    /**
+     * Counter-clockwise rotation.<br><br>
+     * 1. Point next of kth node to null<br>
+     * 2. Point next of last node to previous head<br>
+     * 3. Point head to (k+1)th node
+     */
     public static Node rotateList(Node head, int k) {
-        if (k <= 0) {
+        if (head == null || head.next == null) {
             return head;
         }
+        Node kNode=null, curr=head;
+        int i=1;
+        // traverse upto kth node
+        while (curr != null && i < k) {
+            curr = curr.next;
+            i++;
+        }
+        // return head if k >= size of the list
+        if (curr == null) {
+            return head;
+        }
+        // preserve the kth node
+        kNode = curr;
+        // now reach the end
+        while (curr.next != null) {
+            curr = curr.next;
+        }
+        // point next of last node to previous head
+        curr.next = head;
+        // point head to (k+1)th node
+        head = kNode.next;
+        // point (k+1)th node to null (as it is the new tail)
+        kNode.next = null;
         return head;
     }
 }
