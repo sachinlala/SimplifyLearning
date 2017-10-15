@@ -1,5 +1,7 @@
 package com.sl.algorithms.strings;
 
+import java.util.Scanner;
+
 public class Lapindrome {
     // O(n)
     public static boolean isLapindrome(String str) {
@@ -30,5 +32,15 @@ public class Lapindrome {
             }
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int testCount = s.nextInt();
+        while (testCount --> 0) {
+            String str = s.next();
+            System.out.println((isLapindrome(str)) ? "YES" : "NO");
+        }
+        return;
     }
 }
