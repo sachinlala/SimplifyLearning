@@ -2,7 +2,6 @@ package com.sl.algorithms.traversal;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.sl.algorithms.traversal.LinkedListTraversal.*;
@@ -253,50 +252,133 @@ public class LinkedListTraversalTest {
     }
 
     @Test
-    public void testRotateNull() {
-        Node newHead = rotateList(null, 1);
+    public void testRotateLeftNull() {
+        Node newHead = rotateListLeft(null, 1);
         Assert.assertEquals("[]", printList(newHead));
     }
 
     @Test
-    public void testRotateSingle() {
-        Node newHead = rotateList(new Node(1), 1);
+    public void testRotateLeftSingle() {
+        Node newHead = rotateListLeft(new Node(1), 1);
         Assert.assertEquals("[1]", printList(newHead));
     }
 
-    @Ignore
     @Test
-    public void testRotateIndexZero() {
-        Node newHead = rotateList(testNode, 0);
+    public void testRotateLeftIndexZero() {
+        Node newHead = rotateListLeft(testNode, 0);
         Assert.assertEquals("[12345]", printList(newHead));
     }
 
     @Test
-    public void testRotateAntiClockwise1() {
-        Node newHead = rotateList(testNode, 1);
+    public void testRotateLeft1() {
+        Node newHead = rotateListLeft(testNode, 1);
         Assert.assertEquals("[23451]", printList(newHead));
     }
 
     @Test
-    public void testRotateAntiClockwise2() {
-        Node newHead = rotateList(testNode, 2);
+    public void testRotateLeft2() {
+        Node newHead = rotateListLeft(testNode, 2);
         Assert.assertEquals("[34512]", printList(newHead));
     }
     @Test
-    public void testRotateAntiClockwise3() {
-        Node newHead = rotateList(testNode, 3);
+    public void testRotateLeft3() {
+        Node newHead = rotateListLeft(testNode, 3);
         Assert.assertEquals("[45123]", printList(newHead));
     }
 
     @Test
-    public void testRotateAntiClockwise4() {
-        Node newHead = rotateList(testNode, 4);
+    public void testRotateLeft4() {
+        Node newHead = rotateListLeft(testNode, 4);
         Assert.assertEquals("[51234]", printList(newHead));
     }
 
     @Test
-    public void testRotateAntiClockwiseFull() {
-        Node newHead = rotateList(testNode, 5);
+    public void testRotateLeftFull() {
+        Node newHead = rotateListLeft(testNode, 5);
+        Assert.assertEquals("[12345]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateLeftOverflow() {
+        Node newHead = rotateListLeft(testNode, 6);
+        Assert.assertEquals("[12345]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightNull() {
+        Node newHead = rotateListRight(null, 1);
+        Assert.assertEquals("[]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightSingle() {
+        Node newHead = rotateListRight(new Node(1), 1);
+        Assert.assertEquals("[1]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightIndexZero() {
+        Node newHead = rotateListRight(testNode, 0);
+        Assert.assertEquals("[12345]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRight1() {
+        Node newHead = rotateListRight(testNode, 1);
+        Assert.assertEquals("[51234]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRight2() {
+        Node newHead = rotateListRight(testNode, 2);
+        Assert.assertEquals("[45123]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRight3() {
+        Node newHead = rotateListRight(testNode, 3);
+        Assert.assertEquals("[34512]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRight4() {
+        Node newHead = rotateListRight(testNode, 4);
+        Assert.assertEquals("[23451]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightFull() {
+        Node newHead = rotateListRight(testNode, 5);
+        Assert.assertEquals("[12345]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightOverflowBy1() {
+        Node newHead = rotateListRight(testNode, 6);
+        Assert.assertEquals("[51234]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightOverflowBy2() {
+        Node newHead = rotateListRight(testNode, 7);
+        Assert.assertEquals("[45123]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightOverflowBy3() {
+        Node newHead = rotateListRight(testNode, 8);
+        Assert.assertEquals("[34512]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightOverflowBy4() {
+        Node newHead = rotateListRight(testNode, 9);
+        Assert.assertEquals("[23451]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateRightOverflowBy5() {
+        Node newHead = rotateListRight(testNode, 10);
         Assert.assertEquals("[12345]", printList(newHead));
     }
 }

@@ -15,3 +15,5 @@ Reference for simple Java projects built with Gradle.
 
 ##### How to contribute ?
 Please create a new branch from 'master' and raise a pull-request once ready for review.
+
+To publish from localhost to coveralls cloud, set the COVERALLS_REPO_TOKEN environment variable.
