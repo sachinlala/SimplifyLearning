@@ -299,8 +299,32 @@ public class LinkedListTraversalTest {
     }
 
     @Test
-    public void testRotateLeftOverflow() {
+    public void testRotateLeftOverflowBy1() {
         Node newHead = rotateListLeft(testNode, 6);
+        Assert.assertEquals("[23451]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateLeftOverflowBy2() {
+        Node newHead = rotateListLeft(testNode, 7);
+        Assert.assertEquals("[34512]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateLeftOverflowBy3() {
+        Node newHead = rotateListLeft(testNode, 8);
+        Assert.assertEquals("[45123]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateLeftOverflowBy4() {
+        Node newHead = rotateListLeft(testNode, 9);
+        Assert.assertEquals("[51234]", printList(newHead));
+    }
+
+    @Test
+    public void testRotateLeftOverflowBy5() {
+        Node newHead = rotateListLeft(testNode, 10);
         Assert.assertEquals("[12345]", printList(newHead));
     }
 

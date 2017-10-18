@@ -155,9 +155,11 @@ public class LinkedListTraversal {
 
     /**
      * Counter-clockwise rotation:<br><br>
-     * 1. Point next of kth node to null<br>
-     * 2. Point next of last node to previous head<br>
-     * 3. Point head to (k+1)th node
+     * 1. Reach the kth node and preserve it<br>
+     * 2. Continue traversal, reach to the original tail<br>
+     * 3. Join original tail with the original head<br>
+     * 4. Mark (k+1)th node as the new head<br>
+     * 5. Mark kth node as the new tail<br>
      * // O(n)
      */
     public static Node rotateListLeft(Node head, int k) {
@@ -166,12 +168,11 @@ public class LinkedListTraversal {
         }
         Node kNode = null, curr = head;
         // traverse upto kth node
-        for (int i = 1; curr != null && i < k; i++) {
+        for (int i=1; i<k; i++) {
             curr = curr.next;
-        }
-        // return head if k >= size of the list
-        if (curr == null) {
-            return head;
+            if (curr == null) {
+                curr = head;
+            }
         }
         // preserve the kth node
         kNode = curr;
@@ -190,10 +191,12 @@ public class LinkedListTraversal {
 
     /**
      * Clockwise rotation:<br><br>
-     * 1. Reach the kth node<br>
-     * 2. Make the (k+1)th node as the new head<br>
-     * 3. Make the kth node as the new terminal<br>
-     * 4. Join the original tail with the original head<br>
+     * 1. Reach the original tail and record size<br>
+     * 2. Find the new tail where seed=(n-(k%n))
+     * 3. Join original tail with the original head<br>
+     * 4. Mark (n-k+1)th node as the new head<br>
+     * 5. Mark (n-k)th node as the new tail<br>
+     * // O(n)
      */
     public static Node rotateListRight(Node head, int k) {
         if (head == null || head.next == null || k == 0) {
@@ -220,40 +223,4 @@ public class LinkedListTraversal {
         slow.next = null;
         return head;
     }
-/*
-    public static Node rotateListRight(Node head, int k) {
-        if (head == null || head.next == null || k == 0) {
-            return head;
-        }
-        Node newHead=head, newTail=head, tail=head.next;
-        // reach the (k+1)th node, so that we can get the new head
-        while (k-- >= 0) {
-            if (newHead == null) {// this can happen when k > size of the list
-                newHead = head;
-            }
-            newHead = newHead.next;
-        }
-        // now find the original tail and new tail + new head
-        while (newHead != null) {
-            tail = newHead;
-            newHead = newHead.next;
-            newTail = newTail.next;
-        }
-        newHead = newTail.next;
-        newTail.next = null;
-        // protection required for case when k=n
-        if (newHead == null) {
-            return head;
-        }
-        // protection required for case when k=(n-1)
-        while (tail.next != null) {
-            tail = tail.next;
-        }
-        // join the original tail with original head
-        tail.next = head;
-        // set the new head
-        head = newHead;
-        return head;
-    }
-*/
 }
