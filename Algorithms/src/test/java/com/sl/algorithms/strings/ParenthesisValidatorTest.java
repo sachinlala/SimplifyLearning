@@ -6,6 +6,10 @@ import org.junit.Test;
 
 public class ParenthesisValidatorTest {
 
+    public static void main(String[] args) {
+        System.out.println(5%5);
+    }
+
     @Test
     public void assertNull() {
         Assert.assertFalse(ParenthesisValidator.isValidParenthesis(null));
