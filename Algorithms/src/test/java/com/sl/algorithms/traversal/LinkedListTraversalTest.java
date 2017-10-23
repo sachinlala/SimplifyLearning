@@ -405,4 +405,71 @@ public class LinkedListTraversalTest {
         Node newHead = rotateListRight(testNode, 10);
         Assert.assertEquals("[12345]", printList(newHead));
     }
+
+    @Test
+    public void testInsertAtPosition0() {
+        Node newHead = insertAtPosition(testNode, 0,0);
+        Assert.assertEquals("[012345]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition0ForNull() {
+        Node newHead = insertAtPosition(null, 0,0);
+        Assert.assertEquals("[0]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition1() {
+        Node newHead = insertAtPosition(testNode, 0,1);
+        Assert.assertEquals("[102345]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition2() {
+        Node newHead = insertAtPosition(testNode, 0,2);
+        Assert.assertEquals("[120345]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition3() {
+        Node newHead = insertAtPosition(testNode, 0,3);
+        Assert.assertEquals("[123045]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition4() {
+        Node newHead = insertAtPosition(testNode, 0,4);
+        Assert.assertEquals("[123405]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPosition5() {
+        Node newHead = insertAtPosition(testNode, 0,5);
+        Assert.assertEquals("[123450]", printList(newHead));
+    }
+
+    @Test
+    public void testInsertAtPositionOverflow() {
+        Node newHead = insertAtPosition(testNode, 0,6);
+        Assert.assertEquals("[12345]", printList(newHead));
+    }
+
+    @Test
+    public void testCloneList() {
+        Node deepCopy = cloneList(testNode);
+        Assert.assertEquals("[12345]", printList(deepCopy));
+    }
+
+    @Test
+    public void testIsIdenticalPositive() {
+        Assert.assertTrue(isIdentical(testNode, cloneList(testNode)));
+    }
+
+    @Test
+    public void testIsIdenticalNegative() {
+        Node deepCopy = cloneList(testNode);
+        Assert.assertTrue(isIdentical(testNode, deepCopy));
+        deepCopy.next = new Node(6);
+        Assert.assertFalse(isIdentical(testNode, deepCopy));
+    }
 }

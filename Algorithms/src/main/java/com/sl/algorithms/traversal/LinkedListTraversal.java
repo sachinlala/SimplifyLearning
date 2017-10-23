@@ -40,18 +40,43 @@ public class LinkedListTraversal {
         return node;
     }
 
+    // O(1)
+    public static Node insertAtPosition(Node head, int data, int position) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            return newNode;
+        }
+        if (position == 0) {
+            newNode.next = head;
+            return newNode;
+        }
+        Node curr = head;
+        int index = 1;
+        while (curr.next != null && index < position) {
+            curr = curr.next;
+            index++;
+        }
+        if (index < position) { // handle overflow
+            return head;
+        }
+        // now we've reached the required 'position'
+        newNode.next = curr.next;
+        curr.next = newNode;
+        return head;
+    }
+
     // O(n)
     public static Node insertAtEnd(Node head, int newElement) {
         Node newNode = new Node(newElement);
         if (head == null) {
             return newNode;
         }
-        Node latest = head;
-        while (head.next != null) {
-            head = head.next;
+        Node curr = head;
+        while (curr.next != null) {
+            curr = curr.next;
         }
-        head.next = newNode;
-        return latest;
+        curr.next = newNode;
+        return head;
     }
 
     // O(1)
@@ -64,7 +89,7 @@ public class LinkedListTraversal {
         return head;
     }
 
-    // O(n)
+    // O(1)
     public static Node deleteAtPosition(Node head, int deleteIndex) {
         Node prev = null;
         Node curr = head;
@@ -222,5 +247,39 @@ public class LinkedListTraversal {
         // point the new tail to null
         slow.next = null;
         return head;
+    }
+
+    public static boolean isIdentical(Node a, Node b) {
+        while (a != null && b != null) {
+            if (a.data != b.data) {
+                return false;
+            }
+            a = a.next;
+            b = b.next;
+        }
+        if (a == null && b == null) {
+            return true;
+        }
+        return false;
+    }
+
+    // deep copy O(n)
+    public static Node cloneList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node deepCopy = new Node(head.data);
+        if (head.next == null) {
+            return deepCopy;
+        }
+        Node latest = new Node(head.next.data);
+        deepCopy.next = latest;
+        while (head.next.next != null) {
+            Node temp = new Node(head.next.next.data);
+            latest.next = temp;
+            latest = temp;
+            head = head.next;
+        }
+        return deepCopy;
     }
 }
