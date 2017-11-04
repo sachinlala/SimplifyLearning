@@ -193,7 +193,7 @@ public class LinkedListTraversal {
         }
         Node kNode = null, curr = head;
         // traverse upto kth node
-        for (int i=1; i<k; i++) {
+        for (int i = 1; i < k; i++) {
             curr = curr.next;
             if (curr == null) {
                 curr = head;
@@ -236,8 +236,8 @@ public class LinkedListTraversal {
         }
         // find the seed value to find the new tail
         // (k%size) is to ensure we can handle any value of k i.e. k <=> size
-        int seed = size-(k%size);
-        for (int i=seed; i>1; i--) {
+        int seed = size - (k % size);
+        for (int i = seed; i > 1; i--) {
             slow = slow.next;
         }
         // join original tail with original head
@@ -281,5 +281,120 @@ public class LinkedListTraversal {
             head = head.next;
         }
         return deepCopy;
+    }
+
+    // O(n) method to remove duplicates from a sorted list
+    public static Node removeDuplicates(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node curr = head;
+        Node next = null;
+        while (curr != null && curr.next != null) {
+            if (curr.data == curr.next.data) {
+                next = curr.next;
+                curr.next = null;
+                curr.next = next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
+
+    //alternative O(n) method to remove duplicates; but this doesn't cleanup dupes explicitly
+    public static Node removeDuplicatesNoDereference(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node curr = head;
+        while (curr != null && curr.next != null) {
+            if (curr.data == curr.next.data) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
+
+    // O(n) cleanup the duplicated nodes completely
+    public static Node cleanupDuplicatedNodes(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node prev = null;
+        Node curr = head;
+        Node dummy = new Node(0); // dummy helps have an initial value for prev pointer; it's own value is inconsequential though
+        dummy.next = head;
+        prev = dummy;
+        while (curr != null) {
+            while (curr.next != null && curr.data == curr.next.data) {
+                curr = curr.next;
+            }
+            if (prev.next == curr) {
+                prev = prev.next;
+            } else {
+                prev.next = curr.next;
+            }
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+
+    // O(m+n)
+    public static Node mergeSortedLists(Node aHead, Node bHead) {
+        if (aHead == null) {
+            return bHead;
+        }
+        if (bHead == null) {
+            return aHead;
+        }
+        Node mHead = null;
+        if (aHead.data <= bHead.data) {
+            mHead = aHead;
+            mHead.next = mergeSortedLists(aHead.next, bHead);
+        } else {
+            mHead = bHead;
+            mHead.next = mergeSortedLists(aHead, bHead.next);
+        }
+        return mHead;
+    }
+
+    // O(m+n)
+    public static Node mergeSortedListsIteratively(Node aHead, Node bHead) {
+        if (aHead == null) {
+            return bHead;
+        }
+        if (bHead == null) {
+            return aHead;
+        }
+        Node mHead = null;
+        if (aHead.data <= bHead.data) {
+            mHead = aHead;
+            aHead = aHead.next;
+        } else {
+            mHead = bHead;
+            bHead = bHead.next;
+        }
+        Node mNext = mHead;
+        while (aHead != null && bHead != null) {
+            if (aHead.data <= bHead.data) {
+                mNext.next = aHead;
+                mNext = aHead;
+                aHead = aHead.next;
+            } else {
+                mNext.next = bHead;
+                mNext = bHead;
+                bHead = bHead.next;
+            }
+        }
+        if (aHead != null) {
+            mNext.next = aHead;
+        }
+        if (bHead != null) {
+            mNext.next = bHead;
+        }
+        return mHead;
     }
 }

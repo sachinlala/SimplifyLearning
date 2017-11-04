@@ -472,4 +472,176 @@ public class LinkedListTraversalTest {
         deepCopy.next = new Node(6);
         Assert.assertFalse(isIdentical(testNode, deepCopy));
     }
+
+    @Test
+    public void testRemoveDuplicatesNull() {
+        Assert.assertEquals("[]", printList(removeDuplicates(null)));
+        Assert.assertEquals("[]", printList(removeDuplicatesNoDereference(null)));
+    }
+
+    @Test
+    public void testRemoveDuplicatesSingle() {
+        Assert.assertEquals("[1]", printList(removeDuplicates(new Node(1))));
+        Assert.assertEquals("[1]", printList(removeDuplicatesNoDereference(new Node(1))));
+    }
+
+    @Test
+    public void testRemoveDuplicatesPairAfterHead() {
+        Node test = new Node(1);
+        test.next = new Node(2);
+        test.next.next = new Node(2);
+        Assert.assertEquals("[12]", printList(removeDuplicates(test)));
+        test.next.next = new Node(2);
+        Assert.assertEquals("[12]", printList(removeDuplicatesNoDereference(test)));
+    }
+
+    @Test
+    public void testRemoveDuplicatesNoDup() {
+        Node test = new Node(1);
+        test.next = new Node(2);
+        Assert.assertEquals("[12]", printList(removeDuplicates(test)));
+        Assert.assertEquals("[12]", printList(removeDuplicatesNoDereference(test)));
+    }
+
+    @Test
+    public void testRemoveDuplicatesDupPair() {
+        Node test = new Node(1);
+        test.next = new Node(1);
+        Assert.assertEquals("[1]", printList(removeDuplicates(test)));
+        Assert.assertEquals("[1]", printList(removeDuplicatesNoDereference(test)));
+    }
+
+    @Test
+    public void testRemoveDuplicates() {
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 6);
+        Assert.assertEquals("[123456]", printList(removeDuplicates(testNode)));
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 6);
+        Assert.assertEquals("[12345656]", printList(removeDuplicatesNoDereference(testNode)));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodesNull() {
+        Assert.assertEquals("[]", printList(cleanupDuplicatedNodes(null)));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodesSingle() {
+        Assert.assertEquals("[1]", printList(cleanupDuplicatedNodes(new Node(1))));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodesPairAfterHead() {
+        Node test = new Node(1);
+        test.next = new Node(2);
+        test.next.next = new Node(2);
+        Assert.assertEquals("[1]", printList(cleanupDuplicatedNodes(test)));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodesNoDup() {
+        Node test = new Node(1);
+        test.next = new Node(2);
+        Assert.assertEquals("[12]", printList(cleanupDuplicatedNodes(test)));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodesDupPair() {
+        Node test = new Node(1);
+        test.next = new Node(1);
+        Assert.assertEquals("[]", printList(cleanupDuplicatedNodes(test)));
+    }
+
+    @Test
+    public void testCleanupDuplicatedNodes() {
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 5);
+        insertAtEnd(testNode, 6);
+        Assert.assertEquals("[12346]", printList(cleanupDuplicatedNodes(testNode)));
+    }
+
+    @Test
+    public void testMergeSortedListsNull() {
+        Assert.assertEquals("[]", printList(mergeSortedLists(null, null)));
+        Assert.assertEquals("[1]", printList(mergeSortedLists(new Node(1), null)));
+        Assert.assertEquals("[2]", printList(mergeSortedLists(null, new Node(2))));
+    }
+
+    @Test
+    public void testMergeSortedLists1() {
+        Assert.assertEquals("[1122334455]", printList(mergeSortedLists(testNode, cloneList(testNode))));
+    }
+
+    @Test
+    public void testMergeSortedLists2() {
+        Assert.assertEquals("[123456]", printList(mergeSortedLists(testNode, new Node(6))));
+    }
+
+    @Test
+    public void testMergeSortedLists3() {
+        Assert.assertEquals("[123456]", printList(mergeSortedLists(new Node(6), testNode)));
+    }
+
+    @Test
+    public void testMergeSortedLists4() {
+        Node t1 = new Node(4);
+        t1.next = new Node(5);
+        t1.next.next = new Node(6);
+        Assert.assertEquals("[12344556]", printList(mergeSortedLists(t1, testNode)));
+    }
+
+    @Test
+    public void testMergeSortedLists5() {
+        Node t1 = new Node(4);
+        t1.next = new Node(5);
+        t1.next.next = new Node(6);
+        Assert.assertEquals("[12344556]", printList(mergeSortedLists(testNode, t1)));
+    }
+
+    @Test
+    public void testMergeSortedListsIterativelyNull() {
+        Assert.assertEquals("[]", printList(mergeSortedListsIteratively(null, null)));
+        Assert.assertEquals("[1]", printList(mergeSortedListsIteratively(new Node(1), null)));
+        Assert.assertEquals("[2]", printList(mergeSortedListsIteratively(null, new Node(2))));
+    }
+
+    @Test
+    public void testMergeSortedListsIteratively1() {
+        Assert.assertEquals("[1122334455]", printList(mergeSortedListsIteratively(testNode, cloneList(testNode))));
+    }
+
+    @Test
+    public void testMergeSortedListsIteratively2() {
+        Assert.assertEquals("[123456]", printList(mergeSortedListsIteratively(testNode, new Node(6))));
+    }
+
+    @Test
+    public void testMergeSortedListsIteratively3() {
+        Assert.assertEquals("[123456]", printList(mergeSortedListsIteratively(new Node(6), testNode)));
+    }
+
+    @Test
+    public void testMergeSortedListsIteratively4() {
+        Node t1 = new Node(4);
+        t1.next = new Node(5);
+        t1.next.next = new Node(6);
+        Assert.assertEquals("[12344556]", printList(mergeSortedListsIteratively(t1, testNode)));
+    }
+
+    @Test
+    public void testMergeSortedListsIteratively5() {
+        Node t1 = new Node(4);
+        t1.next = new Node(5);
+        t1.next.next = new Node(6);
+        Assert.assertEquals("[12344556]", printList(mergeSortedListsIteratively(testNode, t1)));
+    }
 }
