@@ -21,4 +21,33 @@ public class FormulasTest {
         Assert.assertEquals(hcf(5, 6), 1);
         Assert.assertEquals(hcf(5, 7), 1);
     }
+
+    @Test
+    public void testPrimality() {
+        Assert.assertFalse(isPrimeNumber(0));
+        Assert.assertFalse(isPrimeNumber(1));
+        Assert.assertTrue(isPrimeNumber(2));
+        Assert.assertTrue(isPrimeNumber(3));
+        Assert.assertFalse(isPrimeNumber(4));
+        Assert.assertTrue(isPrimeNumber(5));
+        Assert.assertTrue(isPrimeNumber(7));
+        Assert.assertFalse(isPrimeNumber(20));
+        Assert.assertFalse(isPrimeNumber(45));
+        Assert.assertFalse(isPrimeNumber(57));
+        Assert.assertTrue(isPrimeNumber(67));
+        Assert.assertTrue(isPrimeNumber(83));
+        Assert.assertTrue(isPrimeNumber(191));
+    }
+
+    @Test
+    public void testPrimalityLargeNumber() {
+        Assert.assertFalse(isPrimeNumber(239124949));
+        Assert.assertFalse(isPrimeNumber(239124947));
+    }
+
+    @Test
+    public void testEulerPrimes() {
+        Assert.assertTrue(isPrimeNumber(6700417));
+        Assert.assertTrue(isPrimeNumber(2147483647)); // [2*pow(31)-1]
+    }
 }

@@ -1,15 +1,17 @@
 package com.sl.algorithms.sorting;
 
-public class SortingUtility {
+public final class SortingUtility {
 
 }
-class BubbleSort {
+final class BubbleSort {
 }
-class MergeSort {
+final class MergeSort {
 }
-class QuickSort {
+final class QuickSort {
 }
-class RadixSort {
+final class RadixSort {
 }
-class HeapSort {
+final class HeapSort {
+}
+final class TopologicalSort {
 }
