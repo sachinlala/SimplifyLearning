@@ -32,4 +32,15 @@ public class BinarySearchTest {
         int numberToSearch = 6;
         Assert.assertEquals(5, BinarySearch.findIndex(numArray, numberToSearch));
     }
+
+    @Test
+    public void largeSizeTest() {
+        int size = Integer.MAX_VALUE/64;
+        int[] numArray = new int[size];
+        for (int i=0; i<size; i++) {
+            numArray[i] = i;
+        }
+        int numberToSearch = 6;
+        Assert.assertEquals(6, BinarySearch.findIndex(numArray, numberToSearch));
+    }
 }

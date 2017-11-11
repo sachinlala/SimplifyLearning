@@ -7,6 +7,23 @@ import static com.sl.algorithms.maths.Formulas.*;
 
 public class FormulasTest {
     @Test
+    public void midPointTest() {
+        Assert.assertEquals(1, midPoint(1, 2));
+        Assert.assertEquals(2, midPoint(1, 3));
+        Assert.assertEquals(1, midPoint(0, 2));
+    }
+
+    @Test
+    public void midPointTestLargeRange() {
+        Assert.assertEquals(Integer.MAX_VALUE/2, midPoint(0, Integer.MAX_VALUE));
+    }
+
+    @Test
+    public void midPointTestLargeNumbers() {
+        Assert.assertEquals(Integer.MAX_VALUE, midPoint(Integer.MAX_VALUE, Integer.MAX_VALUE));
+    }
+
+    @Test
     public void hcfTest() {
         Assert.assertEquals(hcf(0, 0), -1);
         Assert.assertEquals(hcf(3, 0), 3);

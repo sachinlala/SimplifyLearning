@@ -74,4 +74,102 @@ public class ArrayOptimalTraversal {
         }
         return a;
     }
+
+    /**
+     * <br>Find Smallest Missing Number for a Sorted Array<br>
+     * <br>O(logN) time & O(1) space.<br>
+     * <br>Limitation: cannot handle duplicates</>
+     * @param arr : integers (sorted) >= 0 < Integer.MAX_VALUE
+     * @param start 0
+     * @param end length-1
+     * @return int : minimum missing number >= 0 & <= Integer.MAX_VALUE
+     */
+    public static int findSmallestMissingNumberSorted(int[] arr, int start, int end) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        if (start > end) {
+            return end+1;
+        }
+        if (arr[start] != start) {
+            return start;
+        }
+        int mid = Formulas.midPoint(start, end);
+        System.out.println(mid);
+        if (arr[mid]-arr[start] != (mid-start)) {
+            System.out.println(mid);
+            return findSmallestMissingNumberSorted(arr, start, mid);
+        }
+        return findSmallestMissingNumberSorted(arr, mid+1, end);
+    }
+
+    /**
+     * <br>Find Smallest Missing Number for a Sorted Array<br>
+     * <br>O(N) time & O(1) space.<br>
+     * <br>Limitation: cannot handle duplicates</>
+     * @param arr : integers (sorted) >= 0 < Integer.MAX_VALUE
+     * @return int : minimum missing number >= 0 & <= Integer.MAX_VALUE
+     */
+    public static int findSmallestMissingNumberSortedXOR(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int xor = arr[0];
+        for (int i=1; i<arr.length; i++) {
+            xor = xor ^ arr[i] ^ i;
+        }
+        xor ^= arr.length;
+        return xor;
+    }
+
+    /**
+     * <br>Find Smallest Missing Number for a UnSorted Array.<br>
+     * <br>O(n) time & O(1) space.<br>
+     * @param arr : integers (unsorted) >= 0 < Integer.MAX_VALUE
+     * @return int : minimum missing number > 0 & <= Integer.MAX_VALUE
+     */
+    public static int findSmallestMissingNumberUnsorted(int[] arr) {
+        int i=0;
+        int n=arr.length;
+        while (i < n) {
+            if (arr[i] > 0 && arr[i] < n && arr[i] != arr[arr[i]]) {
+                int temp = arr[i];
+                arr[i] = arr[temp];
+                arr[temp] = temp;
+            } else {
+                i++;
+            }
+        }
+        int k=1;
+        while (k < n && arr[k] == k) {
+            k++;
+        }
+        if (n == 0 || k < n) {
+            return k;
+        }
+        if (arr[0] == k) {
+            return k+1;
+        }
+        return k;
+    }
+
+    // Kadane's algo: O(n)
+    public static int findMaxContiguousSumSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int maxContiguousSum = Integer.MIN_VALUE;
+        int maxTillHere = 0;
+        for (int num : nums) {
+            maxTillHere += num;
+            maxContiguousSum = Math.max(maxContiguousSum, maxTillHere);
+            if (maxTillHere < 0) {
+                maxTillHere = 0;
+            }
+        }
+        return maxContiguousSum;
+    }
 }

@@ -1,5 +1,7 @@
 package com.sl.algorithms.search;
 
+import com.sl.algorithms.maths.Formulas;
+
 public final class BinarySearch {
 
     public static final int NUMBER_NOT_FOUND = -1;
@@ -12,7 +14,7 @@ public final class BinarySearch {
         if (start > end) {
             return NUMBER_NOT_FOUND;
         }
-        int index = (start + end) / 2;
+        int index = Formulas.midPoint(start, end);
         if (sortedInput[index] == numberToSearch) {
             return index;
         }

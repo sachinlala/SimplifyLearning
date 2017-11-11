@@ -1,17 +1,12 @@
 package com.sl.algorithms.maths;
 
 public final class Formulas {
-    public static int hcf(int a, int b) {
-        if (b == 0 && a == 0) {
-            return -1; /* invalid input */
-        }
-        if (b == 0) {
-            return a;
-        }
-        if (a == 0) {
-            return b;
-        }
-        return hcf(b, a % b);
+    /**
+     * Find mid-point between 2 numbers; prevent integer overflow.
+     */
+    public static int midPoint(int start, int end) {
+        int mid = start + (end-start)/2;
+        return mid;
     }
 
     // O(n^1/2)
@@ -33,4 +28,18 @@ public final class Formulas {
         }
         return true;
     }
+
+    public static int hcf(int a, int b) {
+        if (b == 0 && a == 0) {
+            return -1; /* invalid input */
+        }
+        if (b == 0) {
+            return a;
+        }
+        if (a == 0) {
+            return b;
+        }
+        return hcf(b, a % b);
+    }
+
 }
