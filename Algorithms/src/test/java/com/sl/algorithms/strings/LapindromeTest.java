@@ -17,6 +17,7 @@ public class LapindromeTest {
 
     @Test
     public void assertPositive() {
+        Assert.assertTrue(Lapindrome.isLapindrome("abcba"));
         Assert.assertTrue(Lapindrome.isLapindrome("abcab"));
         Assert.assertTrue(Lapindrome.isLapindrome("x"));
         Assert.assertTrue(Lapindrome.isLapindrome("abba"));
