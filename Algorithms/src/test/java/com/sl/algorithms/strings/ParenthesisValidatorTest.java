@@ -1,50 +1,52 @@
 package com.sl.algorithms.strings;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ParenthesisValidatorTest {
-
-    public static void main(String[] args) {
-        System.out.println(5%5);
-    }
-
     @Test
-    public void assertNull() {
-        Assert.assertFalse(ParenthesisValidator.isValidParenthesis(null));
-    }
-
-    @Test
-    public void assertBasicMatch() {
+    public void assertIsValidParenthesis() {
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesis(null));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesis(""));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesis("("));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesis(")"));
         Assert.assertTrue(ParenthesisValidator.isValidParenthesis("()"));
-    }
-
-    @Test
-    public void assertDoubleMatch() {
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesis(")("));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("()()"));
         Assert.assertTrue(ParenthesisValidator.isValidParenthesis("(())"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("(())()"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesis("(())())"));
     }
 
     @Test
-    public void assertPolyMatch() {
-        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("((((((()))))))"));
+    public void assertIsValidParenthesisWildChar() {
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar(null));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar(""));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisWildChar("("));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisWildChar(")"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("*"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("()"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("(())"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("((((((()))))))"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("(*)"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("((*)"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisWildChar("(*))"));
     }
 
-    @Ignore
     @Test
-    public void assertMatchWildCharAsEmpty() {
-        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("(*)"));
-    }
-
-    @Ignore
-    @Test
-    public void assertMatchWildCharAsWildChar1() {
-        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("((*)"));
-    }
-
-    @Ignore
-    @Test
-    public void assertMatchWildCharAsWildChar2() {
-        Assert.assertTrue(ParenthesisValidator.isValidParenthesis("(*))"));
+    public void assertIsValidParenthesisString() {
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs(null));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs(""));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("("));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs(")"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("*"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("([)"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("([)"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("){"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("["));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisPairs("()"));
+        Assert.assertTrue(ParenthesisValidator.isValidParenthesisPairs("()[]{}"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("(]"));
+        Assert.assertFalse(ParenthesisValidator.isValidParenthesisPairs("([)]"));
     }
 }
