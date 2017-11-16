@@ -1,8 +1,11 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.arrays;
 
 public class ArrayTraversal {
     // O(n)
     public static String printArray(int[] a) {
+        if (a == null || a.length == 0) {
+            return "[]";
+        }
         StringBuilder output = new StringBuilder("[");
         for (int i=0; i<a.length; i++) {
             output = output.append(a[i]);

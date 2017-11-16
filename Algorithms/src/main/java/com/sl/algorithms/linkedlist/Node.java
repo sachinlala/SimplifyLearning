@@ -1,4 +1,4 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.linkedlist;
 
 public class Node {
     int data;
@@ -13,7 +13,7 @@ public class Node {
     public String toString() {
         StringBuilder output = new StringBuilder().append(data);
         if (next != null) {
-            output.append(next);
+            output.append(next); // this implies an implicit recursive call
         }
         return output.toString();
     }

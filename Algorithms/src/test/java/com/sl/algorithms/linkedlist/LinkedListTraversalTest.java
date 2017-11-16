@@ -1,10 +1,10 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.linkedlist;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.sl.algorithms.traversal.LinkedListTraversal.*;
+import static com.sl.algorithms.linkedlist.LinkedListTraversal.*;
 
 public class LinkedListTraversalTest {
     private Node testNode;
@@ -643,5 +643,56 @@ public class LinkedListTraversalTest {
         t1.next = new Node(5);
         t1.next.next = new Node(6);
         Assert.assertEquals("[12344556]", printList(mergeSortedListsIteratively(testNode, t1)));
+    }
+
+    @Test
+    public void testIncrementByOne() {
+        Assert.assertEquals("[]", printList(incrementByOne(null)));
+
+        Node node = new Node(9);
+        Assert.assertEquals("[10]", printList(incrementByOne(node)));
+
+        node = new Node(9);
+        node.next = new Node(9);
+        Assert.assertEquals("[100]", printList(incrementByOne(node)));
+
+        node = new Node(9);
+        node.next = new Node(9);
+        node.next.next = new Node(9);
+        Assert.assertEquals("[1000]", printList(incrementByOne(node)));
+
+        node = new Node(9);
+        node.next = new Node(9);
+        node.next.next = new Node(9);
+        node.next.next.next = new Node(9);
+        Assert.assertEquals("[10000]", printList(incrementByOne(node)));
+
+        node = new Node(1);
+        Assert.assertEquals("[2]", printList(incrementByOne(node)));
+
+        node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(3);
+        Assert.assertEquals("[124]", printList(incrementByOne(node)));
+
+        node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(9);
+        Assert.assertEquals("[130]", printList(incrementByOne(node)));
+
+        node = new Node(1);
+        node.next = new Node(9);
+        Assert.assertEquals("[20]", printList(incrementByOne(node)));
+
+        node = new Node(1);
+        node.next = new Node(9);
+        node.next.next = new Node(9);
+        Assert.assertEquals("[200]", printList(incrementByOne(node)));
+
+        node = new Node(8);
+        node.next = new Node(9);
+        node.next.next = new Node(9);
+        node.next.next.next = new Node(9);
+        Assert.assertEquals("[9000]", printList(incrementByOne(node)));
     }
 }

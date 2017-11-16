@@ -1,8 +1,8 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
-import static com.sl.algorithms.traversal.ArrayTraversal.*;
+import static com.sl.algorithms.arrays.ArrayTraversal.*;
 
 public class ArrayTraversalTest {
     @Test

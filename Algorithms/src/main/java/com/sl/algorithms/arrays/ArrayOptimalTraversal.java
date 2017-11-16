@@ -1,8 +1,20 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.arrays;
 
 import com.sl.algorithms.maths.Formulas;
 
 public class ArrayOptimalTraversal {
+
+    // O(n) time and O(1) space
+    public static int[] reverse(int[] a, int start, int end) {
+        while (start < end) {
+            int temp = a[start];
+            a[start] = a[end];
+            a[end] = temp;
+            start++;
+            end--;
+        }
+        return a;
+    }
 
     /**
      * Problem: Rotate array of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>
@@ -33,17 +45,6 @@ public class ArrayOptimalTraversal {
         a = reverse(a, 0, a.length-1);
         a = reverse(a, k, a.length-1);
         a = reverse(a, 0, k-1);
-        return a;
-    }
-
-    public static int[] reverse(int[] a, int start, int end) {
-        while (start < end) {
-            int temp = a[start];
-            a[start] = a[end];
-            a[end] = temp;
-            start++;
-            end--;
-        }
         return a;
     }
 

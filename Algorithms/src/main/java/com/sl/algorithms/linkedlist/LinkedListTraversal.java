@@ -1,4 +1,4 @@
-package com.sl.algorithms.traversal;
+package com.sl.algorithms.linkedlist;
 
 public class LinkedListTraversal {
 
@@ -142,9 +142,7 @@ public class LinkedListTraversal {
 
     // O(n)
     public static Node reverseList(Node head) {
-        Node prev, curr, next;
-        prev = null;
-        curr = head;
+        Node prev=null, curr=head, next=null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -181,7 +179,7 @@ public class LinkedListTraversal {
     /**
      * Counter-clockwise rotation:<br><br>
      * 1. Reach the kth node and preserve it<br>
-     * 2. Continue traversal, reach to the original tail<br>
+     * 2. Continue linkedlist, reach to the original tail<br>
      * 3. Join original tail with the original head<br>
      * 4. Mark (k+1)th node as the new head<br>
      * 5. Mark kth node as the new tail<br>
@@ -389,6 +387,7 @@ public class LinkedListTraversal {
                 bHead = bHead.next;
             }
         }
+        // handle the case when one list contains all values less that second list
         if (aHead != null) {
             mNext.next = aHead;
         }
@@ -396,5 +395,37 @@ public class LinkedListTraversal {
             mNext.next = bHead;
         }
         return mHead;
+    }
+
+    //O(n) time and O(1) space
+    public static Node incrementByOne(Node head) {
+        if (head == null) {
+            return head;
+        }
+        int numberToAdd = 1;
+        boolean addOne = true;
+        head = reverseList(head);
+        Node curr = head;
+        while (curr != null && curr.next != null) {
+            if (addOne) {
+                curr.data += numberToAdd;
+            }
+            if (curr.data > 9) {
+                curr.data = curr.data%10;
+                addOne = true;
+            } else {
+                addOne = false;
+            }
+            curr = curr.next;
+        }
+        if (addOne) {
+            curr.data += numberToAdd;
+            if (curr.data > 9) {
+                curr.data = curr.data%10;
+                curr.next = new Node(numberToAdd);
+            }
+        }
+        head = reverseList(head);
+        return head;
     }
 }
