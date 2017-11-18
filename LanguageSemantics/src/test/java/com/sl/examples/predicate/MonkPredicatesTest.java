@@ -49,4 +49,12 @@ public class MonkPredicatesTest {
     public void assertAdultSportPersonsCount() {
         Assert.assertEquals(3, MonkPredicates.filterMonks(monkList, MonkPredicates.isAdultSportsPerson()).size());
     }
+
+    @Test
+    public void assertCompareMonks() {
+        Assert.assertFalse(new Monk(18, true).equals(new Monk(19, true)));
+        Assert.assertFalse(new Monk(18, true).equals(new Monk(18, false)));
+        Assert.assertTrue(new Monk(18, true).equals(new Monk(18, true)));
+        Assert.assertFalse(new Monk(18, true).equals(null));
+    }
 }

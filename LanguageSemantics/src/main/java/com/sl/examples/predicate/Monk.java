@@ -1,7 +1,6 @@
 package com.sl.examples.predicate;
 
 public class Monk {
-
     private int age;
     private boolean sportsPerson;
 
@@ -14,25 +13,15 @@ public class Monk {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public boolean isSportsPerson() {
         return sportsPerson;
-    }
-
-    public void setSportsPerson(boolean sportsPerson) {
-        this.sportsPerson = sportsPerson;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Monk monk = (Monk) o;
-
         if (age != monk.age) return false;
         return sportsPerson == monk.sportsPerson;
     }
