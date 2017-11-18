@@ -15,12 +15,6 @@ public class StringSplitter {
     private static final String DELIMITER = " +";
     private static final int METHOD_INVOCATION_COUNT = 2000000;
 
-    private StringSplitter() {
-        /**
-         * This is a util class.
-         */
-    }
-
     public static void main(String[] args) {
         if (args == null || args.length == 0) {
             System.err.println("Please provide an input string to split");
