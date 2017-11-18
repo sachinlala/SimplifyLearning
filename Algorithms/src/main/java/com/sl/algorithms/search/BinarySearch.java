@@ -2,7 +2,7 @@ package com.sl.algorithms.search;
 
 import com.sl.algorithms.maths.Formulas;
 
-public final class BinarySearch {
+public class BinarySearch {
 
     public static final int NUMBER_NOT_FOUND = -1;
 
