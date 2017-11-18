@@ -6,6 +6,11 @@ public class BinarySearch {
 
     public static final int NUMBER_NOT_FOUND = -1;
 
+    private BinarySearch() {
+        /**
+         * This is a util class.
+         */
+    }
     public static int findIndex(int[] sortedInput, int numberToSearch) {
         return findRecursively(sortedInput, numberToSearch, 0, sortedInput.length - 1);
     }
