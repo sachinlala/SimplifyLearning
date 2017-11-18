@@ -17,29 +17,51 @@ public final class Formulas {
         if (n <= 3) {
             return true;
         }
-        if (n % 2 == 0 || n % 3 == 0) {
+        if (n%2 == 0 || n%3 == 0) {
             return false;
         }
-        for (long i = 5; i * i <= n; ) {
-            if (n % i == 0 || n % (i + 2) == 0) {
+        for (long i=5; i*i<=n; i=i+4) {
+            if (n%i==0 || n%(i+2)==0) {
                 return false;
             }
-            i += 6; //every prime number is of the form 6k+i
         }
         return true;
     }
 
-    public static int hcf(int a, int b) {
-        if (b == 0 && a == 0) {
-            return -1; /* invalid input */
+    // Sieve of Eratosthenes: O(nlog(log(n))
+    public static int countPrimes(int n) {
+        if (n < 2) {
+            return 0;
         }
-        if (b == 0) {
-            return a;
+        int primeCount = 0;
+        boolean[] isPrime = new boolean[n];
+        for (int i=2; i<n; i++) {
+            isPrime[i] = true;
+            primeCount++;
         }
-        if (a == 0) {
-            return b;
+        for (int i=2; i*i<n; i++) {
+            if (!isPrime[i]) {
+                continue;
+            }
+            for (int j=i*i; j<n; j+=i) {
+                if (isPrime[j]) {
+                    isPrime[j] = false;
+                    primeCount--;
+                }
+            }
         }
-        return hcf(b, a % b);
+        return primeCount;
     }
 
+    public static int hcf(int a, int b) {
+        while (a != 0 && b != 0) {
+            // equals can be in either conditions
+            if (a < b) {
+                b = b-a;
+            } else {
+                a = a-b;
+            }
+        }
+        return b==0 ? a : b;
+    }
 }

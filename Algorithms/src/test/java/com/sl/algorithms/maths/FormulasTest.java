@@ -25,7 +25,7 @@ public class FormulasTest {
 
     @Test
     public void hcfTest() {
-        Assert.assertEquals(hcf(0, 0), -1);
+        Assert.assertEquals(hcf(0, 0), 0);
         Assert.assertEquals(hcf(3, 0), 3);
         Assert.assertEquals(hcf(0, 1), 1);
         Assert.assertEquals(hcf(3, 2), 1);
@@ -49,6 +49,7 @@ public class FormulasTest {
         Assert.assertTrue(isPrimeNumber(5));
         Assert.assertTrue(isPrimeNumber(7));
         Assert.assertFalse(isPrimeNumber(20));
+        Assert.assertTrue(isPrimeNumber(41));
         Assert.assertFalse(isPrimeNumber(45));
         Assert.assertFalse(isPrimeNumber(57));
         Assert.assertTrue(isPrimeNumber(67));
@@ -66,5 +67,18 @@ public class FormulasTest {
     public void testEulerPrimes() {
         Assert.assertTrue(isPrimeNumber(6700417));
         Assert.assertTrue(isPrimeNumber(2147483647)); // [2*pow(31)-1]
+    }
+
+    @Test
+    public void testCountPrimes() {
+        Assert.assertEquals(0, countPrimes(-1));
+        Assert.assertEquals(0, countPrimes(0));
+        Assert.assertEquals(0, countPrimes(1));
+        Assert.assertEquals(0, countPrimes(2));
+        Assert.assertEquals(1, countPrimes(3)); // 2
+        Assert.assertEquals(2, countPrimes(4)); // 3,2
+        Assert.assertEquals(2, countPrimes(5)); // 3,2
+        Assert.assertEquals(3, countPrimes(6)); // 3,2
+        Assert.assertEquals(1229, countPrimes(10000)); // 3,2
     }
 }
