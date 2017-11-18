@@ -28,8 +28,6 @@ public class Monk {
 
     @Override
     public int hashCode() {
-        int result = age;
-        result = 31 * result + (sportsPerson ? 1 : 0);
-        return result;
+        return 31*age + (sportsPerson ? 1 : 0);
     }
 }
