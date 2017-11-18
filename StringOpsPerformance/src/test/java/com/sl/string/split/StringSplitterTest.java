@@ -1,6 +1,5 @@
 package com.sl.string.split;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +17,6 @@ public class StringSplitterTest {
     public void setUp() {
         inputString = "This is a performance test to compare different methods to split a string";
         outputStringArray = new String[]{"This", "is", "a", "performance", "test", "to", "compare", "different", "methods", "to", "split", "a", "string"};
-    }
-
-    @After
-    public void tearDown() {
-
     }
 
     @Test
