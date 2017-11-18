@@ -10,44 +10,44 @@ import static com.sl.algorithms.arrays.ArrayTraversal.printArray;
 public class ArrayOptimalTraversalTest {
     @Test
     public void testRotationLeftByJuggling() {
-        Assert.assertEquals("[23451]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 1)));
-        Assert.assertEquals("[34512]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 2)));
-        Assert.assertEquals("[45123]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 3)));
-        Assert.assertEquals("[51234]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 4)));
-        Assert.assertEquals("[12345]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 5)));
-        Assert.assertEquals("[23451]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 6)));
-        Assert.assertEquals("[34512]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 7)));
-        Assert.assertEquals("[3412]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4}, 2)));
+        Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 1)));
+        Assert.assertEquals("[3,4,5,1,2]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 2)));
+        Assert.assertEquals("[4,5,1,2,3]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 3)));
+        Assert.assertEquals("[5,1,2,3,4]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 4)));
+        Assert.assertEquals("[1,2,3,4,5]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 5)));
+        Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 6)));
+        Assert.assertEquals("[3,4,5,1,2]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 7)));
+        Assert.assertEquals("[3,4,1,2]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4}, 2)));
     }
 
     @Test
     public void testReverse() {
         int[] a = {1, 2, 3, 4, 5, 6};
-        Assert.assertEquals("[321456]", printArray(reverse(a, 0, 2)));
-        Assert.assertEquals("[321654]", printArray(reverse(a, 3, 5)));
-        Assert.assertEquals("[456123]", printArray(reverse(a, 0, 5)));
+        Assert.assertEquals("[3,2,1,4,5,6]", printArray(reverse(a, 0, 2)));
+        Assert.assertEquals("[3,2,1,6,5,4]", printArray(reverse(a, 3, 5)));
+        Assert.assertEquals("[4,5,6,1,2,3]", printArray(reverse(a, 0, 5)));
     }
 
     @Test
     public void testRotationLeftByReversal() {
-        Assert.assertEquals("[23451]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 1)));
-        Assert.assertEquals("[34512]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 2)));
-        Assert.assertEquals("[45123]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 3)));
-        Assert.assertEquals("[12345]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 5)));
-        Assert.assertEquals("[51234]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 4)));
-        Assert.assertEquals("[23451]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 6)));
-        Assert.assertEquals("[34512]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 7)));
+        Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 1)));
+        Assert.assertEquals("[3,4,5,1,2]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 2)));
+        Assert.assertEquals("[4,5,1,2,3]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 3)));
+        Assert.assertEquals("[1,2,3,4,5]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 5)));
+        Assert.assertEquals("[5,1,2,3,4]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 4)));
+        Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 6)));
+        Assert.assertEquals("[3,4,5,1,2]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 7)));
     }
 
     @Test
     public void testRotationRightByReversal() {
-        Assert.assertEquals("[51234]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 1)));
-        Assert.assertEquals("[45123]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 2)));
-        Assert.assertEquals("[34512]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 3)));
-        Assert.assertEquals("[23451]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 4)));
-        Assert.assertEquals("[12345]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 5)));
-        Assert.assertEquals("[51234]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 6)));
-        Assert.assertEquals("[45123]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 7)));
+        Assert.assertEquals("[5,1,2,3,4]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 1)));
+        Assert.assertEquals("[4,5,1,2,3]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 2)));
+        Assert.assertEquals("[3,4,5,1,2]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 3)));
+        Assert.assertEquals("[2,3,4,5,1]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 4)));
+        Assert.assertEquals("[1,2,3,4,5]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 5)));
+        Assert.assertEquals("[5,1,2,3,4]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 6)));
+        Assert.assertEquals("[4,5,1,2,3]", printArray(rotateRightByReversal(new int[]{1, 2, 3, 4, 5}, 7)));
     }
 
     @Test
@@ -130,12 +130,3 @@ public class ArrayOptimalTraversalTest {
         Assert.assertEquals(25, findMaxNonNeighboursSumSubArray(new int[]{2, 5, 10, 20}));
     }
 }
-
-
-
-
-
-
-
-
-

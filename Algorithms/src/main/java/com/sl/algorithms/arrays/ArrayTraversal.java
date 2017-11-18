@@ -7,10 +7,10 @@ public class ArrayTraversal {
             return "[]";
         }
         StringBuilder output = new StringBuilder("[");
-        for (int i=0; i<a.length; i++) {
-            output = output.append(a[i]);
+        for (int i=0; i<a.length-1; i++) {
+            output = output.append(a[i]).append(",");
         }
-        output.append("]");
+        output.append(a[a.length-1]).append("]");
         return output.toString();
     }
 

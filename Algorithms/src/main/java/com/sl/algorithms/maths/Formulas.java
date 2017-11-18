@@ -18,10 +18,12 @@ public final class Formulas {
             return true;
         }
         if (n%2 == 0 || n%3 == 0) {
+            System.out.println(n + " is divisible by 2 or 3");
             return false;
         }
         for (long i=5; i*i<=n; i=i+4) {
             if (n%i==0 || n%(i+2)==0) {
+                System.out.println(n + " is divisible by "+i+" or "+(i+2));
                 return false;
             }
         }

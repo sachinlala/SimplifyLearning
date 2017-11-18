@@ -55,6 +55,9 @@ public class FormulasTest {
         Assert.assertTrue(isPrimeNumber(67));
         Assert.assertTrue(isPrimeNumber(83));
         Assert.assertTrue(isPrimeNumber(191));
+        Assert.assertFalse(isPrimeNumber(10001));
+        Assert.assertFalse(isPrimeNumber(10003));
+        Assert.assertTrue(isPrimeNumber(10007));
     }
 
     @Test
