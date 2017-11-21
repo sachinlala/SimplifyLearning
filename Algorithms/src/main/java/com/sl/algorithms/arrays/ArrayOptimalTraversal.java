@@ -49,34 +49,6 @@ public class ArrayOptimalTraversal {
     }
 
     /**
-     * Problem: Rotate array of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>
-     * Approach: Juggle the elements, 'hcf(n,k)' times.<br>
-     * Time = O(n)<br>
-     * Space = O(1)<br>
-     */
-    public static int[] rotateLeftByJuggling(int[] a, int k) {
-        int i, j, d, temp, n = a.length, hcf = Formulas.hcf(k, n);
-        for (i = 0; i < hcf; i++)
-        {
-            temp = a[i];
-            j = i;
-            while (true)
-            {
-                d = j + k;
-                if (d >= n)
-                    d = d - n;
-                d = d%n; // this is required to prevent overflow
-                if (d == i)
-                    break;
-                a[j] = a[d];
-                j = d;
-            }
-            a[j] = temp;
-        }
-        return a;
-    }
-
-    /**
      * <br>Find Smallest Missing Number for a Sorted Array<br>
      * <br>O(logN) time & O(1) space.<br>
      * <br>Limitation: cannot handle duplicates</>
@@ -151,8 +123,11 @@ public class ArrayOptimalTraversal {
         }
         return k;
     }
+}
 
-    // Kadane's algo: O(n)
+// O(n) time and O(1) space
+class Kadane {
+
     public static int findMaxContiguousSumSubArray(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -172,7 +147,6 @@ public class ArrayOptimalTraversal {
         return maxContiguousSum;
     }
 
-    //O(n)
     public static int findMaxNonNeighboursSumSubArray(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -212,5 +186,72 @@ public class ArrayOptimalTraversal {
             maxSum = Math.max(maxSum, maxNum);
         }
         return maxSum;
+    }
+}
+
+class Bentley {
+    /**
+     * Problem: Rotate array of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>
+     * Approach: Juggle the elements, 'hcf(n,k)' times.<br>
+     * Time = O(n)<br>
+     * Space = O(1)<br>
+     */
+    public static int[] rotateLeftByJuggling(int[] a, int k) {
+        int i, j, d, temp, n = a.length, hcf = Formulas.hcf(k, n);
+        for (i = 0; i < hcf; i++)
+        {
+            temp = a[i];
+            j = i;
+            while (true)
+            {
+                d = j + k;
+                if (d >= n)
+                    d = d - n;
+                d = d%n; // this is required to prevent overflow
+                if (d == i)
+                    break;
+                a[j] = a[d];
+                j = d;
+            }
+            a[j] = temp;
+        }
+        return a;
+    }
+}
+
+/**
+ * <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm">Boyer Moore Voting Algorithm</a>
+ * <p>Basic idea of the algorithm is if we cancel out each occurrence of an element e with all the other elements that are different from e then e will exist till end if it is a majority element.</p>
+ */
+class BoyerMooreVoting {
+    public static int findMajorityElement(int[] nums) {
+        int majorityIndex = 0;
+        int count = 1;
+        // 1,2,1,2,1
+        for (int i=1; i<nums.length; i++) {
+            if (count == 0) {
+                majorityIndex = i;
+                count = 1;
+            }
+            if (nums[i] == nums[majorityIndex]) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return nums[majorityIndex];
+    }
+
+    public static boolean isMajority(int[] nums, int majorityElement) {
+        int count = 0;
+        for (int num : nums) {
+            if (num == majorityElement) {
+                count++;
+                if (count > nums.length/2) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
