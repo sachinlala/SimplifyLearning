@@ -1,4 +1,4 @@
-package com.sl.rest.service;
+package com.sl.rest.service.sample;
 
 import com.sl.algorithms.search.BinarySearch;
 import org.springframework.web.bind.annotation.*;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-public class KinderRESTController {
+public class SampleRESTController {
 
     private static final String HELLO_STR = "Hello %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -15,11 +15,11 @@ public class KinderRESTController {
      * For a given input 'name', output the JSON form of "Hello 'name'".
      *
      * @param name
-     * @return KinderRESTResource, in JSON format
+     * @return SampleRESTResource, in JSON format
      */
     @RequestMapping(method = RequestMethod.GET, path = "/hello")
-    public KinderRESTResource sayHello(@RequestParam(value = "name", required = true, defaultValue = "World") String name) {
-        return new KinderRESTResource(counter.incrementAndGet(), String.format(HELLO_STR, name));
+    public SampleRESTResource sayHello(@RequestParam(value = "name", required = true, defaultValue = "World") String name) {
+        return new SampleRESTResource(counter.incrementAndGet(), String.format(HELLO_STR, name));
     }
 
     /**

@@ -5,7 +5,7 @@ Reference for simple Java projects built with Gradle.
 |-------|----------|
 |[Algorithms](Algorithms)|Basic Algorithms.|
 |[LanguageSemantics](LanguageSemantics)|Examples to demonstrate few of the Java language advanced semantics/features.|
-|[KinderRESTService](KinderRESTService)|A basic Java & Spring Boot based RESTful service.|
+|[SampleRESTService](SampleRESTService)|A basic Java & Spring Boot based RESTful service.|
 
 ##### Help
 * [Travis CI Dashboard](https://travis-ci.org/sachinlala/SimplifyLearning)

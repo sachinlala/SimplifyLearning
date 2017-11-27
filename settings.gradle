@@ -1,6 +1,5 @@
 rootProject.name = 'SimplifyLearning'
 
-include 'KinderRESTService'
+include 'SampleRESTService'
 include 'Algorithms'
 include 'LanguageSemantics'
-

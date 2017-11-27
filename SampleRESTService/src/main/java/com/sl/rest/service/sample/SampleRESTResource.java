@@ -1,10 +1,10 @@
-package com.sl.rest.service;
+package com.sl.rest.service.sample;
 
-public class KinderRESTResource {
+public class SampleRESTResource {
     private final long id;
     private final String name;
 
-    public KinderRESTResource(final long _id, final String _name) {
+    public SampleRESTResource(final long _id, final String _name) {
         this.id = _id;
         this.name = _name;
     }

@@ -1,4 +1,4 @@
-package com.sl.rest.service;
+package com.sl.rest.service.sample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,8 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication
 @EnableWebMvc
 @ComponentScan
-public class KinderRESTApplication {
+public class SampleRESTApplication {
     public static void main(String[] args) {
-        SpringApplication.run(KinderRESTApplication.class, args);
+        SpringApplication.run(SampleRESTApplication.class, args);
     }
 }
