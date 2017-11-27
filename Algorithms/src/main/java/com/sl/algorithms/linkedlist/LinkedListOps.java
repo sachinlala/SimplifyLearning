@@ -256,7 +256,7 @@ public class LinkedListOps {
     public static boolean isIdentical(ListNode a, ListNode b) {
         while (a != null && b != null) {
             if (a.data != b.data) {
-                return false;
+                break;
             }
             a = a.next;
             b = b.next;

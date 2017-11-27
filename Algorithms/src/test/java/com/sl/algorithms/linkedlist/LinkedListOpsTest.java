@@ -458,6 +458,10 @@ public class LinkedListOpsTest {
     public void testCloneList() {
         ListNode deepCopy = cloneList(testNode);
         Assert.assertEquals("[12345]", printList(deepCopy));
+        ListNode nullCopy = cloneList(null);
+        Assert.assertEquals("[]", printList(nullCopy));
+        ListNode oneNodeCopy = cloneList(new ListNode(1));
+        Assert.assertEquals("[1]", printList(oneNodeCopy));
     }
 
     @Test
