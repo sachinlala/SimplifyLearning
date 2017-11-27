@@ -69,4 +69,19 @@ public class SampleRESTServiceTest {
         then().
             statusCode(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
+
+    @Test
+    public void testSearchBinary() {
+        //http://localhost:8080/binarySearch/[1,2,3,4,5]?numberToSearch=2
+        //=>1
+        RestAssuredMockMvc.given().
+        param("numberToSearch", 2).
+        when().
+            get("/binarySearch/[1,2,3,4,5]").
+        then().
+            statusCode(HttpServletResponse.SC_OK).
+            body("index", equalTo(1)).
+            body("value", equalTo(2));
+    }
+
 }
