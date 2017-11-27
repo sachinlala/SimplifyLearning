@@ -2,6 +2,12 @@ package com.sl.algorithms.array;
 
 public class ArrayOps {
 
+    private ArrayOps() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n) time and O(n) space
     public static int[] plusOne(int[] digits) {
         if (digits == null || digits.length == 0) {

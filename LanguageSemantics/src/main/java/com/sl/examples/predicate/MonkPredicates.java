@@ -5,6 +5,13 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MonkPredicates {
+
+    private MonkPredicates() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     public static Predicate<Monk> isSportsPerson() {
         return p -> p.isSportsPerson();
     }

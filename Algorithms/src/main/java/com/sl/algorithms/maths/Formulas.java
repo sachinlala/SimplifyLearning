@@ -1,6 +1,13 @@
 package com.sl.algorithms.maths;
 
-public final class Formulas {
+public class Formulas {
+
+    private Formulas() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     /**
      * Find mid-point between 2 numbers; prevent integer overflow.
      */

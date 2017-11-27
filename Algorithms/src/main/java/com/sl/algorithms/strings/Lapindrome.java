@@ -1,6 +1,13 @@
 package com.sl.algorithms.strings;
 
 public class Lapindrome {
+
+    private Lapindrome() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n)
     public static boolean isLapindrome(String str) {
         // base conditions

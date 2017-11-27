@@ -3,6 +3,13 @@ package com.sl.algorithms.strings;
 import java.util.*;
 
 public class ParenthesisValidator {
+
+    private ParenthesisValidator() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n) time, O(1) space
     public static boolean isValidParenthesis(String str) {
         if (str == null || str.length() == 0) {

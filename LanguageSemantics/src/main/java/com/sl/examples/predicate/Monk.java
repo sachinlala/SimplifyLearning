@@ -1,10 +1,10 @@
 package com.sl.examples.predicate;
 
 public class Monk {
-    private int age;
-    private boolean sportsPerson;
+    private final int age;
+    private final boolean sportsPerson;
 
-    public Monk(int _age, boolean _sportsperson) {
+    public Monk(final int _age, final boolean _sportsperson) {
         age = _age;
         sportsPerson = _sportsperson;
     }

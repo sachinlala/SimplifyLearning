@@ -4,7 +4,7 @@ public class ListNode {
     int data;
     ListNode next;
 
-    ListNode(int _data) {
+    ListNode(final int _data) {
         data = _data;
         next = null;
     }

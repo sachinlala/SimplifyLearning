@@ -4,6 +4,12 @@ import com.sl.algorithms.maths.Formulas;
 
 public class ArrayOptimalTraversal {
 
+    private ArrayOptimalTraversal() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n) time and O(1) space
     public static int[] reverse(int[] a, int start, int end) {
         while (start < end) {

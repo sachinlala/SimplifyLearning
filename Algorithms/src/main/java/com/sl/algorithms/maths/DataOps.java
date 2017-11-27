@@ -2,6 +2,12 @@ package com.sl.algorithms.maths;
 
 public class DataOps {
 
+    private DataOps() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // handle overflow while reversing a given integer
     public static int reverse(int x) {
         long reverse = 0;

@@ -1,6 +1,13 @@
 package com.sl.algorithms.array;
 
 public class ArrayTraversal {
+
+    private ArrayTraversal() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n)
     public static String printArray(int[] a) {
         if (a == null || a.length == 0) {

@@ -2,6 +2,12 @@ package com.sl.algorithms.linkedlist;
 
 public class LinkedListOps {
 
+    private LinkedListOps() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // O(n)
     public static String printList(ListNode node) {
         StringBuilder output = new StringBuilder("[");

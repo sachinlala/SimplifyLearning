@@ -1,6 +1,13 @@
-package com.sl.algorithms.binarytree;
+package com.sl.algorithms.btree;
 
 public class BSTOps {
+
+    private BSTOps() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     // create BST
     // find a node
     // add a node
