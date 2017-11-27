@@ -40,6 +40,8 @@ public class ArrayOptimalTraversalTest {
 
     @Test
     public void testFindSmallestMissingNumberSortedXOR() {
+        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(new int[]{}));
+        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(null));
         Assert.assertEquals(3, findSmallestMissingNumberSortedXOR(new int[]{0, 1, 2, 4, 5}));
     }
 
