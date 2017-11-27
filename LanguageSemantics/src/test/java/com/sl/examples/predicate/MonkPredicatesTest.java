@@ -9,7 +9,13 @@ import java.util.List;
 
 public class MonkPredicatesTest {
 
-    List<Monk> monkList;
+    private List<Monk> monkList;
+
+    @Test
+    public void testMonkUniqueness() {
+        Monk monk = new Monk(10, true);
+        Assert.assertEquals(31*10+1, monk.hashCode());
+    }
 
     @Before
     public void createMonkList() {
