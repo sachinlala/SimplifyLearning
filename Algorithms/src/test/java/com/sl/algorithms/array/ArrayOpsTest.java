@@ -1,10 +1,10 @@
-package com.sl.algorithms.arrays;
+package com.sl.algorithms.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.arrays.ArrayTraversal.*;
-import static com.sl.algorithms.arrays.ArrayOps.*;
+import static com.sl.algorithms.array.ArrayTraversal.*;
+import static com.sl.algorithms.array.ArrayOps.*;
 
 public class ArrayOpsTest {
     @Test

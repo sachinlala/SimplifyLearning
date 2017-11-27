@@ -1,11 +1,11 @@
 package com.sl.algorithms.linkedlist;
 
-public class Node {
+public class ListNode {
     int data;
-    Node next;
+    ListNode next;
 
-    Node(int d) {
-        data = d;
+    ListNode(int _data) {
+        data = _data;
         next = null;
     }
 
@@ -13,7 +13,7 @@ public class Node {
     public String toString() {
         StringBuilder output = new StringBuilder().append(data);
         if (next != null) {
-            output.append(next); // this implies an implicit recursive call
+            output.append(next); // this implies a recursive call
         }
         return output.toString();
     }

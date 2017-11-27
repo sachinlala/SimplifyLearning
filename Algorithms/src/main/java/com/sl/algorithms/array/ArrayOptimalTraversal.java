@@ -1,4 +1,4 @@
-package com.sl.algorithms.arrays;
+package com.sl.algorithms.array;
 
 import com.sl.algorithms.maths.Formulas;
 
@@ -222,12 +222,12 @@ class Bentley {
 /**
  * <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm">Boyer Moore Voting Algorithm</a>
  * <p>Basic idea of the algorithm is if we cancel out each occurrence of an element e with all the other elements that are different from e then e will exist till end if it is a majority element.</p>
+ * Majority = n/2
  */
 class BoyerMooreVoting {
     public static int findMajorityElement(int[] nums) {
         int majorityIndex = 0;
         int count = 1;
-        // 1,2,1,2,1
         for (int i=1; i<nums.length; i++) {
             if (count == 0) {
                 majorityIndex = i;

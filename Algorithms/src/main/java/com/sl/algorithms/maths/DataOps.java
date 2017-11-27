@@ -46,7 +46,7 @@ public class DataOps {
             char c = str.charAt(index);
             int digit = c - '0';
             // validate
-            if (digit < 0 || digit > 9) { // all digits are in the range of 0 to 9
+            if (digit < 0 || digit > 9) { // all digits are in the range of 48->57
                 break;
             }
             // compute value

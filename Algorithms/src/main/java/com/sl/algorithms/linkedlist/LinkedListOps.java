@@ -1,9 +1,9 @@
 package com.sl.algorithms.linkedlist;
 
-public class LinkedListTraversal {
+public class LinkedListOps {
 
     // O(n)
-    public static String printList(Node node) {
+    public static String printList(ListNode node) {
         StringBuilder output = new StringBuilder("[");
         while (node != null) {
             output = output.append(node.data);
@@ -14,7 +14,7 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static int getSize(Node head) {
+    public static int getSize(ListNode head) {
         if (head == null) {
             return 0;
         }
@@ -22,27 +22,27 @@ public class LinkedListTraversal {
     }
 
     // O(1)
-    public static Node insertAtStart(Node head, int newData) {
-        Node newNode = new Node(newData);
+    public static ListNode insertAtStart(ListNode head, int newData) {
+        ListNode newNode = new ListNode(newData);
         newNode.next = head;
         head = newNode;
         return head;
     }
 
     // O(1)
-    public static Node insertAfter(Node node, int newData) {
+    public static ListNode insertAfter(ListNode node, int newData) {
         if (node == null) {
             return null;
         }
-        Node newNode = new Node(newData);
+        ListNode newNode = new ListNode(newData);
         newNode.next = node.next;
         node.next = newNode;
         return node;
     }
 
     // O(1)
-    public static Node insertAtPosition(Node head, int data, int position) {
-        Node newNode = new Node(data);
+    public static ListNode insertAtPosition(ListNode head, int data, int position) {
+        ListNode newNode = new ListNode(data);
         if (head == null) {
             return newNode;
         }
@@ -50,7 +50,7 @@ public class LinkedListTraversal {
             newNode.next = head;
             return newNode;
         }
-        Node curr = head;
+        ListNode curr = head;
         int index = 1;
         while (curr.next != null && index < position) {
             curr = curr.next;
@@ -66,12 +66,12 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static Node insertAtEnd(Node head, int newElement) {
-        Node newNode = new Node(newElement);
+    public static ListNode insertAtEnd(ListNode head, int newElement) {
+        ListNode newNode = new ListNode(newElement);
         if (head == null) {
             return newNode;
         }
-        Node curr = head;
+        ListNode curr = head;
         while (curr.next != null) {
             curr = curr.next;
         }
@@ -80,19 +80,19 @@ public class LinkedListTraversal {
     }
 
     // O(1)
-    public static Node deleteAtStart(Node head) {
+    public static ListNode deleteAtStart(ListNode head) {
         if (head == null) {
             return null;
         }
-        Node temp = head;
+        ListNode temp = head;
         head = temp.next;
         return head;
     }
 
     // O(1)
-    public static Node deleteAtPosition(Node head, int deleteIndex) {
-        Node prev = null;
-        Node curr = head;
+    public static ListNode deleteAtPosition(ListNode head, int deleteIndex) {
+        ListNode prev = null;
+        ListNode curr = head;
         int index = 1;
         while (curr != null) {
             if (index == deleteIndex) {
@@ -110,11 +110,11 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static Node deleteAtEnd(Node head) {
+    public static ListNode deleteAtEnd(ListNode head) {
         if (head == null || head.next == null) {
             return null;
         }
-        Node temp = head;
+        ListNode temp = head;
         while (temp.next.next != null) {
             temp = temp.next;
         }
@@ -123,9 +123,9 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static Node deleteSpecificData(Node head, int data) {
-        Node prev = null;
-        Node curr = head;
+    public static ListNode deleteSpecificData(ListNode head, int data) {
+        ListNode prev = null;
+        ListNode curr = head;
         while (curr != null) {
             if (curr.data == data) {
                 if (prev == null) {
@@ -141,8 +141,8 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static Node reverseList(Node head) {
-        Node prev=null, curr=head, next=null;
+    public static ListNode reverseList(ListNode head) {
+        ListNode prev=null, curr=head, next=null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -154,11 +154,11 @@ public class LinkedListTraversal {
     }
 
     // O(n)
-    public static Node reverseList(Node head, int k) {
+    public static ListNode reverseList(ListNode head, int k) {
         if (head == null || head.next == null) {
             return head;
         }
-        Node prev = null, curr = head, next = null;
+        ListNode prev = null, curr = head, next = null;
         int i = 0;
         while (curr != null && i < k) {
             next = curr.next;
@@ -185,11 +185,11 @@ public class LinkedListTraversal {
      * 5. Mark kth node as the new tail<br>
      * // O(n)
      */
-    public static Node rotateListLeft(Node head, int k) {
+    public static ListNode rotateListLeft(ListNode head, int k) {
         if (head == null || head.next == null || k == 0) {
             return head;
         }
-        Node kNode = null, curr = head;
+        ListNode kNode = null, curr = head;
         // traverse upto kth node
         for (int i = 1; i < k; i++) {
             curr = curr.next;
@@ -221,12 +221,12 @@ public class LinkedListTraversal {
      * 5. Mark (n-k)th node as the new tail<br>
      * // O(n)
      */
-    public static Node rotateListRight(Node head, int k) {
+    public static ListNode rotateListRight(ListNode head, int k) {
         if (head == null || head.next == null || k == 0) {
             return head;
         }
         int size = 1;
-        Node fast = head, slow = head;
+        ListNode fast = head, slow = head;
         // reach the original tail and find the size
         while (fast.next != null) {
             size++;
@@ -247,7 +247,7 @@ public class LinkedListTraversal {
         return head;
     }
 
-    public static boolean isIdentical(Node a, Node b) {
+    public static boolean isIdentical(ListNode a, ListNode b) {
         while (a != null && b != null) {
             if (a.data != b.data) {
                 return false;
@@ -262,18 +262,18 @@ public class LinkedListTraversal {
     }
 
     // deep copy O(n)
-    public static Node cloneList(Node head) {
+    public static ListNode cloneList(ListNode head) {
         if (head == null) {
             return null;
         }
-        Node deepCopy = new Node(head.data);
+        ListNode deepCopy = new ListNode(head.data);
         if (head.next == null) {
             return deepCopy;
         }
-        Node latest = new Node(head.next.data);
+        ListNode latest = new ListNode(head.next.data);
         deepCopy.next = latest;
         while (head.next.next != null) {
-            Node temp = new Node(head.next.next.data);
+            ListNode temp = new ListNode(head.next.next.data);
             latest.next = temp;
             latest = temp;
             head = head.next;
@@ -282,12 +282,12 @@ public class LinkedListTraversal {
     }
 
     // O(n) method to remove duplicates from a sorted list
-    public static Node removeDuplicates(Node head) {
+    public static ListNode removeDuplicates(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        Node curr = head;
-        Node next = null;
+        ListNode curr = head;
+        ListNode next = null;
         while (curr != null && curr.next != null) {
             if (curr.data == curr.next.data) {
                 next = curr.next;
@@ -301,11 +301,11 @@ public class LinkedListTraversal {
     }
 
     //alternative O(n) method to remove duplicates; but this doesn't cleanup dupes explicitly
-    public static Node removeDuplicatesNoDereference(Node head) {
+    public static ListNode removeDuplicatesNoDereference(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        Node curr = head;
+        ListNode curr = head;
         while (curr != null && curr.next != null) {
             if (curr.data == curr.next.data) {
                 curr.next = curr.next.next;
@@ -317,13 +317,13 @@ public class LinkedListTraversal {
     }
 
     // O(n) cleanup the duplicated nodes completely
-    public static Node cleanupDuplicatedNodes(Node head) {
+    public static ListNode cleanupDuplicatedNodes(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        Node prev = null;
-        Node curr = head;
-        Node dummy = new Node(0); // dummy helps have an initial value for prev pointer; it's own value is inconsequential though
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode dummy = new ListNode(0); // dummy helps have an initial value for prev pointer; it's own value is inconsequential though
         dummy.next = head;
         prev = dummy;
         while (curr != null) {
@@ -341,14 +341,14 @@ public class LinkedListTraversal {
     }
 
     // O(m+n)
-    public static Node mergeSortedLists(Node aHead, Node bHead) {
+    public static ListNode mergeSortedLists(ListNode aHead, ListNode bHead) {
         if (aHead == null) {
             return bHead;
         }
         if (bHead == null) {
             return aHead;
         }
-        Node mHead = null;
+        ListNode mHead = null;
         if (aHead.data <= bHead.data) {
             mHead = aHead;
             mHead.next = mergeSortedLists(aHead.next, bHead);
@@ -360,14 +360,14 @@ public class LinkedListTraversal {
     }
 
     // O(m+n)
-    public static Node mergeSortedListsIteratively(Node aHead, Node bHead) {
+    public static ListNode mergeSortedListsIteratively(ListNode aHead, ListNode bHead) {
         if (aHead == null) {
             return bHead;
         }
         if (bHead == null) {
             return aHead;
         }
-        Node mHead = null;
+        ListNode mHead = null;
         if (aHead.data <= bHead.data) {
             mHead = aHead;
             aHead = aHead.next;
@@ -375,7 +375,7 @@ public class LinkedListTraversal {
             mHead = bHead;
             bHead = bHead.next;
         }
-        Node mNext = mHead;
+        ListNode mNext = mHead;
         while (aHead != null && bHead != null) {
             if (aHead.data <= bHead.data) {
                 mNext.next = aHead;
@@ -398,14 +398,14 @@ public class LinkedListTraversal {
     }
 
     //O(n) time and O(1) space
-    public static Node incrementByOne(Node head) {
+    public static ListNode incrementByOne(ListNode head) {
         if (head == null) {
             return head;
         }
         int numberToAdd = 1;
         boolean addOne = true;
         head = reverseList(head);
-        Node curr = head;
+        ListNode curr = head;
         while (curr != null && curr.next != null) {
             if (addOne) {
                 curr.data += numberToAdd;
@@ -422,7 +422,7 @@ public class LinkedListTraversal {
             curr.data += numberToAdd;
             if (curr.data > 9) {
                 curr.data = curr.data%10;
-                curr.next = new Node(numberToAdd);
+                curr.next = new ListNode(numberToAdd);
             }
         }
         head = reverseList(head);

@@ -1,11 +1,11 @@
-package com.sl.algorithms.arrays;
+package com.sl.algorithms.array;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.sl.algorithms.arrays.ArrayOptimalTraversal.*;
-import static com.sl.algorithms.arrays.ArrayTraversal.printArray;
+import static com.sl.algorithms.array.ArrayOptimalTraversal.*;
+import static com.sl.algorithms.array.ArrayTraversal.printArray;
 
 public class ArrayOptimalTraversalTest {
     @Test

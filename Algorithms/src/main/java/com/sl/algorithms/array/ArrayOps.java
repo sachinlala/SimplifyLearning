@@ -1,4 +1,4 @@
-package com.sl.algorithms.arrays;
+package com.sl.algorithms.array;
 
 public class ArrayOps {
 
