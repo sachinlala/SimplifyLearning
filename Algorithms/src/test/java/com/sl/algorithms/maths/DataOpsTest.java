@@ -29,6 +29,7 @@ public class DataOpsTest {
         Assert.assertEquals(0, atoi("small"));
         Assert.assertEquals(0, atoi("CAPS"));
         Assert.assertEquals(0, atoi("Special$#"));
+        Assert.assertEquals(0, atoi(".123"));
         Assert.assertEquals(123, atoi("123"));
         Assert.assertEquals(123, atoi("123.3"));
         Assert.assertEquals(123, atoi("123.9"));
