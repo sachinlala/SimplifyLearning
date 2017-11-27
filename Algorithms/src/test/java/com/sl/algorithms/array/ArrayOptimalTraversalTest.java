@@ -45,11 +45,12 @@ public class ArrayOptimalTraversalTest {
 
     @Test
     public void testFindSmallestMissingNumberSorted() {
-        Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{}, 0, 0));
-        Assert.assertEquals(0, findSmallestMissingNumberSorted(null, 0, 0));
-        Assert.assertEquals(3, findSmallestMissingNumberSorted(new int[]{0, 1, 2, 4, 5}, 0, 4));
-        Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{1, 2, 4, 5}, 0, 3));
-        Assert.assertEquals(6, findSmallestMissingNumberSorted(new int[]{0, 1, 2, 3, 4, 5}, 0, 5));
+        Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{}));
+        Assert.assertEquals(0, findSmallestMissingNumberSorted(null));
+        Assert.assertEquals(3, findSmallestMissingNumberSorted(new int[]{0, 1, 2, 4, 5}));
+        Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{1, 2, 4, 5}));
+        Assert.assertEquals(1, findSmallestMissingNumberSorted(new int[]{0, 2, 4, 5}));
+        Assert.assertEquals(6, findSmallestMissingNumberSorted(new int[]{0, 1, 2, 3, 4, 5}));
     }
 
     @Ignore

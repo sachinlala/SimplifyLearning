@@ -54,6 +54,14 @@ public class ArrayOptimalTraversal {
         return a;
     }
 
+    public static int findSmallestMissingNumberSorted(int[] arr) {
+        int start=0, end=0;
+        if (arr != null && arr.length > 0) {
+            end = arr.length-1;
+        }
+        return findSmallestMissingNumberSorted(arr, start, end); // arms-length recursion
+    }
+
     /**
      * <br>Find Smallest Missing Number for a Sorted Array<br>
      * <br>O(logN) time & O(1) space.<br>
@@ -63,7 +71,7 @@ public class ArrayOptimalTraversal {
      * @param end length-1
      * @return int : minimum missing number >= 0 & <= Integer.MAX_VALUE
      */
-    public static int findSmallestMissingNumberSorted(int[] arr, int start, int end) {
+    private static int findSmallestMissingNumberSorted(int[] arr, int start, int end) {
         if (arr == null || arr.length == 0) {
             return 0;
         }
