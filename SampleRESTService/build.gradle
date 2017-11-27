@@ -1,4 +1,4 @@
-group 'KinderRESTService'
+group 'SampleRESTService'
 sourceCompatibility = JDKVersion
 apply plugin: 'org.springframework.boot'
 
@@ -18,6 +18,6 @@ dependencies {
 }
 
 jar {
-    baseName = 'kinder-rest-service'
+    baseName = 'sample-rest-service'
     version =  '0.1.0'
 }
