@@ -13,8 +13,8 @@ public class MonkPredicatesTest {
 
     @Test
     public void testMonkUniqueness() {
-        Monk monk = new Monk(10, true);
-        Assert.assertEquals(31*10+1, monk.hashCode());
+        Monk monk = new Monk(20, true);
+        Assert.assertEquals(31*20+1, monk.hashCode());
     }
 
     @Before
