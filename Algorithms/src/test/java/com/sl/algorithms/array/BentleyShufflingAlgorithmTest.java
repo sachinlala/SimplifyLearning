@@ -3,7 +3,7 @@ package com.sl.algorithms.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.ArrayTraversal.printArray;
+import static com.sl.algorithms.array.ArrayOps.printArray;
 import static com.sl.algorithms.array.BentleyShufflingAlgorithm.rotateLeftByJuggling;
 
 public class BentleyShufflingAlgorithmTest {

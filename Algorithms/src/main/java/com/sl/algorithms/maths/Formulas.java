@@ -63,14 +63,20 @@ public class Formulas {
     }
 
     public static int hcf(int a, int b) {
-        while (a != 0 && b != 0) {
+        if (a == 0) {
+            return b;
+        }
+        if (b == 0) {
+            return a;
+        }
+        while (a != b) {
             // equals can be in either conditions
             if (a < b) {
-                b = b - a;
+                b -= a;
             } else {
-                a = a - b;
+                a -= b;
             }
         }
-        return b == 0 ? a : b;
+        return a;
     }
 }

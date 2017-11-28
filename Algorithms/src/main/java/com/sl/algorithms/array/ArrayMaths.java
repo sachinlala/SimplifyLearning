@@ -1,8 +1,8 @@
 package com.sl.algorithms.array;
 
-public class ArrayMathOps {
+public class ArrayMaths {
 
-    private ArrayMathOps() {
+    private ArrayMaths() {
         /**
          * This is a utility class.<br>
          */

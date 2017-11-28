@@ -3,11 +3,11 @@ package com.sl.algorithms.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.ArrayMathOps.plusOne;
-import static com.sl.algorithms.array.ArrayMathOps.productExceptSelf;
-import static com.sl.algorithms.array.ArrayTraversal.printArray;
+import static com.sl.algorithms.array.ArrayMaths.plusOne;
+import static com.sl.algorithms.array.ArrayMaths.productExceptSelf;
+import static com.sl.algorithms.array.ArrayOps.printArray;
 
-public class ArrayMathOpsTest {
+public class ArrayMathsTest {
     @Test
     public void testPlusOne() {
         Assert.assertEquals("[]", printArray(plusOne(null)));
