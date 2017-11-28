@@ -35,9 +35,9 @@ public class BinarySearchTest {
 
     @Test
     public void largeSizeTest() {
-        int size = Integer.MAX_VALUE/64;
+        int size = Integer.MAX_VALUE / 64;
         int[] numArray = new int[size];
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             numArray[i] = i;
         }
         int numberToSearch = 6;

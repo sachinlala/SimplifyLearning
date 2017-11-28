@@ -14,10 +14,10 @@ public class ArrayTraversal {
             return "[]";
         }
         StringBuilder output = new StringBuilder("[");
-        for (int i=0; i<a.length-1; i++) {
+        for (int i = 0; i < a.length - 1; i++) {
             output = output.append(a[i]).append(",");
         }
-        output.append(a[a.length-1]).append("]");
+        output.append(a[a.length - 1]).append("]");
         return output.toString();
     }
 
@@ -28,11 +28,11 @@ public class ArrayTraversal {
      * Space = O(1)<br>
      */
     public static int[] rotateLeft(int a[], int k) {
-        for (int i=0; i<k; i++){
+        for (int i = 0; i < k; i++) {
             int j = 0;
             int temp = a[j];
-            for (; j<a.length-1; j++) { // leave last element to be assigned with the staged value (temp)
-                a[j] = a[j+1];
+            for (; j < a.length - 1; j++) { // leave last element to be assigned with the staged value (temp)
+                a[j] = a[j + 1];
             }
             a[j] = temp;
         }
@@ -46,11 +46,11 @@ public class ArrayTraversal {
      * Space = O(1)<br>
      */
     public static int[] rotateRight(int a[], int k) {
-        for (int i=0; i<k; i++){
+        for (int i = 0; i < k; i++) {
             int j = a.length - 1;
             int temp = a[j];
-            for (; j>0; j--) { // leave last element to be assigned with the staged value (temp)
-                a[j] = a[j-1];
+            for (; j > 0; j--) { // leave last element to be assigned with the staged value (temp)
+                a[j] = a[j - 1];
             }
             a[j] = temp;
         }

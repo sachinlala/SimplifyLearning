@@ -30,11 +30,11 @@ public class ArrayOptimalTraversal {
      */
     public static int[] rotateLeftByReversal(int[] a, int k) {
         if (k >= a.length) {
-            k = k%a.length;
+            k = k % a.length;
         }
-        a = reverse(a, 0, k-1);
-        a = reverse(a, k, a.length-1);
-        a = reverse(a, 0, a.length-1);
+        a = reverse(a, 0, k - 1);
+        a = reverse(a, k, a.length - 1);
+        a = reverse(a, 0, a.length - 1);
         return a;
     }
 
@@ -46,18 +46,18 @@ public class ArrayOptimalTraversal {
      */
     public static int[] rotateRightByReversal(int[] a, int k) {
         if (k >= a.length) {
-            k = k%a.length;
+            k = k % a.length;
         }
-        a = reverse(a, 0, a.length-1);
-        a = reverse(a, k, a.length-1);
-        a = reverse(a, 0, k-1);
+        a = reverse(a, 0, a.length - 1);
+        a = reverse(a, k, a.length - 1);
+        a = reverse(a, 0, k - 1);
         return a;
     }
 
     public static int findSmallestMissingNumberSorted(int[] arr) {
-        int start=0, end=0;
+        int start = 0, end = 0;
         if (arr != null && arr.length > 0) {
-            end = arr.length-1;
+            end = arr.length - 1;
         }
         return findSmallestMissingNumberSorted(arr, start, end); // arms-length recursion
     }
@@ -66,9 +66,10 @@ public class ArrayOptimalTraversal {
      * <br>Find Smallest Missing Number for a Sorted Array<br>
      * <br>O(logN) time & O(1) space.<br>
      * <br>Limitation: cannot handle duplicates</>
-     * @param arr : integers (sorted) >= 0 < Integer.MAX_VALUE
+     *
+     * @param arr   : integers (sorted) >= 0 < Integer.MAX_VALUE
      * @param start 0
-     * @param end length-1
+     * @param end   length-1
      * @return int : minimum missing number >= 0 & <= Integer.MAX_VALUE
      */
     private static int findSmallestMissingNumberSorted(int[] arr, int start, int end) {
@@ -76,22 +77,23 @@ public class ArrayOptimalTraversal {
             return 0;
         }
         if (start > end) {
-            return end+1;
+            return end + 1;
         }
         if (arr[start] != start) {
             return start;
         }
         int mid = Formulas.midPoint(start, end);
-        if (arr[mid]-arr[start] != (mid-start)) {
+        if (arr[mid] - arr[start] != (mid - start)) {
             return findSmallestMissingNumberSorted(arr, start, mid);
         }
-        return findSmallestMissingNumberSorted(arr, mid+1, end);
+        return findSmallestMissingNumberSorted(arr, mid + 1, end);
     }
 
     /**
      * <br>Find Smallest Missing Number for a Sorted Array<br>
      * <br>O(N) time & O(1) space.<br>
      * <br>Limitation: cannot handle duplicates</>
+     *
      * @param arr : integers (sorted) >= 0 < Integer.MAX_VALUE
      * @return int : minimum missing number >= 0 & <= Integer.MAX_VALUE
      */
@@ -100,7 +102,7 @@ public class ArrayOptimalTraversal {
             return 0;
         }
         int xor = arr[0];
-        for (int i=1; i<arr.length; i++) {
+        for (int i = 1; i < arr.length; i++) {
             xor = xor ^ arr[i] ^ i;
         }
         xor ^= arr.length;
@@ -110,12 +112,13 @@ public class ArrayOptimalTraversal {
     /**
      * <br>Find Smallest Missing Number for a UnSorted Array.<br>
      * <br>O(n) time & O(1) space.<br>
+     *
      * @param arr : integers (unsorted) >= 0 < Integer.MAX_VALUE
      * @return int : minimum missing number > 0 & <= Integer.MAX_VALUE
      */
     public static int findSmallestMissingNumberUnsorted(int[] arr) {
-        int i=0;
-        int n=arr.length;
+        int i = 0;
+        int n = arr.length;
         while (i < n) {
             if (arr[i] > 0 && arr[i] < n && arr[i] != arr[arr[i]]) {
                 int temp = arr[i];
@@ -125,7 +128,7 @@ public class ArrayOptimalTraversal {
                 i++;
             }
         }
-        int k=1;
+        int k = 1;
         while (k < n && arr[k] == k) {
             k++;
         }
@@ -133,7 +136,7 @@ public class ArrayOptimalTraversal {
             return k;
         }
         if (arr[0] == k) {
-            return k+1;
+            return k + 1;
         }
         return k;
     }
@@ -174,7 +177,7 @@ class Kadane {
         int maxSum = 0;
         int maxLeftSidePrevSum = nums[0];
         int maxLeftSideSum = nums[1];
-        for (int i=2; i<nums.length; i++) {
+        for (int i = 2; i < nums.length; i++) {
             maxLeftSidePrevSum += nums[i];
             maxSum = Math.max(maxLeftSideSum, maxLeftSidePrevSum);
             maxLeftSidePrevSum = maxLeftSideSum;
@@ -212,16 +215,14 @@ class Bentley {
      */
     public static int[] rotateLeftByJuggling(int[] a, int k) {
         int i, j, d, temp, n = a.length, hcf = Formulas.hcf(k, n);
-        for (i = 0; i < hcf; i++)
-        {
+        for (i = 0; i < hcf; i++) {
             temp = a[i];
             j = i;
-            while (true)
-            {
+            while (true) {
                 d = j + k;
                 if (d >= n)
                     d = d - n;
-                d = d%n; // this is required to prevent overflow
+                d = d % n; // this is required to prevent overflow
                 if (d == i)
                     break;
                 a[j] = a[d];
@@ -242,7 +243,7 @@ class BoyerMooreVoting {
     public static int findMajorityElement(int[] nums) {
         int majorityIndex = 0;
         int count = 1;
-        for (int i=1; i<nums.length; i++) {
+        for (int i = 1; i < nums.length; i++) {
             if (count == 0) {
                 majorityIndex = i;
                 count = 1;
@@ -261,7 +262,7 @@ class BoyerMooreVoting {
         for (int num : nums) {
             if (num == majorityElement) {
                 count++;
-                if (count > nums.length/2) {
+                if (count > nums.length / 2) {
                     return true;
                 }
             }

@@ -10,8 +10,8 @@ public class BTreeTraversal {
 
     //BFS
     //DFS
-      // Pre-order
-      // In-order
-      // Post-order
+    // Pre-order
+    // In-order
+    // Post-order
     //LIS
 }

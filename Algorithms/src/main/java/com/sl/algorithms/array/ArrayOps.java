@@ -16,19 +16,19 @@ public class ArrayOps {
         int length = digits.length;
         boolean addOne = true;
         int numberToAdd = 1;
-        for (int i=length-1; i>=0; i--) {
+        for (int i = length - 1; i >= 0; i--) {
             if (addOne) {
                 digits[i] += numberToAdd;
             }
             if (digits[i] > 9) {
-                digits[i] = digits[i]%10;
+                digits[i] = digits[i] % 10;
                 addOne = true;
             } else {
                 addOne = false;
             }
         }
         if (addOne) {
-            int[] plusOneNumber = new int[length+1];
+            int[] plusOneNumber = new int[length + 1];
             plusOneNumber[0] = numberToAdd;
             return plusOneNumber;
         }
@@ -44,15 +44,15 @@ public class ArrayOps {
             return nums;
         }
         int length = nums.length;
-        int left=1, right=1;
+        int left = 1, right = 1;
         int[] output = new int[length]; // not counted towards space as this is not used for any temp storage
         output[0] = 1;
-        for (int i=1; i<length; i++) {
-            left *= nums[i-1];
+        for (int i = 1; i < length; i++) {
+            left *= nums[i - 1];
             output[i] = left;
         }
-        for (int i=length-2; i>=0; i--) {
-            right *= nums[i+1];
+        for (int i = length - 2; i >= 0; i--) {
+            right *= nums[i + 1];
             output[i] *= right;
         }
         return output;

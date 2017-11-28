@@ -15,7 +15,7 @@ public class FormulasTest {
 
     @Test
     public void midPointTestLargeRange() {
-        Assert.assertEquals(Integer.MAX_VALUE/2, midPoint(0, Integer.MAX_VALUE));
+        Assert.assertEquals(Integer.MAX_VALUE / 2, midPoint(0, Integer.MAX_VALUE));
     }
 
     @Test

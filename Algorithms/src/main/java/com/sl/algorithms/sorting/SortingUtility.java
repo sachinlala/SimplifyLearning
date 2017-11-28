@@ -8,17 +8,24 @@ public class SortingUtility {
          */
     }
 }
+
 class InsertionSort {
 }
+
 class BubbleSort {
 }
+
 class MergeSort {
 }
+
 class QuickSort {
 }
+
 class RadixSort {
 }
+
 class HeapSort {
 }
+
 class TopologicalSort {
 }

@@ -1,6 +1,9 @@
 package com.sl.algorithms.strings;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParenthesisValidator {
 
@@ -31,12 +34,13 @@ public class ParenthesisValidator {
 
     /**
      * <ul>
-     *     <li>Any left parenthesis '(' must have a corresponding right parenthesis ')'</li>
-     *     <li>Any right parenthesis ')' must have a corresponding left parenthesis '('</li>
-     *     <li>Left parenthesis '(' must go before the corresponding right parenthesis ')'</li>
-     *     <li>'*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string</li>
-     *     <li>An empty string is also valid.</li>
+     * <li>Any left parenthesis '(' must have a corresponding right parenthesis ')'</li>
+     * <li>Any right parenthesis ')' must have a corresponding left parenthesis '('</li>
+     * <li>Left parenthesis '(' must go before the corresponding right parenthesis ')'</li>
+     * <li>'*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string</li>
+     * <li>An empty string is also valid.</li>
      * </ul>
+     *
      * @param str contains '(', ')' and '*' characters only.
      * @return true, if input string adheres to the stated parenthesis rules.
      */
@@ -45,7 +49,7 @@ public class ParenthesisValidator {
         if (str == null || str.length() == 0) {
             return true;
         }
-        int minimumOpenBraces=0, maximumOpenBraces=0;
+        int minimumOpenBraces = 0, maximumOpenBraces = 0;
         for (char c : str.toCharArray()) {
             if (c == '(') {
                 minimumOpenBraces++;
@@ -71,6 +75,7 @@ public class ParenthesisValidator {
     }
 
     static Map<Character, Character> PAIRS = new HashMap<>();
+
     static {
         PAIRS.put('(', ')');
         PAIRS.put('{', '}');
@@ -87,7 +92,7 @@ public class ParenthesisValidator {
             return false;
         }
         Deque<Character> stack = new ArrayDeque<>();
-        for (int i=0; i<s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (stack.isEmpty()) {
                 stack.push(ch);

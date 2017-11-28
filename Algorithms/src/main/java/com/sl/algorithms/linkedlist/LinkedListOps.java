@@ -148,7 +148,7 @@ public class LinkedListOps {
 
     // O(n)
     public static ListNode reverseList(ListNode head) {
-        ListNode prev=null, curr=head, next=null;
+        ListNode prev = null, curr = head, next = null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -417,7 +417,7 @@ public class LinkedListOps {
                 curr.data += numberToAdd;
             }
             if (curr.data > 9) {
-                curr.data = curr.data%10;
+                curr.data = curr.data % 10;
                 addOne = true;
             } else {
                 addOne = false;
@@ -427,7 +427,7 @@ public class LinkedListOps {
         if (addOne) {
             curr.data += numberToAdd;
             if (curr.data > 9) {
-                curr.data = curr.data%10;
+                curr.data = curr.data % 10;
                 curr.next = new ListNode(numberToAdd);
             }
         }

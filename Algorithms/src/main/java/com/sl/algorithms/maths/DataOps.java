@@ -40,15 +40,15 @@ public class DataOps {
         int index = 0;
         boolean isNegative = false;
         // ignore leading spaces
-        while (index<str.length() && str.charAt(index) == ' ') {
+        while (index < str.length() && str.charAt(index) == ' ') {
             index++;
         }
         // check sign
-        if (index<str.length() && (str.charAt(index) == '-' || str.charAt(index) == '+')) {
+        if (index < str.length() && (str.charAt(index) == '-' || str.charAt(index) == '+')) {
             isNegative = (str.charAt(index) == '-');
             index++;
         }
-        while (index<str.length()) {
+        while (index < str.length()) {
             char c = str.charAt(index);
             int digit = c - '0';
             // validate
@@ -56,7 +56,7 @@ public class DataOps {
                 break;
             }
             // compute value
-            intValue = intValue*10 + digit;
+            intValue = intValue * 10 + digit;
             // handle overflow
             if (intValue > Integer.MAX_VALUE) {
                 intValue = isNegative ? Integer.MIN_VALUE : Integer.MAX_VALUE;
@@ -67,6 +67,6 @@ public class DataOps {
         if (isNegative) {
             intValue *= -1;
         }
-        return (int)intValue;
+        return (int) intValue;
     }
 }

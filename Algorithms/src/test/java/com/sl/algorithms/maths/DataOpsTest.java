@@ -2,7 +2,9 @@ package com.sl.algorithms.maths;
 
 import org.junit.Assert;
 import org.junit.Test;
-import static com.sl.algorithms.maths.DataOps.*;
+
+import static com.sl.algorithms.maths.DataOps.atoi;
+import static com.sl.algorithms.maths.DataOps.reverse;
 
 public class DataOpsTest {
 

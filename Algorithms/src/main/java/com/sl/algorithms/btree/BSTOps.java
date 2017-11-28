@@ -16,9 +16,9 @@ public class BSTOps {
     // find max
     // find height
     public static void main(String[] args) {
-        int i=0;
+        int i = 0;
         while (i <= 150) {
-            System.out.println(i + ":" + (char)i);
+            System.out.println(i + ":" + (char) i);
             i++;
         }
         // 65->90: uppercase

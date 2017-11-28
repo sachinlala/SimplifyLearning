@@ -4,8 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.array.ArrayTraversal.printArray;
-
-import static com.sl.algorithms.array.Bentley.*;
+import static com.sl.algorithms.array.Bentley.rotateLeftByJuggling;
 
 public class BentleyTest {
     @Test

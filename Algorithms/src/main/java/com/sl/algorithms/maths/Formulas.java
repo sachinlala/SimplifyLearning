@@ -12,7 +12,7 @@ public class Formulas {
      * Find mid-point between 2 numbers; prevent integer overflow.
      */
     public static int midPoint(int start, int end) {
-        int mid = start + (end-start)/2;
+        int mid = start + (end - start) / 2;
         return mid;
     }
 
@@ -24,13 +24,13 @@ public class Formulas {
         if (n <= 3) {
             return true;
         }
-        if (n%2 == 0 || n%3 == 0) {
+        if (n % 2 == 0 || n % 3 == 0) {
             System.out.println(n + " is divisible by 2 or 3");
             return false;
         }
-        for (long i=5; i*i<=n; i=i+4) {
-            if (n%i==0 || n%(i+2)==0) {
-                System.out.println(n + " is divisible by "+i+" or "+(i+2));
+        for (long i = 5; i * i <= n; i = i + 4) {
+            if (n % i == 0 || n % (i + 2) == 0) {
+                System.out.println(n + " is divisible by " + i + " or " + (i + 2));
                 return false;
             }
         }
@@ -44,15 +44,15 @@ public class Formulas {
         }
         int primeCount = 0;
         boolean[] isPrime = new boolean[n];
-        for (int i=2; i<n; i++) {
+        for (int i = 2; i < n; i++) {
             isPrime[i] = true;
             primeCount++;
         }
-        for (int i=2; i*i<n; i++) {
+        for (int i = 2; i * i < n; i++) {
             if (!isPrime[i]) {
                 continue;
             }
-            for (int j=i*i; j<n; j+=i) {
+            for (int j = i * i; j < n; j += i) {
                 if (isPrime[j]) {
                     isPrime[j] = false;
                     primeCount--;
@@ -66,11 +66,11 @@ public class Formulas {
         while (a != 0 && b != 0) {
             // equals can be in either conditions
             if (a < b) {
-                b = b-a;
+                b = b - a;
             } else {
-                a = a-b;
+                a = a - b;
             }
         }
-        return b==0 ? a : b;
+        return b == 0 ? a : b;
     }
 }

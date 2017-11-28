@@ -280,6 +280,7 @@ public class LinkedListOpsTest {
         ListNode newHead = rotateListLeft(testNode, 2);
         Assert.assertEquals("[34512]", printList(newHead));
     }
+
     @Test
     public void testRotateLeft3() {
         ListNode newHead = rotateListLeft(testNode, 3);
@@ -408,49 +409,49 @@ public class LinkedListOpsTest {
 
     @Test
     public void testInsertAtPosition0() {
-        ListNode newHead = insertAtPosition(testNode, 0,0);
+        ListNode newHead = insertAtPosition(testNode, 0, 0);
         Assert.assertEquals("[012345]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition0ForNull() {
-        ListNode newHead = insertAtPosition(null, 0,0);
+        ListNode newHead = insertAtPosition(null, 0, 0);
         Assert.assertEquals("[0]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition1() {
-        ListNode newHead = insertAtPosition(testNode, 0,1);
+        ListNode newHead = insertAtPosition(testNode, 0, 1);
         Assert.assertEquals("[102345]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition2() {
-        ListNode newHead = insertAtPosition(testNode, 0,2);
+        ListNode newHead = insertAtPosition(testNode, 0, 2);
         Assert.assertEquals("[120345]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition3() {
-        ListNode newHead = insertAtPosition(testNode, 0,3);
+        ListNode newHead = insertAtPosition(testNode, 0, 3);
         Assert.assertEquals("[123045]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition4() {
-        ListNode newHead = insertAtPosition(testNode, 0,4);
+        ListNode newHead = insertAtPosition(testNode, 0, 4);
         Assert.assertEquals("[123405]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPosition5() {
-        ListNode newHead = insertAtPosition(testNode, 0,5);
+        ListNode newHead = insertAtPosition(testNode, 0, 5);
         Assert.assertEquals("[123450]", printList(newHead));
     }
 
     @Test
     public void testInsertAtPositionOverflow() {
-        ListNode newHead = insertAtPosition(testNode, 0,6);
+        ListNode newHead = insertAtPosition(testNode, 0, 6);
         Assert.assertEquals("[12345]", printList(newHead));
     }
 
