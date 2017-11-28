@@ -11,10 +11,6 @@ public class StringOps {
          */
     }
 
-    public static String encode(String str) {
-        return "";
-    }
-
     /**
      * <a href="Decode String">http://www.geeksforgeeks.org/decode-string-recursively-encoded-count-followed-substring/</a>
      */
