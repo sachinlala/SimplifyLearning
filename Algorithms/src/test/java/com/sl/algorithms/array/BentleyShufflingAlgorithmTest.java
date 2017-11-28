@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.array.ArrayTraversal.printArray;
-import static com.sl.algorithms.array.Bentley.rotateLeftByJuggling;
+import static com.sl.algorithms.array.BentleyShufflingAlgorithm.rotateLeftByJuggling;
 
-public class BentleyTest {
+public class BentleyShufflingAlgorithmTest {
     @Test
     public void testRotationLeftByJuggling() {
         Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByJuggling(new int[]{1, 2, 3, 4, 5}, 1)));

@@ -3,9 +3,9 @@ package com.sl.algorithms.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.Kadane.*;
+import static com.sl.algorithms.array.KadaneAlgorithm.*;
 
-public class KadaneTest {
+public class KadaneAlgorithmTest {
     @Test
     public void testFindMaxContiguousSumSubArray() {
         Assert.assertEquals(15, findMaxContiguousSumSubArray(new int[]{1, 2, 3, 4, 5}));

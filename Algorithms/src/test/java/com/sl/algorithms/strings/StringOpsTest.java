@@ -3,7 +3,7 @@ package com.sl.algorithms.strings;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.strings.StringOps.decode;
+import static com.sl.algorithms.strings.Codec.*;
 
 public class StringOpsTest {
 
