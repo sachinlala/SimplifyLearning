@@ -12,7 +12,10 @@ public class PeakElement {
          */
     }
 
-    // O(n)
+    /**
+     * Linear algorithm to find the max in any series.<br>
+     * // O(n)
+     */
     public static int findPeakElement(int[] nums) {
         if (nums == null || nums.length == 0) {
             return -1; // no peak element
@@ -31,7 +34,10 @@ public class PeakElement {
         return nums[start];
     }
 
-    // O(log(n))
+    /**
+     * Logarithmic time to find peak in an array where values ascends and then descend.<br>
+     * // O(log(n))
+     */
     public static int findPeakElementInLogTime(int[] nums) {
         if (nums == null || nums.length == 0) {
             return -1; // no peak element

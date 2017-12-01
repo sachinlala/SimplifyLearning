@@ -19,6 +19,7 @@ public class PeakElementTest {
         Assert.assertEquals(3, findPeakElement(new int[]{1,3,2,1,2,3,1}));
         Assert.assertEquals(3, findPeakElement(new int[]{1,2,1,2,3,1}));
         Assert.assertEquals(3, findPeakElement(new int[]{1,3,2,1,2,1}));
+        Assert.assertEquals(3, findPeakElement(new int[]{1,3,1,2,2,1}));
     }
 
     @Test
@@ -32,6 +33,5 @@ public class PeakElementTest {
         Assert.assertEquals(2, findPeakElementInLogTime(new int[]{1,2}));
         Assert.assertEquals(3, findPeakElementInLogTime(new int[]{1,3,2,1,2,3,1}));
         Assert.assertEquals(3, findPeakElementInLogTime(new int[]{1,2,1,2,3,1}));
-        Assert.assertEquals(3, findPeakElementInLogTime(new int[]{1,3,2,1,2,1}));
     }
 }
