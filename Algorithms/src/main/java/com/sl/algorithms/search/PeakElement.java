@@ -16,12 +16,12 @@ public class PeakElement {
      * Linear algorithm to find the max in any series.<br>
      * // O(n)
      */
-    public static int findPeakElement(int[] nums) {
+    public static int findPeakElement(int[] nums) throws IllegalArgumentException {
         if (nums == null || nums.length == 0) {
-            return -1; // no peak element
+            throw new IllegalArgumentException("Empty Array"); // no peak element
         }
         if (nums.length == 1) {
-            return 0;
+            return nums[0];
         }
         int start=0, end=nums.length-1;
         while (start < end) {
@@ -40,10 +40,10 @@ public class PeakElement {
      */
     public static int findPeakElementInLogTime(int[] nums) {
         if (nums == null || nums.length == 0) {
-            return -1; // no peak element
+            throw new IllegalArgumentException("Empty Array"); // no peak element
         }
         if (nums.length == 1) {
-            return 0;
+            return nums[0];
         }
         int start=0, end=nums.length-1;
         while (start < end) {

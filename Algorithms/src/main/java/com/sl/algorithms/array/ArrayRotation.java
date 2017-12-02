@@ -116,28 +116,6 @@ class BentleyShufflingAlgorithm {
         }
         return a;
     }
-
-    // O(n) time and O(1) space
-    public static int[] rotateRightByJuggling(int[] a, int k) {
-        int n = a.length;
-        int hcf = Formulas.hcf(n, k);
-        int i, j, temp, delta;
-        for (i=0; i<hcf; i++) {
-            temp = a[i];
-            j = i;
-            for (j=i; j<n; ) {
-                delta = j + k;
-                delta = delta % n; // this is required to prevent overflow
-                if (delta == i) {
-                    break;
-                }
-                a[j] = a[delta];
-                j = delta;
-            }
-            a[j] = temp;
-        }
-        return a;
-    }
 }
 
 /**
