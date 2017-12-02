@@ -12,7 +12,7 @@ public class Formulas {
      * Find mid-point between 2 numbers; prevent integer overflow.
      */
     public static int midPoint(int start, int end) {
-        int mid = start + (end - start) / 2;
+        int mid = start + (end-start)/2;
         return mid;
     }
 

@@ -12,22 +12,42 @@ public class BinarySearch {
          */
     }
 
-    public static int findIndex(int[] sortedInput, int numberToSearch) {
-        return findRecursively(sortedInput, numberToSearch, 0, sortedInput.length - 1);
+    // O(log(n)) time and O(1) space
+    public static int findIndexIteratively(int[] sortedInput, int numberToSearch) {
+        int start=0, end=sortedInput.length-1;
+        while (start <= end) { // the equality check here is KEY!
+            int midPoint = Formulas.midPoint(start, end);
+            int currValue = sortedInput[midPoint];
+            if (currValue == numberToSearch) {
+                return midPoint;
+            }
+            if (currValue > numberToSearch) {
+                end = midPoint-1;
+            } else {
+                start = midPoint+1;
+            }
+        }
+        return NUMBER_NOT_FOUND;
     }
 
-    private static int findRecursively(int[] sortedInput, int numberToSearch, int start, int end) {
+    public static int findIndex(int[] sortedInput, int numberToSearch) {
+        return findIndexRecursively(sortedInput, numberToSearch, 0, sortedInput.length - 1);
+    }
+
+    // O(log(n)) time and space
+    private static int findIndexRecursively(int[] sortedInput, int numberToSearch, int start, int end) {
         if (start > end) {
             return NUMBER_NOT_FOUND;
         }
-        int index = Formulas.midPoint(start, end);
-        if (sortedInput[index] == numberToSearch) {
-            return index;
+        int midPoint = Formulas.midPoint(start, end);
+        int currValue = sortedInput[midPoint];
+        if (currValue == numberToSearch) {
+            return midPoint;
         }
-        if (sortedInput[index] > numberToSearch) {
-            return findRecursively(sortedInput, numberToSearch, start, index - 1);
+        if (currValue > numberToSearch) {
+            return findIndexRecursively(sortedInput, numberToSearch, start, midPoint-1);
         } else {
-            return findRecursively(sortedInput, numberToSearch, index + 1, end);
+            return findIndexRecursively(sortedInput, numberToSearch, midPoint+1, end);
         }
     }
 }
