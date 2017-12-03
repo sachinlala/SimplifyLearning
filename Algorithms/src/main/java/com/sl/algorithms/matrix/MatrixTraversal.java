@@ -8,20 +8,16 @@ public class MatrixTraversal {
          */
     }
 
+    // O(n+m)
     public static int findNegativeCount(int[][] nums) {
         int negativeCount = 0;
-        int columnUpperBound = 0;
-        for (int i=0; i<nums.length; i++) {
-            int rowLength = nums[i].length;
-            if (columnUpperBound == 0) {
-                columnUpperBound = rowLength-1;
-            }
-            for (int j=columnUpperBound; j>=0; j--) {
-                if (nums[i][j] < 0) { // pause the iteration (row & column)
-                    negativeCount += (j+1);
-                    columnUpperBound = j;
-                    break;
-                }
+        int i=0, j=nums[0].length-1;
+        while (i<nums.length && j>=0) {
+            if (nums[i][j] < 0) {
+                negativeCount += (j+1);
+                i++;
+            } else {
+                j--;
             }
         }
         return negativeCount;
