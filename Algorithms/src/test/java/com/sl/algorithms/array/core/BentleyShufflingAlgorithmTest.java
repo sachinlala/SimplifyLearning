@@ -1,10 +1,10 @@
-package com.sl.algorithms.array;
+package com.sl.algorithms.array.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.ArrayOps.printArray;
-import static com.sl.algorithms.array.BentleyShufflingAlgorithm.rotateLeftByJuggling;
+import static com.sl.algorithms.array.core.ArrayOps.printArray;
+import static com.sl.algorithms.array.core.BentleyShufflingAlgorithm.rotateLeftByJuggling;
 
 public class BentleyShufflingAlgorithmTest {
     @Test

@@ -1,9 +1,9 @@
-package com.sl.algorithms.array;
+package com.sl.algorithms.array.application;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.ArrayOps.*;
+import static com.sl.algorithms.array.core.ArrayOps.*;
 
 public class ArrayOpsTest {
     @Test

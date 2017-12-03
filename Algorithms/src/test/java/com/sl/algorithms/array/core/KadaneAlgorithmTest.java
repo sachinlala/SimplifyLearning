@@ -1,9 +1,9 @@
-package com.sl.algorithms.array;
+package com.sl.algorithms.array.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.KadaneAlgorithm.*;
+import static com.sl.algorithms.array.core.KadaneAlgorithm.*;
 
 public class KadaneAlgorithmTest {
     @Test

@@ -1,4 +1,4 @@
-package com.sl.algorithms.array;
+package com.sl.algorithms.array.core;
 
 // O(n) time and O(1) space algorithm-set to find max wi/n a series of numbers.<br>
 public class KadaneAlgorithm {
@@ -19,11 +19,11 @@ public class KadaneAlgorithm {
         int maxContiguousSum = Integer.MIN_VALUE;
         int maxTillHere = 0;
         for (int num : nums) {
-            maxTillHere += num;
-            maxContiguousSum = Math.max(maxContiguousSum, maxTillHere);
             if (maxTillHere < 0) {
                 maxTillHere = 0;
             }
+            maxTillHere += num;
+            maxContiguousSum = Math.max(maxContiguousSum, maxTillHere);
         }
         return maxContiguousSum;
     }

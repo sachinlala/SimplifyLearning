@@ -1,4 +1,4 @@
-package com.sl.algorithms.array;
+package com.sl.algorithms.array.application;
 
 import com.sl.algorithms.maths.Formulas;
 
