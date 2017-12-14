@@ -1,4 +1,4 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
 // O(n) time and O(1) space algorithm-set to find max wi/n a series of numbers.<br>
 public class KadaneAlgorithm {

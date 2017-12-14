@@ -1,6 +1,6 @@
 package com.sl.algorithms.search;
 
-import com.sl.algorithms.maths.Formulas;
+import com.sl.algorithms.core.maths.Formulas;
 
 /**
  * Given an array which is in ascending order till some point and then descending order till end, find peak element.<br>

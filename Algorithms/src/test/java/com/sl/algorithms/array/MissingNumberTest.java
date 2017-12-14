@@ -1,18 +1,11 @@
-package com.sl.algorithms.array.application;
+package com.sl.algorithms.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.application.MissingNumber.*;
+import static com.sl.algorithms.array.MissingNumber.*;
 
 public class MissingNumberTest {
-    @Test
-    public void testFindSmallestMissingNumberSortedXOR() {
-        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(new int[]{}));
-        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(null));
-        Assert.assertEquals(3, findSmallestMissingNumberSortedXOR(new int[]{0, 1, 2, 4, 5}));
-    }
-
     @Test
     public void testFindSmallestMissingNumberSorted() {
         Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{}));
@@ -21,6 +14,18 @@ public class MissingNumberTest {
         Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{1, 2, 4, 5}));
         Assert.assertEquals(1, findSmallestMissingNumberSorted(new int[]{0, 2, 4, 5}));
         Assert.assertEquals(6, findSmallestMissingNumberSorted(new int[]{0, 1, 2, 3, 4, 5}));
+    }
+
+    @Test
+    public void testFindSmallestMissingNumberSortedXOR() {
+        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(new int[]{}));
+        Assert.assertEquals(0, findSmallestMissingNumberSortedXOR(null));
+        Assert.assertEquals(3, findSmallestMissingNumberSortedXOR(new int[]{0, 1, 2, 4, 5}));
+        //5
+        //0, 1, 2, 4, 5
+        //0, 1, 2, 3, 4
+        //5^0^0 = 0101^1^1 = 0101^0 = 0101^(4^3) = 0101^(0100^0011) = 0101^(0111) = 0010 = 2
+        //2^(5^4) = 2^(0101^0100) = 2^(0001) = 0010^0001 = 0011 = 3
     }
 
     @Test

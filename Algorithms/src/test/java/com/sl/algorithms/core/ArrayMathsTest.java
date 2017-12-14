@@ -1,11 +1,11 @@
-package com.sl.algorithms.array.application;
+package com.sl.algorithms.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.application.ArrayMaths.plusOne;
-import static com.sl.algorithms.array.application.ArrayMaths.productExceptSelf;
-import static com.sl.algorithms.array.core.ArrayOps.printArray;
+import static com.sl.algorithms.core.ArrayMaths.plusOne;
+import static com.sl.algorithms.core.ArrayMaths.productExceptSelf;
+import static com.sl.algorithms.core.ArrayOps.printArray;
 
 public class ArrayMathsTest {
     @Test

@@ -1,6 +1,6 @@
-package com.sl.algorithms.array.application;
+package com.sl.algorithms.array;
 
-import com.sl.algorithms.maths.Formulas;
+import com.sl.algorithms.core.maths.Formulas;
 
 public class MissingNumber {
 
@@ -45,8 +45,11 @@ public class MissingNumber {
             return 0;
         }
         int xor = arr.length;
+        System.out.println(xor);
         for (int i=0; i<arr.length; i++) {
+            System.out.println(arr[i] + " " + i);
             xor ^=  arr[i] ^ i;
+            System.out.println(xor);
         }
         return xor;
     }

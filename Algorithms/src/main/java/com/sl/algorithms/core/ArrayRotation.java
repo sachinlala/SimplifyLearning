@@ -1,8 +1,8 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
-import com.sl.algorithms.maths.Formulas;
+import com.sl.algorithms.core.maths.Formulas;
 
-import static com.sl.algorithms.array.core.ArrayOps.reverse;
+import static com.sl.algorithms.core.ArrayOps.reverse;
 
 /**
  * <br>Problem: Rotate array of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>

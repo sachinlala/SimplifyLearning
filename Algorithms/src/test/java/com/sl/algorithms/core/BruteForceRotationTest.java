@@ -1,10 +1,10 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.core.ArrayOps.printArray;
-import static com.sl.algorithms.array.core.BruteForceRotation.*;
+import static com.sl.algorithms.core.ArrayOps.printArray;
+import static com.sl.algorithms.core.BruteForceRotation.*;
 
 public class BruteForceRotationTest {
     @Test

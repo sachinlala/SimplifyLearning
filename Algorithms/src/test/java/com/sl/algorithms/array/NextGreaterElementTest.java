@@ -1,12 +1,12 @@
-package com.sl.algorithms.array.application;
+package com.sl.algorithms.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.application.NextGreaterElement.findDaysToWarmthBruteForce;
-import static com.sl.algorithms.array.application.NGERegularArray.findDaysToWarmth;
-import static  com.sl.algorithms.array.application.NGECircularArray.findNGEInCircularArray;
-import static com.sl.algorithms.array.core.ArrayOps.printArray;
+import static com.sl.algorithms.array.NGECircularArray.findNGEInCircularArray;
+import static com.sl.algorithms.array.NGERegularArray.findDaysToWarmth;
+import static com.sl.algorithms.array.NextGreaterElement.findDaysToWarmthBruteForce;
+import static com.sl.algorithms.core.ArrayOps.printArray;
 
 public class NextGreaterElementTest {
 

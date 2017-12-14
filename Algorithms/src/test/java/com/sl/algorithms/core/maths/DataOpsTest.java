@@ -1,27 +1,11 @@
-package com.sl.algorithms.maths;
+package com.sl.algorithms.core.maths;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.maths.DataOps.atoi;
-import static com.sl.algorithms.maths.DataOps.reverse;
+import static com.sl.algorithms.core.maths.DataOps.atoi;
 
 public class DataOpsTest {
-
-    @Test
-    public void assertReverse() {
-        Assert.assertEquals(-522222222, reverse(-222222225));
-        Assert.assertEquals(-65536, reverse(-63556));
-        Assert.assertEquals(-1, reverse(-1));
-        Assert.assertEquals(0, reverse(0));
-        Assert.assertEquals(1, reverse(1));
-        Assert.assertEquals(21, reverse(12));
-        Assert.assertEquals(999, reverse(999));
-        Assert.assertEquals(63556, reverse(65536));
-        Assert.assertEquals(65536, reverse(63556));
-        Assert.assertEquals(522222222, reverse(222222225));
-        Assert.assertEquals(0, reverse(1534236469));
-    }
 
     @Test
     public void assertAtoi() {

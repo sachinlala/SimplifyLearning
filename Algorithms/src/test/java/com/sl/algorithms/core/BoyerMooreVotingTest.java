@@ -1,10 +1,10 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.core.BoyerMooreVoting.findMajorityElement;
-import static com.sl.algorithms.array.core.BoyerMooreVoting.isMajority;
+import static com.sl.algorithms.core.BoyerMooreVoting.findMajorityElement;
+import static com.sl.algorithms.core.BoyerMooreVoting.isMajority;
 
 public class BoyerMooreVotingTest {
     @Test

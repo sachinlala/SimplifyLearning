@@ -1,4 +1,4 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
 /**
  * <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm">Boyer Moore Voting Algorithm</a>

@@ -1,4 +1,4 @@
-package com.sl.algorithms.array.application;
+package com.sl.algorithms.core;
 
 public class ArrayMaths {
 

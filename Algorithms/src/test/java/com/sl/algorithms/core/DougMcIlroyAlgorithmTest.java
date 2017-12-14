@@ -1,12 +1,12 @@
-package com.sl.algorithms.array.core;
+package com.sl.algorithms.core;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.array.core.ArrayOps.printArray;
+import static com.sl.algorithms.core.ArrayOps.printArray;
 
-import static com.sl.algorithms.array.core.DougMcIlroyAlgorithm.rotateLeftByReversal;
-import static com.sl.algorithms.array.core.DougMcIlroyAlgorithm.rotateRightByReversal;
+import static com.sl.algorithms.core.DougMcIlroyAlgorithm.rotateLeftByReversal;
+import static com.sl.algorithms.core.DougMcIlroyAlgorithm.rotateRightByReversal;
 
 public class DougMcIlroyAlgorithmTest {
     @Test

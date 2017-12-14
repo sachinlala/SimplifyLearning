@@ -1,6 +1,6 @@
 package com.sl.algorithms.search;
 
-import com.sl.algorithms.maths.Formulas;
+import com.sl.algorithms.core.maths.Formulas;
 
 public class BinarySearch {
 

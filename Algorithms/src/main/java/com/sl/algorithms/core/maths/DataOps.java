@@ -1,4 +1,4 @@
-package com.sl.algorithms.maths;
+package com.sl.algorithms.core.maths;
 
 public class DataOps {
 
@@ -6,19 +6,6 @@ public class DataOps {
         /**
          * This is a utility class.<br>
          */
-    }
-
-    // handle overflow while reversing a given integer
-    public static int reverse(int x) {
-        long reverse = 0;
-        while (x != 0) {
-            reverse = reverse * 10 + x % 10;
-            if (reverse > Integer.MAX_VALUE || reverse < Integer.MIN_VALUE) {
-                return 0;
-            }
-            x = x / 10;
-        }
-        return (int) reverse;
     }
 
     /**
