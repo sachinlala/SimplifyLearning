@@ -1,9 +1,10 @@
 package com.sl.algorithms.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class ArrayOps {
+public class ArrayOps<T> {
 
     private ArrayOps() {
         /**
@@ -36,6 +37,20 @@ public class ArrayOps {
     }
 
     public static boolean areEqual(int[] nums1, int[] nums2) {
+        if (nums1.length != nums2.length) {
+            return false;
+        }
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        for (int i=0; i<nums1.length; i++) {
+            if (nums1[i] != nums2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean areEqualBasedOnList(int[] nums1, int[] nums2) {
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {
             list1.add(num);
@@ -47,8 +62,8 @@ public class ArrayOps {
         return areEqual(list1, list2);
     }
 
-    public static boolean areEqual(List<Integer> list1, List<Integer> list2) {
-        List<Integer> intersection = new ArrayList<>(list1);
+    public static boolean areEqual(List<?> list1, List<?> list2) {
+        List<?> intersection = new ArrayList<>(list1);
         intersection.removeAll(list2);
         if (intersection.size() == 0) {
             intersection = new ArrayList<>(list2);

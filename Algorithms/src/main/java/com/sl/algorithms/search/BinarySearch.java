@@ -17,11 +17,11 @@ public class BinarySearch {
         int start=0, end=sortedInput.length-1;
         while (start <= end) { // the equality check here is KEY!
             int midPoint = Formulas.midPoint(start, end);
-            int currValue = sortedInput[midPoint];
-            if (currValue == numberToSearch) {
+            int midValue = sortedInput[midPoint];
+            if (midValue == numberToSearch) {
                 return midPoint;
             }
-            if (currValue > numberToSearch) {
+            if (midValue > numberToSearch) {
                 end = midPoint-1;
             } else {
                 start = midPoint+1;
@@ -40,11 +40,11 @@ public class BinarySearch {
             return NUMBER_NOT_FOUND;
         }
         int midPoint = Formulas.midPoint(start, end);
-        int currValue = sortedInput[midPoint];
-        if (currValue == numberToSearch) {
+        int midValue = sortedInput[midPoint];
+        if (midValue == numberToSearch) {
             return midPoint;
         }
-        if (currValue > numberToSearch) {
+        if (midValue > numberToSearch) {
             return findIndexRecursively(sortedInput, numberToSearch, start, midPoint-1);
         } else {
             return findIndexRecursively(sortedInput, numberToSearch, midPoint+1, end);

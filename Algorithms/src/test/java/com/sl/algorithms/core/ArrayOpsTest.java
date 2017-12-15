@@ -22,6 +22,7 @@ public class ArrayOpsTest {
         int[] nums1 = {1, 2, 3, 4, 5};
         int[] nums2 = {1, 2, 3, 4, 5};
         Assert.assertTrue(areEqual(nums1, nums2));
+        Assert.assertTrue(areEqualBasedOnList(nums1, nums2));
 
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {
@@ -39,6 +40,7 @@ public class ArrayOpsTest {
         int[] nums1 = {1, 2, 3, 4, 5};
         int[] nums2 = {1, 2, 3, 4, 5, 6};
         Assert.assertFalse(areEqual(nums1, nums2));
+        Assert.assertFalse(areEqualBasedOnList(nums1, nums2));
 
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {

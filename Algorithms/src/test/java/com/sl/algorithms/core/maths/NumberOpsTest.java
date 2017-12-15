@@ -137,4 +137,14 @@ public class NumberOpsTest {
         Assert.assertEquals(1999999999, convertToNumberUsingPower(new int[]{1,9,9,9,9,9,9,9,9,9}));
         Assert.assertEquals(-1, convertToNumberUsingPower(new int[]{9,1,9,9,9,9,9,9,9,9}));
     }
+
+    @Test
+    public void testPlusOne() {
+        Assert.assertEquals("[]", printArray(plusOne(null)));
+        Assert.assertEquals("[2]", printArray(plusOne(new int[]{1})));
+        Assert.assertEquals("[1,0]", printArray(plusOne(new int[]{9})));
+        Assert.assertEquals("[2,0]", printArray(plusOne(new int[]{1, 9})));
+        Assert.assertEquals("[1,0,0]", printArray(plusOne(new int[]{9, 9})));
+        Assert.assertEquals("[1,0,0,0]", printArray(plusOne(new int[]{9, 9, 9})));
+    }
 }
