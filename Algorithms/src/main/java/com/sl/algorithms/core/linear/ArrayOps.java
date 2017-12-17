@@ -12,6 +12,7 @@ public class ArrayOps<T> {
          */
     }
 
+    //O(n)
     public static String printArray(int[] a) {
         if (a == null || a.length == 0) {
             return "[]";
@@ -36,6 +37,7 @@ public class ArrayOps<T> {
         return a;
     }
 
+    // O(nlog(n))
     public static boolean areEqual(int[] nums1, int[] nums2) {
         if (nums1.length != nums2.length) {
             return false;

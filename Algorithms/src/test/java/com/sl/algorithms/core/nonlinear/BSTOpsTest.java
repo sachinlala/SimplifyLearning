@@ -12,9 +12,13 @@ public class BSTOpsTest extends BSTOps {
 
     @Test
     public void testIsValidBST() {
-        TreeNode<Integer> bstNull = null;
+        TreeNode<Integer> bstNull = createBSTFromSortedArray(null);
         Assert.assertTrue(isBST(bstNull));
         Assert.assertEquals("[]", printTree(bstNull));
+
+        TreeNode<Integer> bstEmpty = createBSTFromSortedArray(new int[]{});
+        Assert.assertTrue(isBST(bstEmpty));
+        Assert.assertEquals("[]", printTree(bstEmpty));
 
         int[] a1 = {1};
         TreeNode<Integer> bst1 = createBSTFromSortedArray(a1);
@@ -42,6 +46,11 @@ public class BSTOpsTest extends BSTOps {
         Assert.assertEquals("[31245]", printTree(bst5));
         Assert.assertEquals(printTree(bst5), printTree(findNode(bst5, 3)));
         Assert.assertEquals(new TreeNode<>(2), findNode(bst5, 2));
+    }
+
+    @Test
+    public void testConvertToSortedArrayNull() {
+        Assert.assertEquals("[]", printArray(convertToSortedArray(null)));
     }
 
     @Test
@@ -82,7 +91,9 @@ public class BSTOpsTest extends BSTOps {
 
         int[] a = {1,2,3,4,5};
         TreeNode<Integer> bstNode = createBSTFromSortedArray(a);
+        Assert.assertTrue(findNode(bstNode, 6) == null);
         Assert.assertTrue(findNode(bstNode, 2).equals(new TreeNode<>(2)));
+        Assert.assertTrue(findNode(bstNode, 2).hashCode() == new TreeNode<>(2).hashCode());
 
         Assert.assertTrue(findMinimum(bstNode).value == 1);
         Assert.assertTrue(findMaximum(bstNode).value == 5);

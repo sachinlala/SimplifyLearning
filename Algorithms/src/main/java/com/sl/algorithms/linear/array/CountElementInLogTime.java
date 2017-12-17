@@ -8,6 +8,7 @@ public class CountElementInLogTime {
          */
     }
 
+    // for reference only: O(n) time
     public static int countTargetElement(int[] nums, int target) {
         int count = 0;
         for (int num : nums) {
@@ -34,32 +35,36 @@ public class CountElementInLogTime {
     }
 
     private static int findMinIndex(int[] nums, int start, int end, int target) {
+        int minIndex = -1;
         while (start <= end) {
             int midPoint = start+(end-start)/2;
             int midValue = nums[midPoint];
             if (midValue == target && (midPoint==0 || target > nums[midPoint-1])) {
-                return midPoint;
+                minIndex = midPoint;
+                break;
             } else if (midValue < target) {
                 start = midPoint+1;
             } else {
                 end = midPoint-1;
             }
         }
-        return -1;
+        return minIndex;
     }
 
     private static int findMaxIndex(int[] nums, int start, int end, int target) {
+        int maxIndex = -1;
         while (start <= end) {
             int midPoint = start+(end-start)/2;
             int midValue = nums[midPoint];
             if (midValue == target && (midPoint==nums.length-1 || target < nums[midPoint+1])) {
-                return midPoint;
+                maxIndex = midPoint;
+                break;
             } else if (midValue > target) {
                 end = midPoint-1;
             } else {
                 start = midPoint+1;
             }
         }
-        return -1;
+        return maxIndex;
     }
 }

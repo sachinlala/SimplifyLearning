@@ -19,8 +19,12 @@ public class ArrayOpsTest extends ArrayOps<Integer> {
     public void testAreEqual() {
         int[] nums1 = {1, 2, 3, 4, 5};
         int[] nums2 = {1, 2, 3, 4, 5};
+        int[] nums3 = {1, 3, 4};
         Assert.assertTrue(areEqual(nums1, nums2));
         Assert.assertTrue(areEqualBasedOnList(nums1, nums2));
+
+        Assert.assertFalse(areEqual(nums1, nums3));
+        Assert.assertFalse(areEqual(nums3, nums2));
 
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {

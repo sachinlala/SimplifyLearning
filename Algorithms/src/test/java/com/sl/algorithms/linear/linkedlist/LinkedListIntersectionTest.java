@@ -8,12 +8,23 @@ import org.junit.Test;
 public class LinkedListIntersectionTest extends LinkedListIntersection {
 
     @Test
-    public void testGetIntersectionNode() {
+    public void testGetIntersectionNodeNull() {
         Assert.assertTrue(getIntersectionNode(null, null) == null);
-        ListNode<Integer> list1 = LinkedListOps.createLinkedList(new int[]{1,2,3,4,5});
+    }
+
+    @Test
+    public void testGetIntersectionNodeNothingCommon() {
+        ListNode<Integer> list1 = LinkedListOps.createLinkedList(new int[]{1, 2, 3, 4, 5});
+        ListNode<Integer> list2 = LinkedListOps.createLinkedList(new int[]{-1, -2, 0});
         Assert.assertTrue(getIntersectionNode(list1, null) == null);
-        ListNode<Integer> list2 = LinkedListOps.createLinkedList(new int[]{-1,-2,0});
         Assert.assertTrue(getIntersectionNode(null, list2) == null);
+        Assert.assertTrue(getIntersectionNode(list1, list2) == null);
+    }
+
+        @Test
+    public void testGetIntersectionNode() {
+        ListNode<Integer> list1 = LinkedListOps.createLinkedList(new int[]{1,2,3,4,5});
+        ListNode<Integer> list2 = LinkedListOps.createLinkedList(new int[]{-1,-2,0});
         ListNode<Integer> ptr1 = list1;
         int delta = 0;
         while (delta < 2) {
@@ -26,5 +37,6 @@ public class LinkedListIntersectionTest extends LinkedListIntersection {
         }
         ptr2.next = ptr1;
         Assert.assertTrue(getIntersectionNode(list1, list2).data == 3);
+        Assert.assertTrue(getIntersectionNode(list2, list1).data == 3);
     }
 }

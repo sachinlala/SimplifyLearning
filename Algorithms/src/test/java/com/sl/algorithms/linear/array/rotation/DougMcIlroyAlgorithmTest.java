@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear.array;
+package com.sl.algorithms.linear.array.rotation;
 
 import org.junit.Assert;
 import org.junit.Test;

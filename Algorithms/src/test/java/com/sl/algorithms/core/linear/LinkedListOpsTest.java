@@ -23,6 +23,7 @@ public class LinkedListOpsTest extends LinkedListOps {
         Assert.assertEquals("[12345]", printList(createLinkedList(nums)));
         Assert.assertEquals("[]", printList(createLinkedList(null)));
         Assert.assertEquals("[]", printList(createLinkedList(new int[]{})));
+        Assert.assertEquals("[1]", printList(createLinkedList(new int[]{1})));
     }
 
     @Test
@@ -35,8 +36,13 @@ public class LinkedListOpsTest extends LinkedListOps {
         Assert.assertFalse(testNode.equals(null));
         Assert.assertFalse(testNode.equals(new Object()));
         Assert.assertFalse(testNode.equals(createLinkedList(null)));
-        Assert.assertFalse(createLinkedList(new int[]{1,2,3}).equals(testNode));
-        Assert.assertTrue(createLinkedList(new int[]{1,2,3,4,5}).equals(testNode));
+
+        ListNode<Integer> list1 = createLinkedList(new int[]{1,2,3});
+        Assert.assertFalse(list1.equals(testNode));
+
+        ListNode<Integer> list2 = createLinkedList(new int[]{1,2,3,4,5});
+        Assert.assertTrue(list2.equals(testNode));
+        Assert.assertTrue(list2.hashCode() == testNode.hashCode());
     }
 
     @Test
