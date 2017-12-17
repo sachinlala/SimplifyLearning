@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.maths;
 
-import com.sl.algorithms.core.ArrayOps;
+import com.sl.algorithms.core.linear.ArrayOps;
 import org.junit.Assert;
 import org.junit.Test;
 

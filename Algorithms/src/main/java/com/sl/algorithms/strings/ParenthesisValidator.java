@@ -15,19 +15,12 @@ public class ParenthesisValidator {
 
     // O(n) time, O(1) space
     public static boolean isValidParenthesis(String str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        }
+        if (str == null || str.length() == 0) return true;
         int counter = 0;
         for (char ch : str.toCharArray()) {
-            if (ch == '(') {
-                counter++;
-            } else {
-                counter--;
-            }
-            if (counter < 0) {
-                return false;
-            }
+            if (ch == '(') counter++;
+            else counter--;
+            if (counter < 0) return false;
         }
         return (counter == 0);
     }
@@ -46,9 +39,7 @@ public class ParenthesisValidator {
      */
     public static boolean isValidParenthesisWildChar(String str) {
         // O(n) time, O(1) space
-        if (str == null || str.length() == 0) {
-            return true;
-        }
+        if (str == null || str.length() == 0) return true;
         int minimumOpenBraces = 0, maximumOpenBraces = 0;
         for (char c : str.toCharArray()) {
             if (c == '(') {
@@ -88,9 +79,7 @@ public class ParenthesisValidator {
      */
     public static boolean isValidParenthesisPairs(String s) {
         // O(n) time, O(n) space
-        if (s == null || s.length() == 0) {
-            return false;
-        }
+        if (s == null || s.length() == 0) return false;
         Deque<Character> stack = new ArrayDeque<>();
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);

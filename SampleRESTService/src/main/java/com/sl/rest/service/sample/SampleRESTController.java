@@ -1,6 +1,6 @@
 package com.sl.rest.service.sample;
 
-import com.sl.algorithms.search.BinarySearch;
+import com.sl.algorithms.core.BinarySearch;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -20,7 +20,7 @@ public class SampleRESTController {
     }
 
     /**
-     * Apply Binary Search to find the position of a number in a sorted array.
+     * Apply Binary Search to find the position of a number in a sorted linear.
      */
     @RequestMapping(method = RequestMethod.GET, path = "/binarySearch/[{sortedInput}]")
     public BinarySearchResult searchBinary(@PathVariable int[] sortedInput,

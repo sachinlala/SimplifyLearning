@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.maths.NumberOps.*;
-import static com.sl.algorithms.core.ArrayOps.printArray;
+import static com.sl.algorithms.core.linear.ArrayOps.printArray;
 
 public class NumberOpsTest {
 
