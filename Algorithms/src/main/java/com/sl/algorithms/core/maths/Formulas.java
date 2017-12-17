@@ -146,9 +146,12 @@ public class Formulas {
         return (number == reverse || number == reverse/10);
     }
 
+/*
+    // for reference only
     public static List<Integer> printArmstrongNumbers() throws InterruptedException {
         return printArmstrongNumbers(Integer.MAX_VALUE);
     }
+*/
 
     public static List<Integer> printArmstrongNumbers(int upperBound) throws InterruptedException {
         List<Integer> outputList = new ArrayList<>();

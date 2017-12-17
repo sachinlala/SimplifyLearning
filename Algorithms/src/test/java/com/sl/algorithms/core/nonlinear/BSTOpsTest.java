@@ -14,37 +14,37 @@ public class BSTOpsTest extends BSTOps {
     public void testIsValidBST() {
         TreeNode<Integer> bstNull = createBSTFromSortedArray(null);
         Assert.assertTrue(isBST(bstNull));
-        Assert.assertEquals("[]", printTree(bstNull));
+        Assert.assertEquals(null, bstNull);
 
         TreeNode<Integer> bstEmpty = createBSTFromSortedArray(new int[]{});
         Assert.assertTrue(isBST(bstEmpty));
-        Assert.assertEquals("[]", printTree(bstEmpty));
+        Assert.assertEquals(null, bstEmpty);
 
         int[] a1 = {1};
         TreeNode<Integer> bst1 = createBSTFromSortedArray(a1);
         Assert.assertTrue(isBST(bst1));
-        Assert.assertEquals("[1]", printTree(bst1));
+        Assert.assertEquals("1", bst1.toString());
 
         int[] a2 = {1,2};
         TreeNode<Integer> bst2 = createBSTFromSortedArray(a2);
         Assert.assertTrue(isBST(bst2));
-        Assert.assertEquals("[12]", printTree(bst2));
+        Assert.assertEquals("12", bst2.toString());
 
         int[] a3 = {1,2,3};
         TreeNode<Integer> bst3 = createBSTFromSortedArray(a3);
         Assert.assertTrue(isBST(bst3));
-        Assert.assertEquals("[213]", printTree(bst3));
+        Assert.assertEquals("213", bst3.toString());
 
         int[] a4 = {1,2,3,4};
         TreeNode<Integer> bst4 = createBSTFromSortedArray(a4);
         Assert.assertTrue(isBST(bst4));
-        Assert.assertEquals("[2134]", printTree(bst4));
+        Assert.assertEquals("2134", bst4.toString());
 
         int[] a5 = {1,2,3,4,5};
         TreeNode<Integer> bst5 = createBSTFromSortedArray(a5);
         Assert.assertTrue(isBST(bst5));
-        Assert.assertEquals("[31245]", printTree(bst5));
-        Assert.assertEquals(printTree(bst5), printTree(findNode(bst5, 3)));
+        Assert.assertEquals("31245", bst5.toString());
+        Assert.assertEquals(bst5, findNode(bst5, 3));
         Assert.assertEquals(new TreeNode<>(2), findNode(bst5, 2));
     }
 
@@ -67,7 +67,7 @@ public class BSTOpsTest extends BSTOps {
     public void testCreateBSTFromSortedList() {
         int[] a = {1,2,3,4,5};
         ListNode<Integer> listNode = LinkedListOps.createLinkedList(a);
-        TreeNode<Integer> bstNode = BSTOps.createBSTFromSortedList(listNode);
+        TreeNode<Integer> bstNode = createBSTFromSortedList(listNode);
         Assert.assertTrue(isBST(bstNode));
         Assert.assertEquals(computeHeight(bstNode), 3);
         int[] b = convertToSortedArray(bstNode);
@@ -91,9 +91,15 @@ public class BSTOpsTest extends BSTOps {
 
         int[] a = {1,2,3,4,5};
         TreeNode<Integer> bstNode = createBSTFromSortedArray(a);
-        Assert.assertTrue(findNode(bstNode, 6) == null);
-        Assert.assertTrue(findNode(bstNode, 2).equals(new TreeNode<>(2)));
-        Assert.assertTrue(findNode(bstNode, 2).hashCode() == new TreeNode<>(2).hashCode());
+
+        TreeNode<Integer> resultNode = findNode(bstNode, 6);
+        Assert.assertTrue(resultNode == null);
+
+        resultNode = findNode(bstNode, 2);
+        TreeNode<Integer> sampleNode = new TreeNode<>(2);
+        Assert.assertTrue(resultNode.equals(sampleNode));
+
+        Assert.assertTrue(resultNode.hashCode() == sampleNode.hashCode());
 
         Assert.assertTrue(findMinimum(bstNode).value == 1);
         Assert.assertTrue(findMaximum(bstNode).value == 5);
@@ -118,8 +124,6 @@ public class BSTOpsTest extends BSTOps {
         bstUpdated = addNode(bst, 0);
         Assert.assertTrue(isBST(bstUpdated));
         Assert.assertEquals(bstUpdated.toString(), "210345");
-        Assert.assertEquals(printTree(bstUpdated), "[210345]");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdated)), "[0,1,2,3,4,5]");
     }
 
     @Test
@@ -133,14 +137,10 @@ public class BSTOpsTest extends BSTOps {
         Assert.assertTrue(isBST(bstUpdated));
 
         Assert.assertEquals(bstUpdated.toString(), "21345");
-        Assert.assertEquals(printTree(bstUpdated), "[21345]");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdated)), "[1,2,3,4,5]");
 
         bstUpdated = addNodeIteratively(bst, 0);
         Assert.assertTrue(isBST(bstUpdated));
         Assert.assertEquals(bstUpdated.toString(), "210345");
-        Assert.assertEquals(printTree(bstUpdated), "[210345]");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdated)), "[0,1,2,3,4,5]");
     }
 
     @Test
@@ -151,16 +151,13 @@ public class BSTOpsTest extends BSTOps {
         TreeNode<Integer> bstUpdated = removeNode(createBSTFromSortedArray(a), 3);
         Assert.assertTrue(bstUpdated.value == 4);
         Assert.assertEquals(bstUpdated.toString(), "4125");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdated)), "[1,2,4,5]");
 
         TreeNode<Integer> bstUpdatedLeft = removeNode(createBSTFromSortedArray(a), 1);
         Assert.assertTrue(bstUpdatedLeft.value == 3);
         Assert.assertEquals(bstUpdatedLeft.toString(), "3245");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdatedLeft)), "[2,3,4,5]");
 
         TreeNode<Integer> bstUpdatedRight = removeNode(createBSTFromSortedArray(a), 4);
         Assert.assertTrue(bstUpdatedRight.value == 3);
         Assert.assertEquals(bstUpdatedRight.toString(), "3125");
-        Assert.assertEquals(printArray(convertToSortedArray(bstUpdatedRight)), "[1,2,3,5]");
     }
 }

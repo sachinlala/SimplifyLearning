@@ -90,8 +90,7 @@ public class BSTOps extends BTreeOps {
     public static TreeNode<Integer> findNode(TreeNode<Integer> root, int value) {
         if (root == null || root.value == value) return root;
         if (root.value < value) return findNode(root.right, value);
-        if (root.value > value) return findNode(root.left, value);
-        return null;
+        return findNode(root.left, value); //if (root.value > value)
     }
 
     public static TreeNode<Integer> findMinimum(TreeNode<Integer> root) {
