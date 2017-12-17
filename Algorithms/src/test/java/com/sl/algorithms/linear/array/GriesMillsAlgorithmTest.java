@@ -1,12 +1,11 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
-import static com.sl.algorithms.linear.GriesMillsAlgorithm.*;
 
-public class GriesMillsAlgorithmTest {
+public class GriesMillsAlgorithmTest extends GriesMillsAlgorithm {
 
     @Test
     public void testRotationBlockSwap() {

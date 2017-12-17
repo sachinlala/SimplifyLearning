@@ -1,12 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.BoyerMooreVoting.findMajorityElement;
-import static com.sl.algorithms.linear.BoyerMooreVoting.isMajority;
-
-public class BoyerMooreVotingTest {
+public class BoyerMooreVotingTest extends BoyerMooreVoting {
     @Test
     public void testBoyerMooreVoting() {
         int[] nums1 = new int[]{1}; // size=1, 1's count=1

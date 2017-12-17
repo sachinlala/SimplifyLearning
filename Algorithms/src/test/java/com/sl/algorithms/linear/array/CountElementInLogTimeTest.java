@@ -1,12 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.CountElementInLogTime.countTargetElement;
-import static com.sl.algorithms.linear.CountElementInLogTime.countTargetElementSorted;
-
-public class CountElementInLogTimeTest {
+public class CountElementInLogTimeTest extends CountElementInLogTime {
 
     @Test
     public void testCountTargetElementSorted() {

@@ -6,7 +6,7 @@ package com.sl.algorithms.core.nonlinear;
  */
 public class BTreeOps {
 
-    protected BTreeOps() {
+    BTreeOps() {
         /**
          * This is a utility class.<br>
          */

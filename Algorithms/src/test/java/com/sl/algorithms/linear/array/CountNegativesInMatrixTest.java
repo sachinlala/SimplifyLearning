@@ -1,11 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.CountNegativesInMatrix.findNegativeCount;
-
-public class CountNegativesInMatrixTest {
+public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
 
     @Test
     public void testFindNegativeCountMix() {

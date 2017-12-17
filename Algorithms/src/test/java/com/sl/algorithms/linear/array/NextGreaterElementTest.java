@@ -1,14 +1,13 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.NGECircularArray.findNGEInCircularArray;
-import static com.sl.algorithms.linear.NGERegularArray.findDaysToWarmth;
-import static com.sl.algorithms.linear.NextGreaterElement.findDaysToWarmthBruteForce;
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
+import static com.sl.algorithms.linear.array.NGECircularArray.findNGEInCircularArray;
+import static com.sl.algorithms.linear.array.NGERegularArray.findDaysToWarmth;
 
-public class NextGreaterElementTest {
+public class NextGreaterElementTest extends NextGreaterElement {
 
     @Test
     public void testFindDaysToWarmthBruteForce() {

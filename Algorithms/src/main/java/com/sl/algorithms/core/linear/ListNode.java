@@ -9,7 +9,7 @@ public class ListNode<T> {
     public T data;
     public ListNode<T> next;
 
-    ListNode(T _data) {
+    public ListNode(T _data) {
         data = _data;
         next = null;
     }

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Formulas {
 
-    private Formulas() {
+    Formulas() {
         /**
          * This is a utility class.<br>
          */

@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 /**
  * <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm">Boyer Moore Voting Algorithm</a>
@@ -7,7 +7,7 @@ package com.sl.algorithms.linear;
  */
 public class BoyerMooreVoting {
 
-    private BoyerMooreVoting() {
+    BoyerMooreVoting() {
         /**
          * This is a utility class.<br>
          */

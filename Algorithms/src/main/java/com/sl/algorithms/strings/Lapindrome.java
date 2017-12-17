@@ -2,7 +2,7 @@ package com.sl.algorithms.strings;
 
 public class Lapindrome {
 
-    private Lapindrome() {
+    Lapindrome() {
         /**
          * This is a utility class.<br>
          */

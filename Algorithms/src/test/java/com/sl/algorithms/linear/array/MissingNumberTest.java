@@ -1,11 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.MissingNumber.*;
-
-public class MissingNumberTest {
+public class MissingNumberTest extends MissingNumber {
     @Test
     public void testFindSmallestMissingNumberSorted() {
         Assert.assertEquals(0, findSmallestMissingNumberSorted(new int[]{}));

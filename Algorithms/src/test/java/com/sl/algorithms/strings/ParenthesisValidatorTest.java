@@ -3,7 +3,7 @@ package com.sl.algorithms.strings;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ParenthesisValidatorTest {
+public class ParenthesisValidatorTest extends ParenthesisValidator {
     @Test
     public void assertIsValidParenthesis() {
         Assert.assertTrue(ParenthesisValidator.isValidParenthesis(null));

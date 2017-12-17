@@ -1,14 +1,11 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
 
-import static com.sl.algorithms.linear.DougMcIlroyAlgorithm.rotateLeftByReversal;
-import static com.sl.algorithms.linear.DougMcIlroyAlgorithm.rotateRightByReversal;
-
-public class DougMcIlroyAlgorithmTest {
+public class DougMcIlroyAlgorithmTest extends DougMcIlroyAlgorithm {
     @Test
     public void testRotationLeftByReversal() {
         Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeftByReversal(new int[]{1, 2, 3, 4, 5}, 1)));

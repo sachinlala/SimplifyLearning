@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.linear.LinkedListOps.*;
-
-public class LinkedListOpsTest {
+public class LinkedListOpsTest extends LinkedListOps {
     private ListNode<Integer> testNode;
 
     @Before

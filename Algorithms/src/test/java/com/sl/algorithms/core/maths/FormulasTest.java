@@ -7,9 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sl.algorithms.core.maths.Formulas.*;
-
-public class FormulasTest {
+public class FormulasTest extends Formulas {
     @Test
     public void midPointTest() {
         Assert.assertEquals(1, midPoint(1, 2));

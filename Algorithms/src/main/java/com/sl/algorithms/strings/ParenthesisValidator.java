@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ParenthesisValidator {
 
-    private ParenthesisValidator() {
+    ParenthesisValidator() {
         /**
          * This is a utility class.<br>
          */

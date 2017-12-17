@@ -1,11 +1,11 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
 
-public class ProductExceptSelfTest {
+public class ProductExceptSelfTest extends ProductExceptSelf {
     @Test
     public void testProductExceptSelf() {
         Assert.assertEquals("[]", printArray(ProductExceptSelf.productExceptSelf(null)));

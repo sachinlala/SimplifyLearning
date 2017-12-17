@@ -2,7 +2,7 @@ package com.sl.algorithms.core.maths;
 
 public class DataOps {
 
-    private DataOps() {
+    DataOps() {
         /**
          * This is a utility class.<br>
          */

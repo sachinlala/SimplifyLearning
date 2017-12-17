@@ -5,7 +5,7 @@ import java.util.Deque;
 
 public class Codec {
 
-    private Codec() {
+    Codec() {
         /**
          * This is a utility class.<br>
          */

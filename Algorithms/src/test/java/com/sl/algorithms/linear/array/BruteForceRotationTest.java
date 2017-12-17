@@ -1,12 +1,11 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
-import static com.sl.algorithms.linear.BruteForceRotation.*;
 
-public class BruteForceRotationTest {
+public class BruteForceRotationTest extends BruteForceRotation {
     @Test
     public void testRotationLeft() {
         Assert.assertEquals("[2,3,4,5,1]", printArray(rotateLeft(new int[]{1, 2, 3, 4, 5}, 1)));

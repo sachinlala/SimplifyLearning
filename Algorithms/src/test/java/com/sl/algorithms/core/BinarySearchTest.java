@@ -3,9 +3,7 @@ package com.sl.algorithms.core;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.BinarySearch.*;
-
-public class BinarySearchTest {
+public class BinarySearchTest extends BinarySearch {
 
     @Test
     public void testFindIndexRecursively() {

@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import com.sl.algorithms.core.linear.ArrayOps;
 
@@ -17,7 +17,7 @@ import static com.sl.algorithms.core.maths.NumberOps.countDigits;
  * <br><a href="https://leetcode.com/problems/next-greater-element-iii/description/">Variant 3</a>
  */
 public class NextGreaterElement {
-    private NextGreaterElement() {
+    NextGreaterElement() {
         /**
          * This is a utility class.<br>
          */

@@ -1,8 +1,8 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 public class CountElementInLogTime {
 
-    private CountElementInLogTime() {
+    CountElementInLogTime() {
         /**
          * This is a utility class.<br>
          */

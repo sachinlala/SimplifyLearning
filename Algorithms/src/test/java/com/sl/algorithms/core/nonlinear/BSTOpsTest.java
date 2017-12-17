@@ -7,9 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
-import static com.sl.algorithms.core.nonlinear.BSTOps.*;
 
-public class BSTOpsTest {
+public class BSTOpsTest extends BSTOps {
 
     @Test
     public void testIsValidBST() {

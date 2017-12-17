@@ -8,7 +8,7 @@ import com.sl.algorithms.core.linear.ListNode;
  */
 public class BSTOps extends BTreeOps {
 
-    private BSTOps() {
+    BSTOps() {
         /**
          * This is a utility class.<br>
          */

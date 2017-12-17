@@ -1,12 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.NarayanPanditAlgorithm.findNGNSameDigits;
-import static com.sl.algorithms.linear.NarayanPanditAlgorithm.findNGNSameDigits10s;
-
-public class NarayanPanditAlgorithmTest {
+public class NarayanPanditAlgorithmTest extends NarayanPanditAlgorithm {
 
     @Test
     public void testNGNSameDigits10s() {

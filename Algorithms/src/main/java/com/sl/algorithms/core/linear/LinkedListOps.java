@@ -2,7 +2,7 @@ package com.sl.algorithms.core.linear;
 
 public class LinkedListOps {
 
-    private LinkedListOps() {
+    LinkedListOps() {
         /**
          * This is a utility class.<br>
          */

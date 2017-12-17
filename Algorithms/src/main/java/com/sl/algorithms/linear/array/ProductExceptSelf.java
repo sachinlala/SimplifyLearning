@@ -1,8 +1,8 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 public class ProductExceptSelf {
 
-    private ProductExceptSelf() {
+    ProductExceptSelf() {
         /**
          * This is a utility class.<br>
          */

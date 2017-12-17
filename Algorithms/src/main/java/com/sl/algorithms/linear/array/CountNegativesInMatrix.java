@@ -1,8 +1,8 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 public class CountNegativesInMatrix {
 
-    private CountNegativesInMatrix() {
+    CountNegativesInMatrix() {
         /**
          * This is a utility class.<br>
          */

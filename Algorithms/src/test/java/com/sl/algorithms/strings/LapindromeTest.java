@@ -3,7 +3,7 @@ package com.sl.algorithms.strings;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LapindromeTest {
+public class LapindromeTest extends Lapindrome {
     @Test
     public void assertNull() {
         Assert.assertFalse(Lapindrome.isLapindrome(null));

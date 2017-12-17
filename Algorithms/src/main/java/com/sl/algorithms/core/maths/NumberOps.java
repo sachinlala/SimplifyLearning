@@ -7,7 +7,7 @@ import static com.sl.algorithms.core.maths.Formulas.*;
 
 public class NumberOps {
 
-    private NumberOps() {
+    NumberOps() {
         /**
          * This is a utility class.<br>
          */

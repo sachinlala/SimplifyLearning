@@ -1,11 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.PeakElement.*;
-
-public class PeakElementTest {
+public class PeakElementTest extends PeakElement {
 
     @Test
     public void testPeakElement() {

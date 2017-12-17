@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import com.sl.algorithms.core.maths.Formulas;
 
@@ -6,7 +6,7 @@ import com.sl.algorithms.core.maths.Formulas;
  * Given an linear which is in ascending order till some point and then descending order till end, find peak element.<br>
  */
 public class PeakElement {
-    private PeakElement() {
+    PeakElement() {
         /**
          * This is a utility class.<br>
          */
@@ -35,7 +35,7 @@ public class PeakElement {
     }
 
     /**
-     * Logarithmic time to find peak in an linear where values ascends and then descend.<br>
+     * Logarithmic time to find peak in an array where values ascend and then descend.<br>
      * // O(log(n))
      */
     public static int findPeakElementInLogTime(int[] nums) {

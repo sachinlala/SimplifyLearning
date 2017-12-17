@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ArrayOps<T> {
 
-    private ArrayOps() {
+    ArrayOps() {
         /**
          * This is a utility class.<br>
          */

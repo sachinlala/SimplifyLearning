@@ -1,11 +1,9 @@
-package com.sl.algorithms.linear;
+package com.sl.algorithms.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.linear.KadaneAlgorithm.*;
-
-public class KadaneAlgorithmTest {
+public class KadaneAlgorithmTest extends KadaneAlgorithm {
     @Test
     public void testFindMaxContiguousSumSubArray() {
         Assert.assertEquals(15, findMaxContiguousSumSubArray(new int[]{1, 2, 3, 4, 5}));

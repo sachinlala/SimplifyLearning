@@ -6,9 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sl.algorithms.core.linear.ArrayOps.*;
-
-public class ArrayOpsTest {
+public class ArrayOpsTest extends ArrayOps<Integer> {
     @Test
     public void testReverse() {
         int[] a = {1, 2, 3, 4, 5, 6};

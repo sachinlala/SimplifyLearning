@@ -3,10 +3,9 @@ package com.sl.algorithms.core.maths;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.maths.NumberOps.*;
 import static com.sl.algorithms.core.linear.ArrayOps.printArray;
 
-public class NumberOpsTest {
+public class NumberOpsTest extends NumberOps {
 
     @Test
     public void testCountDigits() {

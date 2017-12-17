@@ -6,7 +6,7 @@ public class BinarySearch {
 
     public static final int NUMBER_NOT_FOUND = -1;
 
-    private BinarySearch() {
+    BinarySearch() {
         /**
          * This is a utility class.<br>
          */

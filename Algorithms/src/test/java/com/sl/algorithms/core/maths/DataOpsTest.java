@@ -3,9 +3,7 @@ package com.sl.algorithms.core.maths;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.maths.DataOps.atoi;
-
-public class DataOpsTest {
+public class DataOpsTest extends DataOps {
 
     @Test
     public void assertAtoi() {
