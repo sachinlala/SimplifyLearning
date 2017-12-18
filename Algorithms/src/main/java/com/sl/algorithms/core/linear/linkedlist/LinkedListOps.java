@@ -90,20 +90,19 @@ public class LinkedListOps<T> {
 
     // O(n)
     public static <T> ListNode<T> removeData(ListNode<T> head, T data) {
-        ListNode<T> prev = null;
-        ListNode<T> curr = head;
+        ListNode<T> dummyNode = ListNode.dummyNode();
+        dummyNode.next = head;
+
+        ListNode<T> prev=dummyNode, curr=head;
         while (curr != null) {
             if (curr.data == data) {
-                if (prev == null) {
-                    head = curr.next;
-                    return head;
-                }
                 prev.next = curr.next;
+            } else {
+                prev = curr;
             }
-            prev = curr;
             curr = curr.next;
         }
-        return head;
+        return dummyNode.next;
     }
 
     public static <T> boolean isIdentical(ListNode<T> a, ListNode<T> b) {

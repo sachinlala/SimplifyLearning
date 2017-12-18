@@ -77,6 +77,12 @@ public class LinkedListOpsTest extends LinkedListOps {
 
         testNodeCopy = cloneList(testNode);
         Assert.assertEquals("[1234]", printList(removeData(testNodeCopy, 5)));
+
+        ListNode<Integer> listWithDupes1 = createLinkedList(new int[]{1,2,6,3,4,5,6});
+        Assert.assertEquals("[12345]", printList(removeData(listWithDupes1, 6)));
+
+        ListNode<Integer> listWithDupes2 = createLinkedList(new int[]{1,1});
+        Assert.assertNull(removeData(listWithDupes2, 1));
     }
 
     @Test

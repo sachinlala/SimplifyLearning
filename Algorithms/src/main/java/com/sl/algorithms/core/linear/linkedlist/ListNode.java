@@ -14,10 +14,20 @@ public class ListNode<T> {
         next = null;
     }
 
+    private ListNode() {
+        /**
+         * Only for dummy node creation utility method.<br>
+         */
+    }
+
     // O(n)
     public int getSize() {
         if (next == null) return 1;
         return (1 + next.getSize());
+    }
+
+    public static <T> ListNode<T> dummyNode() {
+        return new ListNode<>();
     }
 
     @Override
