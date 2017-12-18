@@ -29,6 +29,14 @@ public class LinkedListMergeTest extends LinkedListMerge {
         ListNode<Integer> newList2 = createLinkedList(new int[]{1,2,4,5,6});
         Assert.assertEquals("[12445566]", printList(mergeSortedLists(newList1, newList2)));
 
+        newList1 = createLinkedList(new int[]{1});
+        newList2 = createLinkedList(new int[]{1});
+        Assert.assertEquals("[11]", printList(mergeSortedLists(newList1, newList2)));
+
+        newList1 = createLinkedList(new int[]{1,2,3});
+        newList2 = createLinkedList(new int[]{1,2,3});
+        Assert.assertEquals("[112233]", printList(mergeSortedLists(newList1, newList2)));
+
         newList1 = createLinkedList(new int[]{1,2});
         newList2 = createLinkedList(new int[]{3,4,5,6});
         Assert.assertEquals("[123456]", printList(mergeSortedLists(newList1, newList2)));
