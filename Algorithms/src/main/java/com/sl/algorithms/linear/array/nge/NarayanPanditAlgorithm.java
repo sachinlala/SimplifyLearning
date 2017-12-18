@@ -1,6 +1,6 @@
 package com.sl.algorithms.linear.array.nge;
 
-import com.sl.algorithms.core.linear.ArrayOps;
+import com.sl.algorithms.core.linear.array.ArrayOps;
 
 import static com.sl.algorithms.core.maths.Formulas.haveSameDigitsAndLength;
 import static com.sl.algorithms.core.maths.NumberOps.convertToArray;

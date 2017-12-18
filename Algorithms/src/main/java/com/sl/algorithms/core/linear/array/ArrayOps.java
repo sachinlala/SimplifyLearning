@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linear;
+package com.sl.algorithms.core.linear.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;

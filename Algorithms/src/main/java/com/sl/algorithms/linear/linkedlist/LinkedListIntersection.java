@@ -1,6 +1,6 @@
 package com.sl.algorithms.linear.linkedlist;
 
-import com.sl.algorithms.core.linear.ListNode;
+import com.sl.algorithms.core.linear.linkedlist.ListNode;
 
 public class LinkedListIntersection {
 

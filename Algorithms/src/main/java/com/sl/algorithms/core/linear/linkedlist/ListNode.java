@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linear;
+package com.sl.algorithms.core.linear.linkedlist;
 
 import java.util.Objects;
 

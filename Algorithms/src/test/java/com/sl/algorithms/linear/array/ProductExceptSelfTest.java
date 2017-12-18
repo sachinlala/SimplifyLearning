@@ -3,7 +3,7 @@ package com.sl.algorithms.linear.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.linear.ArrayOps.printArray;
+import static com.sl.algorithms.core.linear.array.ArrayOps.printArray;
 
 public class ProductExceptSelfTest extends ProductExceptSelf {
     @Test

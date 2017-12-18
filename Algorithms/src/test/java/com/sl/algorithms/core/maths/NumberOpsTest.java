@@ -3,7 +3,7 @@ package com.sl.algorithms.core.maths;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.linear.ArrayOps.printArray;
+import static com.sl.algorithms.core.linear.array.ArrayOps.printArray;
 
 public class NumberOpsTest extends NumberOps {
 

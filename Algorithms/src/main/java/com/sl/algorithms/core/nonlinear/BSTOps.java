@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.nonlinear;
 
-import com.sl.algorithms.core.linear.ListNode;
+import com.sl.algorithms.core.linear.linkedlist.ListNode;
 
 /**
  * <a href="https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html">CMU</a><br>

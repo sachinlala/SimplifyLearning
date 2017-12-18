@@ -1,7 +1,7 @@
 package com.sl.algorithms.linear.linkedlist;
 
-import com.sl.algorithms.core.linear.LinkedListOps;
-import com.sl.algorithms.core.linear.ListNode;
+import com.sl.algorithms.core.linear.linkedlist.LinkedListOps;
+import com.sl.algorithms.core.linear.linkedlist.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
 

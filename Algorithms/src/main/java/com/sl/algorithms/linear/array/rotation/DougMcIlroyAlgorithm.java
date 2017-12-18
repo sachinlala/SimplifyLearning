@@ -1,6 +1,6 @@
 package com.sl.algorithms.linear.array.rotation;
 
-import static com.sl.algorithms.core.linear.ArrayOps.reverse;
+import static com.sl.algorithms.core.linear.array.ArrayOps.reverse;
 
 /**
  * <br><a href="https://en.wikipedia.org/wiki/Douglas_McIlroy">Doug McIlroy</a><br>
