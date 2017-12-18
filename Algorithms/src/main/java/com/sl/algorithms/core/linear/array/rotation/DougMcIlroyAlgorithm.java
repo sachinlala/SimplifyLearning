@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear.array.rotation;
+package com.sl.algorithms.core.linear.array.rotation;
 
 import static com.sl.algorithms.core.linear.array.ArrayOps.reverse;
 

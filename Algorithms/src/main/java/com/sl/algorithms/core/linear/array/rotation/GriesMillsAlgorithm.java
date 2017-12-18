@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear.array.rotation;
+package com.sl.algorithms.core.linear.array.rotation;
 
 /**
  * <a href="http://www.drdobbs.com/parallel/benchmarking-block-swapping-algorithms/232900395?pgno=2">Gries-Mills Block-Swap Algorithm</a>

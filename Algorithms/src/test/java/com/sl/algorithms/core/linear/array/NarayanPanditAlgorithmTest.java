@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear.array.nge;
+package com.sl.algorithms.core.linear.array;
 
 import org.junit.Assert;
 import org.junit.Test;

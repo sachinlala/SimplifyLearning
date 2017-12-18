@@ -16,18 +16,42 @@ public class ArrayOpsTest extends ArrayOps<Integer> {
     }
 
     @Test
-    public void testAreEqualNot() {
+    public void testAreEqual() {
         int[] nums1 = {4, 2, 5};
         int[] nums2 = {1, 3, 4};
         Assert.assertFalse(areEqual(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3, 0};
+        nums2 = new int[]{0, 1, 2, 3};
+        Assert.assertFalse(areEqual(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3, 0, 0};
+        nums2 = new int[]{0, 1, 2, 3};
+        Assert.assertFalse(areEqual(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3};
+        nums2 = new int[]{1, 2, 3};
+        Assert.assertTrue(areEqual(nums1, nums2));
     }
 
     @Test
-    public void testAreEqual() {
-        int[] nums1 = {1, 2, 3, 4, 5};
-        int[] nums2 = {1, 2, 3, 4, 5};
-        Assert.assertTrue(areEqual(nums1, nums2));
-        Assert.assertTrue(areEqualBasedOnList(nums1, nums2));
+    public void testHaveSameData() {
+        int[] nums1 = {4, 2, 5};
+        int[] nums2 = {1, 3, 4};
+        Assert.assertFalse(haveSameData(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3, 0};
+        nums2 = new int[]{0, 1, 2, 3};
+        Assert.assertTrue(haveSameData(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3, 0, 0};
+        nums2 = new int[]{0, 1, 2, 3};
+        Assert.assertFalse(haveSameData(nums1, nums2));
+
+        nums1 = new int[]{1, 2, 3};
+        nums2 = new int[]{1, 2, 3};
+        Assert.assertTrue(haveSameData(nums1, nums2));
+        Assert.assertTrue(haveSameDataBasedOnList(nums1, nums2));
 
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {
@@ -37,15 +61,15 @@ public class ArrayOpsTest extends ArrayOps<Integer> {
         for (int num : nums2) {
             list2.add(num);
         }
-        Assert.assertTrue(areEqual(list1, list2));
+        Assert.assertTrue(haveSameData(list1, list2));
     }
 
     @Test
-    public void testAreEqualNegative() {
+    public void testHaveSameDataNegative() {
         int[] nums1 = {1, 2, 3, 4, 5};
         int[] nums2 = {1, 2, 3, 4, 5, 6};
-        Assert.assertFalse(areEqual(nums1, nums2));
-        Assert.assertFalse(areEqualBasedOnList(nums1, nums2));
+        Assert.assertFalse(haveSameData(nums1, nums2));
+        Assert.assertFalse(haveSameDataBasedOnList(nums1, nums2));
 
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {
@@ -55,6 +79,6 @@ public class ArrayOpsTest extends ArrayOps<Integer> {
         for (int num : nums2) {
             list2.add(num);
         }
-        Assert.assertFalse(areEqual(list1, list2));
+        Assert.assertFalse(haveSameData(list1, list2));
     }
 }

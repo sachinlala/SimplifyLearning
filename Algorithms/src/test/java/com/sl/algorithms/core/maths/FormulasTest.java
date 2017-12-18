@@ -77,7 +77,7 @@ public class FormulasTest extends Formulas {
         try {
             List<Integer> armstrongList = printArmstrongNumbers(1000);
             Assert.assertEquals(13, armstrongList.size());
-            Assert.assertTrue(ArrayOps.areEqual(ARMSTRONG_NUMBERS_LIST, armstrongList));
+            Assert.assertTrue(ArrayOps.haveSameData(ARMSTRONG_NUMBERS_LIST, armstrongList));
         } catch (InterruptedException ie) {
             Assert.fail(ie.getMessage());
         }

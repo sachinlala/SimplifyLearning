@@ -60,7 +60,7 @@ public class BSTOpsTest extends BSTOps {
         Assert.assertTrue(isBST(bst));
         Assert.assertEquals(computeHeight(bst), 3);
         int[] b = convertToSortedArray(bst);
-        Assert.assertTrue(ArrayOps.areEqual(a, b));
+        Assert.assertTrue(ArrayOps.haveSameData(a, b));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class BSTOpsTest extends BSTOps {
         Assert.assertTrue(isBST(bstNode));
         Assert.assertEquals(computeHeight(bstNode), 3);
         int[] b = convertToSortedArray(bstNode);
-        Assert.assertTrue(ArrayOps.areEqual(a, b));
+        Assert.assertTrue(ArrayOps.haveSameData(a, b));
     }
 
     @Test

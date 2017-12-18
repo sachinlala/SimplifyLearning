@@ -1,4 +1,4 @@
-package com.sl.algorithms.linear.array.rotation;
+package com.sl.algorithms.core.linear.array.rotation;
 
 /**
  * <br>Problem: Rotate linear of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>

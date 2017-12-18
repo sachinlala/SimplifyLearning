@@ -1,11 +1,7 @@
-package com.sl.algorithms.linear.array.nge;
-
-import com.sl.algorithms.core.linear.array.ArrayOps;
+package com.sl.algorithms.core.linear.array;
 
 import static com.sl.algorithms.core.maths.Formulas.haveSameDigitsAndLength;
-import static com.sl.algorithms.core.maths.NumberOps.convertToArray;
-import static com.sl.algorithms.core.maths.NumberOps.convertToNumber;
-import static com.sl.algorithms.core.maths.NumberOps.countDigits;
+import static com.sl.algorithms.core.maths.NumberOps.*;
 
 /**
  * <a href="https://leetcode.com/problems/next-greater-element-iii/description/">Variant 3: Next Greater Number (NGN) with same digits</a>

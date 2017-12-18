@@ -37,8 +37,21 @@ public class ArrayOps<T> {
         return a;
     }
 
-    // O(nlog(n))
+    // O(n)
     public static boolean areEqual(int[] nums1, int[] nums2) {
+        if (nums1.length != nums2.length) {
+            return false;
+        }
+        for (int i=0; i<nums1.length; i++) {
+            if (nums1[i] != nums2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // O(nlog(n))
+    public static boolean haveSameData(int[] nums1, int[] nums2) {
         if (nums1.length != nums2.length) {
             return false;
         }
@@ -52,7 +65,7 @@ public class ArrayOps<T> {
         return true;
     }
 
-    public static boolean areEqualBasedOnList(int[] nums1, int[] nums2) {
+    public static boolean haveSameDataBasedOnList(int[] nums1, int[] nums2) {
         List<Integer> list1 = new ArrayList<>();
         for (int num : nums1) {
             list1.add(num);
@@ -61,10 +74,10 @@ public class ArrayOps<T> {
         for (int num : nums2) {
             list2.add(num);
         }
-        return areEqual(list1, list2);
+        return haveSameData(list1, list2);
     }
 
-    public static boolean areEqual(List<?> list1, List<?> list2) {
+    public static boolean haveSameData(List<?> list1, List<?> list2) {
         List<?> intersection = new ArrayList<>(list1);
         intersection.removeAll(list2);
         if (intersection.size() == 0) {
