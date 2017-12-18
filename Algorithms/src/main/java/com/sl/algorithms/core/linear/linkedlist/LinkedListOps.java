@@ -9,9 +9,7 @@ public class LinkedListOps {
     }
 
     public static ListNode<Integer> createLinkedList(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return null;
-        }
+        if (nums == null || nums.length == 0) return null;
         ListNode<Integer> head=null, curr=null, temp=null;
         head = new ListNode<>(nums[0]);
         if (nums.length == 1) {
@@ -28,22 +26,14 @@ public class LinkedListOps {
     }
 
     // O(n)
-    public static String printList(ListNode<Integer> node) {
-        StringBuilder output = new StringBuilder("[");
-        while (node != null) {
-            output = output.append(node.data);
-            node = node.next;
-        }
-        output.append("]");
-        return output.toString();
+    public static String printList(ListNode<?> node) {
+        return new StringBuilder("[").append(node != null ? node.toString() : "").append("]").toString();
     }
 
     // O(n)
-    public static int getSize(ListNode<Integer> head) {
-        if (head == null) {
-            return 0;
-        }
-        return (1 + getSize(head.next));
+    public static int getSize(ListNode<?> head) {
+        if (head == null) return 0;
+        return (1+getSize(head.next));
     }
 
     // O(1)
@@ -56,9 +46,7 @@ public class LinkedListOps {
 
     // O(1)
     public static ListNode<Integer> insertAfter(ListNode<Integer> node, int newData) {
-        if (node == null) {
-            return null;
-        }
+        if (node == null) return node;
         ListNode<Integer> newNode = new ListNode<>(newData);
         newNode.next = node.next;
         node.next = newNode;
@@ -68,9 +56,7 @@ public class LinkedListOps {
     // O(1)
     public static ListNode<Integer> insertAtPosition(ListNode<Integer> head, int data, int position) {
         ListNode<Integer> newNode = new ListNode<>(data);
-        if (head == null) {
-            return newNode;
-        }
+        if (head == null) return newNode;
         if (position == 0) {
             newNode.next = head;
             return newNode;
@@ -81,9 +67,7 @@ public class LinkedListOps {
             curr = curr.next;
             index++;
         }
-        if (index < position) { // handle overflow
-            return head;
-        }
+        if (index < position) return head; // handle overflow
         // now we've reached the required 'position'
         newNode.next = curr.next;
         curr.next = newNode;
@@ -93,9 +77,7 @@ public class LinkedListOps {
     // O(n)
     public static ListNode<Integer> insertAtEnd(ListNode<Integer> head, int newElement) {
         ListNode<Integer> newNode = new ListNode<>(newElement);
-        if (head == null) {
-            return newNode;
-        }
+        if (head == null) return newNode;
         ListNode<Integer> curr = head;
         while (curr.next != null) {
             curr = curr.next;
@@ -106,9 +88,7 @@ public class LinkedListOps {
 
     // O(1)
     public static ListNode<Integer> deleteAtStart(ListNode<Integer> head) {
-        if (head == null) {
-            return null;
-        }
+        if (head == null) return null;
         ListNode<Integer> temp = head;
         head = temp.next;
         return head;
@@ -136,9 +116,7 @@ public class LinkedListOps {
 
     // O(n)
     public static ListNode<Integer> deleteAtEnd(ListNode<Integer> head) {
-        if (head == null || head.next == null) {
-            return null;
-        }
+        if (head == null || head.next == null) return null;
         ListNode<Integer> temp = head;
         while (temp.next.next != null) {
             temp = temp.next;
@@ -181,13 +159,9 @@ public class LinkedListOps {
 
     // deep copy O(n)
     public static ListNode<Integer> cloneList(ListNode<Integer> head) {
-        if (head == null) {
-            return null;
-        }
+        if (head == null) return null;
         ListNode<Integer> deepCopy = new ListNode<>(head.data);
-        if (head.next == null) {
-            return deepCopy;
-        }
+        if (head.next == null) return deepCopy;
         ListNode<Integer> latest = new ListNode<>(head.next.data);
         deepCopy.next = latest;
         while (head.next.next != null) {

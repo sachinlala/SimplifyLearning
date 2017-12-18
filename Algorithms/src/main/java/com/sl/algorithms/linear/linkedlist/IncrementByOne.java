@@ -2,7 +2,7 @@ package com.sl.algorithms.linear.linkedlist;
 
 import com.sl.algorithms.core.linear.linkedlist.ListNode;
 
-import static com.sl.algorithms.core.linear.linkedlist.LinkedListReversal.reverseList;
+import static com.sl.algorithms.core.linear.linkedlist.LinkedListReversal.reverseListInGroups;
 
 public class IncrementByOne {
 
@@ -19,7 +19,7 @@ public class IncrementByOne {
         }
         int numberToAdd = 1;
         boolean addOne = true;
-        head = reverseList(head);
+        head = reverseListInGroups(head);
         ListNode<Integer> curr = head;
         while (curr != null && curr.next != null) {
             if (addOne) {
@@ -40,7 +40,7 @@ public class IncrementByOne {
                 curr.next = new ListNode<>(numberToAdd);
             }
         }
-        head = reverseList(head);
+        head = reverseListInGroups(head);
         return head;
     }
 }

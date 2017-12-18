@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static com.sl.algorithms.core.linear.linkedlist.LinkedListOps.*;
 
-class LinkedListReversalTest extends LinkedListReversal {
+public class LinkedListReversalTest extends LinkedListReversal {
     private ListNode<Integer> testNode;
 
     @Before
@@ -15,80 +15,62 @@ class LinkedListReversalTest extends LinkedListReversal {
     }
 
     @Test
-    public void testReverseNull() {
-        ListNode<Integer> newHead = reverseList(null);
-        Assert.assertEquals("[]", printList(newHead));
-    }
-
-    @Test
-    public void testReverseSingle() {
-        ListNode<Integer> newHead = reverseList(new ListNode<>(1));
-        Assert.assertEquals("[1]", printList(newHead));
-    }
-
-    @Test
-    public void testReversePair() {
-        ListNode<Integer> newHead = reverseList(createLinkedList(new int[]{1,2}));
-        Assert.assertEquals("[21]", printList(newHead));
-    }
-
-    @Test
     public void testReverse() {
-        ListNode<Integer> newHead = reverseList(testNode);
-        Assert.assertEquals("[54321]", printList(newHead));
+        Assert.assertEquals("[]", printList(reverseListInGroups(null)));
+
+        ListNode<Integer> singleNode = reverseListInGroups(new ListNode<>(1));
+        Assert.assertEquals("[1]", printList(singleNode));
+
+        ListNode<Integer> pair = reverseListInGroups(createLinkedList(new int[]{1,2}));
+        Assert.assertEquals("[21]", printList(pair));
+
+        Assert.assertEquals("[54321]", printList(reverseListInGroups(testNode)));
     }
 
     @Test
-    public void testPartialReverseNull() {
-        ListNode<Integer> newHead = reverseList(null, 1);
-        Assert.assertEquals("[]", printList(newHead));
+    public void testReverseRecursive() {
+        Assert.assertEquals("[]", printList(reverseListRecursive(null)));
+
+        ListNode<Integer> singleNode = reverseListRecursive(new ListNode<>(1));
+        Assert.assertEquals("[1]", printList(singleNode));
+
+        ListNode<Integer> pair = reverseListRecursive(createLinkedList(new int[]{1,2}));
+        Assert.assertEquals("[21]", printList(pair));
+
+        Assert.assertEquals("[54321]", printList(reverseListRecursive(testNode)));
     }
 
     @Test
-    public void testPartialReverseSingle() {
-        ListNode<Integer> newHead = reverseList(new ListNode<>(1), 1);
-        Assert.assertEquals("[1]", printList(newHead));
-    }
+    public void testReverseInGroups() {
+        Assert.assertNull(reverseListInGroups(null, 1));
 
-    @Test
-    public void testPartialReverseZeroIndex() {
-        ListNode<Integer> newHead = reverseList(testNode, 0);
-        Assert.assertEquals("[12345]", printList(newHead));
-    }
+        ListNode<Integer> singleNode = new ListNode<>(1);
+        Assert.assertTrue(singleNode.equals(reverseListInGroups(singleNode, 1)));
 
-    @Test
-    public void testPartialReverseOverflowIndex() {
-        ListNode<Integer> newHead = reverseList(testNode, 6);
-        Assert.assertEquals("[54321]", printList(newHead));
-    }
+        ListNode<Integer> pairNode = createLinkedList(new int[]{1,2});
+        Assert.assertEquals("[21]", printList(reverseListInGroups(pairNode, 2)));
+        pairNode = createLinkedList(new int[]{1,2});
+        Assert.assertEquals("[12]", printList(reverseListInGroups(pairNode, 3)));
 
-    @Test
-    public void testPartialReverse1() {
-        ListNode<Integer> newHead = reverseList(testNode, 1);
-        Assert.assertEquals("[12345]", printList(newHead));
-    }
+        ListNode<Integer> testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[12345]", printList(reverseListInGroups(testNodeDeepCopy, 0)));
 
-    @Test
-    public void testPartialReverse2() {
-        ListNode<Integer> newHead = reverseList(testNode, 2);
-        Assert.assertEquals("[21435]", printList(newHead));
-    }
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[12345]", printList(reverseListInGroups(testNodeDeepCopy, 1)));
 
-    @Test
-    public void testPartialReverse3() {
-        ListNode<Integer> newHead = reverseList(testNode, 3);
-        Assert.assertEquals("[32154]", printList(newHead));
-    }
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[21435]", printList(reverseListInGroups(testNodeDeepCopy, 2)));
 
-    @Test
-    public void testPartialReverse4() {
-        ListNode<Integer> newHead = reverseList(testNode, 4);
-        Assert.assertEquals("[43215]", printList(newHead));
-    }
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[32145]", printList(reverseListInGroups(testNodeDeepCopy, 3)));
 
-    @Test
-    public void testPartialReverseFull() {
-        ListNode<Integer> newHead = reverseList(testNode, 5);
-        Assert.assertEquals("[54321]", printList(newHead));
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[43215]", printList(reverseListInGroups(testNodeDeepCopy, 4)));
+
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[54321]", printList(reverseListInGroups(testNodeDeepCopy, 5)));
+
+        testNodeDeepCopy = cloneList(testNode);
+        Assert.assertEquals("[12345]", printList(reverseListInGroups(testNodeDeepCopy, 6)));
     }
 }

@@ -1,5 +1,7 @@
 package com.sl.algorithms.core.linear.linkedlist;
 
+import static com.sl.algorithms.core.linear.linkedlist.LinkedListOps.getSize;
+
 public class LinkedListReversal {
 
     LinkedListReversal() {
@@ -7,9 +9,10 @@ public class LinkedListReversal {
          * This is a utility class.<br>
          */
     }
-    // O(n)
-    public static ListNode<Integer> reverseList(ListNode<Integer> head) {
-        ListNode<Integer> prev = null, curr = head, next = null;
+
+    // O(n) time and O(1) space
+    public static ListNode<Integer> reverseListInGroups(ListNode<Integer> head) {
+        ListNode<Integer> prev=null, curr=head, next=null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -20,9 +23,18 @@ public class LinkedListReversal {
         return head;
     }
 
+    // O(n) time and O(n) space
+    public static ListNode<Integer> reverseListRecursive(ListNode<Integer> head) {
+        if (head == null || head.next == null) return head;
+        ListNode<Integer> ptr = reverseListInGroups(head.next);
+        head.next.next = head;
+        head.next = null;
+        return ptr;
+    }
+
     // O(n)
-    public static ListNode<Integer> reverseList(ListNode<Integer> head, int k) {
-        if (head == null || head.next == null) {
+    public static ListNode<Integer> reverseListInGroups(ListNode<Integer> head, int k) {
+        if (head == null || head.next == null || k > getSize(head) || k == 0) {
             return head;
         }
         ListNode<Integer> prev=null, curr=head, next=null;
@@ -34,12 +46,8 @@ public class LinkedListReversal {
             curr = next;
             i++;
         }
-        if (next != null) {
-            head.next = reverseList(next, k);
-        }
-        if (prev != null) {
-            head = prev;
-        }
+        head.next = reverseListInGroups(next, k);
+        head = prev;
         return head;
     }
 }
