@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.linear.linkedlist;
 
-public class LinkedListOps {
+public class LinkedListOps<T> {
 
     LinkedListOps() {
         /**
@@ -8,15 +8,25 @@ public class LinkedListOps {
          */
     }
 
+    // O(n)
+    public static <T> String printList(ListNode<T> node) {
+        StringBuilder listAsString = new StringBuilder("[");
+        listAsString.append((node != null) ? node.toString() : "");
+        listAsString.append("]");
+        return listAsString.toString();
+    }
+
+    //TODO: generify this
     public static ListNode<Integer> createLinkedList(int[] nums) {
         if (nums == null || nums.length == 0) return null;
-        ListNode<Integer> head=null, curr=null, temp=null;
-        head = new ListNode<>(nums[0]);
-        if (nums.length == 1) {
-            return head;
-        }
+
+        ListNode<Integer> head=new ListNode<>(nums[0]);
+        if (nums.length == 1) return head;
+
+        ListNode<Integer> curr, temp;
         curr = new ListNode<>(nums[1]);
         head.next = curr;
+
         for (int i=2; i<nums.length; i++) {
             temp = new ListNode<>(nums[i]);
             curr.next = temp;
@@ -25,110 +35,63 @@ public class LinkedListOps {
         return head;
     }
 
-    // O(n)
-    public static String printList(ListNode<?> node) {
-        return new StringBuilder("[").append(node != null ? node.toString() : "").append("]").toString();
-    }
-
-    // O(n)
-    public static int getSize(ListNode<?> head) {
-        if (head == null) return 0;
-        return (1+getSize(head.next));
-    }
-
-    // O(1)
-    public static ListNode<Integer> insertAtStart(ListNode<Integer> head, int newData) {
-        ListNode<Integer> newNode = new ListNode<>(newData);
-        newNode.next = head;
-        head = newNode;
-        return head;
-    }
-
-    // O(1)
-    public static ListNode<Integer> insertAfter(ListNode<Integer> node, int newData) {
-        if (node == null) return node;
-        ListNode<Integer> newNode = new ListNode<>(newData);
-        newNode.next = node.next;
-        node.next = newNode;
+    // at start of list, after a node or end of list
+    public static <T> ListNode<T> insertData(ListNode<T> node, T newData, OpPosition position) {
+        ListNode<T> newNode = new ListNode<>(newData);
+        if (node == null) { return newNode; }
+        switch (position) {
+            case START: { // O(1)
+                newNode.next = node;
+                node = newNode;
+                break;
+            }
+            case AFTER: { // O(1)
+                newNode.next = node.next;
+                node.next = newNode;
+                break;
+            }
+            case END: { // O(n)
+                ListNode<T> curr = node;
+                while (curr.next != null) {
+                    curr = curr.next;
+                }
+                curr.next = newNode;
+                break;
+            }
+        }
         return node;
     }
 
-    // O(1)
-    public static ListNode<Integer> insertAtPosition(ListNode<Integer> head, int data, int position) {
-        ListNode<Integer> newNode = new ListNode<>(data);
-        if (head == null) return newNode;
-        if (position == 0) {
-            newNode.next = head;
-            return newNode;
-        }
-        ListNode<Integer> curr = head;
-        int index = 1;
-        while (curr.next != null && index < position) {
-            curr = curr.next;
-            index++;
-        }
-        if (index < position) return head; // handle overflow
-        // now we've reached the required 'position'
-        newNode.next = curr.next;
-        curr.next = newNode;
-        return head;
-    }
-
-    // O(n)
-    public static ListNode<Integer> insertAtEnd(ListNode<Integer> head, int newElement) {
-        ListNode<Integer> newNode = new ListNode<>(newElement);
-        if (head == null) return newNode;
-        ListNode<Integer> curr = head;
-        while (curr.next != null) {
-            curr = curr.next;
-        }
-        curr.next = newNode;
-        return head;
-    }
-
-    // O(1)
-    public static ListNode<Integer> deleteAtStart(ListNode<Integer> head) {
-        if (head == null) return null;
-        ListNode<Integer> temp = head;
-        head = temp.next;
-        return head;
-    }
-
-    // O(1)
-    public static ListNode<Integer> deleteAtPosition(ListNode<Integer> head, int deleteIndex) {
-        ListNode<Integer> prev = null;
-        ListNode<Integer> curr = head;
-        int index = 1;
-        while (curr != null) {
-            if (index == deleteIndex) {
-                if (prev == null) {
-                    head = curr.next;
-                    return head;
-                }
-                prev.next = curr.next;
+    public static <T> ListNode<T> removeDataByPosition(ListNode<T> node, OpPosition position) {
+        if (node == null) { return node; }
+        switch (position) {
+            case START: { // O(1)
+                if (node.next == null) { return null; }
+                ListNode<T> temp = node;
+                node = temp.next;
+                break;
             }
-            prev = curr;
-            curr = curr.next;
-            index++;
+            case AFTER: { // O(1)
+                node.next = node.next.next;
+                break;
+            }
+            case END: { // O(n)
+                if (node.next == null) { return null; }
+                ListNode<T> temp = node;
+                while (temp.next.next != null) {
+                    temp = temp.next;
+                }
+                temp.next = null;
+                break;
+            }
         }
-        return head;
+        return node;
     }
 
     // O(n)
-    public static ListNode<Integer> deleteAtEnd(ListNode<Integer> head) {
-        if (head == null || head.next == null) return null;
-        ListNode<Integer> temp = head;
-        while (temp.next.next != null) {
-            temp = temp.next;
-        }
-        temp.next = null;
-        return head;
-    }
-
-    // O(n)
-    public static ListNode<Integer> deleteSpecificData(ListNode<Integer> head, int data) {
-        ListNode<Integer> prev = null;
-        ListNode<Integer> curr = head;
+    public static <T> ListNode<T> removeData(ListNode<T> head, T data) {
+        ListNode<T> prev = null;
+        ListNode<T> curr = head;
         while (curr != null) {
             if (curr.data == data) {
                 if (prev == null) {
@@ -143,7 +106,7 @@ public class LinkedListOps {
         return head;
     }
 
-    public static boolean isIdentical(ListNode<Integer> a, ListNode<Integer> b) {
+    public static <T> boolean isIdentical(ListNode<T> a, ListNode<T> b) {
         while (a != null && b != null) {
             if (a.data != b.data) {
                 break;
@@ -151,25 +114,35 @@ public class LinkedListOps {
             a = a.next;
             b = b.next;
         }
-        if (a == null && b == null) {
-            return true;
-        }
-        return false;
+        return a==null && b==null;
     }
 
     // deep copy O(n)
-    public static ListNode<Integer> cloneList(ListNode<Integer> head) {
+    public static <T> ListNode<T> cloneList(ListNode<T> head) {
         if (head == null) return null;
-        ListNode<Integer> deepCopy = new ListNode<>(head.data);
+
+        ListNode<T> deepCopy = new ListNode<>(head.data);
         if (head.next == null) return deepCopy;
-        ListNode<Integer> latest = new ListNode<>(head.next.data);
+
+        ListNode<T> latest = new ListNode<>(head.next.data);
         deepCopy.next = latest;
+
         while (head.next.next != null) {
-            ListNode<Integer> temp = new ListNode<>(head.next.next.data);
+            ListNode<T> temp = new ListNode<>(head.next.next.data);
             latest.next = temp;
             latest = temp;
             head = head.next;
         }
         return deepCopy;
+    }
+
+    public static int[] convertToArray(ListNode<Integer> head) {
+        int[] array = new int[head.getSize()];
+        ListNode<Integer> curr = head;
+        for (int i=0; i<array.length && curr != null; i++) {
+            array[i] = curr.data;
+            curr = curr.next;
+        }
+        return array;
     }
 }

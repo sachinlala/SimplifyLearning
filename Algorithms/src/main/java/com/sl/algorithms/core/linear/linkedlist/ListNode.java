@@ -14,6 +14,12 @@ public class ListNode<T> {
         next = null;
     }
 
+    // O(n)
+    public int getSize() {
+        if (next == null) return 1;
+        return (1 + next.getSize());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -37,14 +37,32 @@ public class LinkedListRotationTest extends LinkedListRotation {
     @Test
     public void testRotateLeft() {
         Assert.assertEquals("[23451]", printList(rotateListLeft(testNode, 1)));
+
+        createList();
         Assert.assertEquals("[34512]", printList(rotateListLeft(testNode, 2)));
+
+        createList();
         Assert.assertEquals("[45123]", printList(rotateListLeft(testNode, 3)));
+
+        createList();
         Assert.assertEquals("[51234]", printList(rotateListLeft(testNode, 4)));
+
+        createList();
         Assert.assertEquals("[12345]", printList(rotateListLeft(testNode, 5)));
+
+        createList();
         Assert.assertEquals("[23451]", printList(rotateListLeft(testNode, 6)));
+
+        createList();
         Assert.assertEquals("[34512]", printList(rotateListLeft(testNode, 7)));
+
+        createList();
         Assert.assertEquals("[45123]", printList(rotateListLeft(testNode, 8)));
+
+        createList();
         Assert.assertEquals("[51234]", printList(rotateListLeft(testNode, 9)));
+
+        createList();
         Assert.assertEquals("[12345]", printList(rotateListLeft(testNode, 10)));
     }
 
@@ -69,14 +87,32 @@ public class LinkedListRotationTest extends LinkedListRotation {
     @Test
     public void testRotateRight() {
         Assert.assertEquals("[51234]", printList(rotateListRight(testNode, 1)));
+
+        createList();
         Assert.assertEquals("[45123]", printList(rotateListRight(testNode, 2)));
+
+        createList();
         Assert.assertEquals("[34512]", printList(rotateListRight(testNode, 3)));
+
+        createList();
         Assert.assertEquals("[23451]", printList(rotateListRight(testNode, 4)));
+
+        createList();
         Assert.assertEquals("[12345]", printList(rotateListRight(testNode, 5)));
+
+        createList();
         Assert.assertEquals("[51234]", printList(rotateListRight(testNode, 6)));
+
+        createList();
         Assert.assertEquals("[45123]", printList(rotateListRight(testNode, 7)));
+
+        createList();
         Assert.assertEquals("[34512]", printList(rotateListRight(testNode, 8)));
+
+        createList();
         Assert.assertEquals("[23451]", printList(rotateListRight(testNode, 9)));
+
+        createList();
         Assert.assertEquals("[12345]", printList(rotateListRight(testNode, 10)));
     }
 }

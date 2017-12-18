@@ -1,7 +1,5 @@
 package com.sl.algorithms.core.linear.linkedlist;
 
-import static com.sl.algorithms.core.linear.linkedlist.LinkedListOps.getSize;
-
 public class LinkedListReversal {
 
     LinkedListReversal() {
@@ -34,7 +32,7 @@ public class LinkedListReversal {
 
     // O(n)
     public static ListNode<Integer> reverseListInGroups(ListNode<Integer> head, int k) {
-        if (head == null || head.next == null || k > getSize(head) || k == 0) {
+        if (head == null || head.next == null || k > head.getSize() || k == 0) {
             return head;
         }
         ListNode<Integer> prev=null, curr=head, next=null;
