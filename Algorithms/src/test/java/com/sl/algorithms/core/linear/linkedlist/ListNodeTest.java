@@ -26,4 +26,20 @@ public class ListNodeTest {
         ListNode<Integer> testNode = createLinkedList(new int[]{1,2,3,4,5});
         Assert.assertEquals(5, testNode.getSize());
     }
+
+    @Test
+    public void testHasCycle() {
+        Assert.assertFalse(ListNode.dummyNode().hasCycle());
+        Assert.assertFalse(new ListNode<>(1).hasCycle());
+
+        ListNode<Integer> list = createLinkedList(new int[]{1,2,3,4,5});
+        Assert.assertFalse(list.hasCycle());
+
+        ListNode<Integer> tail = list;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        tail.next = list.next.next.next;
+        Assert.assertTrue(list.hasCycle());
+    }
 }

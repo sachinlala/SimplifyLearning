@@ -50,4 +50,20 @@ public class ListNode<T> {
         if (next != null) output.append(next); // this implies a recursive call
         return output.toString();
     }
+
+    //O(n) time and O(1) space
+    public boolean hasCycle() {
+        if (this == null || this.next == null) return false;
+        ListNode<T> slow=this, fast=this;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        //NOTE: the meeting-point of slow and fast pointers may not be the start of the cycle.<br>
+        //To find the start of the cycle, we'll need to iterate one more time i.e. slow2=head & slow walking at equal speed.<br>
+        return false;
+    }
 }
