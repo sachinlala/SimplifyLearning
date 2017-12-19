@@ -28,6 +28,26 @@ public class MissingNumberTest extends MissingNumber {
 
     @Test
     public void testFindSmallestMissingNumberUnsorted() {
+        Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{0, 1, 2, 3}));
+        Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{0, 1, 2, 4}));
+        Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{1, 2, 3, 4}));
+
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(null));
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{-1}));
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{}));
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{0}));
+
+        Assert.assertEquals(2, findSmallestMissingNumberUnsorted(new int[]{1}));
+        Assert.assertEquals(2, findSmallestMissingNumberUnsorted(new int[]{1, 1}));
+        Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{1, 2}));
+        Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{1, 2, 3}));
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{2, 2}));
+        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{3, 3, 3}));
+        Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{1, 1, 2, 2}));
+        Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{1, 1, 2, 3}));
+        Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{1, 1, 2, 4}));
+        Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{1, 3, 2, 4}));
+
         Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{0, 0, 1, 2, 2, 4, 5}));
         Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{0, 0, 1, 2, 4, 5}));
         Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{5, 2, 3, 2, 2, 1}));
@@ -35,8 +55,7 @@ public class MissingNumberTest extends MissingNumber {
         Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{-1, 1, 2, 3}));
         Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{-2, -3, -4, -8}));
         Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{1, 2, 4, 5}));
-        Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{0, 1, 2, 3}));
-        Assert.assertEquals(3, findSmallestMissingNumberUnsorted(new int[]{0, 1, 2, 4}));
+
         Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{4, 1, 2, 3}));
         Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{4, 2, 1, 3}));
         Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{4, 2, 3, 1}));
@@ -44,6 +63,5 @@ public class MissingNumberTest extends MissingNumber {
         Assert.assertEquals(5, findSmallestMissingNumberUnsorted(new int[]{4, 3, 2, 1}));
         Assert.assertEquals(4, findSmallestMissingNumberUnsorted(new int[]{40, 1, 2, 3}));
         Assert.assertEquals(2, findSmallestMissingNumberUnsorted(new int[]{4, 1, 4, 3}));
-        Assert.assertEquals(1, findSmallestMissingNumberUnsorted(new int[]{}));
     }
 }
