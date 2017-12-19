@@ -1,6 +1,7 @@
 package com.sl.algorithms.linear.array.nge;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 /**
@@ -16,9 +17,10 @@ public class NGERegularArray {
     }
 
     // O(n^2) time and O(1) space
-    public static int[] findDaysToWarmthBruteForce(int[] temperatures) {
+    public static Integer[] findDaysToWarmthBruteForce(Integer[] temperatures) {
         int n = temperatures.length;
-        int[] warmTemperatures = new int[n]; // => each element = 0
+        Integer[] warmTemperatures = new Integer[n]; // => each element = 0
+        Arrays.fill(warmTemperatures, 0);
         for (int i=0; i<n; i++) {
             for (int j=i+1; j<n; j++) {
                 if (temperatures[i] < temperatures[j]) {
@@ -31,9 +33,10 @@ public class NGERegularArray {
     }
 
     // O(n) time and O(n) space
-    public static int[] findDaysToWarmth(int[] temperatures) {
+    public static Integer[] findDaysToWarmth(Integer[] temperatures) {
         int n = temperatures.length;
-        int[] warmTemperatures = new int[n]; // => each element = 0
+        Integer[] warmTemperatures = new Integer[n]; // => each element = 0
+        Arrays.fill(warmTemperatures, 0);
         Deque<Integer> ngeStack = new ArrayDeque<>();
         for (int i=n-1; i >= 0; i--) {
             while (!ngeStack.isEmpty()) { // search till the stack is empty

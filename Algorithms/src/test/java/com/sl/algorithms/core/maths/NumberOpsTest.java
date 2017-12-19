@@ -117,13 +117,13 @@ public class NumberOpsTest extends NumberOps {
 
     @Test
     public void testConvertToNumber() {
-        Assert.assertEquals(0, convertToNumber(new int[]{}));
-        Assert.assertEquals(0, convertToNumber(new int[]{0}));
-        Assert.assertEquals(1, convertToNumber(new int[]{1}));
-        Assert.assertEquals(123, convertToNumber(new int[]{1,2,3}));
-        Assert.assertEquals(1234567890, convertToNumber(new int[]{1,2,3,4,5,6,7,8,9,0}));
-        Assert.assertEquals(1999999999, convertToNumber(new int[]{1,9,9,9,9,9,9,9,9,9}));
-        Assert.assertEquals(-1, convertToNumber(new int[]{9,1,9,9,9,9,9,9,9,9}));
+        Assert.assertEquals(0, convertToNumber(new Integer[]{}));
+        Assert.assertEquals(0, convertToNumber(new Integer[]{0}));
+        Assert.assertEquals(1, convertToNumber(new Integer[]{1}));
+        Assert.assertEquals(123, convertToNumber(new Integer[]{1,2,3}));
+        Assert.assertEquals(1234567890, convertToNumber(new Integer[]{1,2,3,4,5,6,7,8,9,0}));
+        Assert.assertEquals(1999999999, convertToNumber(new Integer[]{1,9,9,9,9,9,9,9,9,9}));
+        Assert.assertEquals(-1, convertToNumber(new Integer[]{9,1,9,9,9,9,9,9,9,9}));
     }
 
     @Test
@@ -140,10 +140,10 @@ public class NumberOpsTest extends NumberOps {
     @Test
     public void testPlusOne() {
         Assert.assertEquals("[]", printArray(plusOne(null)));
-        Assert.assertEquals("[2]", printArray(plusOne(new int[]{1})));
-        Assert.assertEquals("[1,0]", printArray(plusOne(new int[]{9})));
-        Assert.assertEquals("[2,0]", printArray(plusOne(new int[]{1, 9})));
-        Assert.assertEquals("[1,0,0]", printArray(plusOne(new int[]{9, 9})));
-        Assert.assertEquals("[1,0,0,0]", printArray(plusOne(new int[]{9, 9, 9})));
+        Assert.assertEquals("[2]", printArray(plusOne(new Integer[]{1})));
+        Assert.assertEquals("[1,0]", printArray(plusOne(new Integer[]{9})));
+        Assert.assertEquals("[2,0]", printArray(plusOne(new Integer[]{1, 9})));
+        Assert.assertEquals("[1,0,0]", printArray(plusOne(new Integer[]{9, 9})));
+        Assert.assertEquals("[1,0,0,0]", printArray(plusOne(new Integer[]{9, 9, 9})));
     }
 }

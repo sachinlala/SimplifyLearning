@@ -17,22 +17,22 @@ public class SwapInPairsTest extends SwapInPairs {
 
     @Test
     public void testSwapInPairs2Elements() {
-        ListNode<Integer> pair = LinkedListOps.createLinkedList(new int[]{1,2});
-        ListNode<Integer> reverse = LinkedListOps.createLinkedList(new int[]{2,1});
+        ListNode<Integer> pair = LinkedListOps.createLinkedList(new Integer[]{1,2});
+        ListNode<Integer> reverse = LinkedListOps.createLinkedList(new Integer[]{2,1});
         Assert.assertEquals(swapInPairs(pair), reverse);
     }
 
     @Test
     public void testSwapInPairsEvenCount() {
-        ListNode<Integer> list = LinkedListOps.createLinkedList(new int[]{1,2,3,4});
-        ListNode<Integer> result = LinkedListOps.createLinkedList(new int[]{2,1,4,3});
+        ListNode<Integer> list = LinkedListOps.createLinkedList(new Integer[]{1,2,3,4});
+        ListNode<Integer> result = LinkedListOps.createLinkedList(new Integer[]{2,1,4,3});
         Assert.assertEquals(swapInPairs(list), result);
     }
 
     @Test
     public void testSwapInPairsOddCount() {
-        ListNode<Integer> list = LinkedListOps.createLinkedList(new int[]{1,2,3,4,5});
-        ListNode<Integer> result = LinkedListOps.createLinkedList(new int[]{2,1,4,3,5});
+        ListNode<Integer> list = LinkedListOps.createLinkedList(new Integer[]{1,2,3,4,5});
+        ListNode<Integer> result = LinkedListOps.createLinkedList(new Integer[]{2,1,4,3,5});
         Assert.assertEquals(swapInPairs(list), result);
     }
 }

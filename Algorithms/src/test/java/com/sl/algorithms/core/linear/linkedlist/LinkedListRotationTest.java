@@ -13,7 +13,7 @@ public class LinkedListRotationTest extends LinkedListRotation {
 
     @Before
     public void createList() {
-        testNode = createLinkedList(new int[]{1,2,3,4,5});
+        testNode = createLinkedList(new Integer[]{1,2,3,4,5});
     }
 
     @Test

@@ -16,7 +16,7 @@ public class DougMcIlroyAlgorithm {
     }
 
     // O(n) time and O(1) space
-    public static int[] rotate(int[] a, int k, boolean rotateLeft) {
+    public static <T> T[] rotate(T[] a, int k, boolean rotateLeft) {
         if (k >= a.length) {
             k = k % a.length;
         }
@@ -32,11 +32,11 @@ public class DougMcIlroyAlgorithm {
         return a;
     }
 
-    public static int[] rotateLeftByReversal(int[] a, int k) {
+    public static <T> T[] rotateLeftByReversal(T[] a, int k) {
         return rotate(a, k, true);
     }
 
-    public static int[] rotateRightByReversal(int[] a, int k) {
+    public static <T> T[] rotateRightByReversal(T[] a, int k) {
         return rotate(a, k, false);
     }
 }

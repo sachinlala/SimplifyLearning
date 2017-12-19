@@ -14,9 +14,9 @@ public class GriesMillsAlgorithm {
     /**
      * Swap 'n' elements starting at index 'i1' with 'n' elements starting at index 'i2'.<br>
      */
-    private static int[] swapInBlocks(int[] a, int i1, int i2, int n) {
+    private static <T> T[] swapInBlocks(T[] a, int i1, int i2, int n) {
         for (int i=0; i<n; i++) {
-            int temp = a[i1+i];
+            T temp = a[i1+i];
             a[i1+i] = a[i2+i];
             a[i2+i] = temp;
         }
@@ -24,7 +24,7 @@ public class GriesMillsAlgorithm {
     }
 
     // O(n) time and O(1) space
-    public static int[] rotateLeftBlockSwap(int[] a, int k) {
+    public static <T> T[] rotateLeftBlockSwap(T[] a, int k) {
         int n = a.length;
         k = k%n;
         if (k == 0) {

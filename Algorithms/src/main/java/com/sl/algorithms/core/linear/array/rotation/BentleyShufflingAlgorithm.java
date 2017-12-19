@@ -15,10 +15,11 @@ public class BentleyShufflingAlgorithm {
          */
     }
     // O(n) time and O(1) space
-    public static int[] rotateLeftByJuggling(int[] a, int k) {
+    public static <T> T[] rotateLeftByJuggling(T[] a, int k) {
         int n = a.length;
         int hcf = Formulas.hcf(n, k);
-        int i, j, temp, delta;
+        int i, j, delta;
+        T temp;
         for (i=0; i<hcf; i++) {
             temp = a[i];
             j = i;

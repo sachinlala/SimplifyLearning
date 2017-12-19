@@ -20,19 +20,19 @@ public class BSTOps extends BTreeOps {
      * // Root = midPoint
      * // O(n) time and O(1) space
      */
-    public static TreeNode<Integer> createBSTFromSortedArray(int[] sortedNums) {
+    public static <T> TreeNode<T> createBSTFromSortedArray(T[] sortedNums) {
         if (sortedNums == null || sortedNums.length == 0) {
             return null;
         }
         return createBSTFromArray(sortedNums, 0, sortedNums.length - 1);
     }
 
-    private static TreeNode<Integer> createBSTFromArray(int[] sortedNums, int start, int end) {
+    private static <T> TreeNode<T> createBSTFromArray(T[] sortedNums, int start, int end) {
         if (start > end) {
             return null; // base case
         }
         int midPoint = start + (end-start) / 2;
-        TreeNode<Integer> root = new TreeNode<>(sortedNums[midPoint]);
+        TreeNode<T> root = new TreeNode<>(sortedNums[midPoint]);
         root.left = createBSTFromArray(sortedNums, start, midPoint - 1); //left sub-tree
         root.right = createBSTFromArray(sortedNums, midPoint + 1, end); // right sub-tree
         return root;
@@ -43,29 +43,29 @@ public class BSTOps extends BTreeOps {
      * // Root = midPoint
      * // O(n) time and O(1) space
      */
-    public static TreeNode<Integer> createBSTFromSortedList(ListNode<Integer> head) {
+    public static <T> TreeNode<T> createBSTFromSortedList(ListNode<T> head) {
         if (head == null) return null;
         return createBSTFromList(head, null);
     }
 
-    private static TreeNode<Integer> createBSTFromList(ListNode<Integer> head, ListNode<Integer> tail) {
+    private static <T> TreeNode<T> createBSTFromList(ListNode<T> head, ListNode<T> tail) {
         if (head == tail) return null; // base case
-        ListNode<Integer> slow=head, fast=head;
+        ListNode<T> slow=head, fast=head;
         while (fast != tail && fast.next != tail) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        TreeNode<Integer> root = new TreeNode<>(slow.data);
+        TreeNode<T> root = new TreeNode<>(slow.data);
         root.left = createBSTFromList(head, slow);
         root.right = createBSTFromList(slow.next, tail);
         return root;
     }
 
-    public static int[] convertToSortedArray(TreeNode<Integer> bstNode) {
+    public static Integer[] convertToSortedArray(TreeNode<Integer> bstNode) {
         if (bstNode == null) {
-            return new int[]{};
+            return new Integer[]{};
         }
-        int[] sortedNums = new int[countNodes(bstNode)];
+        Integer[] sortedNums = new Integer[countNodes(bstNode)];
         toSortedArray(bstNode, sortedNums, 0);
         return sortedNums;
     }
@@ -73,7 +73,7 @@ public class BSTOps extends BTreeOps {
     /**
      * In-order traversal.<br>
      */
-    private static int toSortedArray(TreeNode<Integer> bstNode, int[] sortedNums, int index) {
+    private static int toSortedArray(TreeNode<Integer> bstNode, Integer[] sortedNums, int index) {
         if (bstNode != null && index < sortedNums.length) {
             if (bstNode.left != null) {
                 index = toSortedArray(bstNode.left, sortedNums, index);

@@ -12,15 +12,15 @@ public class LinkedListOpsTest extends LinkedListOps {
 
     @Before
     public void createList() {
-        testNode = createLinkedList(new int[]{1,2,3,4,5});
+        testNode = createLinkedList(new Integer[]{1,2,3,4,5});
     }
 
     @Test
     public void testCreateLinkedList() {
         Assert.assertNull(createLinkedList(null));
-        Assert.assertNull(createLinkedList(new int[]{}));
-        Assert.assertEquals("1", createLinkedList(new int[]{1}).toString());
-        Assert.assertEquals("12345", createLinkedList(new int[]{1,2,3,4,5}).toString());
+        Assert.assertNull(createLinkedList(new Integer[]{}));
+        Assert.assertEquals("1", createLinkedList(new Integer[]{1}).toString());
+        Assert.assertEquals("12345", createLinkedList(new Integer[]{1,2,3,4,5}).toString());
         Assert.assertEquals("[12345]", printList(testNode));
     }
 
@@ -78,10 +78,10 @@ public class LinkedListOpsTest extends LinkedListOps {
         testNodeCopy = cloneList(testNode);
         Assert.assertEquals("[1234]", printList(removeData(testNodeCopy, 5)));
 
-        ListNode<Integer> listWithDupes1 = createLinkedList(new int[]{1,2,6,3,4,5,6});
+        ListNode<Integer> listWithDupes1 = createLinkedList(new Integer[]{1,2,6,3,4,5,6});
         Assert.assertEquals("[12345]", printList(removeData(listWithDupes1, 6)));
 
-        ListNode<Integer> listWithDupes2 = createLinkedList(new int[]{1,1});
+        ListNode<Integer> listWithDupes2 = createLinkedList(new Integer[]{1,1});
         Assert.assertNull(removeData(listWithDupes2, 1));
     }
 
@@ -98,7 +98,7 @@ public class LinkedListOpsTest extends LinkedListOps {
 
     @Test
     public void testIsIdentical() {
-        ListNode<Integer> sampleList = createLinkedList(new int[]{1,2,3,4,5});
+        ListNode<Integer> sampleList = createLinkedList(new Integer[]{1,2,3,4,5});
         Assert.assertTrue(isIdentical(testNode, sampleList));
         Assert.assertTrue(isIdentical(sampleList, testNode));
 
@@ -108,7 +108,6 @@ public class LinkedListOpsTest extends LinkedListOps {
 
     @Test
     public void testConvertToArray() {
-        int[] array = convertToArray(testNode);
-        Assert.assertEquals("[1,2,3,4,5]", ArrayOps.printArray(array));
+        Assert.assertEquals("[1,2,3,4,5]", ArrayOps.printArray(convertToArray(testNode)));
     }
 }

@@ -11,7 +11,7 @@ public class LinkedListReversalTest extends LinkedListReversal {
 
     @Before
     public void createList() {
-        testNode = createLinkedList(new int[]{1,2,3,4,5});
+        testNode = createLinkedList(new Integer[]{1,2,3,4,5});
     }
 
     @Test
@@ -21,7 +21,7 @@ public class LinkedListReversalTest extends LinkedListReversal {
         ListNode<Integer> singleNode = reverseListInGroups(new ListNode<>(1));
         Assert.assertEquals("[1]", printList(singleNode));
 
-        ListNode<Integer> pair = reverseListInGroups(createLinkedList(new int[]{1,2}));
+        ListNode<Integer> pair = reverseListInGroups(createLinkedList(new Integer[]{1,2}));
         Assert.assertEquals("[21]", printList(pair));
 
         Assert.assertEquals("[54321]", printList(reverseListInGroups(testNode)));
@@ -34,7 +34,7 @@ public class LinkedListReversalTest extends LinkedListReversal {
         ListNode<Integer> singleNode = reverseListRecursive(new ListNode<>(1));
         Assert.assertEquals("[1]", printList(singleNode));
 
-        ListNode<Integer> pair = reverseListRecursive(createLinkedList(new int[]{1,2}));
+        ListNode<Integer> pair = reverseListRecursive(createLinkedList(new Integer[]{1,2}));
         Assert.assertEquals("[21]", printList(pair));
 
         Assert.assertEquals("[54321]", printList(reverseListRecursive(testNode)));
@@ -47,9 +47,9 @@ public class LinkedListReversalTest extends LinkedListReversal {
         ListNode<Integer> singleNode = new ListNode<>(1);
         Assert.assertTrue(singleNode.equals(reverseListInGroups(singleNode, 1)));
 
-        ListNode<Integer> pairNode = createLinkedList(new int[]{1,2});
+        ListNode<Integer> pairNode = createLinkedList(new Integer[]{1,2});
         Assert.assertEquals("[21]", printList(reverseListInGroups(pairNode, 2)));
-        pairNode = createLinkedList(new int[]{1,2});
+        pairNode = createLinkedList(new Integer[]{1,2});
         Assert.assertEquals("[12]", printList(reverseListInGroups(pairNode, 3)));
 
         ListNode<Integer> testNodeDeepCopy = cloneList(testNode);

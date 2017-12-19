@@ -16,14 +16,26 @@ public class LinkedListOps<T> {
         return listAsString.toString();
     }
 
-    //TODO: generify this
-    public static ListNode<Integer> createLinkedList(int[] nums) {
+    public static <T> ListNode<T> createObjLinkedList(T[] objects) {
+        if (objects == null || objects.length == 0) return null;
+        ListNode<T> dummy = ListNode.dummyNode();
+        ListNode<T> head = dummy;
+        dummy.next = head;
+        for (T num: objects){
+            ListNode<T> temp = new ListNode<>(num);
+            head.next = temp;
+            head = temp;
+        }
+        return dummy.next;
+    }
+
+    public static <T> ListNode<T> createLinkedList(T[] nums) {
         if (nums == null || nums.length == 0) return null;
 
-        ListNode<Integer> head=new ListNode<>(nums[0]);
+        ListNode<T> head=new ListNode<>(nums[0]);
         if (nums.length == 1) return head;
 
-        ListNode<Integer> curr, temp;
+        ListNode<T> curr, temp;
         curr = new ListNode<>(nums[1]);
         head.next = curr;
 
@@ -135,9 +147,9 @@ public class LinkedListOps<T> {
         return deepCopy;
     }
 
-    public static int[] convertToArray(ListNode<Integer> head) {
-        int[] array = new int[head.getSize()];
-        ListNode<Integer> curr = head;
+    public static <T> T[] convertToArray(ListNode<T> head) {
+        T[] array = (T[])new Object[head.getSize()];
+        ListNode<T> curr = head;
         for (int i=0; i<array.length && curr != null; i++) {
             array[i] = curr.data;
             curr = curr.next;

@@ -20,7 +20,7 @@ public class NarayanPanditAlgorithm {
      *     <br>&nbsp;<a href="https://en.wikipedia.org/wiki/Narayana_Pandit">Narayan Pandit</a>
      */
     public static int findNGNSameDigits(int number) {
-        int[] digits = convertToArray(number);
+        Integer[] digits = convertToArray(number);
         int flipPoint=-1, ngsdIndex=-1, maxIndex=digits.length-1;
         for (int i=maxIndex; i>0; i--) {
             if (digits[i] > digits[i-1]) {

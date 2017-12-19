@@ -1,8 +1,9 @@
 package com.sl.algorithms.linear.array;
 
-import com.sl.algorithms.core.linear.array.ArrayOps;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class MoveZeroesTest extends MoveZeroes {
 
@@ -10,13 +11,17 @@ public class MoveZeroesTest extends MoveZeroes {
     public void testMoveZeroes() {
         int[] nums = {0, 1, 0, 3, 12};
         int[] result = {1, 3, 12, 0, 0};
-        Assert.assertTrue(ArrayOps.areEqual(result, moveZeroes(nums)));
+        Assert.assertTrue(Arrays.equals(result, moveZeroes(nums)));
     }
 
     @Test
     public void testMoveZeroesOptimal() {
         int[] nums = {0, 1, 0, 3, 12};
         int[] result = {1, 3, 12, 0, 0};
-        Assert.assertTrue(ArrayOps.areEqual(result, moveZeroesOptimal(nums)));
+        Assert.assertTrue(Arrays.equals(result, moveZeroesOptimal(nums)));
+
+        nums = new int[]{1, 3, 12};
+        result = new int[]{1, 3, 12};
+        Assert.assertTrue(Arrays.equals(result, moveZeroes(nums)));
     }
 }

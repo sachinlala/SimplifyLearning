@@ -1,6 +1,7 @@
 package com.sl.algorithms.core.maths;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 import static com.sl.algorithms.core.maths.Formulas.*;
@@ -37,9 +38,10 @@ public class NumberOps {
     }
 
     // n>=0
-    public static int[] convertToArray(int n) {
+    public static Integer[] convertToArray(int n) {
         int length = countDigits(n);
-        int[] digits = new int[length];
+        Integer[] digits = new Integer[length];
+        Arrays.fill(digits, 0);
         int index = length-1;
         for (int i=n; i>0; i/=10) {
             digits[index--] = i%10;
@@ -48,7 +50,7 @@ public class NumberOps {
     }
 
     // n>=0 and 32-bit
-    public static int convertToNumber(int[] a) {
+    public static int convertToNumber(Integer[] a) {
         long n = 0;
         for (int digit : a) {
             n = n*10 + digit;
@@ -129,7 +131,7 @@ public class NumberOps {
     }
 
     // O(n) time and O(n) space
-    public static int[] plusOne(int[] digits) {
+    public static Integer[] plusOne(Integer[] digits) {
         if (digits == null || digits.length == 0) {
             return digits;
         }
@@ -148,7 +150,8 @@ public class NumberOps {
             }
         }
         if (addOne) {
-            int[] plusOneNumber = new int[length + 1];
+            Integer[] plusOneNumber = new Integer[length + 1];
+            Arrays.fill(plusOneNumber, 0);
             plusOneNumber[0] = numberToAdd;
             return plusOneNumber;
         }

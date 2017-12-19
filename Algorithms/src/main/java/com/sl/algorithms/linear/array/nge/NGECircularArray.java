@@ -16,9 +16,9 @@ public class NGECircularArray {
     }
 
     // O(n) time and O(n) space
-    public static int[] findNGEInCircularArray(int[] nums) {
+    public static Integer[] findNGEInCircularArray(Integer[] nums) {
         int n = nums.length;
-        int[] output = new int[n];
+        Integer[] output = new Integer[n];
         Arrays.fill(output, -1); // O(1)
         Deque<Integer> ngeStack = new ArrayDeque<>(); // O(n)
         for (int i = 2*n-1; i >= 0; i--) { // O(n)
