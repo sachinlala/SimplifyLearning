@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Basic representation of a LinkedList node.<br>
  */
-public class ListNode<T> {
+public class ListNode<T> implements Comparable<ListNode<T>> {
     public T data;
     public ListNode<T> next;
 
@@ -65,5 +65,17 @@ public class ListNode<T> {
         //NOTE: the meeting-point of slow and fast pointers may not be the start of the cycle.<br>
         //To find the start of the cycle, we'll need to iterate one more time i.e. slow2=head & slow walking at equal speed.<br>
         return false;
+    }
+
+    @Override
+    public int compareTo(ListNode<T> o2) {
+        ListNode<T> o1 = this;
+        if (o1.data instanceof String && o2.data instanceof String) {
+            return ((String) o1.data).compareTo((String) o2.data);
+        }
+        if (o1.data instanceof Integer && o2.data instanceof Integer) {
+            return ((Integer) o1.data).compareTo((Integer) o2.data);
+        }
+        throw new IllegalArgumentException("Inputs are in a format not supported yet");
     }
 }
