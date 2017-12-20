@@ -11,7 +11,7 @@ public class DutchNationalFlagsSortTest extends SortingEngineTest {
 
     @BeforeClass
     public static void setup() {
-        sortingEngine = new DutchNationalFlagsSort();
+        sortingEngine = new DutchNationalFlagsSort(0, 2);
     }
 
     @Test

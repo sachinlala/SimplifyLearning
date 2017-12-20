@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayOps<T> {
+public class ArrayOps<T extends Comparable> {
 
     ArrayOps() {
         /**
          * This is a utility class.<br>
          */
+    }
+
+    public static void swap(Comparable[] objects, int i, int j) {
+        Comparable temp = objects[i];
+        objects[i] = objects[j];
+        objects[j] = temp;
+        return;
     }
 
     //O(n)
