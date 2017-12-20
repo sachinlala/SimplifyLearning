@@ -9,14 +9,14 @@ public class LinkedListDuplicatesCleaner {
     }
 
     // O(n) method to remove duplicates from a sorted list
-    public static ListNode<Integer> removeDuplicates(ListNode<Integer> head) {
+    public static <T> ListNode<T> removeDuplicates(ListNode<T> head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode<Integer> curr = head;
-        ListNode<Integer> next = null;
+        ListNode<T> curr = head;
+        ListNode<T> next = null;
         while (curr != null && curr.next != null) {
-            if (curr.data == curr.next.data) {
+            if (curr.compareTo(curr.next) == 0) {
                 next = curr.next;
                 curr.next = null;
                 curr.next = next.next;
@@ -28,13 +28,13 @@ public class LinkedListDuplicatesCleaner {
     }
 
     //alternative O(n) method to remove duplicates; but this doesn't cleanup dupes explicitly
-    public static ListNode<Integer> removeDuplicatesNoDereference(ListNode<Integer> head) {
+    public static <T> ListNode<T> removeDuplicatesNoDereference(ListNode<T> head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode<Integer> curr = head;
+        ListNode<T> curr = head;
         while (curr != null && curr.next != null) {
-            if (curr.data == curr.next.data) {
+            if (curr.compareTo(curr.next) == 0) {
                 curr.next = curr.next.next;
             } else {
                 curr = curr.next;
@@ -44,24 +44,21 @@ public class LinkedListDuplicatesCleaner {
     }
 
     // O(n) cleanup the duplicated nodes completely
-    public static ListNode<Integer> cleanupDuplicatedNodes(ListNode<Integer> head) {
+    public static <T> ListNode<T> cleanupDuplicatedNodes(ListNode<T> head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode<Integer> prev = null;
-        ListNode<Integer> curr = head;
-        ListNode<Integer> dummy = new ListNode<>(0); // dummy helps have an initial value for prev pointer; it's own value is inconsequential though
+        ListNode<T> prev = null;
+        ListNode<T> curr = head;
+        ListNode<T> dummy = ListNode.dummyNode();
         dummy.next = head;
         prev = dummy;
         while (curr != null) {
-            while (curr.next != null && curr.data == curr.next.data) {
+            while (curr.next != null && curr.compareTo(curr.next) == 0) {
                 curr = curr.next;
             }
-            if (prev.next == curr) {
-                prev = prev.next;
-            } else {
-                prev.next = curr.next;
-            }
+            if (prev.next == curr) prev = prev.next;
+            else prev.next = curr.next;
             curr = curr.next;
         }
         return dummy.next;

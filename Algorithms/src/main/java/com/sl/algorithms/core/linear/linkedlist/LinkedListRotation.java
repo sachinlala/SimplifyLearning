@@ -17,11 +17,11 @@ public class LinkedListRotation {
      * 5. Mark kth node as the new tail<br>
      * // O(n)
      */
-    public static ListNode<Integer> rotateListLeft(ListNode<Integer> head, int k) {
+    public static <T> ListNode<T> rotateListLeft(ListNode<T> head, int k) {
         if (head == null || head.next == null || k == 0) {
             return head;
         }
-        ListNode<Integer> kNode = null, curr = head;
+        ListNode<T> kNode=null, curr=head;
         // traverse upto kth node
         for (int i = 1; i < k; i++) {
             curr = curr.next;
@@ -53,12 +53,12 @@ public class LinkedListRotation {
      * 5. Mark (n-k)th node as the new tail<br>
      * // O(n)
      */
-    public static ListNode<Integer> rotateListRight(ListNode<Integer> head, int k) {
+    public static <T> ListNode<T> rotateListRight(ListNode<T> head, int k) {
         if (head == null || head.next == null || k == 0) {
             return head;
         }
         int size = 1;
-        ListNode<Integer> fast=head, slow=head;
+        ListNode<T> fast=head, slow=head;
         // reach the original tail and find the size
         while (fast.next != null) {
             size++;

@@ -4,14 +4,20 @@ import com.sl.algorithms.core.linear.linkedlist.ListNode;
 
 public class LinkedListIntersection {
 
+    LinkedListIntersection() {
+        /**
+         * This is a utility class.<br>
+         */
+    }
+
     /**
      * <a href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/">Intersection of 2 singly linked lists</a><br>
      * //O(n) time and O(1) space
      */
-    public ListNode<Integer> getIntersectionNode(ListNode<Integer> list1, ListNode<Integer> list2) {
+    public static <T> ListNode<T> getIntersectionNode(ListNode<T> list1, ListNode<T> list2) {
         if (list1 == null || list2 == null) return null;
         int l1=0, l2=0;
-        ListNode<Integer> ptr1=list1, ptr2=list2;
+        ListNode<T> ptr1=list1, ptr2=list2;
         while (ptr1 != null) {
             ++l1;
             ptr1 = ptr1.next;

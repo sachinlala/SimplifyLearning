@@ -119,7 +119,7 @@ public class LinkedListOps<T> {
 
     public static <T> boolean isIdentical(ListNode<T> a, ListNode<T> b) {
         while (a != null && b != null) {
-            if (a.data != b.data) {
+            if (a.compareTo(b) != 0) {
                 break;
             }
             a = a.next;

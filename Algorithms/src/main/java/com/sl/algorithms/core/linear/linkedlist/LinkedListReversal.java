@@ -9,8 +9,8 @@ public class LinkedListReversal {
     }
 
     // O(n) time and O(1) space
-    public static ListNode<Integer> reverseListInGroups(ListNode<Integer> head) {
-        ListNode<Integer> prev=null, curr=head, next=null;
+    public static <T> ListNode<T> reverseListInGroups(ListNode<T> head) {
+        ListNode<T> prev=null, curr=head, next=null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -22,20 +22,20 @@ public class LinkedListReversal {
     }
 
     // O(n) time and O(n) space
-    public static ListNode<Integer> reverseListRecursive(ListNode<Integer> head) {
+    public static <T> ListNode<T> reverseListRecursive(ListNode<T> head) {
         if (head == null || head.next == null) return head;
-        ListNode<Integer> ptr = reverseListInGroups(head.next);
+        ListNode<T> ptr = reverseListInGroups(head.next);
         head.next.next = head;
         head.next = null;
         return ptr;
     }
 
     // O(n)
-    public static ListNode<Integer> reverseListInGroups(ListNode<Integer> head, int k) {
+    public static <T> ListNode<T> reverseListInGroups(ListNode<T> head, int k) {
         if (head == null || head.next == null || k > head.getSize() || k == 0) {
             return head;
         }
-        ListNode<Integer> prev=null, curr=head, next=null;
+        ListNode<T> prev=null, curr=head, next=null;
         int i = 0;
         while (curr != null && i < k) {
             next = curr.next;

@@ -118,6 +118,15 @@ public class LinkedListMergeTest extends LinkedListMerge {
         ListNode<String> stringListNode2 = createObjLinkedList(new String[]{"a","b","c","d"});
         ListNode<String> stringListNode3 = createObjLinkedList(new String[]{"X","Y","Z","1","2"});
         Assert.assertEquals("[ABCDXYZ12abcd]", printList(mergeKSortedListsPQ(new ListNode[]{stringListNode1, stringListNode2, stringListNode3})));
+
+        ListNode<Double> newDoubleList1 = createLinkedList(new Double[]{1.0,2.0});
+        ListNode<Double> newDoubleList2 = createLinkedList(new Double[]{3.0,4.0});
+        try {
+            mergeKSortedListsPQ(new ListNode[]{newDoubleList1, newDoubleList2});
+            Assert.fail("Exception should have come as Double data-type not supported yet");
+        } catch (IllegalArgumentException iae) {
+            Assert.assertEquals("Inputs are in a format not supported yet", iae.getMessage());
+        }
     }
 
     @Test
