@@ -1,6 +1,7 @@
 package com.sl.algorithms.core.sorting;
 
-import com.sl.algorithms.core.maths.Formulas;
+import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.utils.Formulas;
 
 import java.util.Arrays;
 
@@ -13,15 +14,17 @@ import java.util.Arrays;
  * <br><br>
  * Time = O(N*logN) & Space = O(N)
  */
-public class MergeSort<T extends Comparable> implements SortingEngine {
+@SuppressWarnings("unchecked")
+public class MergeSort<T extends Comparable> implements SortingEngine<T> {
 
     @Override
-    public void sort(Comparable[] objects) {
-        if (objects == null || objects.length <= 1) return;
+    public void sort(T[] objects) {
+        objChecks(objects);
         partitionThenMerge(objects, 0, objects.length-1);
     }
 
-    private <T extends Comparable> void partitionThenMerge(T[] objects, int start, int end) {
+    //TODO: revise //TODO: do in-place also
+    private void partitionThenMerge(T[] objects, int start, int end) {
         if (start >= end) return;
         int midPoint = Formulas.midPoint(start, end);
         partitionThenMerge(objects, start, midPoint);
@@ -30,7 +33,7 @@ public class MergeSort<T extends Comparable> implements SortingEngine {
         return;
     }
 
-    private <T extends Comparable> void mergeSort(T[] objects, int start, int midPoint, int end) {
+    private void mergeSort(T[] objects, int start, int midPoint, int end) {
         T[] a = (T[])new Comparable[midPoint-start+1];
         T[] b = (T[])new Comparable[end-midPoint];
         a = Arrays.copyOfRange(objects, start, midPoint+1); //+1 for copyOfRange API, "to" is exclusive

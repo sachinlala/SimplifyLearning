@@ -1,25 +1,32 @@
 package com.sl.algorithms.core.sorting;
 
+import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 import org.junit.Assert;
 
-import static com.sl.algorithms.core.linear.array.ArrayOps.printArray;
+import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
+@SuppressWarnings("unchecked")
 public class SortingEngineTest {
 
     public void nullTest(SortingEngine sortingEngine) {
-        {
-            Integer[] nullArray = null;
-            sortingEngine.sort(nullArray);
-            Assert.assertNull(nullArray);
+        try {
+            sortingEngine.sort(null);
+            Assert.fail("Exception should've been raised");
+        } catch (IllegalArgumentException iae) {
+            Assert.assertNotNull(iae);
         }
     }
 
     public void baseTests(SortingEngine sortingEngine) {
         nullTest(sortingEngine);
         {
-            Integer[] emptyArray = new Integer[]{};
-            sortingEngine.sort(emptyArray);
-            Assert.assertEquals("[]", printArray(emptyArray));
+            try {
+                Integer[] emptyArray = new Integer[]{};
+                sortingEngine.sort(emptyArray);
+                Assert.fail("Exception should've been raised");
+            } catch (IllegalArgumentException iae) {
+                Assert.assertNotNull(iae);
+            }
         }
         {
             Integer[] singleElementArray = new Integer[]{1};

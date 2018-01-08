@@ -1,39 +1,39 @@
 package com.sl.algorithms.core.sorting;
 
+import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.linear.array.ArrayOps.printArray;
+import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
+@SuppressWarnings("unchecked")
 public class DutchNationalFlagsSortTest extends SortingEngineTest {
-    private static SortingEngine sortingEngine;
+    private static SortingEngine<Integer> integerSortingEngine;
+    private static SortingEngine<String> stringSortingEngine;
 
     @BeforeClass
     public static void setup() {
-        sortingEngine = new DutchNationalFlagsSort(0, 2);
+        integerSortingEngine = new DutchNationalFlagsSort(0, 2);
+        stringSortingEngine = new DutchNationalFlagsSort<>("A", "C");
     }
 
     @Test
     public void baseTests() {
-        baseTests(sortingEngine);
+        baseTests(integerSortingEngine);
     }
 
     @Test
     public void testDNESort() {
         {
-            Integer[] sampleNumbers = new Integer[]{2,0,1,0,1,0,0,2,2};
-            sortingEngine.sort(sampleNumbers);
+            Integer[] sampleNumbers = new Integer[]{2, 0, 1, 0, 1, 0, 0, 2, 2};
+            integerSortingEngine.sort(sampleNumbers);
             Assert.assertEquals("[0,0,0,0,1,1,2,2,2]", printArray(sampleNumbers));
         }
         {
-            String[] sampleData = new String[]{"A","B","C"};
-            try {
-                sortingEngine.sort(sampleData);
-                Assert.fail("Exception should have come as String data-type not supported yet");
-            } catch (IllegalArgumentException iae) {
-                Assert.assertEquals("Input contains a data-type not yet supported", iae.getMessage());
-            }
+            String[] sampleData = new String[]{"A", "C", "B", "A", "A", "C", "B", "B"};
+            stringSortingEngine.sort(sampleData);
+            Assert.assertEquals("[A,A,A,B,B,B,C,C]", printArray(sampleData));
         }
     }
 }

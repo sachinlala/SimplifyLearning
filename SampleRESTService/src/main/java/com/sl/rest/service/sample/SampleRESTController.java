@@ -1,6 +1,7 @@
 package com.sl.rest.service.sample;
 
-import com.sl.algorithms.core.BinarySearch;
+import com.sl.algorithms.core.interfaces.search.BinarySearch;
+import com.sl.algorithms.core.search.binarysearch.BinarySearchRecursive;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -10,6 +11,7 @@ public class SampleRESTController {
 
     private static final String HELLO_STR = "Hello %s!";
     private final AtomicLong counter = new AtomicLong();
+    private final BinarySearch<Integer> binarySearch = new BinarySearchRecursive<>();
 
     /**
      * For a given input 'name', output the JSON form of "Hello 'name'".
@@ -23,17 +25,17 @@ public class SampleRESTController {
      * Apply Binary Search to find the position of a number in a sorted linear.
      */
     @RequestMapping(method = RequestMethod.GET, path = "/binarySearch/[{sortedInput}]")
-    public BinarySearchResult searchBinary(@PathVariable int[] sortedInput,
-                            @RequestParam(value = "numberToSearch", required = true) int numberToSearch) {
-        return new BinarySearchResult(BinarySearch.findIndex(sortedInput, numberToSearch), numberToSearch);
+    public BinarySearchResult searchBinary(@PathVariable Integer[] sortedInput,
+                            @RequestParam(value = "numberToSearch", required = true) Integer numberToSearch) {
+        return new BinarySearchResult(binarySearch.findIndex(sortedInput, numberToSearch), numberToSearch);
     }
 }
 
 class BinarySearchResult {
     private final int index;
-    private final int value;
+    private final Integer value;
 
-    public BinarySearchResult(int _index, int _value) {
+    public BinarySearchResult(int _index, Integer _value) {
         index = _index;
         value = _value;
     }
@@ -42,7 +44,7 @@ class BinarySearchResult {
         return index;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 }

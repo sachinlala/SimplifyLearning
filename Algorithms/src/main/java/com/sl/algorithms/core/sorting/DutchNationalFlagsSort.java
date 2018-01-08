@@ -1,6 +1,8 @@
 package com.sl.algorithms.core.sorting;
 
-import static com.sl.algorithms.core.linear.array.ArrayOps.swap;
+import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+
+import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
  * <br><a href="https://rosettacode.org/wiki/Dutch_national_flag_problem">Reference 1</a>
@@ -9,37 +11,33 @@ import static com.sl.algorithms.core.linear.array.ArrayOps.swap;
  * <br><br>
  * Time = O(N) & Space = O(1)
  */
-public class DutchNationalFlagsSort<T extends Comparable> implements SortingEngine {
+@SuppressWarnings("unchecked")
+public class DutchNationalFlagsSort<T extends Comparable> implements SortingEngine<T> {
 
-    private int lowerBand;
-    private int higherBand;
+    private T lowerBand;
+    private T higherBand;
 
-    DutchNationalFlagsSort(int _lowerBand, int _higherBand) {
+    public DutchNationalFlagsSort(T _lowerBand, T _higherBand) {
         lowerBand = _lowerBand;
         higherBand = _higherBand;
     }
 
+    //TODO : revise
     @Override
-    public void sort(Comparable[] objects) {
-        if (objects == null) return;
+    public void sort(T[] objects) {
+        objChecks(objects);
 
-        if (!(objects instanceof Integer[])) {
-            throw new IllegalArgumentException("Input contains a data-type not yet supported");
-        }
+        int low = 0, medium = 0, high = objects.length - 1;
 
-        if (objects.length <= 1) return;
-
-        int low=0, medium=0, high=objects.length-1;
         while (medium <= high) {
-            Comparable obj = objects[medium];
+            T obj = objects[medium];
             if (obj.compareTo(lowerBand) == 0) {
                 swap(objects, low++, medium++);
             } else if (obj.compareTo(higherBand) == 0) {
                 swap(objects, high--, medium);
-            } else { // if (obj.compareTo(middleBand) == 0) {
-                medium++;
+            } else {
+                medium++; // if (obj.compareTo(middleBand) == 0) {
             }
         }
-        return;
     }
 }

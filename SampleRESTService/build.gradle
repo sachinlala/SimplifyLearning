@@ -13,7 +13,7 @@ buildscript {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter')
     testCompile('io.rest-assured:spring-mock-mvc:'+RESTAssuredVersion)
     compile project(':Algorithms')
 }

@@ -1,42 +1,36 @@
 package com.sl.algorithms.core.linear.array.rotation;
 
-import static com.sl.algorithms.core.linear.array.ArrayOps.reverse;
+import com.sl.algorithms.core.baseObj.ListNode;
+import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
+import com.sl.algorithms.core.utils.ArrayOps;
 
 /**
  * <br><a href="https://en.wikipedia.org/wiki/Douglas_McIlroy">Doug McIlroy</a><br>
  * <br><b>Left Rotation</b>: Flip Left Hand -> Flip Right Hand -> Flip Both Hands <br>
  * <br><b>Right Rotation</b>: Flip Both Hands -> Flip Right Hand -> Flip Left Hand <br>
  */
-public class DougMcIlroyAlgorithm {
-
-    DougMcIlroyAlgorithm() {
-        /**
-         * This is a utility class.<br>
-         */
-    }
+public class DougMcIlroyAlgorithm<T extends Comparable> implements RotationEngine<T> {
 
     // O(n) time and O(1) space
-    public static <T> T[] rotate(T[] a, int k, boolean rotateLeft) {
-        if (k >= a.length) {
-            k = k % a.length;
-        }
-        if (rotateLeft) {
-            a = reverse(a, 0, k - 1);
-            a = reverse(a, k, a.length - 1);
-            a = reverse(a, 0, a.length - 1);
+    @Override
+    public T[] rotate(T[] objects, int k, boolean clockwise) {
+        objChecks(objects);
+        int l = objects.length;
+        if (k >= l) k = k%l;
+        if (clockwise) {
+            ArrayOps.reverse(objects, 0, l-1);
+            ArrayOps.reverse(objects, k, l-1);
+            ArrayOps.reverse(objects, 0, k-1);
         } else {
-            a = reverse(a, 0, a.length - 1);
-            a = reverse(a, k, a.length - 1);
-            a = reverse(a, 0, k - 1);
+            ArrayOps.reverse(objects, 0, k-1);
+            ArrayOps.reverse(objects, k, l-1);
+            ArrayOps.reverse(objects, 0, l-1);
         }
-        return a;
+        return objects;
     }
 
-    public static <T> T[] rotateLeftByReversal(T[] a, int k) {
-        return rotate(a, k, true);
-    }
-
-    public static <T> T[] rotateRightByReversal(T[] a, int k) {
-        return rotate(a, k, false);
+    @Override
+    public ListNode<T> rotate(ListNode<T> listNode, int k, boolean clockwise) {
+        throw new UnsupportedOperationException();
     }
 }

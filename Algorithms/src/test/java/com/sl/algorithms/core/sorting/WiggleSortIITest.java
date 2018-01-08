@@ -1,13 +1,16 @@
 package com.sl.algorithms.core.sorting;
 
+import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.linear.array.ArrayOps.printArray;
+import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
+@SuppressWarnings("unchecked")
 public class WiggleSortIITest extends SortingEngineTest {
+
     private static SortingEngine sortingEngine;
 
     @BeforeClass
