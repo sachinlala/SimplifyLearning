@@ -5,9 +5,9 @@ import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
 import com.sl.algorithms.core.utils.Formulas;
 
 /**
- * <a href="https://en.wikipedia.org/wiki/Jon_Bentley_(computer_scientist)">Jon Bentley</a>
- * <br>Problem: Rotate linear of size 'n' by 'k' positions, leftwards (counter-clockwise).
- * <br><a href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a>
+ * <br>Problem: Rotate linear of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>
+ * <br><a href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a><br>
+ * <br><a href="https://en.wikipedia.org/wiki/Jon_Bentley_(computer_scientist)">Jon Bentley</a><br>
  */
 public class BentleyShufflingAlgorithm<T extends Comparable> implements RotationEngine<T> {
 
@@ -15,7 +15,7 @@ public class BentleyShufflingAlgorithm<T extends Comparable> implements Rotation
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
         objChecks(objects);
-        if (clockwise) throw new IllegalArgumentException("Right rotation not supported for shuffling algorithm yet");
+        if (clockwise) throw new IllegalArgumentException(OPERATION_NOT_SUPPORTED_YET);
         return rotateLeftByJuggling(objects, k);
     }
 
@@ -25,11 +25,11 @@ public class BentleyShufflingAlgorithm<T extends Comparable> implements Rotation
         int hcf = Formulas.hcf(n, k);
         int i, j, delta;
         T temp;
-        for (i=0; i<hcf; i++) {
+        for (i = 0; i < hcf; i++) {
             temp = objects[i];
-            for (j=i; j<n; ) {
+            for (j = i; j < n; ) {
                 delta = j + k;
-                delta = delta%n; // this is required to prevent overflow
+                delta = delta % n; // this is required to prevent overflow
                 if (delta == i) break;
                 objects[j] = objects[delta];
                 j = delta;

@@ -6,22 +6,23 @@ import org.junit.Test;
 
 import static com.sl.algorithms.core.baseObj.ListNode.createLinkedList;
 import static com.sl.algorithms.core.utils.LinkedListOps.incrementByOne;
+import static com.sl.algorithms.core.utils.NumberOps.convertToNumber;
 
 public class IncrementByOneTest {
 
     @Test
     public void testIncrementByOne() {
-        Assert.assertEquals(null, incrementByOne(null));
-        Assert.assertEquals("[2]", incrementByOne(new ListNode<>(1)).toString());
-        Assert.assertEquals("[10]", incrementByOne(new ListNode<>(9)).toString());
-        Assert.assertEquals("[20]", incrementByOne(createLinkedList(new Integer[]{1,9})).toString());
-        Assert.assertEquals("[100]", incrementByOne(createLinkedList(new Integer[]{9,9})).toString());
-        Assert.assertEquals("[124]", incrementByOne(createLinkedList(new Integer[]{1,2,3})).toString());
-        Assert.assertEquals("[130]", incrementByOne(createLinkedList(new Integer[]{1,2,9})).toString());
-        Assert.assertEquals("[200]", incrementByOne(createLinkedList(new Integer[]{1,9,9})).toString());
-        Assert.assertEquals("[900]", incrementByOne(createLinkedList(new Integer[]{8,9,9})).toString());
-        Assert.assertEquals("[1000]", incrementByOne(createLinkedList(new Integer[]{9,9,9})).toString());
-        Assert.assertEquals("[9000]", incrementByOne(createLinkedList(new Integer[]{8,9,9,9})).toString());
-        Assert.assertEquals("[10000]", incrementByOne(createLinkedList(new Integer[]{9,9,9,9})).toString());
+        Assert.assertNull(incrementByOne(null));
+        Assert.assertEquals(2, convertToNumber(incrementByOne(new ListNode<>(1))));
+        Assert.assertEquals(10, convertToNumber(incrementByOne(new ListNode<>(9))));
+        Assert.assertEquals(20, convertToNumber(incrementByOne(createLinkedList(new Integer[]{1,9}))));
+        Assert.assertEquals(100, convertToNumber(incrementByOne(createLinkedList(new Integer[]{9,9}))));
+        Assert.assertEquals(124, convertToNumber(incrementByOne(createLinkedList(new Integer[]{1,2,3}))));
+        Assert.assertEquals(130, convertToNumber(incrementByOne(createLinkedList(new Integer[]{1,2,9}))));
+        Assert.assertEquals(200, convertToNumber(incrementByOne(createLinkedList(new Integer[]{1,9,9}))));
+        Assert.assertEquals(900, convertToNumber(incrementByOne(createLinkedList(new Integer[]{8,9,9}))));
+        Assert.assertEquals(1000, convertToNumber(incrementByOne(createLinkedList(new Integer[]{9,9,9}))));
+        Assert.assertEquals(9000, convertToNumber(incrementByOne(createLinkedList(new Integer[]{8,9,9,9}))));
+        Assert.assertEquals(10000, convertToNumber(incrementByOne(createLinkedList(new Integer[]{9,9,9,9}))));
     }
 }

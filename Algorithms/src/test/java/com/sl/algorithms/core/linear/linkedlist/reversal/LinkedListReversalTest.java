@@ -25,9 +25,9 @@ public class LinkedListReversalTest {
         Assert.assertEquals(singleNode, reverse(singleNode));
 
         ListNode<Integer> pair = reverse(createLinkedList(new Integer[]{1, 2}));
-        Assert.assertEquals("[21]", pair.toString());
+        Assert.assertEquals("[2,1]", pair.toString());
 
-        Assert.assertEquals("[54321]", reverse(testNode).toString());
+        Assert.assertEquals("[5,4,3,2,1]", reverse(testNode).toString());
     }
 
     @Test
@@ -41,28 +41,28 @@ public class LinkedListReversalTest {
         }
         {
             ListNode<Integer> pairNode = createLinkedList(new Integer[]{1, 2});
-            Assert.assertEquals("[21]", reverseListInGroups(pairNode, 2).toString());
+            Assert.assertEquals("[2,1]", reverseListInGroups(pairNode, 2).toString());
             pairNode = createLinkedList(new Integer[]{1, 2});
-            Assert.assertEquals("[12]", reverseListInGroups(pairNode, 3).toString());
+            Assert.assertEquals("[1,2]", reverseListInGroups(pairNode, 3).toString());
         }
         {
             Assert.assertEquals(testNode, reverseListInGroups(testNode, 0));
             Assert.assertEquals(testNode, reverseListInGroups(testNode, 1));
         }
         {
-            Assert.assertEquals("[21435]", reverseListInGroups(testNode.clone(), 2).toString());
+            Assert.assertEquals("[2,1,4,3,5]", reverseListInGroups(testNode.clone(), 2).toString());
         }
         {
-            Assert.assertEquals("[32145]", reverseListInGroups(testNode.clone(), 3).toString());
+            Assert.assertEquals("[3,2,1,4,5]", reverseListInGroups(testNode.clone(), 3).toString());
         }
         {
-            Assert.assertEquals("[43215]", reverseListInGroups(testNode.clone(), 4).toString());
+            Assert.assertEquals("[4,3,2,1,5]", reverseListInGroups(testNode.clone(), 4).toString());
         }
         {
-            Assert.assertEquals("[54321]", reverseListInGroups(testNode.clone(), 5).toString());
+            Assert.assertEquals("[5,4,3,2,1]", reverseListInGroups(testNode.clone(), 5).toString());
         }
         {
-            Assert.assertEquals("[12345]", reverseListInGroups(testNode.clone(), 6).toString());
+            Assert.assertEquals("[1,2,3,4,5]", reverseListInGroups(testNode.clone(), 6).toString());
         }
     }
 }

@@ -10,7 +10,8 @@ import com.sl.algorithms.core.utils.Formulas;
 public class BinarySearchIterative<T extends Comparable> implements BinarySearch<T> {
 
     /**
-     * O(log(n)) time and O(1) space
+     * <br>Since we reduce the search space by half each time, the complexity must be in the order of O(log(n)).<br>
+     * <br>O(log(n)) time and O(1) space.<br>
      */
     @Override
     public int findIndex(T[] sortedInput, T itemToSearch) {

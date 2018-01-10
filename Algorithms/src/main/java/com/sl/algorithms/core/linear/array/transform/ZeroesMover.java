@@ -3,7 +3,7 @@ package com.sl.algorithms.core.linear.array.transform;
 import com.sl.algorithms.core.interfaces.rwops.ElementMover;
 import com.sl.algorithms.core.utils.ArrayOps;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked") // generic array cast and compareTo call
 public class ZeroesMover<T extends Comparable> implements ElementMover<T> {
 
     // O(n) time and O(1) space, with optimal # operations in worst case
@@ -23,7 +23,6 @@ public class ZeroesMover<T extends Comparable> implements ElementMover<T> {
             }
             ++fast;
         }
-        return;
     }
 
     // O(n) time and O(1) space, but # operations in worst-case is high (e.g. 00001)
@@ -41,6 +40,5 @@ public class ZeroesMover<T extends Comparable> implements ElementMover<T> {
             nums[slow] = (T) zero;
             ++slow;
         }
-        return;
     }
 }

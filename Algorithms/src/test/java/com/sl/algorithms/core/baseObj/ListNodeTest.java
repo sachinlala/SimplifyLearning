@@ -56,7 +56,7 @@ public class ListNodeTest {
         }
         {
             ListNode<Integer> deepCopy = integerListNode.clone();
-            Assert.assertEquals("[12345]", deepCopy.toString());
+            Assert.assertEquals("[1,2,3,4,5]", deepCopy.toString());
         }
     }
 
@@ -109,7 +109,7 @@ public class ListNodeTest {
             Assert.assertFalse(integerListNode.isCircular());
             curr.next = integerListNode.next.next;
             Assert.assertFalse(integerListNode.isCircular());
-            Assert.assertEquals("[12345]", integerListNode.toString());
+            Assert.assertEquals("[1,2,3,4,5]", integerListNode.toString());
         }
         {
             ListNode<String> curr = stringListNode;
@@ -117,7 +117,7 @@ public class ListNodeTest {
             Assert.assertFalse(stringListNode.isCircular());
             curr.next = stringListNode;
             Assert.assertTrue(stringListNode.isCircular());
-            Assert.assertEquals("[ArrayListTreeMap]", stringListNode.toString());
+            Assert.assertEquals("[Array,List,Tree,Map]", stringListNode.toString());
         }
     }
 
@@ -137,7 +137,7 @@ public class ListNodeTest {
             Assert.assertFalse(stringListNode.isCyclic());
             curr.next = stringListNode;
             Assert.assertTrue(stringListNode.isCyclic());
-            Assert.assertEquals("[ArrayListTreeMap]", stringListNode.toString());
+            Assert.assertEquals("[Array,List,Tree,Map]", stringListNode.toString());
         }
         {
             ListNode<Integer> curr = integerListNode;
@@ -145,7 +145,7 @@ public class ListNodeTest {
             Assert.assertFalse(integerListNode.isCyclic());
             curr.next = integerListNode.next.next;
             Assert.assertTrue(integerListNode.isCyclic());
-            Assert.assertEquals("[12345]", integerListNode.toString());
+            Assert.assertEquals("[1,2,3,4,5]", integerListNode.toString());
         }
     }
 }

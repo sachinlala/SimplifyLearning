@@ -1,10 +1,12 @@
 package com.sl.algorithms.core.utils;
 
+import com.sl.algorithms.core.baseObj.Constants;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayOps {
+public class ArrayOps implements Constants {
     ArrayOps() {
         /**
          * This is a utility class.<br>
@@ -64,7 +66,7 @@ public class ArrayOps {
         int l = objects.length;
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < l - 1; i++) {
-            output = output.append(objects[i]).append(",");
+            output = output.append(objects[i]).append(DELIMITER_COMMA);
         }
         output.append(objects[l - 1]).append("]");
         return output.toString();
@@ -75,7 +77,7 @@ public class ArrayOps {
         int l = nums.length;
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < l - 1; i++) {
-            output = output.append(nums[i]).append(",");
+            output = output.append(nums[i]).append(DELIMITER_COMMA);
         }
         output.append(nums[l - 1]).append("]");
         return output.toString();

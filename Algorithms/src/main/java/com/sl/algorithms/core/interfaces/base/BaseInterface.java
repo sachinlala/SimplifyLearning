@@ -1,9 +1,8 @@
 package com.sl.algorithms.core.interfaces.base;
 
-public interface BaseInterface<T extends Comparable> {
+import com.sl.algorithms.core.baseObj.Constants;
 
-    String ARRAY_IS_EMPTY = "Array is empty";
-    String DATA_TYPE_NOT_SUPPORTED_YET = "Input has data-type which is not supported yet";
+public interface BaseInterface<T extends Comparable> extends Constants {
 
     default void objChecks(T[] objects) {
         if (objects == null || objects.length == 0) throw new IllegalArgumentException(ARRAY_IS_EMPTY);

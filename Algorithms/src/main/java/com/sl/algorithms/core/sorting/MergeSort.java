@@ -14,13 +14,12 @@ import java.util.Arrays;
  * <br><br>
  * Time = O(N*logN) & Space = O(N)
  */
-@SuppressWarnings("unchecked")
 public class MergeSort<T extends Comparable> implements SortingEngine<T> {
 
     @Override
     public void sort(T[] objects) {
         objChecks(objects);
-        partitionThenMerge(objects, 0, objects.length-1);
+        partitionThenMerge(objects, 0, objects.length - 1);
     }
 
     //TODO: revise //TODO: do in-place also
@@ -28,18 +27,16 @@ public class MergeSort<T extends Comparable> implements SortingEngine<T> {
         if (start >= end) return;
         int midPoint = Formulas.midPoint(start, end);
         partitionThenMerge(objects, start, midPoint);
-        partitionThenMerge(objects, midPoint+1, end);
+        partitionThenMerge(objects, midPoint + 1, end);
         mergeSort(objects, start, midPoint, end);
-        return;
     }
 
+    @SuppressWarnings("unchecked")
     private void mergeSort(T[] objects, int start, int midPoint, int end) {
-        T[] a = (T[])new Comparable[midPoint-start+1];
-        T[] b = (T[])new Comparable[end-midPoint];
-        a = Arrays.copyOfRange(objects, start, midPoint+1); //+1 for copyOfRange API, "to" is exclusive
-        b = Arrays.copyOfRange(objects, midPoint+1, end+1); //+1 for copyOfRange API, "to" is exclusive
-        int i=0, j=0, k=start;
-        for (; i<a.length && j<b.length; k++) {
+        T[] a = (T[]) Arrays.copyOfRange(objects, start, midPoint + 1); //+1 for copyOfRange API, "to" is exclusive
+        T[] b = (T[]) Arrays.copyOfRange(objects, midPoint + 1, end + 1); //+1 for copyOfRange API, "to" is exclusive
+        int i = 0, j = 0, k = start;
+        for (; i < a.length && j < b.length; k++) {
             if (a[i].compareTo(b[j]) <= 0) {
                 objects[k] = a[i];
                 i++;
@@ -48,12 +45,11 @@ public class MergeSort<T extends Comparable> implements SortingEngine<T> {
                 j++;
             }
         }
-        for (; i<a.length; i++, k++) {
+        for (; i < a.length; i++, k++) {
             objects[k] = a[i];
         }
-        for (; j<b.length; j++, k++) {
+        for (; j < b.length; j++, k++) {
             objects[k] = b[j];
         }
-        return;
     }
 }

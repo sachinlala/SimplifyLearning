@@ -2,12 +2,13 @@ package com.sl.algorithms.core.linear.array.rotation;
 
 import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
-import com.sl.algorithms.core.utils.ArrayOps;
+
+import static com.sl.algorithms.core.utils.ArrayOps.reverse;
 
 /**
- * <br><a href="https://en.wikipedia.org/wiki/Douglas_McIlroy">Doug McIlroy</a><br>
  * <br><b>Left Rotation</b>: Flip Left Hand -> Flip Right Hand -> Flip Both Hands <br>
  * <br><b>Right Rotation</b>: Flip Both Hands -> Flip Right Hand -> Flip Left Hand <br>
+ * <br><a href="https://en.wikipedia.org/wiki/Douglas_McIlroy">Doug McIlroy</a><br>
  */
 public class DougMcIlroyAlgorithm<T extends Comparable> implements RotationEngine<T> {
 
@@ -18,13 +19,13 @@ public class DougMcIlroyAlgorithm<T extends Comparable> implements RotationEngin
         int l = objects.length;
         if (k >= l) k = k%l;
         if (clockwise) {
-            ArrayOps.reverse(objects, 0, l-1);
-            ArrayOps.reverse(objects, k, l-1);
-            ArrayOps.reverse(objects, 0, k-1);
+            reverse(objects, 0, l-1);
+            reverse(objects, k, l-1);
+            reverse(objects, 0, k-1);
         } else {
-            ArrayOps.reverse(objects, 0, k-1);
-            ArrayOps.reverse(objects, k, l-1);
-            ArrayOps.reverse(objects, 0, l-1);
+            reverse(objects, 0, k-1);
+            reverse(objects, k, l-1);
+            reverse(objects, 0, l-1);
         }
         return objects;
     }

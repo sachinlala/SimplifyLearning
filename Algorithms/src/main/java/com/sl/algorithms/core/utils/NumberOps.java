@@ -1,5 +1,7 @@
 package com.sl.algorithms.core.utils;
 
+import com.sl.algorithms.core.baseObj.ListNode;
+
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -47,6 +49,18 @@ public class NumberOps {
     public static int convertToNumber(int[] a) {
         long n = 0;
         for (int digit : a) n = n*10 + digit;
+        if (n > Integer.MAX_VALUE) return -1;
+        return (int)n;
+    }
+
+    // n>=0 and 32-bit
+    public static int convertToNumber(ListNode<Integer> list) {
+        long n = 0;
+        ListNode<Integer> ptr = list;
+        while (ptr != null) {
+            n = n*10 + ptr.data;
+            ptr = ptr.next;
+        }
         if (n > Integer.MAX_VALUE) return -1;
         return (int)n;
     }

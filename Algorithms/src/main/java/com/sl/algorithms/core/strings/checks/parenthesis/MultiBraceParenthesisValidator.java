@@ -18,9 +18,9 @@ public class MultiBraceParenthesisValidator implements ParenthesisValidator {
     }
 
     /**
-     * Solve in O(n) time and O(n) space.<br>
      * <br>Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.<br>
      * <br>The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.<br>
+     * <br>Solve in O(n) time and O(n) space.<br>
      */
     public boolean isValidParenthesis(String s) {
         if (isEmptyOrNull(s)) return false;
@@ -30,8 +30,7 @@ public class MultiBraceParenthesisValidator implements ParenthesisValidator {
                 stack.push(c);
                 continue;
             }
-            char prevChar = stack.peek();
-            Character charInMap = BRACES_MAP.get(prevChar);
+            Character charInMap = BRACES_MAP.get(stack.peek());
             if (charInMap != null && c == charInMap) {
                 stack.pop();
             } else {

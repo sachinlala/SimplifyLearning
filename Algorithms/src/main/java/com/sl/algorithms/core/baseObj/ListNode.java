@@ -12,7 +12,7 @@ import static com.sl.algorithms.core.baseObj.CycleDetection.getNodeFromCycle;
  * @param <T> : {@link Comparable}
  */
 public class ListNode<T extends Comparable>
-        implements Comparable<ListNode<T>>, Serializable {
+        implements Comparable<ListNode<T>>, Serializable, Constants {
 
     /**
      * Direct public access for this project only (as it's not a service/app).<br>
@@ -122,6 +122,7 @@ public class ListNode<T extends Comparable>
         ListNode<T> curr = this;
         do {
             listStr.append(curr.data == null ? "" : curr.data.toString());
+            if (curr.next != null) listStr.append(DELIMITER_COMMA);
             curr = curr.next;
         } while (curr != null);
         return listStr.toString();
@@ -169,7 +170,7 @@ public class ListNode<T extends Comparable>
  *
  * @param <T> : {@link Comparable}
  */
-class CycleDetection<T extends Comparable> {
+class CycleDetection<T extends Comparable> implements Constants {
 
     /**
      * <br>For a cyclic list, find a node inside the cycle.<br>
@@ -218,6 +219,7 @@ class CycleDetection<T extends Comparable> {
         ListNode<T> curr = head, tailOfCycle = getCycleEndPoints(head).right;
         while (curr != tailOfCycle) {
             listStr.append(curr.data == null ? "" : curr.data.toString());
+            listStr.append(DELIMITER_COMMA);
             curr = curr.next;
         }
         listStr.append(curr.data == null ? "" : curr.data.toString());
