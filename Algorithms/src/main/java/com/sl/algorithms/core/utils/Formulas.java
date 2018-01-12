@@ -145,11 +145,7 @@ public class Formulas {
             index = end;
         }
         executorService.shutdown();
-        try {
-            executorService.awaitTermination(1, TimeUnit.MINUTES);
-        } catch (InterruptedException ie) {
-            throw ie;
-        }
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
         return outputList;
     }
 
