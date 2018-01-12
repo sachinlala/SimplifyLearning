@@ -17,6 +17,7 @@ public class ArrayRotationTest {
         rotationEngine = new BruteForceRotation();
         testRotationLeft();
         testRotationRight(true);
+        assertListNodeRotation();
     }
 
     @Test
@@ -24,6 +25,7 @@ public class ArrayRotationTest {
         rotationEngine = new BruteForceRotationWithSpace();
         testRotationLeft();
         testRotationRight(false);
+        assertListNodeRotation();
     }
 
     @Test
@@ -31,6 +33,7 @@ public class ArrayRotationTest {
         rotationEngine = new DougMcIlroyAlgorithm();
         testRotationLeft();
         testRotationRight(true);
+        assertListNodeRotation();
     }
 
     @Test
@@ -38,6 +41,7 @@ public class ArrayRotationTest {
         rotationEngine = new BentleyShufflingAlgorithm();
         testRotationLeft();
         testRotationRight(false);
+        assertListNodeRotation();
     }
 
     @Test
@@ -45,6 +49,7 @@ public class ArrayRotationTest {
         rotationEngine = new GriesMillsAlgorithm();
         testRotationLeft();
         testRotationRight(false);
+        assertListNodeRotation();
     }
 
     public void testRotationLeft() {
@@ -76,9 +81,7 @@ public class ArrayRotationTest {
         Assert.assertEquals("[5,1,2,3,4]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 6, true)));
     }
 
-    @Test
-    public void assertListNodeRotation() {
-        rotationEngine = new DougMcIlroyAlgorithm();
+    private void assertListNodeRotation() {
         try {
             rotationEngine.rotate(ListNode.dummyNode(), 1, true);
             Assert.fail("Should have thrown an UnsupportedOperationException");

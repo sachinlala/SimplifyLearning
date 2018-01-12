@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.baseObj.ListNode.createLinkedList;
-import static com.sl.algorithms.core.baseObj.CycleDetection.*;
 
 public class ListNodeTest {
     private ListNode<Integer> integerListNode;
@@ -46,6 +45,15 @@ public class ListNodeTest {
             Assert.assertTrue(stringListNode.equals(newList));
             Assert.assertTrue(stringListNode.hashCode() == newList.hashCode());
         }
+        {
+            ListNode<Double> doubleListNode = new ListNode<>(1.0);
+            try {
+                doubleListNode.compareTo(doubleListNode);
+                Assert.fail("Exception should've been thrown because Double not supported yet");
+            } catch (IllegalArgumentException iae) {
+                Assert.assertNotNull(iae);
+            }
+        }
     }
 
     @Test
@@ -64,33 +72,6 @@ public class ListNodeTest {
     public void testSize() {
         Assert.assertEquals(5, integerListNode.getSize());
         Assert.assertEquals(4, stringListNode.getSize());
-    }
-
-    @Test
-    public void testCycleEndPoints() {
-        {
-            Assert.assertNull(getCycleEndPoints(ListNode.dummyNode()));
-            Assert.assertNull(getCycleEndPoints(new ListNode<>(1)));
-            Assert.assertNull(getCycleEndPoints(integerListNode));
-            Assert.assertNull(getCycleEndPoints(stringListNode));
-        }
-        {
-            ListNode<Integer> curr = integerListNode;
-            while (curr.next != null) curr = curr.next;
-            ListNode<Integer> cyclePoint = integerListNode.next.next;
-            curr.next = cyclePoint;
-            Pair<ListNode<Integer>, ListNode<Integer>> endPoints = getCycleEndPoints(integerListNode);
-            Assert.assertEquals("3", endPoints.left.data.toString());
-            Assert.assertEquals("5", endPoints.right.data.toString());
-        }
-        {
-            ListNode<String> curr = stringListNode;
-            while (curr.next != null) curr = curr.next;
-            curr.next = stringListNode;
-            Pair<ListNode<String>, ListNode<String>> endPoints = getCycleEndPoints(stringListNode);
-            Assert.assertEquals("Array", endPoints.left.data.toString());
-            Assert.assertEquals("Map", endPoints.right.data.toString());
-        }
     }
 
     @Test

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonkPredicatesTest {
+public class MonkPredicatesTest extends MonkPredicates {
 
     private List<Monk> monkList;
 
@@ -43,17 +43,17 @@ public class MonkPredicatesTest {
 
     @Test
     public void assertSportPersonsCount() {
-        Assert.assertEquals(10, MonkPredicates.filterMonks(monkList, MonkPredicates.isSportsPerson()).size());
+        Assert.assertEquals(10, filterMonks(monkList, isSportsPerson()).size());
     }
 
     @Test
     public void assertTeenagerCount() {
-        Assert.assertEquals(9, MonkPredicates.filterMonks(monkList, MonkPredicates.isTeenager()).size());
+        Assert.assertEquals(9, filterMonks(monkList, isTeenager()).size());
     }
 
     @Test
     public void assertAdultSportPersonsCount() {
-        Assert.assertEquals(3, MonkPredicates.filterMonks(monkList, MonkPredicates.isAdultSportsPerson()).size());
+        Assert.assertEquals(3, filterMonks(monkList, isAdultSportsPerson()).size());
     }
 
     @Test

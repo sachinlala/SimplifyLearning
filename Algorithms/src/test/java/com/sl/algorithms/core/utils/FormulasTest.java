@@ -1,7 +1,5 @@
 package com.sl.algorithms.core.utils;
 
-import com.sl.algorithms.core.utils.ArrayOps;
-import com.sl.algorithms.core.utils.Formulas;
 import org.junit.Assert;
 import org.junit.Test;
 

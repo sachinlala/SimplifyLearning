@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class MonkPredicates {
 
-    private MonkPredicates() {
+    MonkPredicates() {
         /**
          * This is a utility class.<br>
          */

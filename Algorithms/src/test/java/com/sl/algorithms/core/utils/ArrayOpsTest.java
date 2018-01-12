@@ -10,6 +10,19 @@ public class ArrayOpsTest extends ArrayOps {
 
     @Test
     public void testReverse() {
+        int[] a = {1, 2, 3, 4, 5, 6};
+        {
+            reverse(a);
+            Assert.assertEquals("[6,5,4,3,2,1]", printArray(a));
+        }
+        {
+            reverse(a);
+            Assert.assertEquals("[1,2,3,4,5,6]", printArray(a));
+        }
+    }
+
+    @Test
+    public void testReverseObj() {
         Integer[] a = {1, 2, 3, 4, 5, 6};
         {
             reverse(a);

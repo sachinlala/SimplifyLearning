@@ -17,17 +17,16 @@ public class BinarySearchIterative<T extends Comparable> implements BinarySearch
     public int findIndex(T[] sortedInput, T itemToSearch) {
         objChecks(sortedInput);
         int start = 0, end = sortedInput.length - 1;
-        while (start <= end) {  // the equality check here is KEY!
+        return findIndexIteratively(sortedInput, itemToSearch,start, end);
+    }
+
+    private int findIndexIteratively(T[] sortedInput, T itemToSearch, int start, int end) {
+        while (start <= end) {  // the equality check here is important
             int midPoint = Formulas.midPoint(start, end);
             T midValue = sortedInput[midPoint];
-            if (midValue.compareTo(itemToSearch) == 0) {
-                return midPoint;
-            }
-            if (midValue.compareTo(itemToSearch) > 0) {
-                end = midPoint - 1;
-            } else {
-                start = midPoint + 1;
-            }
+            if (itemToSearch.compareTo(midValue) == 0) return midPoint; // index found
+            if (itemToSearch.compareTo(midValue) < 0) end = midPoint - 1; // go left
+            else start = midPoint + 1; // go right
         }
         return NUMBER_NOT_FOUND;
     }

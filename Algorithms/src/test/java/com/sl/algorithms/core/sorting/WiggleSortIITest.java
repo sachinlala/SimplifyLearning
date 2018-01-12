@@ -23,7 +23,7 @@ public class WiggleSortIITest extends SortingEngineTest {
         baseTests(sortingEngine);
     }
 
-    //TODO //FIXME - this assertion needs to be more involved because output can vary based on randomization
+    //TODO //FIXME - this assertion needs to be more involved because output can vary based on input randomization, but will satisfy a set pattern.
     @Ignore
     @Test
     public void testWiggleSortII() {
