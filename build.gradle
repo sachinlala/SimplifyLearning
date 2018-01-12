@@ -43,6 +43,13 @@ subprojects {
                 it.exists()
             })
         }
+        afterEvaluate {
+            classDirectories = files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        '**/*SampleRESTApplication**'
+                ])
+            })
+        }
     }
     check.dependsOn jacocoTestReport
 }
