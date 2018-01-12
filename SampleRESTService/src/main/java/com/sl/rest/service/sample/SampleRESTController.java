@@ -1,6 +1,6 @@
 package com.sl.rest.service.sample;
 
-import com.sl.algorithms.core.interfaces.search.BinarySearch;
+import com.sl.algorithms.core.interfaces.search.Search;
 import com.sl.algorithms.core.search.binarysearch.BinarySearchGeneric;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ public class SampleRESTController {
 
     private static final String HELLO_STR = "Hello %s!";
     private final AtomicLong counter = new AtomicLong();
-    private final BinarySearch<Integer> binarySearch = new BinarySearchGeneric<>();
+    private final Search<Integer> binarySearch = new BinarySearchGeneric<>();
 
     /**
      * For a given input 'name', output the JSON form of "Hello 'name'".
