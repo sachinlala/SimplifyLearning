@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.sorting;
+package com.sl.algorithms.core.sorting.generalpurpose;
 
 import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 import com.sl.algorithms.core.utils.Formulas;
@@ -37,10 +37,11 @@ public class MergeSort<T extends Comparable> implements SortingEngine<T> {
         T[] b = (T[]) Arrays.copyOfRange(objects, midPoint + 1, end + 1); //+1 for copyOfRange API, "to" is exclusive
         int i = 0, j = 0, k = start;
         for (; i < a.length && j < b.length; k++) {
-            if (a[i].compareTo(b[j]) <= 0) {
+            int diff = a[i].compareTo(b[j]);
+            if (diff <= 0) {
                 objects[k] = a[i];
                 i++;
-            } else if (a[i].compareTo(b[j]) > 0) {
+            } else {
                 objects[k] = b[j];
                 j++;
             }
@@ -51,5 +52,6 @@ public class MergeSort<T extends Comparable> implements SortingEngine<T> {
         for (; j < b.length; j++, k++) {
             objects[k] = b[j];
         }
+        return;
     }
 }

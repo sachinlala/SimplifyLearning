@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.sorting;
+package com.sl.algorithms.core.sorting.finitegroups;
 
 import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 
@@ -10,15 +10,20 @@ import static com.sl.algorithms.core.utils.ArrayOps.swap;
  * <br><a href="http://users.monash.edu/~lloyd/tildeAlgDS/Sort/Flag/">Reference 2</a>
  * <br>Time = O(N) & Space = O(1)<br>
  */
-@SuppressWarnings("unchecked")
 public class DutchNationalFlagsSort<T extends Comparable> implements SortingEngine<T> {
 
-    private T lowerBand;
-    private T higherBand;
+    private T red;
+    private T blue;
 
+    /**
+     * <a href="https://en.wikipedia.org/wiki/Flag_of_the_Netherlands">Dutch Flag</a>
+     * @param _lowerBand (red) : value of first group
+     * <br>(white) is the implicit middle layer<br>
+     * @param _higherBand (blue) : value of third group
+     */
     public DutchNationalFlagsSort(T _lowerBand, T _higherBand) {
-        lowerBand = _lowerBand;
-        higherBand = _higherBand;
+        red = _lowerBand;
+        blue = _higherBand;
     }
 
     @Override
@@ -27,15 +32,15 @@ public class DutchNationalFlagsSort<T extends Comparable> implements SortingEngi
         int low = 0, medium = 0, high = objects.length - 1;
         while (medium <= high) {
             T obj = objects[medium];
-            if (obj.compareTo(lowerBand) == 0) {
+            if (red.equals(obj)) {
                 swap(objects, low, medium);
                 low++;
                 medium++;
-            } else if (obj.compareTo(higherBand) == 0) {
+            } else if (blue.equals(obj)) {
                 swap(objects, high, medium);
                 high--;
-            } else {
-                medium++; // if (obj.compareTo(middleBand) == 0) {
+            } else { // white
+                medium++;
             }
         }
     }

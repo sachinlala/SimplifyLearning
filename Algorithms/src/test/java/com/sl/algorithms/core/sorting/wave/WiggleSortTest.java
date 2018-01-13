@@ -1,6 +1,7 @@
-package com.sl.algorithms.core.sorting;
+package com.sl.algorithms.core.sorting.wave;
 
 import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.sorting.generalpurpose.SortingEngineTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

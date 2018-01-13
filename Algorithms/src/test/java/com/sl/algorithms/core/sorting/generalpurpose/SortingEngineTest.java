@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.sorting;
+package com.sl.algorithms.core.sorting.generalpurpose;
 
 import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
 import org.junit.Assert;
