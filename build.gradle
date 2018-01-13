@@ -45,19 +45,18 @@ subprojects {
         }
         afterEvaluate {
             classDirectories = files(classDirectories.files.collect {
-                fileTree(dir: it, exclude: [
-                        '**/*SampleRESTApplication*.*'
-                ])
+                fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
             })
         }
     }
+    test.finalizedBy(project.tasks.jacocoTestReport)
     check.dependsOn jacocoTestReport
 }
 
 task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
     dependsOn = subprojects.test
     sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(subprojects.sourceSets.main.output)
+    classDirectories = files(subprojects.sourceSets.main.output)
     executionData = files(subprojects.jacocoTestReport.executionData)
     reports {
         html.enabled = true
@@ -70,6 +69,11 @@ task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
     doFirst {
         executionData = files(executionData.findAll {
             it.exists()
+        })
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
         })
     }
 }
