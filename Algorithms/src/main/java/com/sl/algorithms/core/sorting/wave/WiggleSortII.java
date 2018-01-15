@@ -15,7 +15,7 @@ public class WiggleSortII<T extends Comparable> implements SortingEngine<T> {
     //TODO - add support for String data-type
     @Override
     public void sort(T[] objects) {// only for integers for now
-        objChecks(objects);
+        checkArray(objects);
 
         MedianFinder<T> medianFinder = new QuickSelectMedianFinder<>();
         T median = medianFinder.findMedian(objects);

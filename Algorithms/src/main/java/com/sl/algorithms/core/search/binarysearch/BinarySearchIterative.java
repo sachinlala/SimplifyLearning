@@ -16,7 +16,7 @@ public class BinarySearchIterative<T extends Comparable> implements Search<T> {
      */
     @Override
     public int findIndex(T[] sortedInput, T targetElement) {
-        objChecks(sortedInput);
+        checkArray(sortedInput);
         int start = 0, end = sortedInput.length - 1;
         return findIndexIteratively(sortedInput, targetElement,start, end);
     }

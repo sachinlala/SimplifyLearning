@@ -16,7 +16,7 @@ public class NGERegularArray implements NextGreaterElement {
     // O(n) time and O(n) space
     @Override
     public int[] findNGE(int[] temperatures) {
-        intArrayCheck(temperatures);
+        checkIntArray(temperatures);
         int n = temperatures.length;
         int[] warmTemperatures = new int[n]; // => each element = 0
         Arrays.fill(warmTemperatures, 0);

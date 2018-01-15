@@ -10,7 +10,7 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
 
     @Override
     public int findMaxSubArraySum(int[] nums) {
-        intArrayCheck(nums);
+        checkIntArray(nums);
         if (nums.length == 1) {
             return nums[0];
         }
@@ -29,7 +29,7 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
     //TODO: analyze this more
     @Override
     public int findMaxSubArrayProduct(int[] nums) {
-        intArrayCheck(nums);
+        checkIntArray(nums);
         if (nums.length == 1) {
             return nums[0];
         }

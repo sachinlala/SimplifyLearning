@@ -40,7 +40,7 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
      */
     @Override
     public void sort(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         int w = 0, r = objects.length - 1;
         while (w < r) {
             while (objects[w].equals(white) && w < r) {

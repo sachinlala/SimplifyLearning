@@ -10,7 +10,7 @@ public class BruteForceRotationWithSpace<T extends Comparable> implements Rotati
 
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
-        objChecks(objects);
+        checkArray(objects);
         if (clockwise) throw new IllegalArgumentException(OPERATION_NOT_SUPPORTED_YET);
         else return rotateLeft(objects, k);
     }

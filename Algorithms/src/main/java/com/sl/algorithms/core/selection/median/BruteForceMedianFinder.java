@@ -14,7 +14,7 @@ public class BruteForceMedianFinder<T extends Comparable> implements MedianFinde
 
     @Override
     public T findKthSmallest(T[] objects, int k) {
-        objChecks(objects);
+        checkArray(objects);
         int l = objects.length;
         kCheck(l, k);
         if (l == 1) {

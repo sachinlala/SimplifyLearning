@@ -14,7 +14,7 @@ public class BentleyShufflingAlgorithm<T extends Comparable> implements Rotation
     //TODO: analyze further
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
-        objChecks(objects);
+        checkArray(objects);
         if (clockwise) throw new IllegalArgumentException(OPERATION_NOT_SUPPORTED_YET);
         return rotateLeftByJuggling(objects, k);
     }

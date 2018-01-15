@@ -11,7 +11,7 @@ public class BoyerMooreVoting<T extends Comparable> implements MajorityFinder<T>
 
     @Override
     public T findMajorityElement(T[] candidates) {
-        objChecks(candidates);
+        checkArray(candidates);
         int majorityIndex = 0, count = 1;
         for (int i = 1; i < candidates.length; i++) {
             if (count == 0) {
@@ -29,7 +29,7 @@ public class BoyerMooreVoting<T extends Comparable> implements MajorityFinder<T>
 
     @Override
     public boolean isMajority(T[] candidates, T majorityElement) {
-        objChecks(candidates);
+        checkArray(candidates);
         int count = 0;
         for (T candidate : candidates) {
             if (candidate.equals(majorityElement)) {

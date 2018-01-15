@@ -14,7 +14,7 @@ public class LogTimePEFinder<T extends Comparable> implements PeakElementFinder<
     @SuppressWarnings("unchecked")
     @Override
     public T findPeakElement(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         if (objects.length == 1) return objects[0];
         int start = 0, end = objects.length - 1;
         while (start != end) {

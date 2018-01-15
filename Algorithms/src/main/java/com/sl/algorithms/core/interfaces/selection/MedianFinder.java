@@ -8,7 +8,7 @@ package com.sl.algorithms.core.interfaces.selection;
 public interface MedianFinder<T extends Comparable> extends QuickSelect<T> {
 
     default T findMedian(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         int k = objects.length / 2;
         if (objects.length % 2 != 0) {
             k++;
@@ -20,12 +20,12 @@ public interface MedianFinder<T extends Comparable> extends QuickSelect<T> {
     }
 
     default T findMinimum(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         return findKthSmallest(objects, 1);
     }
 
     default T findMaximum(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         return findKthSmallest(objects, objects.length);
     }
 }

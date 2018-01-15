@@ -14,7 +14,7 @@ import static com.sl.algorithms.core.utils.ArrayOps.swap;
 public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
 
     default T findKthLargest(T[] objects, int k) {
-        objChecks(objects);
+        checkArray(objects);
         return findKthSmallest(objects, objects.length - k + 1);
     }
 
@@ -23,7 +23,7 @@ public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
      * <br>e.g. 3rd smallest = 3, when objects:[1,2,3,4,5] & k=3
      */
     default T findKthSmallest(T[] objects, int k) {
-        objChecks(objects);
+        checkArray(objects);
         kCheck(objects.length, k);
         if (objects.length == 1) {
             return objects[0];

@@ -11,7 +11,7 @@ public interface ShufflingEngine<T extends Comparable> extends BaseInterface<T> 
     Random random = new Random();
 
     default void shuffle(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         for (int i = 1; i < objects.length; i++) {
             ArrayOps.swap(objects, i, random.nextInt(i + 1));
         }

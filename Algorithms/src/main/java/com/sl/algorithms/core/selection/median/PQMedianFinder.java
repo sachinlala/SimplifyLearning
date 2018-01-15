@@ -15,7 +15,7 @@ public class PQMedianFinder<T extends Comparable> implements MedianFinder<T> {
 
     @Override
     public T findKthSmallest(T[] objects, int k) {
-        objChecks(objects);
+        checkArray(objects);
         int l = objects.length;
         kCheck(l, k);
         if (l == 1) {

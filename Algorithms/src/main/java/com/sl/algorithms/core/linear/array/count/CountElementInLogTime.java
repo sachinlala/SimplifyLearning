@@ -25,7 +25,7 @@ public class CountElementInLogTime<T extends Comparable> implements ElementCount
 
     @Override
     public int countTargetElement(T[] nums, T target) {
-        objChecks(nums);
+        checkArray(nums);
         int start = 0, end = nums.length - 1;
         int minIndex = findMinIndex(nums, target, start, end);
         if (minIndex < 0) return 0;

@@ -16,7 +16,7 @@ public class BinarySearchGeneric<T extends Comparable> implements Search<T> {
 
     @Override
     public int findIndex(T[] rotatedSortedInput, T targetElement) {
-        objChecks(rotatedSortedInput);
+        checkArray(rotatedSortedInput);
         int start = 0, end = rotatedSortedInput.length - 1;
         int startOfAscent = rotatedSortedInput.length == 1 ? 0 : findStartOfAscent(rotatedSortedInput, start, end);
         return findIndexGeneric(rotatedSortedInput, targetElement, start, end, startOfAscent);
@@ -41,7 +41,7 @@ public class BinarySearchGeneric<T extends Comparable> implements Search<T> {
     }
 
     public int findStartOfAscent(T[] a) {
-        objChecks(a);
+        checkArray(a);
         return a.length == 1 ? 0 : findStartOfAscent(a, 0, a.length - 1);
     }
 

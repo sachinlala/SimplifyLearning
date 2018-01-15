@@ -24,7 +24,7 @@ public class CountingSort<T extends Integer> implements SortingEngine<T> {
     @SuppressWarnings("unchecked") // valueOf
     @Override
     public void sort(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
 
         // O(k) space count array to track the frequency of each element
         int[] countArray = new int[maxValue + 1];

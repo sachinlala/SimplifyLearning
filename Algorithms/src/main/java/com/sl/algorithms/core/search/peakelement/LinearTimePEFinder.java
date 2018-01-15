@@ -13,7 +13,7 @@ public class LinearTimePEFinder<T extends Comparable> implements PeakElementFind
     @SuppressWarnings("unchecked")
     @Override
     public T findPeakElement(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         if (objects.length == 1) return objects[0];
         int start = 0, end = objects.length - 1;
         while (start != end) {

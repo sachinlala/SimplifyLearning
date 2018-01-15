@@ -18,7 +18,7 @@ public class NarayanPanditAlgorithm implements NextGreaterElement {
 
     @Override
     public int[] findNGE(int[] elements) {
-        intArrayCheck(elements);
+        checkIntArray(elements);
         int flipPoint = -1, ngsdIndex = -1, maxIndex = elements.length - 1;
         for (int i = maxIndex; i > 0; i--) {
             if (elements[i] > elements[i - 1]) {

@@ -14,7 +14,7 @@ public class ZeroesMover<T extends Comparable> implements Consolidator<T> {
      */
     @Override
     public void consolidate(T[] objects, T element, boolean right) {
-        objChecks(objects);
+        checkArray(objects);
         int slow = 0, fast = 0;
         if (right) {
             moveRight(objects, element, slow, fast);

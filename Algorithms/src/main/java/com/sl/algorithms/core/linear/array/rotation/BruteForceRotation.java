@@ -11,7 +11,7 @@ public class BruteForceRotation<T extends Comparable> implements RotationEngine<
 
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
-        objChecks(objects);
+        checkArray(objects);
         if (clockwise) return rotateRight(objects, k);
         else return rotateLeft(objects, k);
     }

@@ -16,7 +16,7 @@ public class BinarySearchRecursive<T extends Comparable> implements Search<T> {
      */
     @Override
     public int findIndex(T[] sortedInput, T targetElement) {
-        objChecks(sortedInput);
+        checkArray(sortedInput);
         return findIndexRecursively(sortedInput, targetElement, 0, sortedInput.length - 1);
     }
 

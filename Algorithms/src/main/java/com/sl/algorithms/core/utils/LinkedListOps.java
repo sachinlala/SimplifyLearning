@@ -157,5 +157,4 @@ public class LinkedListOps {
         head = reverse(head);
         return head;
     }
-
 }

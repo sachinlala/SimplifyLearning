@@ -48,7 +48,7 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
      */
     @Override
     public void sort(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         int r = 0, w = objects.length - 1, b = objects.length - 1;
         while (w >= r) {
             T obj = objects[w];
@@ -58,7 +58,7 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
             } else if (obj.equals(blue)) {
                 swap(objects, w, b);
                 b--;
-                w--;
+                w--; // w needs to be move lock-step with b { example to assert: 2, 0, 1, 0, 1, 0, 0, 2, 2 }
             } else { // white (implicit) // middle layer
                 w--;
             }

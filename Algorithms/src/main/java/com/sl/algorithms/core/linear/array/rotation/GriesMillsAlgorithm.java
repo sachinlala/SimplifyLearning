@@ -13,7 +13,7 @@ public class GriesMillsAlgorithm<T extends Comparable> implements RotationEngine
     // O(n) time and O(1) space
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
-        objChecks(objects);
+        checkArray(objects);
         if (clockwise) throw new IllegalArgumentException(OPERATION_NOT_SUPPORTED_YET);
         else return rotateLeftBlockSwap(objects, k);
     }

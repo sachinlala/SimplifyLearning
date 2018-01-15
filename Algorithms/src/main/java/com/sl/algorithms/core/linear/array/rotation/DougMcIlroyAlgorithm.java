@@ -15,7 +15,7 @@ public class DougMcIlroyAlgorithm<T extends Comparable> implements RotationEngin
     // O(n) time and O(1) space
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
-        objChecks(objects);
+        checkArray(objects);
         int l = objects.length;
         if (k >= l) k = k%l;
         if (clockwise) {

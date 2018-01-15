@@ -18,7 +18,7 @@ public class MergeSort<T extends Comparable> implements SortingEngine<T> {
 
     @Override
     public void sort(T[] objects) {
-        objChecks(objects);
+        checkArray(objects);
         partitionThenMerge(objects, 0, objects.length - 1);
     }
 
