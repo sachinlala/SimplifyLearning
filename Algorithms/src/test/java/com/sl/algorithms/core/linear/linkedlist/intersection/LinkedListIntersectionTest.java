@@ -38,7 +38,7 @@ public class LinkedListIntersectionTest extends LinkedListIntersection {
             ptr2 = ptr2.next;
         }
         ptr2.next = ptr1;
-        Assert.assertTrue(getIntersectionPoint(list1, list2).data.compareTo(3) == 0);
-        Assert.assertTrue(getIntersectionPoint(list2, list1).data.compareTo(3) == 0);
+        Assert.assertTrue(getIntersectionPoint(list1, list2).data.equals(3));
+        Assert.assertTrue(getIntersectionPoint(list2, list1).data.equals(3));
     }
 }

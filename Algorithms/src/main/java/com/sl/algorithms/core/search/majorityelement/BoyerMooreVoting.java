@@ -18,21 +18,25 @@ public class BoyerMooreVoting<T extends Comparable> implements MajorityFinder<T>
                 majorityIndex = i;
                 count = 1;
             }
-            if (candidates[i] == candidates[majorityIndex]) count++;
-            else count--;
+            if (candidates[i].equals(candidates[majorityIndex])) {
+                count++;
+            } else {
+                count--;
+            }
         }
         return candidates[majorityIndex];
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean isMajority(T[] candidates, T majorityElement) {
         objChecks(candidates);
         int count = 0;
         for (T candidate : candidates) {
-            if (candidate.compareTo(majorityElement) == 0) {
+            if (candidate.equals(majorityElement)) {
                 count++;
-                if (count > candidates.length / 2) return true;
+                if (count > candidates.length / 2) {
+                    return true;
+                }
             }
         }
         return false;

@@ -25,9 +25,14 @@ public class BinarySearchRecursive<T extends Comparable> implements Search<T> {
         while (start <= end) {  // the equality check here is important
             int midPoint = Formulas.midPoint(start, end);
             T midValue = sortedInput[midPoint];
-            if (itemToSearch.compareTo(midValue) == 0) return midPoint; // terminal 2 (index found)
-            if (itemToSearch.compareTo(midValue) < 0) end = midPoint - 1; // go left
-            else start = midPoint + 1; // go right
+            if (itemToSearch.equals(midValue)) {
+                return midPoint; // terminal 2 (index found)
+            }
+            if (itemToSearch.compareTo(midValue) < 0) {
+                end = midPoint - 1; // go left
+            } else {
+                start = midPoint + 1; // go right
+            }
             return findIndexRecursively(sortedInput, itemToSearch, start, end);
         }
         return ELEMENT_NOT_FOUND;

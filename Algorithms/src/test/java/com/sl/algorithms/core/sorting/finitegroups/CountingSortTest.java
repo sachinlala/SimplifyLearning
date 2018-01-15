@@ -1,6 +1,7 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
-import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.sorting.distribution.CountingSort;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

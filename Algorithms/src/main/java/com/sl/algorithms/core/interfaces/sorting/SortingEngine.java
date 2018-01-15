@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.interfaces.rwops;
+package com.sl.algorithms.core.interfaces.sorting;
 
 import com.sl.algorithms.core.interfaces.base.BaseInterface;
 

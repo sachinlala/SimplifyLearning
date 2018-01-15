@@ -5,7 +5,7 @@ import com.sl.algorithms.core.utils.ArrayOps;
 
 import java.util.Random;
 
-//TODO: utilize this interface
+//TODO: internalize and include Fisher-Yates / Knuth algorithm
 public interface ShufflingEngine<T extends Comparable> extends BaseInterface<T> {
 
     Random random = new Random();

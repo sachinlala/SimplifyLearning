@@ -7,12 +7,11 @@ import com.sl.algorithms.core.interfaces.search.Search;
  */
 public class LinearSearch<T extends Comparable> implements Search<T> {
 
-    @SuppressWarnings("unchecked") // compareTo
     @Override
     public int findIndex(T[] inputArray, T targetElement) {
         objChecks(inputArray);
         for (int i = 0; i < inputArray.length; i++) {
-            if (inputArray[i].compareTo(targetElement) == 0) {
+            if (inputArray[i].equals(targetElement)) {
                 return i;
             }
         }

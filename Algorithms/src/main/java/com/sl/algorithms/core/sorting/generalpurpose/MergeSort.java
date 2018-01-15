@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.sorting.generalpurpose;
 
-import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 import com.sl.algorithms.core.utils.Formulas;
 
 import java.util.Arrays;

@@ -1,6 +1,6 @@
-package com.sl.algorithms.core.sorting.finitegroups;
+package com.sl.algorithms.core.sorting.distribution;
 
-import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 import static java.lang.Integer.valueOf;
 

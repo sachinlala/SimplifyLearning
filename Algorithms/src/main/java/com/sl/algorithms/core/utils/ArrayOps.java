@@ -14,14 +14,14 @@ public class ArrayOps implements Constants {
     }
 
     public static <T extends Comparable> void swap(T[] objects, int i, int j) {
-        if (i == j) return;
+        if (i == j) return; // important optimization
         T temp = objects[i];
         objects[i] = objects[j];
         objects[j] = temp;
     }
 
     public static void swap(int[] nums, int i, int j) {
-        if (i == j) return;
+        if (i == j) return; // important optimization
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;

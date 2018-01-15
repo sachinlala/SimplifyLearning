@@ -1,20 +1,25 @@
 package com.sl.algorithms.core.linear.array.count;
 
 import com.sl.algorithms.core.interfaces.count.ElementCounter;
-import com.sl.algorithms.core.utils.Formulas;
+
+import static com.sl.algorithms.core.utils.Formulas.midPoint;
 
 //TODO: revise
+
 /**
  * <br>Given a sorted array of integers, find the count of a given target element.
  * <br>Solve in Logarithmic time.
  */
-@SuppressWarnings("unchecked")
 public class CountElementInLogTime<T extends Comparable> implements ElementCounter<T> {
 
     // O(n) time method - written for reference only
     public int countTargetElementLinear(T[] nums, T target) {
         int count = 0;
-        for (T num : nums) if (target.compareTo(num) == 0) ++count;
+        for (T num : nums) {
+            if (target.equals(num)) {
+                ++count;
+            }
+        }
         return count;
     }
 
@@ -29,12 +34,13 @@ public class CountElementInLogTime<T extends Comparable> implements ElementCount
         return count;
     }
 
+    @SuppressWarnings("unchecked") // compareTo
     private int findMinIndex(T[] nums, T target, int start, int end) {
         int minIndex = -1;
         while (start <= end) {
-            int midPoint = Formulas.midPoint(start, end);
+            int midPoint = midPoint(start, end);
             T midValue = nums[midPoint];
-            if (midValue.compareTo(target) == 0
+            if (midValue.equals(target)
                     && (midPoint == 0 || target.compareTo(nums[midPoint - 1]) > 0)
                     ) {
                 minIndex = midPoint;
@@ -48,12 +54,13 @@ public class CountElementInLogTime<T extends Comparable> implements ElementCount
         return minIndex;
     }
 
+    @SuppressWarnings("unchecked") // compareTo
     private int findMaxIndex(T[] nums, T target, int start, int end) {
         int maxIndex = -1;
         while (start <= end) {
-            int midPoint = Formulas.midPoint(start, end);
+            int midPoint = midPoint(start, end);
             T midValue = nums[midPoint];
-            if (midValue.compareTo(target) == 0
+            if (midValue.equals(target)
                     && (midPoint == nums.length - 1 || target.compareTo(nums[midPoint + 1]) < 0)
                     ) {
                 maxIndex = midPoint;

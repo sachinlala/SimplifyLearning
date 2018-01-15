@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linear.array.transform;
+package com.sl.algorithms.core.linear.array.subarray;
 
 import org.junit.Assert;
 import org.junit.Test;

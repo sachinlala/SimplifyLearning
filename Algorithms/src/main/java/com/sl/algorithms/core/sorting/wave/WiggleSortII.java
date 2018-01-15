@@ -1,8 +1,8 @@
 package com.sl.algorithms.core.sorting.wave;
 
-import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
-import com.sl.algorithms.core.interfaces.search.MedianFinder;
-import com.sl.algorithms.core.search.median.QuickSelectMedianFinder;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.selection.MedianFinder;
+import com.sl.algorithms.core.selection.median.QuickSelectMedianFinder;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 

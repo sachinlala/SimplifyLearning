@@ -1,6 +1,5 @@
 package com.sl.algorithms.core.search.peakelement;
 
-import com.sl.algorithms.core.interfaces.base.BaseInterface;
 import com.sl.algorithms.core.interfaces.search.PeakElementFinder;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,15 +27,15 @@ public class PeakElementFinderTest<T extends Comparable> {
     private void testFindPeakElement() {
         try {
             peakElementFinder.findPeakElement(null);
-            Assert.fail("Empty linear should have failed");
+            Assert.fail("Test should have failed as the array is empty");
         } catch (IllegalArgumentException iea) {
-            Assert.assertEquals(BaseInterface.ARRAY_IS_EMPTY, iea.getMessage());
+            Assert.assertNotNull(iea);
         }
         try {
             peakElementFinder.findPeakElement(new Integer[]{});
-            Assert.fail("Empty linear should have failed");
+            Assert.fail("Test should have failed as the array is empty");
         } catch (IllegalArgumentException iea) {
-            Assert.assertEquals(BaseInterface.ARRAY_IS_EMPTY, iea.getMessage());
+            Assert.assertNotNull(iea);
         }
         Assert.assertEquals(1, peakElementFinder.findPeakElement(new Integer[]{1}));
         Assert.assertEquals(0, peakElementFinder.findPeakElement(new Integer[]{-1, 0}));

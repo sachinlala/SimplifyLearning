@@ -10,12 +10,16 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
 
     @Override
     public int findMaxSubArraySum(int[] nums) {
-        objChecks(nums);
-        if (nums.length == 1) return nums[0];
+        intArrayCheck(nums);
+        if (nums.length == 1) {
+            return nums[0];
+        }
         Integer maxContiguousSum = Integer.MIN_VALUE;
-        int maxTillHere=0;
+        int maxTillHere = 0;
         for (int num : nums) {
-            if (maxTillHere < 0) maxTillHere = 0;
+            if (maxTillHere < 0) {
+                maxTillHere = 0;
+            }
             maxTillHere += num;
             maxContiguousSum = Math.max(maxContiguousSum, maxTillHere);
         }
@@ -25,8 +29,10 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
     //TODO: analyze this more
     @Override
     public int findMaxSubArrayProduct(int[] nums) {
-        objChecks(nums);
-        if (nums.length == 1) return nums[0];
+        intArrayCheck(nums);
+        if (nums.length == 1) {
+            return nums[0];
+        }
         int maxProduct = Integer.MIN_VALUE;
         int maxProductTillHere = 1;
         int minProductTillHere = 1;
@@ -38,9 +44,5 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
             maxProduct = Math.max(maxProduct, maxProductTillHere);
         }
         return maxProduct;
-    }
-
-    private void objChecks(int[] nums) {
-        if (nums == null || nums.length == 0) throw new IllegalArgumentException("Array is empty");
     }
 }

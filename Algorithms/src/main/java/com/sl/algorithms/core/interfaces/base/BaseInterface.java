@@ -11,7 +11,7 @@ public interface BaseInterface<T extends Comparable> extends Constants {
         }
     }
 
-    default void intNullChecks(int[] nums) {
+    default void intArrayCheck(int[] nums) {
         if (nums == null || nums.length == 0) throw new IllegalArgumentException(ARRAY_IS_EMPTY);
     }
 }

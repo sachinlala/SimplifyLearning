@@ -1,5 +1,8 @@
 package com.sl.algorithms.core.interfaces.subarray;
 
-public interface SubArrayProduct {
+import com.sl.algorithms.core.interfaces.base.BaseInterface;
+
+public interface SubArrayProduct extends BaseInterface {
+
     int findMaxSubArrayProduct(int[] nums);
 }

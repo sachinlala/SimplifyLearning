@@ -25,9 +25,14 @@ public class BinarySearchIterative<T extends Comparable> implements Search<T> {
         while (start <= end) {  // the equality check here is important
             int midPoint = Formulas.midPoint(start, end);
             T midValue = sortedInput[midPoint];
-            if (itemToSearch.compareTo(midValue) == 0) return midPoint; // index found
-            if (itemToSearch.compareTo(midValue) < 0) end = midPoint - 1; // go left
-            else start = midPoint + 1; // go right
+            if (itemToSearch.equals(midValue)) {
+                return midPoint; // index found
+            }
+            if (itemToSearch.compareTo(midValue) < 0) {
+                end = midPoint - 1; // go left
+            } else {
+                start = midPoint + 1; // go right
+            }
         }
         return ELEMENT_NOT_FOUND;
     }

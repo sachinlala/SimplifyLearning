@@ -70,7 +70,6 @@ public class LinkedListOpsTest extends LinkedListOps {
     public void testRemoveData() {
         Assert.assertNull(removeData(null, 0));
         {
-            //TODO: analyze further //FIXME
             Assert.assertEquals("[1,2,3,4,5]", removeData(testNode, 0).toString());
             Assert.assertEquals("[2,3,4,5]", removeData(testNode, 1).toString());
             Assert.assertEquals("[1,2,3,5]", removeData(testNode, 4).toString());

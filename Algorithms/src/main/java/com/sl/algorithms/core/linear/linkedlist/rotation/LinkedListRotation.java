@@ -4,7 +4,7 @@ import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
 
 /**
- * <u>Requirement</u>: rotate w/in O(n) time and O(1) space.
+ * <br><u>Requirement</u>: rotate w/in O(n) time and O(1) space.<br>
  */
 public class LinkedListRotation<T extends Comparable> implements RotationEngine<T> {
 

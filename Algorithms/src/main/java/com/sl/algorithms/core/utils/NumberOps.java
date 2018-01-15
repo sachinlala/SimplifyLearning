@@ -6,7 +6,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-import static com.sl.algorithms.core.utils.Formulas.*;
+import static com.sl.algorithms.core.utils.Formulas.raiseTo;
 
 public class NumberOps {
 
@@ -20,7 +20,7 @@ public class NumberOps {
         int count = 0;
         if (n < 0) n *= -1;
         if (n < 10) return 1;
-        for (int i=n; i>0; i=i/10) count++;
+        for (int i = n; i > 0; i = i / 10) count++;
         return count;
     }
 
@@ -28,7 +28,7 @@ public class NumberOps {
     public static int reverse(int n) {
         long r = 0;
         while (n != 0) {
-            r = r*10 + n%10;
+            r = r * 10 + n % 10;
             if (r > Integer.MAX_VALUE || r < Integer.MIN_VALUE) return 0;
             n /= 10;
         }
@@ -40,17 +40,17 @@ public class NumberOps {
         int length = countDigits(n);
         int[] digits = new int[length];
         Arrays.fill(digits, 0);
-        int index = length-1;
-        for (int i=n; i>0; i/=10) digits[index--] = i%10;
+        int index = length - 1;
+        for (int i = n; i > 0; i /= 10) digits[index--] = i % 10;
         return digits;
     }
 
     // n>=0 and 32-bit
     public static int convertToNumber(int[] a) {
         long n = 0;
-        for (int digit : a) n = n*10 + digit;
+        for (int digit : a) n = n * 10 + digit;
         if (n > Integer.MAX_VALUE) return -1;
-        return (int)n;
+        return (int) n;
     }
 
     // n>=0 and 32-bit
@@ -58,23 +58,23 @@ public class NumberOps {
         long n = 0;
         ListNode<Integer> ptr = list;
         while (ptr != null) {
-            n = n*10 + ptr.data;
+            n = n * 10 + ptr.data;
             ptr = ptr.next;
         }
         if (n > Integer.MAX_VALUE) return -1;
-        return (int)n;
+        return (int) n;
     }
 
     // n>=0 and 32-bit
     public static int convertToNumberUsingPower(int[] a) {
         long n = 0;
         int length = a.length;
-        for (int i=length-1; i>=0; i--) {
-            long update = raiseTo(10, length-i-1);
+        for (int i = length - 1; i >= 0; i--) {
+            long update = raiseTo(10, length - i - 1);
             n += update * a[i];
         }
         if (n > Integer.MAX_VALUE) return -1;
-        return (int)n;
+        return (int) n;
     }
 
     // Sieve of Eratosthenes: O(nlog(log(n))
@@ -82,13 +82,13 @@ public class NumberOps {
         if (n < 2) return 0;
         int primeCount = 0;
         boolean[] isPrime = new boolean[n];
-        for (int i=2; i<n; i++) {
+        for (int i = 2; i < n; i++) {
             isPrime[i] = true;
             primeCount++;
         }
-        for (int i=2; i*i<n; i++) {
+        for (int i = 2; i * i < n; i++) {
             if (!isPrime[i]) continue;
-            for (int j=i*i; j<n; j+=i) {
+            for (int j = i * i; j < n; j += i) {
                 if (isPrime[j]) {
                     isPrime[j] = false;
                     primeCount--;
@@ -103,8 +103,12 @@ public class NumberOps {
         if (decimalNum == 0) return "0";
         Deque<Integer> bitStack = new ArrayDeque<>();
         StringBuilder bits = new StringBuilder();
-        for (int i=decimalNum; i>0; i=i>>1) bitStack.push(i%2);
-        while (!bitStack.isEmpty()) bits.append(bitStack.pop());
+        for (int i = decimalNum; i > 0; i >>= 1) {
+            bitStack.push(i % 2);
+        }
+        while (!bitStack.isEmpty()) {
+            bits.append(bitStack.pop());
+        }
         return bits.toString();
     }
 
@@ -112,8 +116,8 @@ public class NumberOps {
     public static int convertToDecimal(int binaryNum) {
         int result = 0;
         int index = 0;
-        for (int i=binaryNum; i>0; i/=10) {
-            int bit = i%10;
+        for (int i = binaryNum; i > 0; i /= 10) {
+            int bit = i % 10;
             result += bit * raiseTo(2, index);
             ++index;
         }

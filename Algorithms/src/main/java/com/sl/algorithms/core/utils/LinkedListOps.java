@@ -3,7 +3,6 @@ package com.sl.algorithms.core.utils;
 import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.baseObj.OpPosition;
 
-@SuppressWarnings("unchecked")
 public class LinkedListOps {
 
     LinkedListOps() {
@@ -14,7 +13,7 @@ public class LinkedListOps {
 
     // at start of list, after a node or end of list
     public static <T extends Comparable> ListNode<T> insertData(ListNode<T> node, T newData, OpPosition position) {
-        ListNode<T> newNode = new ListNode<T>(newData);
+        ListNode<T> newNode = new ListNode<>(newData);
         if (node == null) return newNode;
         switch (position) {
             case START: { // O(1)
@@ -77,15 +76,15 @@ public class LinkedListOps {
     // O(n) method to remove duplicates from a list
     public static <T extends Comparable> ListNode<T> removeDuplicates(ListNode<T> head) {
         if (head == null || head.next == null) return head;
-        ListNode<T> curr = head, next = null;
+        ListNode<T> curr = head;
+        ListNode<T> next;
         //1 22 23
         while (curr != null && curr.next != null) {
-            while (curr != null && curr.next != null && curr.compareTo(curr.next) == 0) {
+            while (curr.next != null && curr.compareTo(curr.next) == 0) { // we mainly need data check only here, not a deep equality check
                 next = curr.next;
-                curr.next = null;
                 curr.next = next.next;
             }
-            if (curr != null) curr = curr.next;
+            curr = curr.next;
         }
         return head;
     }
@@ -131,13 +130,15 @@ public class LinkedListOps {
 
     // O(n) time and O(1) space
     public static ListNode<Integer> incrementByOne(ListNode<Integer> head) {
-        if (head == null) return head;
+        if (head == null) return null;
         int one = 1;
         boolean addOne = true;
         head = reverse(head);
         ListNode<Integer> curr = head;
         while (curr != null && curr.next != null) {
-            if (addOne) curr.data += one;
+            if (addOne) {
+                curr.data += one;
+            }
             if (curr.data > 9) {
                 curr.data = curr.data % 10;
                 addOne = true;
@@ -146,7 +147,7 @@ public class LinkedListOps {
             }
             curr = curr.next;
         }
-        if (addOne) {
+        if (curr != null && addOne) {
             curr.data += one;
             if (curr.data > 9) {
                 curr.data = curr.data % 10;

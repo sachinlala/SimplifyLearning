@@ -1,11 +1,11 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
-import com.sl.algorithms.core.interfaces.rwops.SortingEngine;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
- * <br>A precursor to {@link DutchNationalFlagsSort}, inspired by <a href="https://www.sciencedirect.com/science/article/pii/S0304397505001684">Wei-Mei Chen's paper</a>.<br>
+ * <br>A precursor to {@link DutchNationalFlagSort}, inspired by <a href="https://www.sciencedirect.com/science/article/pii/S0304397505001684">Wei-Mei Chen's paper</a>.<br>
  */
 public class PolishNationalFlagSort<T extends Comparable> implements SortingEngine<T> {
 
@@ -23,28 +23,36 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
     }
 
     /**
+     * @param _white : primary value for sorting.<br>
+     * i.e. everything else is red and can be any value => will settle in the right.<br>
+     */
+    public PolishNationalFlagSort(T _white) {
+        white = _white;
+    }
+
+    /**
      * <br><u>Approach</u>:<br>
-     * <p>The two indices 'low' and 'high' keep track of the white and red block boundaries, respectively.
-     * First, we scan from the left end of the array by incrementing 'low' until we find a !white element,
-     * and we scan from the right end of the array by decrementing 'high' until we find a !red element.
-     * We then exchange the two elements. Continue this way until 'low' and 'high' meet.<br>
-     * Note that the scanning process is the same as that of the partition procedure of quicksort or quickselect</p>
+     * <p>The two indices 'w' and 'r' keep track of the white and red block boundaries, respectively.<br>
+     * First, we scan from the left end of the array by incrementing 'w' until we find a !white element,
+     * and we scan from the right end of the array by decrementing 'r' until we find a white element.
+     * We then exchange the two elements. Continue this way until 'w' and 'r' meet.<br>
+     * Note that the scanning process is the same as that of the partition procedure of {@link com.sl.algorithms.core.sorting.generalpurpose.QuickSort} or {@link com.sl.algorithms.core.selection.median.QuickSelectMedianFinder}.</p>
      */
     @Override
     public void sort(T[] objects) {
         objChecks(objects);
-        int low = 0, high = objects.length - 1;
-        while (low < high) {
-            while (white.equals(objects[low]) && low < high) {
-                low++;
+        int w = 0, r = objects.length - 1;
+        while (w < r) {
+            while (objects[w].equals(white) && w < r) {
+                w++;
             }
-            while (red.equals(objects[high]) && low < high) {
-                high--;
+            while (!objects[r].equals(white) && w < r) {
+                r--;
             }
-            if (low < high) {
-                swap(objects, low, high);
-                low++;
-                high--;
+            if (w < r) {
+                swap(objects, w, r);
+                w++;
+                r--;
             }
         }
     }

@@ -15,7 +15,7 @@ public class NGECircularArray implements NextGreaterElement {
     // O(n) time and O(n) space
     @Override
     public int[] findNGE(int[] nums) {
-        intNullChecks(nums);
+        intArrayCheck(nums);
         int n = nums.length;
         int[] output = new int[n];
         Arrays.fill(output, -1); // O(1)
