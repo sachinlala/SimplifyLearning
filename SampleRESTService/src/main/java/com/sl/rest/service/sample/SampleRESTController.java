@@ -1,7 +1,7 @@
 package com.sl.rest.service.sample;
 
 import com.sl.algorithms.core.interfaces.search.Search;
-import com.sl.algorithms.core.search.binarysearch.GenericBinarySearch;
+import com.sl.algorithms.search.binarysearch.GenericBinarySearch;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
