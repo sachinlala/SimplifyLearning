@@ -6,6 +6,5 @@ public interface NextGreaterElement extends BaseInterface {
 
     int NGE_NOT_FOUND = -1;
 
-    //TODO: revise
     int[] findNGE(int[] elements);
 }

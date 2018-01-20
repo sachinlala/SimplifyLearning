@@ -1,11 +1,6 @@
 package com.sl.algorithms.core.interfaces.strings.checks;
 
-//TODO : revise
 public interface ParenthesisValidator {
-
-    char OPEN = '(';
-    char CLOSE = ')';
-    char WILDCHAR = '*';
 
     boolean isValidParenthesis(String str);
 
@@ -13,4 +8,20 @@ public interface ParenthesisValidator {
         if (str == null || str.length() == 0) return true;
         return false;
     }
+
+    enum ParenthesisEnum {
+        OPEN('('),
+        CLOSE(')'),
+        WILDCHAR('*');
+
+        private char expr;
+        ParenthesisEnum(char _expr) {
+            expr = _expr;
+        }
+
+        public char getExpr() {
+            return expr;
+        }
+    }
+
 }

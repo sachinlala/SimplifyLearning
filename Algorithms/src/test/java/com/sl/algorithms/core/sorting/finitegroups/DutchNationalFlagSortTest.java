@@ -1,22 +1,21 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
-import com.sl.algorithms.core.sorting.generalpurpose.SortingEngineTest;
+import com.sl.algorithms.core.sorting.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
-public class DutchNationalFlagSortTest extends SortingEngineTest {
+public class DutchNationalFlagSortTest extends BaseTest {
 
-    private static SortingEngine<Integer> integerSortingEngine;
-    private static SortingEngine<String> stringSortingEngine;
+    private SortingEngine<String> stringSortingEngine;
 
     @Test
     public void testDNFSortIntegers() {
-        integerSortingEngine = new DutchNationalFlagSort<>(0, 2);
+        SortingEngine<Integer> integerSortingEngine = new DutchNationalFlagSort<>(0, 2);
         {
-            baseTests(integerSortingEngine);
+            assertBaseCases(integerSortingEngine);
         }
         {
             Integer[] sampleNumbers = new Integer[]{2, 0, 1, 0, 1, 0, 0, 2, 2};

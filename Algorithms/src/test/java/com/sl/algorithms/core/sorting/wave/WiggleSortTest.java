@@ -1,29 +1,27 @@
 package com.sl.algorithms.core.sorting.wave;
 
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
-import com.sl.algorithms.core.sorting.generalpurpose.SortingEngineTest;
+import com.sl.algorithms.core.sorting.BaseTest;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 @SuppressWarnings("unchecked")
-public class WiggleSortTest extends SortingEngineTest {
-    private static SortingEngine sortingEngine;
+public class WiggleSortTest extends BaseTest {
+    private SortingEngine sortingEngine;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         sortingEngine = new WiggleSort();
     }
 
     @Test
-    public void baseTests() {
-        baseTests(sortingEngine);
-    }
-
-    @Test
     public void testWiggleSort() {
+        {
+            assertBaseCases(sortingEngine);
+        }
         {
             Integer[] sampleNumbers = new Integer[]{1,2,3,4,5};
             sortingEngine.sort(sampleNumbers);

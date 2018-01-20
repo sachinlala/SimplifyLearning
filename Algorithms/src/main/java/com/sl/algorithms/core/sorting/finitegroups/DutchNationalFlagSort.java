@@ -1,5 +1,6 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
+import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
@@ -45,6 +46,7 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
      * <br>- swap with A[b] if it is blue
      * <br>- decrement w if it is white.
      * <br>The variables r and b indicate red and blue boundaries such that all elements to the left of r are red and all elements to the right of b are blue. It is clear that a swap occurs when A[w] is red or blue.</p>
+     * @param objects
      */
     @Override
     public void sort(T[] objects) {
@@ -63,5 +65,10 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
                 w--;
             }
         }
+    }
+
+    @Override
+    public ListNode<T> sortList(ListNode<T> list) {
+        throw new UnsupportedOperationException();
     }
 }

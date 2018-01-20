@@ -5,13 +5,12 @@ import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
 import com.sl.algorithms.core.utils.Formulas;
 
 /**
- * <br>Problem: Rotate linear of size 'n' by 'k' positions, leftwards (counter-clockwise).<br>
+ * <br>Problem: Rotate linear of size 'n' by 'kMax' positions, leftwards (counter-clockwise).<br>
  * <br><a href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a><br>
  * <br><a href="https://en.wikipedia.org/wiki/Jon_Bentley_(computer_scientist)">Jon Bentley</a><br>
  */
 public class BentleyShufflingAlgorithm<T extends Comparable> implements RotationEngine<T> {
 
-    //TODO: analyze further
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
         checkArray(objects);

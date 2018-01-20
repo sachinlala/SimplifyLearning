@@ -3,7 +3,8 @@ package com.sl.algorithms.core.search.peakelement;
 import com.sl.algorithms.core.interfaces.search.PeakElementFinder;
 
 /**
- * {@link PeakElementFinder}
+ * <p>Linear time-complexity algorithm to find peak element in a bitonic series.</p>
+ * @see PeakElementFinder
  */
 public class LinearTimePEFinder<T extends Comparable> implements PeakElementFinder<T> {
 

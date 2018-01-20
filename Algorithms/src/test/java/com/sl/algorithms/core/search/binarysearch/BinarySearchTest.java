@@ -14,19 +14,19 @@ public class BinarySearchTest {
     
     @Test
     public void testBinarySearchRecursive() {
-        binarySearch = new BinarySearchRecursive<>();
+        binarySearch = new RecursiveBinarySearch<>();
         testFindIndex();
     }
 
     @Test
     public void testBinarySearchIterative() {
-        binarySearch = new BinarySearchIterative<>();
+        binarySearch = new IterativeBinarySearch<>();
         testFindIndex();
     }
 
     @Test
     public void testBinarySearchGeneric() {
-        binarySearch = new BinarySearchGeneric<>();
+        binarySearch = new GenericBinarySearch<>();
         testFindIndex();
         testFindIndexInRotatedArray();
         testRotatedArrayAllElementsSame();
@@ -95,26 +95,26 @@ public class BinarySearchTest {
     
     @Test
     public void testFindStartOfRotation() {
-        binarySearch = new BinarySearchGeneric<>();
+        binarySearch = new GenericBinarySearch<>();
         { // single element
-            Assert.assertEquals(0, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{1}));
+            Assert.assertEquals(0, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{1}));
         }
         { // regular sorted array
-            Assert.assertEquals(0, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 2, 3, 4, 5}));
+            Assert.assertEquals(0, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 2, 3, 4, 5}));
         }
         { // sorted array, with duplicates
-            Assert.assertEquals(0, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 2, 3, 3, 4, 5}));
+            Assert.assertEquals(0, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 2, 3, 3, 4, 5}));
         }
         { // sorted & rotated array
-            Assert.assertEquals(2, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{4, 5, 1, 2, 3}));
-            Assert.assertEquals(3, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 4, 5, 1, 2}));
+            Assert.assertEquals(2, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{4, 5, 1, 2, 3}));
+            Assert.assertEquals(3, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 4, 5, 1, 2}));
         }
         { // sorted, rotated array, with duplicates
-            Assert.assertEquals(4, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 3, 4, 5, 1, 2}));
-            Assert.assertEquals(2, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 3, 1}));
+            Assert.assertEquals(4, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 3, 4, 5, 1, 2}));
+            Assert.assertEquals(2, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{3, 3, 1}));
         }
         { // sorted, rotated, all elements same
-            Assert.assertEquals(0, ((BinarySearchGeneric<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 1, 1}));
+            Assert.assertEquals(0, ((GenericBinarySearch<Integer>) binarySearch).findStartOfAscent(new Integer[]{1, 1, 1}));
         }
     }
 }

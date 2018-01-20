@@ -26,15 +26,6 @@ public class MNFinderTest {
           // n (representing size of the array) itself is missing
             Assert.assertEquals(4, missingNumberFinder.findMissingNumber(new int[]{0, 1, 2, 3}));
         }
-        /**
-         * XOR
-         * //5
-         * //0, 1, 2, 4, 5
-         * //0, 1, 2, 3, 4
-         * //5^0^0 = 0101^1^1 = 0101^0 = 0101^(4^3) = 0101^(0100^0011) = 0101^(0111) = 0010 = 2
-         * //2^(5^4) = 2^(0101^0100) = 2^(0001) = 0010^0001 = 0011 = 3
-         */
-
         {
             /**
              * This one's important to observe: if 0 was in scope of output, then XOR approach won't work rather we'll need to utilize binary search.

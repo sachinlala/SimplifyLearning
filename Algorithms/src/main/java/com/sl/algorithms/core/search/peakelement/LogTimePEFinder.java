@@ -4,7 +4,8 @@ import com.sl.algorithms.core.interfaces.search.PeakElementFinder;
 import com.sl.algorithms.core.utils.Formulas;
 
 /**
- * {@link PeakElementFinder}
+ * <p>Sub-linear time-complexity algorithm to find peak element in a bitonic series.</p>
+ * @see PeakElementFinder
  */
 public class LogTimePEFinder<T extends Comparable> implements PeakElementFinder<T> {
 

@@ -55,15 +55,15 @@ public class MedianFinderTest<T extends Comparable> {
             Integer[] singleElementArray = new Integer[]{1};
             try {
                 integerMedianFinder.findKthSmallest(singleElementArray, 0);
-                Assert.fail("Exception should've been raised because k != 1 for a single-element array");
+                Assert.fail("Exception should've been raised because kMax != 1 for a single-element array");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals("k must be at least 1", iae.getMessage());
+                Assert.assertEquals("kMax must be at least 1", iae.getMessage());
             }
             try {
                 integerMedianFinder.findKthSmallest(singleElementArray, 2);
-                Assert.fail("Exception should've been raised because k != 1 for a single-element array");
+                Assert.fail("Exception should've been raised because kMax != 1 for a single-element array");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals("k can only be 1 for a single-element array", iae.getMessage());
+                Assert.assertEquals("kMax can only be 1 for a single-element array", iae.getMessage());
             }
             Assert.assertTrue(integerMedianFinder.findKthSmallest(singleElementArray, 1) == 1);
         }
@@ -86,9 +86,9 @@ public class MedianFinderTest<T extends Comparable> {
             integerShufflingEngine.shuffle(sample5Numbers);
             try {
                 integerMedianFinder.findKthSmallest(sample5Numbers, 6);
-                Assert.fail("Exception should've been raised because k should be less than the array length");
+                Assert.fail("Exception should've been raised because kMax should be less than the array length");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals("k is higher than the highest index", iae.getMessage());
+                Assert.assertEquals("kMax is higher than the highest index", iae.getMessage());
             }
         }
         {
@@ -183,13 +183,13 @@ public class MedianFinderTest<T extends Comparable> {
                 Assert.assertEquals("Array is empty", iae.getMessage());
             }
         }
-        { // k > length
+        { // kMax > length
             Integer[] pairArray = new Integer[]{1, 2};
             try {
                 integerMedianFinder.findKthSmallest(pairArray, 3);
-                Assert.fail("Exception should've been raised because k is higher than the highest index");
+                Assert.fail("Exception should've been raised because kMax is higher than the highest index");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals("k is higher than the highest index", iae.getMessage());
+                Assert.assertEquals("kMax is higher than the highest index", iae.getMessage());
             }
         }
     }

@@ -1,8 +1,9 @@
 package com.sl.algorithms.core.interfaces.rwops;
 
 import com.sl.algorithms.core.baseObj.ListNode;
+import com.sl.algorithms.core.interfaces.base.BaseInterface;
 
-public interface MergeEngine<T extends Comparable> {
+public interface MergeEngine<T extends Comparable> extends BaseInterface<T> {
 
     ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray);
 

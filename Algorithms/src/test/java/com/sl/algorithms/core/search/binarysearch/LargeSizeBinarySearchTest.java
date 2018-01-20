@@ -8,7 +8,7 @@ public class LargeSizeBinarySearchTest {
 
     @Test
     public void largeSizeTest() {
-        BinarySearchIterative binarySearch = new BinarySearchIterative();
+        IterativeBinarySearch binarySearch = new IterativeBinarySearch();
         int size = Integer.MAX_VALUE / 256; // /64 is w/in limits when primitive int[] is used
         Integer[] numArray = new Integer[size];
         for (int i = 0; i < size; i++) {

@@ -7,14 +7,14 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * <br><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">Merge K sorted lists, using priority-queue</a><br>
+ * <br><u>Complexity</u>:
+ * <br>Time: O(N * logK): N = total number of nodes & K = total number of lists.
+ * <br>Space: O(N): for merged list + O(kMax): for the priority-queue.
+ */
 public class LinkedListMergePQ<T extends Comparable> implements MergeEngine<T> {
 
-    /**
-     * <br><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">Merge K sorted lists, using priority-queue</a><br>
-     * <br>Complexity:
-     * <br>> Time: O(N * logK): N = total number of nodes & K = total number of lists.
-     * <br>> Space: O(N): for merged list; O(k): for the priority-queue.
-     */
     @Override
     public ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray) {
         ListNode<T> dummyNode = ListNode.dummyNode();
@@ -32,8 +32,8 @@ public class LinkedListMergePQ<T extends Comparable> implements MergeEngine<T> {
         return dummyNode.next;
     }
 
-    @SuppressWarnings("unchecked") // because of the generic array
     @Override
+    @SuppressWarnings("unchecked") // because of the unchecked call to mergeKSortedLists
     public ListNode<T> merge2SortedLists(ListNode<T> list1, ListNode<T> list2) {
         if (list1 == null || list1.isDummyNode()) return list2;
         if (list2 == null || list2.isDummyNode()) return list1;

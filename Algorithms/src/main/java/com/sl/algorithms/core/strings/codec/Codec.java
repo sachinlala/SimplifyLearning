@@ -1,15 +1,15 @@
 package com.sl.algorithms.core.strings.codec;
 
+import com.sl.algorithms.core.baseObj.Constants;
 import com.sl.algorithms.core.interfaces.strings.codec.Decoder;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-//TODO: revise
 /**
  * <a href="https://leetcode.com/problems/decode-string/description/">Decode String</a>
  */
-public class Codec implements Decoder {
+public class Codec implements Decoder, Constants {
 
     @Override
     public String decode(String str) {
@@ -22,7 +22,7 @@ public class Codec implements Decoder {
             if (c >= '0' && c <= '9') {
                 int count = 0;
                 while (c >= '0' && c <= '9') {
-                    count = 10 * count + (c - '0');
+                    count = DECIMAL_RADIX * count + (c - '0');
                     c = str.charAt(++i);
                 }
                 countStack.push(count);

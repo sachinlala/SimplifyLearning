@@ -57,6 +57,15 @@ public class ListNodeTest {
     }
 
     @Test
+    public void testMidPoint() {
+        Assert.assertTrue(new ListNode<>(1).midPoint().data.equals(1));
+        Assert.assertTrue(createLinkedList(new Integer[]{1,2}).midPoint().data.equals(1));
+        Assert.assertTrue(createLinkedList(new Integer[]{1,2,3}).midPoint().data.equals(2));
+        Assert.assertTrue(integerListNode.midPoint().data.equals(3));
+        Assert.assertEquals("List", stringListNode.midPoint().data);
+    }
+
+    @Test
     public void testCloneList() {
         {
             ListNode<Integer> oneNodeCopy = new ListNode<>(1);
@@ -70,8 +79,8 @@ public class ListNodeTest {
 
     @Test
     public void testSize() {
-        Assert.assertEquals(5, integerListNode.getSize());
-        Assert.assertEquals(4, stringListNode.getSize());
+        Assert.assertEquals(5, integerListNode.size());
+        Assert.assertEquals(4, stringListNode.size());
     }
 
     @Test

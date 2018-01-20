@@ -1,19 +1,29 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
-import com.sl.algorithms.core.interfaces.sorting.Consolidator;
+import com.sl.algorithms.core.baseObj.ListNode;
+import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
  * <br><a href="https://leetcode.com/problems/move-zeroes/description/">Problem Reference</a>
  */
-public class ZeroesMover<T extends Comparable> implements Consolidator<T> {
+public class ElementMover<T extends Comparable> implements SortingEngine<T> {
+
+    private T element;
+    private boolean right;
+
+    ElementMover(T _element, boolean _right) {
+        element = _element;
+        right = _right;
+    }
 
     /**
      * O(n) time and O(1) space, with optimal # operations in worst case.
+     * @param objects
      */
     @Override
-    public void consolidate(T[] objects, T element, boolean right) {
+    public void sort(T[] objects) {
         checkArray(objects);
         int slow = 0, fast = 0;
         if (right) {
@@ -21,6 +31,11 @@ public class ZeroesMover<T extends Comparable> implements Consolidator<T> {
         } else {
             moveLeft(objects, element, slow, fast);
         }
+    }
+
+    @Override
+    public ListNode<T> sortList(ListNode<T> head) {
+        throw new UnsupportedOperationException();
     }
 
     private void moveRight(T[] objects, T element, int slow, int fast) {

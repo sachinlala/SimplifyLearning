@@ -11,45 +11,44 @@ public class LinkedListOps {
          */
     }
 
-    // at start of list, after a node or end of list
-    public static <T extends Comparable> ListNode<T> insertData(ListNode<T> node, T newData, OpPosition position) {
+    public static <T extends Comparable> ListNode<T> insertData(ListNode<T> head, T newData, OpPosition position) {
         ListNode<T> newNode = new ListNode<>(newData);
-        if (node == null) return newNode;
+        if (head == null) return newNode;
         switch (position) {
             case START: { // O(1)
-                newNode.next = node;
-                node = newNode;
+                newNode.next = head;
+                head = newNode;
                 break;
             }
             case AFTER: { // O(1)
-                newNode.next = node.next;
-                node.next = newNode;
+                newNode.next = head.next;
+                head.next = newNode;
                 break;
             }
             case END: { // O(n)
-                node.next = insertData(node.next, newData, OpPosition.END);
+                head.next = insertData(head.next, newData, OpPosition.END);
                 break;
             }
         }
-        return node;
+        return head;
     }
 
-    public static <T extends Comparable> ListNode<T> removeDataByPosition(ListNode<T> node, OpPosition position) {
-        if (node == null) return node;
+    public static <T extends Comparable> ListNode<T> removeDataByPosition(ListNode<T> head, OpPosition position) {
+        if (head == null) return head;
         switch (position) {
             case START: { // O(1)
-                if (node.next == null) return null;
-                ListNode<T> temp = node;
-                node = temp.next;
+                if (head.next == null) return null;
+                ListNode<T> temp = head;
+                head = temp.next;
                 break;
             }
             case AFTER: { // O(1)
-                node.next = node.next.next;
+                head.next = head.next.next;
                 break;
             }
             case END: { // O(n)
-                if (node.next == null) return null;
-                ListNode<T> temp = node;
+                if (head.next == null) return null;
+                ListNode<T> temp = head;
                 while (temp.next.next != null) {
                     temp = temp.next;
                 }
@@ -57,7 +56,7 @@ public class LinkedListOps {
                 break;
             }
         }
-        return node;
+        return head;
     }
 
     // O(n) time and O(1) space
@@ -66,8 +65,11 @@ public class LinkedListOps {
         dummyNode.next = head;
         ListNode<T> prev = dummyNode, curr = head;
         while (curr != null) {
-            if (curr.data == data) prev.next = curr.next;
-            else prev = curr;
+            if (curr.data == data) {
+                prev.next = curr.next;
+            } else {
+                prev = curr;
+            }
             curr = curr.next;
         }
         return dummyNode.next;
@@ -78,7 +80,6 @@ public class LinkedListOps {
         if (head == null || head.next == null) return head;
         ListNode<T> curr = head;
         ListNode<T> next;
-        //1 22 23
         while (curr != null && curr.next != null) {
             while (curr.next != null && curr.compareTo(curr.next) == 0) { // we mainly need data check only here, not a deep equality check
                 next = curr.next;
@@ -89,7 +90,9 @@ public class LinkedListOps {
         return head;
     }
 
-    // O(n) time and O(1) space method to reverse a list
+    /**
+     * O(n) time and O(1) space method to reverse a list.
+     */
     public static <T extends Comparable> ListNode<T> reverse(ListNode<T> head) {
         ListNode<T> prev = null, curr = head, next;
         while (curr != null) {
@@ -102,9 +105,11 @@ public class LinkedListOps {
         return head;
     }
 
-    // O(n) time and O(n/k) recursion-space method to reverse list in groups of k
+    /**
+     * O(n) time and O(n/kMax) recursion-space method to reverse list in groups of kMax.
+     */
     public static <T extends Comparable> ListNode<T> reverseListInGroups(ListNode<T> head, int k) {
-        if (head == null || head.next == null || k > head.getSize() || k == 0) {
+        if (head == null || head.next == null || k > head.size() || k == 0) {
             return head;
         }
         ListNode<T> prev = null, curr = head, next = null;
@@ -119,7 +124,9 @@ public class LinkedListOps {
         return head;
     }
 
-    // O(n) time and O(n/2) recursion-space method to swap/reverse in pairs
+    /**
+     * O(n) time and O(n/2) recursion-space method to swap/reverse in pairs.
+     */
     public static <T extends Comparable> ListNode<T> swapInPairs(ListNode<T> head) {
         if (head == null || head.next == null) return head;
         ListNode<T> next = head.next;
@@ -156,5 +163,45 @@ public class LinkedListOps {
         }
         head = reverse(head);
         return head;
+    }
+
+    /**
+     * <br><a href="https://leetcode.com/problems/reorder-list/description/">Reorder List</a><br>
+     * <br><u>Approach</u>:&nbsp;Find the mid-point; break the list into 2 parts around the mid-point; establish new links.<br>
+     */
+    public static <T extends Comparable> ListNode<T> reorderList(ListNode<T> head) {
+        if (head == null || head.next == null || head.next.next == null) return head;
+        ListNode<T> midPoint = head.midPoint();
+        ListNode<T> reverseNode = reverse(midPoint.next);
+        midPoint.next = null; // this is to break the list into 2 (it's also important to keep the memory-usage in control)
+        ListNode<T> curr = head;
+        while (curr != null && reverseNode != null) {
+            ListNode<T> currNext = curr.next;
+            ListNode<T> reverseNext = reverseNode.next;
+            curr.next = reverseNode;
+            reverseNode.next = currNext;
+            curr = currNext;
+            reverseNode = reverseNext;
+        }
+        return head;
+    }
+
+    /**
+     * <br><a href="https://leetcode.com/problems/palindrome-linked-list/description/">Palindrome Linked List</a><br>
+     */
+    public static <T extends Comparable> boolean isPalindrome(ListNode<T> head) {
+        if (head == null || head.next == null) return true;
+        ListNode<T> midPoint = head.midPoint();
+        ListNode<T> reverseNode = reverse(midPoint);
+        midPoint.next = null;
+        ListNode<T> curr = head;
+        while (curr != null && reverseNode != null) {
+            if (curr.compareTo(reverseNode) != 0) {
+                return false;
+            }
+            curr = curr.next;
+            reverseNode = reverseNode.next;
+        }
+        return true;
     }
 }

@@ -42,24 +42,23 @@ public class ListNode<T extends Comparable>
 
     /**
      * <br>Create singly linked-list from an array.
-     * <br>Depends on {@link #createLinkedList(Comparable[], int)}.
+     * <br>Depends on {@link #createLinkedList(T[], int, ListNode)}.
      */
     public static <T extends Comparable> ListNode<T> createLinkedList(T[] objects) {
         if (objects == null || objects.length == 0) return null;
-        return createLinkedList(objects, 0);
+        int tailIndex = objects.length-1;
+        return createLinkedList(objects, tailIndex, new ListNode<>(objects[tailIndex]));
     }
 
     /**
      * <br>Create singly linked-list from an array.
-     * <br>Helper function required by {@link #createLinkedList(Comparable[])}.
+     * <br>Helper function required by {@link #createLinkedList(T[])}.
      */
-    private static <T extends Comparable> ListNode<T> createLinkedList(T[] objects, int index) {
-        if (index < objects.length - 1) { // upper bound
-            T data = objects[index];
-            ListNode<T> next = createLinkedList(objects, ++index);
-            return new ListNode<>(data, next);
+    private static <T extends Comparable> ListNode<T> createLinkedList(T[] objects, int index, ListNode<T> head) {
+        if (index <= 0) {
+            return head;
         }
-        return new ListNode<>(objects[index]); // terminal / tail
+        return createLinkedList(objects, --index, new ListNode<>(objects[index], head));
     }
 
     /**
@@ -97,14 +96,13 @@ public class ListNode<T extends Comparable>
     @Override
     public int compareTo(ListNode<T> o) {
         if (data == null && o.data == null) return 0;
-        if (data == null || o.data == null) return -1;
         if (data instanceof Integer && o.data instanceof Integer) {
             return ((Integer) data).compareTo((Integer) o.data);
         }
         if (data instanceof String && o.data instanceof String) {
             return ((String) data).compareTo((String) o.data);
         }
-        throw new IllegalArgumentException("Inputs are in a format not supported yet");
+        throw new IllegalArgumentException(DATA_TYPE_NOT_SUPPORTED_YET);
     }
 
     @Override
@@ -131,9 +129,9 @@ public class ListNode<T extends Comparable>
     /**
      * @return Length of the list.
      */
-    public int getSize() {
+    public int size() {
         if (next == null) return 1;
-        return (1 + next.getSize());
+        return (1 + next.size());
     }
 
     // tail.next = some-node i.e. list is cycle but may not be circular
@@ -150,7 +148,7 @@ public class ListNode<T extends Comparable>
      * <br>Find the tail of list. Applicable for regular & circular lists, not cyclic list.
      * <br>For cyclic list, use #getEndPointsForCyclicList.
      */
-    public ListNode<T> getTail() {
+    public ListNode<T> tail() {
         if (next == null) return null;
         ListNode<T> curr = this;
         ListNode<T> terminal = null;
@@ -162,6 +160,20 @@ public class ListNode<T extends Comparable>
     public boolean isDummyNode() {
         if (data == null && next == null) return true;
         return false;
+    }
+
+    /**
+     * Floyd is great !
+     */
+    public ListNode<T> midPoint() {
+        if (next == null || next.next == null) return this; // null, {1}, {1,2}
+        if (next.next.next == null) return next; // {1,2,3}
+        ListNode<T> slow = this, fast = next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 }
 
@@ -195,17 +207,19 @@ class CycleDetection<T extends Comparable> implements Constants {
      */
     public static <T extends Comparable> Pair<ListNode<T>, ListNode<T>> getCycleEndPoints(ListNode<T> head) {
         ListNode<T> cyclePoint = getNodeFromCycle(head);
-        if (cyclePoint == null) return null; // non-cyclic list
-        if (cyclePoint == head) return new Pair<>(cyclePoint, head.getTail()); // circular list
-        return getEndPointsForCyclicList(head, cyclePoint);
-    }
-
-    private static <T extends Comparable> Pair<ListNode<T>, ListNode<T>> getEndPointsForCyclicList(ListNode<T> head, ListNode<T> cyclePoint) {
+        if (cyclePoint == null) {
+            return null; // non-cyclic list
+        }
+        if (cyclePoint == head) {
+            return new Pair<>(cyclePoint, head.tail()); // circular list
+        }
         ListNode<T> curr = head, prev = cyclePoint;
         while (curr != cyclePoint) {
             curr = curr.next;
             cyclePoint = cyclePoint.next;
-            if (curr != cyclePoint) prev = cyclePoint;
+            if (curr != cyclePoint) {
+                prev = cyclePoint;
+            }
         }
         return new Pair<>(cyclePoint, prev);
     }

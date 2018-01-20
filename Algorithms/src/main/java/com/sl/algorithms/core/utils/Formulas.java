@@ -1,12 +1,14 @@
 package com.sl.algorithms.core.utils;
 
+import com.sl.algorithms.core.baseObj.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Formulas {
+public class Formulas implements Constants {
 
     Formulas() {
         /**
@@ -63,8 +65,8 @@ public class Formulas {
     public static boolean isArmstrongNumber(int n) {
         int sum = 0;
         int power = orderOf(n);
-        for (int i = n; i > 0; i /= 10) {
-            sum += raiseTo(i % 10, power);
+        for (int i = n; i > 0; i /= DECIMAL_RADIX) {
+            sum += raiseTo(i % DECIMAL_RADIX, power);
         }
         return (sum == n);
     }
@@ -73,7 +75,7 @@ public class Formulas {
         int order = 0; // unknown
         int temp = n;
         while (temp != 0) {
-            temp = temp / 10;
+            temp = temp / DECIMAL_RADIX;
             ++order;
         }
         return order;
@@ -101,8 +103,8 @@ public class Formulas {
      */
     public static boolean isNeonNumber(int number) {
         int sum = 0;
-        for (int i = number * number; i > 0; i /= 10) {
-            sum += i % 10;
+        for (int i = number * number; i > 0; i /= DECIMAL_RADIX) {
+            sum += i % DECIMAL_RADIX;
         }
         return (sum == number);
     }
@@ -114,12 +116,12 @@ public class Formulas {
         int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
         int hashA = 1, hashB = 1;
         while (a > 0) {
-            hashA *= primes[a % 10];
-            a /= 10;
+            hashA *= primes[a % DECIMAL_RADIX];
+            a /= DECIMAL_RADIX;
         }
         while (b > 0) {
-            hashB *= primes[b % 10];
-            b /= 10;
+            hashB *= primes[b % DECIMAL_RADIX];
+            b /= DECIMAL_RADIX;
         }
         return (hashA == hashB);
     }
@@ -128,11 +130,11 @@ public class Formulas {
         if ((a == 0 || b == 0) && a != b) {
             return false;
         }
-        int[] digits = new int[10];
+        int[] digits = new int[DECIMAL_RADIX];
         int i = a, j = b;
-        for (; i > 0 && j > 0; i /= 10, j /= 10) {
-            ++digits[i % 10];
-            --digits[j % 10];
+        for (; i > 0 && j > 0; i /= DECIMAL_RADIX, j /= DECIMAL_RADIX) {
+            ++digits[i % DECIMAL_RADIX];
+            --digits[j % DECIMAL_RADIX];
         }
         if (i != 0 || j != 0) {
             return false;
@@ -152,13 +154,13 @@ public class Formulas {
     public static boolean isPalindrome(int number) {
         if (number < 0) return false;
         if (number == 0) return true;
-        if (number % 10 == 0) return false;
+        if (number % DECIMAL_RADIX == 0) return false;
         int reverse = 0;
         while (number > reverse) {
-            reverse = reverse * 10 + number % 10;
-            number /= 10;
+            reverse = reverse * DECIMAL_RADIX + number % DECIMAL_RADIX;
+            number /= DECIMAL_RADIX;
         }
-        return (number == reverse || number == reverse / 10);
+        return (number == reverse || number == reverse / DECIMAL_RADIX);
     }
 
     public static List<Integer> printArmstrongNumbers(int upperBound) throws InterruptedException {

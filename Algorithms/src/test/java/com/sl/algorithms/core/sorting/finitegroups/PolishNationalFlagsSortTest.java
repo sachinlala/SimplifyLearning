@@ -1,21 +1,22 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
-import com.sl.algorithms.core.sorting.generalpurpose.SortingEngineTest;
+import com.sl.algorithms.core.sorting.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
-public class PolishNationalFlagsSortTest extends SortingEngineTest {
-    private static SortingEngine<Integer> integerSortingEngine;
-    private static SortingEngine<String> stringSortingEngine;
+public class PolishNationalFlagsSortTest extends BaseTest {
+
+    private SortingEngine<Integer> integerSortingEngine;
+    private SortingEngine<String> stringSortingEngine;
 
     @Test
     public void testPNFSort1c() {
         integerSortingEngine = new PolishNationalFlagSort<>(0);
         stringSortingEngine = new PolishNationalFlagSort<>("A");
-        baseTests(integerSortingEngine);
+        assertBaseCases(integerSortingEngine);
         testPNFSort();
     }
 
@@ -23,7 +24,7 @@ public class PolishNationalFlagsSortTest extends SortingEngineTest {
     public void testPNFSort2c() {
         integerSortingEngine = new PolishNationalFlagSort<>(0, 1);
         stringSortingEngine = new PolishNationalFlagSort<>("A", "B");
-        baseTests(integerSortingEngine);
+        assertBaseCases(integerSortingEngine);
         testPNFSort();
     }
 

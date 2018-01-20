@@ -1,6 +1,8 @@
 package com.sl.algorithms.core.utils;
 
-public class StringOps {
+import com.sl.algorithms.core.baseObj.Constants;
+
+public class StringOps implements Constants {
 
     StringOps() {
         /**
@@ -43,7 +45,7 @@ public class StringOps {
                 break;
             }
             // compute value
-            intValue = intValue * 10 + digit;
+            intValue = intValue * DECIMAL_RADIX + digit;
             // handle overflow
             if (intValue > Integer.MAX_VALUE) {
                 intValue = isNegative ? Integer.MIN_VALUE : Integer.MAX_VALUE;

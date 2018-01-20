@@ -3,12 +3,15 @@ package com.sl.algorithms.core.linear.linkedlist.merge;
 import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.rwops.MergeEngine;
 
+/**
+ * <p>Iteratively merge lists from an array of sorted lists - for reference only.</p>
+ */
 public class LinkedListMergeIterative<T extends Comparable> implements MergeEngine<T> {
 
     @Override
     public ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray) {
         ListNode<T> mHead = merge2SortedLists(sortedListsArray[0], sortedListsArray[1]);
-        for (int i=2; i<sortedListsArray.length; i++) {
+        for (int i = 2; i < sortedListsArray.length; i++) {
             ListNode<T> list1 = mHead;
             ListNode<T> list2 = sortedListsArray[i];
             mHead = merge2SortedLists(list1, list2);
@@ -38,8 +41,11 @@ public class LinkedListMergeIterative<T extends Comparable> implements MergeEngi
             }
         } while (list1 != null && list2 != null);
         // handle the case when one list contains all values less that second list
-        if (list1 != null) mHead.next = list1;
-        else if (list2 != null) mHead.next = list2;
+        if (list1 != null) {
+            mHead.next = list1;
+        } else { // if (list2 != null)
+            mHead.next = list2;
+        }
         return dummyNode.next;
     }
 }

@@ -7,7 +7,7 @@ import com.sl.algorithms.core.utils.Formulas;
  * <br><u>Objective</u>: Search in a SORTED array, in Logarithmic time.<br>
  * <br><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Reference</a><br>
  */
-public class BinarySearchRecursive<T extends Comparable> implements Search<T> {
+public class RecursiveBinarySearch<T extends Comparable> implements Search<T> {
 
     /**
      * <br>Since we reduce the search space by half each time, the complexity must be in the order of O(log(n)).<br>

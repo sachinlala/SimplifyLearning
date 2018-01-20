@@ -1,5 +1,6 @@
 package com.sl.algorithms.core.utils;
 
+import com.sl.algorithms.core.baseObj.Constants;
 import com.sl.algorithms.core.baseObj.ListNode;
 
 import java.util.ArrayDeque;
@@ -8,7 +9,7 @@ import java.util.Deque;
 
 import static com.sl.algorithms.core.utils.Formulas.raiseTo;
 
-public class NumberOps {
+public class NumberOps implements Constants {
 
     NumberOps() {
         /**
@@ -19,8 +20,8 @@ public class NumberOps {
     public static int countDigits(int n) {
         int count = 0;
         if (n < 0) n *= -1;
-        if (n < 10) return 1;
-        for (int i = n; i > 0; i = i / 10) count++;
+        if (n < DECIMAL_RADIX) return 1;
+        for (int i = n; i > 0; i = i / DECIMAL_RADIX) count++;
         return count;
     }
 
@@ -28,9 +29,9 @@ public class NumberOps {
     public static int reverse(int n) {
         long r = 0;
         while (n != 0) {
-            r = r * 10 + n % 10;
+            r = r * DECIMAL_RADIX + n % DECIMAL_RADIX;
             if (r > Integer.MAX_VALUE || r < Integer.MIN_VALUE) return 0;
-            n /= 10;
+            n /= DECIMAL_RADIX;
         }
         return (int) r;
     }
@@ -41,15 +42,21 @@ public class NumberOps {
         int[] digits = new int[length];
         Arrays.fill(digits, 0);
         int index = length - 1;
-        for (int i = n; i > 0; i /= 10) digits[index--] = i % 10;
+        for (int i = n; i > 0; i /= DECIMAL_RADIX) {
+            digits[index--] = i % DECIMAL_RADIX;
+        }
         return digits;
     }
 
     // n>=0 and 32-bit
     public static int convertToNumber(int[] a) {
         long n = 0;
-        for (int digit : a) n = n * 10 + digit;
-        if (n > Integer.MAX_VALUE) return -1;
+        for (int digit : a) {
+            n = n * DECIMAL_RADIX + digit;
+        }
+        if (n > Integer.MAX_VALUE) {
+            return -1;
+        }
         return (int) n;
     }
 
@@ -58,10 +65,12 @@ public class NumberOps {
         long n = 0;
         ListNode<Integer> ptr = list;
         while (ptr != null) {
-            n = n * 10 + ptr.data;
+            n = n * DECIMAL_RADIX + ptr.data;
             ptr = ptr.next;
         }
-        if (n > Integer.MAX_VALUE) return -1;
+        if (n > Integer.MAX_VALUE) {
+            return -1;
+        }
         return (int) n;
     }
 
@@ -70,10 +79,12 @@ public class NumberOps {
         long n = 0;
         int length = a.length;
         for (int i = length - 1; i >= 0; i--) {
-            long update = raiseTo(10, length - i - 1);
+            long update = raiseTo(DECIMAL_RADIX, length - i - 1);
             n += update * a[i];
         }
-        if (n > Integer.MAX_VALUE) return -1;
+        if (n > Integer.MAX_VALUE) {
+            return -1;
+        }
         return (int) n;
     }
 
@@ -116,8 +127,8 @@ public class NumberOps {
     public static int convertToDecimal(int binaryNum) {
         int result = 0;
         int index = 0;
-        for (int i = binaryNum; i > 0; i /= 10) {
-            int bit = i % 10;
+        for (int i = binaryNum; i > 0; i /= DECIMAL_RADIX) {
+            int bit = i % DECIMAL_RADIX;
             result += bit * raiseTo(2, index);
             ++index;
         }
@@ -137,7 +148,7 @@ public class NumberOps {
         for (int i = length - 1; i >= 0; i--) {
             if (addOne) digits[i] += numberToAdd;
             if (digits[i] > 9) {
-                digits[i] = digits[i] % 10;
+                digits[i] = digits[i] % DECIMAL_RADIX;
                 addOne = true;
             } else {
                 addOne = false;

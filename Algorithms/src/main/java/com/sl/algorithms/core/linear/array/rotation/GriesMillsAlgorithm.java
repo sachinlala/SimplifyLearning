@@ -18,7 +18,6 @@ public class GriesMillsAlgorithm<T extends Comparable> implements RotationEngine
         else return rotateLeftBlockSwap(objects, k);
     }
 
-    //TODO: analyze further
     private T[] rotateLeftBlockSwap(T[] a, int k) {
         int n = a.length;
         k = k % n;

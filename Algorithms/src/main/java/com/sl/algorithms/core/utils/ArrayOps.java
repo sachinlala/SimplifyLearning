@@ -111,4 +111,10 @@ public class ArrayOps implements Constants {
         }
         return (intersection.size() == 0);
     }
+
+    public static <T> void copyArray(T[] source, T[] target) {
+        for (int i = 0; i < source.length; i++) {
+            target[i] = source[i];
+        }
+    }
 }

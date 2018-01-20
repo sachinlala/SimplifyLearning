@@ -1,6 +1,7 @@
 package com.sl.algorithms.core.interfaces.base;
 
 import com.sl.algorithms.core.baseObj.Constants;
+import com.sl.algorithms.core.baseObj.ListNode;
 
 public interface BaseInterface<T extends Comparable> extends Constants {
 
@@ -10,5 +11,9 @@ public interface BaseInterface<T extends Comparable> extends Constants {
 
     default void checkIntArray(int[] nums) {
         if (nums == null || nums.length == 0) throw new IllegalArgumentException(ARRAY_IS_EMPTY);
+    }
+
+    default void checkList(ListNode<T> head) {
+        if (head == null) throw new IllegalArgumentException(LIST_IS_EMPTY);
     }
 }

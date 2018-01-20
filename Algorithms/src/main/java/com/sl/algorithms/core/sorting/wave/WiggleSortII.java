@@ -1,5 +1,6 @@
 package com.sl.algorithms.core.sorting.wave;
 
+import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 import com.sl.algorithms.core.interfaces.selection.MedianFinder;
 import com.sl.algorithms.core.selection.median.QuickSelectMedianFinder;
@@ -32,11 +33,15 @@ public class WiggleSortII<T extends Comparable> implements SortingEngine<T> {
         }
     }
 
-    //TODO: analyze this further
     private int newIndex(int index, int n) {
         int newIndex = 1;
         newIndex += 2 * index;
         newIndex %= (n | 1);
         return newIndex;
+    }
+
+    @Override
+    public ListNode<T> sortList(ListNode<T> list) {
+        throw new UnsupportedOperationException();
     }
 }

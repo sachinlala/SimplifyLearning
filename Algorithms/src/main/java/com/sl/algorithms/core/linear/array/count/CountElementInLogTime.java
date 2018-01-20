@@ -4,8 +4,6 @@ import com.sl.algorithms.core.interfaces.count.ElementCounter;
 
 import static com.sl.algorithms.core.utils.Formulas.midPoint;
 
-//TODO: revise
-
 /**
  * <br>Given a sorted array of integers, find the count of a given target element.
  * <br>Solve in Logarithmic time.

@@ -18,10 +18,14 @@ public class LinkedListOpsTest extends LinkedListOps {
 
     @Test
     public void testCreateLinkedList() {
-        Assert.assertNull(createLinkedList(null));
-        Assert.assertNull(createLinkedList(new Integer[]{}));
-        Assert.assertEquals(new ListNode<Integer>(1), createLinkedList(new Integer[]{1}));
-        Assert.assertEquals("[1,2,3,4,5]", createLinkedList(new Integer[]{1, 2, 3, 4, 5}).toString());
+        {
+            Assert.assertNull(createLinkedList(null));
+            Assert.assertNull(createLinkedList(new Integer[]{}));
+        }
+        {
+            Assert.assertEquals(new ListNode<Integer>(1), createLinkedList(new Integer[]{1}));
+            Assert.assertEquals("[1,2,3,4,5]", createLinkedList(new Integer[]{1, 2, 3, 4, 5}).toString());
+        }
     }
 
     @Test
@@ -46,29 +50,33 @@ public class LinkedListOpsTest extends LinkedListOps {
 
     @Test
     public void testRemoveDataByPosition() {
-        Assert.assertNull(removeDataByPosition(null, START));
-        Assert.assertNull(removeDataByPosition(new ListNode<>(1), START));
-        Assert.assertEquals("[2,3,4,5]", removeDataByPosition(testNode, START).toString());
-
-        Assert.assertNull(removeDataByPosition(null, AFTER));
-
-        ListNode<Integer> testNodeCopy = testNode.clone();
-        if (testNodeCopy == null) {
-            Assert.fail("Deep copy [testNodeCopy] is null");
+        {
+            Assert.assertNull(removeDataByPosition(null, START));
+            Assert.assertNull(removeDataByPosition(new ListNode<>(1), START));
+            Assert.assertEquals("[2,3,4,5]", removeDataByPosition(testNode, START).toString());
         }
-        testNodeCopy.next = removeDataByPosition(testNodeCopy.next, AFTER);
-        Assert.assertEquals("[1,2,4,5]", testNodeCopy.toString());
-
-        Assert.assertNull(removeDataByPosition(null, END));
-        Assert.assertNull(removeDataByPosition(new ListNode<>(1), END));
-
-        testNodeCopy = testNode.clone();
-        Assert.assertEquals("[1,2,3,4]", removeDataByPosition(testNodeCopy, END).toString());
+        {
+            Assert.assertNull(removeDataByPosition(null, AFTER));
+            ListNode<Integer> testNodeCopy = testNode.clone();
+            if (testNodeCopy == null) {
+                Assert.fail("Deep copy [testNodeCopy] is null");
+            }
+            testNodeCopy.next = removeDataByPosition(testNodeCopy.next, AFTER);
+            Assert.assertEquals("[1,2,4,5]", testNodeCopy.toString());
+        }
+        {
+            Assert.assertNull(removeDataByPosition(null, END));
+            Assert.assertNull(removeDataByPosition(new ListNode<>(1), END));
+            ListNode<Integer> testNodeCopy = testNode.clone();
+            Assert.assertEquals("[1,2,3,4]", removeDataByPosition(testNodeCopy, END).toString());
+        }
     }
 
     @Test
     public void testRemoveData() {
-        Assert.assertNull(removeData(null, 0));
+        {
+            Assert.assertNull(removeData(null, 0));
+        }
         {
             Assert.assertEquals("[1,2,3,4,5]", removeData(testNode, 0).toString());
             Assert.assertEquals("[2,3,4,5]", removeData(testNode, 1).toString());
@@ -88,7 +96,7 @@ public class LinkedListOpsTest extends LinkedListOps {
     @Test
     public void testRemoveDuplicates() {
         {
-            Assert.assertEquals(null, removeDuplicates(null));
+            Assert.assertNull(removeDuplicates(null));
         }
         {
             ListNode<Integer> singleNode = new ListNode<>(1);
@@ -109,6 +117,59 @@ public class LinkedListOpsTest extends LinkedListOps {
         {
             ListNode<Integer> negativeTest = createLinkedList(new Integer[]{1,2,3,4,5});
             Assert.assertEquals("[1,2,3,4,5]", removeDuplicates(negativeTest).toString());
+        }
+    }
+
+    @Test
+    public void testReorderList() {
+        {
+            Assert.assertNull(reorderList(null));
+        }
+        {
+            ListNode<Integer> singleNode = new ListNode<>(1);
+            Assert.assertEquals("[1]", reorderList(singleNode).toString() );
+        }
+        {
+            ListNode<String> pairNode = createLinkedList(new String[]{"A", "B"});
+            Assert.assertEquals("[A,B]", reorderList(pairNode).toString());
+        }
+        {
+            ListNode<String> triplet = createLinkedList(new String[]{"A", "B", "C"});
+            Assert.assertEquals("[A,C,B]", reorderList(triplet).toString());
+        }
+        {
+            ListNode<String> quartret = createLinkedList(new String[]{"A", "B", "C", "D"});
+            Assert.assertEquals("[A,D,B,C]", reorderList(quartret).toString());
+        }
+        {
+            ListNode<String> pentagon = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            Assert.assertEquals("[A,E,B,D,C]", reorderList(pentagon).toString());
+        }
+        {
+            ListNode<String> hexagon = createLinkedList(new String[]{"A", "B", "C", "D", "E", "F"});
+            Assert.assertEquals("[A,F,B,E,C,D]", reorderList(hexagon).toString());
+        }
+    }
+
+    @Test
+    public void testIsPalindrome() {
+        {
+            Assert.assertTrue(isPalindrome(null));
+            Assert.assertTrue(isPalindrome(createLinkedList(new Integer[]{})));
+        }
+        {
+            Assert.assertTrue(isPalindrome(createLinkedList(new Integer[]{1})));
+        }
+        {
+            Assert.assertTrue(isPalindrome(createLinkedList(new Integer[]{1, 1})));
+            Assert.assertFalse(isPalindrome(createLinkedList(new Integer[]{1, 2})));
+        }
+        {
+            Assert.assertTrue(isPalindrome(createLinkedList(new Integer[]{1, 2, 1})));
+            Assert.assertFalse(isPalindrome(createLinkedList(new Integer[]{1, 2, 3})));
+        }
+        {
+            Assert.assertFalse(isPalindrome(createLinkedList(new Integer[]{1, 1, 2, 1})));
         }
     }
 }

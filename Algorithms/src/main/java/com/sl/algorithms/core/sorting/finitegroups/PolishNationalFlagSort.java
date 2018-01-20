@@ -1,5 +1,6 @@
 package com.sl.algorithms.core.sorting.finitegroups;
 
+import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
@@ -37,6 +38,7 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
      * and we scan from the right end of the array by decrementing 'r' until we find a white element.
      * We then exchange the two elements. Continue this way until 'w' and 'r' meet.<br>
      * Note that the scanning process is the same as that of the partition procedure of {@link com.sl.algorithms.core.sorting.generalpurpose.QuickSort} or {@link com.sl.algorithms.core.selection.median.QuickSelectMedianFinder}.</p>
+     * @param objects
      */
     @Override
     public void sort(T[] objects) {
@@ -55,5 +57,10 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
                 r--;
             }
         }
+    }
+
+    @Override
+    public ListNode<T> sortList(ListNode<T> list) {
+        throw new UnsupportedOperationException();
     }
 }

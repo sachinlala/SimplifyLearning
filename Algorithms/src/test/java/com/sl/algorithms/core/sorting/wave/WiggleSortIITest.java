@@ -1,27 +1,19 @@
 package com.sl.algorithms.core.sorting.wave;
 
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
-import com.sl.algorithms.core.sorting.generalpurpose.SortingEngineTest;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.sl.algorithms.core.sorting.BaseTest;
+import org.junit.*;
 
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 @SuppressWarnings("unchecked")
-public class WiggleSortIITest extends SortingEngineTest {
+public class WiggleSortIITest extends BaseTest {
 
-    private static SortingEngine sortingEngine;
+    private SortingEngine sortingEngine;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         sortingEngine = new WiggleSortII();
-    }
-
-    @Test
-    public void baseTests() {
-        baseTests(sortingEngine);
     }
 
     //TODO //FIXME - this assertion needs to be more involved because output can vary based on input randomization, but will satisfy a set pattern.
@@ -29,29 +21,32 @@ public class WiggleSortIITest extends SortingEngineTest {
     @Test
     public void testWiggleSortII() {
         {
+            assertBaseCases(sortingEngine);
+        }
+        { // has dup
+            Integer[] sampleData = new Integer[]{2,2,2,2,1,1,1};
+            sortingEngine.sort(sampleData);
+            Assert.assertEquals("[2,2,1,2,1,2,1]", printArray(sampleData));
+        }
+        { // sorted in ascending order
             Integer[] sampleNumbers = new Integer[]{1,2,3,4,5};
             sortingEngine.sort(sampleNumbers);
             //Assert.assertEquals("[3,4,2,5,1]", printArray(sampleNumbers));
         }
-        {
+        { // unsortred
             Integer[] sampleNumbers = new Integer[]{3,5,2,1,6,4};
             sortingEngine.sort(sampleNumbers);
             //Assert.assertEquals("[3,4,1,5,2,6]", printArray(sampleNumbers));
         }
-        {
+        { // string, sorted in ascending order
             String[] sampleData = new String[]{"A","B","C","D","E"};
             sortingEngine.sort(sampleData);
             Assert.assertEquals("[A,C,B,E,D]", printArray(sampleData));
         }
-    }
-
-    //TODO //FIXME - this assertion needs to be more involved because output can vary based on randomization
-    @Test
-    public void testWiggleSortIIDupNumbers() {
-        {
-            Integer[] sampleData = new Integer[]{2,2,2,2,1,1,1};
+        { // string, unsorted
+            String[] sampleData = new String[]{"E","A","B","D","C"};
             sortingEngine.sort(sampleData);
-            Assert.assertEquals("[2,2,1,2,1,2,1]", printArray(sampleData));
+            Assert.assertEquals("[A,C,B,E,D]", printArray(sampleData));
         }
     }
 }

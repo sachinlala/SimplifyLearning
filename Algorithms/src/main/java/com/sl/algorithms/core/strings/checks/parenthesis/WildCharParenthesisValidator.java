@@ -1,6 +1,7 @@
 package com.sl.algorithms.core.strings.checks.parenthesis;
 
 import com.sl.algorithms.core.interfaces.strings.checks.ParenthesisValidator;
+import static com.sl.algorithms.core.interfaces.strings.checks.ParenthesisValidator.ParenthesisEnum.*;
 
 /**
  * <u>Validations</u>:
@@ -25,15 +26,15 @@ public class WildCharParenthesisValidator implements ParenthesisValidator {
         int counter = 0;
         int maxCounter = 0;
         for (char c: str.toCharArray()) {
-            if (c == OPEN) {
+            if (c == OPEN.getExpr()) {
                 ++counter;
                 ++maxCounter;
             }
-            if (c == CLOSE) {
+            if (c == CLOSE.getExpr()) {
                 if (counter > 0) --counter;
                 --maxCounter;
             }
-            if (c == WILDCHAR) {
+            if (c == WILDCHAR.getExpr()) {
                 if (counter > 0) --counter;
                 ++maxCounter;
             }

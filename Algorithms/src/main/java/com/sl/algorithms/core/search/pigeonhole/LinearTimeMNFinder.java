@@ -5,13 +5,14 @@ import com.sl.algorithms.core.interfaces.search.pigeonhole.MissingNumberFinder;
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
- * {@link MissingNumberFinder}
+ * <p>O(n) time & O(1) space algorithm to find the first missing positive number.</p>
+ *
+ * @see MissingNumberFinder
  */
 public class LinearTimeMNFinder implements MissingNumberFinder {
 
     /**
      * <br><a href="https://leetcode.com/problems/first-missing-positive/description/">First Missing Positive</a><br>
-     * <br>O(n) time & O(1) space.<br>
      * <br><u>Approach (Reverse of Pigeonhole)</u>: you can 'n' balls, you put them into n+1 bins, one bin will remain empty.<br>
      * <br>Phase-1: "approximate" sort to ensure the elements are at their rightful index e.g. 3 is at 3
      * <br>Phase-2: detect mis-match => missing-number.<br>
@@ -49,10 +50,14 @@ public class LinearTimeMNFinder implements MissingNumberFinder {
     @Override
     public int findMissingNumber(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
-        int missingNumber = nums.length;
-        for (int i = 0; i < nums.length; i++) {
-            missingNumber ^= i ^ nums[i];
+        int n = nums.length;
+        int xor = n;
+        for (int i = n - 1; i > 0; i--) {
+            xor ^= i;
         }
-        return missingNumber;
+        for (int i = 0; i < n; i++) {
+            xor ^= nums[i];
+        }
+        return xor;
     }
 }

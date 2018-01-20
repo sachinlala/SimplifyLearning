@@ -4,7 +4,7 @@ import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
 
 /**
- * <br>Problem Reference: Rotate array of size 'n' by 'k' positions.<br>
+ * <br>Problem Reference: Rotate array of size 'n' by 'kMax' positions.<br>
  */
 public class BruteForceRotationWithSpace<T extends Comparable> implements RotationEngine<T> {
 

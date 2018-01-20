@@ -26,16 +26,13 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
         return maxContiguousSum;
     }
 
-    //TODO: analyze this more
     @Override
     public int findMaxSubArrayProduct(int[] nums) {
         checkIntArray(nums);
         if (nums.length == 1) {
             return nums[0];
         }
-        int maxProduct = Integer.MIN_VALUE;
-        int maxProductTillHere = 1;
-        int minProductTillHere = 1;
+        int maxProduct = Integer.MIN_VALUE, maxProductTillHere = 1, minProductTillHere = 1;
         for (int num : nums) {
             int product1 = maxProductTillHere * num;
             int product2 = minProductTillHere * num;
