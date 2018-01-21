@@ -66,7 +66,7 @@ public class ArrayRotationTest {
 
     public void assertIsRotation() {
         {
-            String[] A = new String[]{"A", "B", "C", "D"};
+            String[] A = new String[]{"A", "B", "C"};
             String[] B = new String[]{"X", "Y", "Z"};
             Assert.assertFalse(rotationEngine.isRotation(A, B));
         }

@@ -153,6 +153,11 @@ public class LinkedListRotationTest extends LinkedListRotation {
     @Test
     public void assertIsRotation() {
         {
+            ListNode<String> A = createLinkedList(new String[]{"A", "B", "C"});
+            ListNode<String> B = createLinkedList(new String[]{"X", "Y", "Z"});
+            Assert.assertFalse(isRotation(A, B));
+        }
+        {
             ListNode<String> A = createLinkedList(new String[]{"A", "B", "C", "D"});
             ListNode<String> B = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
             Assert.assertFalse(isRotation(A, B));
