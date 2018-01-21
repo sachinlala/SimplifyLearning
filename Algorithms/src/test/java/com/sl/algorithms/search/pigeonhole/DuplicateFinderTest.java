@@ -4,7 +4,7 @@ import com.sl.algorithms.core.interfaces.search.pigeonhole.DuplicateFinder;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DuplFinderTest {
+public class DuplicateFinderTest {
 
     private DuplicateFinder duplicateFinder;
 
@@ -26,40 +26,37 @@ public class DuplFinderTest {
 
     public void nullTests() {
         {
-            int[] nums = null;
             try {
-                duplicateFinder.findDuplicate(nums);
+                duplicateFinder.findDuplicate(null);
                 Assert.fail("Test should have failed");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals(duplicateFinder.ARRAY_IS_NULL_EMPTY_SIZE_1, iae.getMessage());
+                Assert.assertEquals(duplicateFinder.ARRAY_IS_EMPTY, iae.getMessage());
             }
         }
         {
-            int[] nums = {};
             try {
-                duplicateFinder.findDuplicate(nums);
+                duplicateFinder.findDuplicate(new int[]{});
                 Assert.fail("Test should have failed");
             } catch (IllegalArgumentException iae) {
-                Assert.assertEquals(duplicateFinder.ARRAY_IS_NULL_EMPTY_SIZE_1, iae.getMessage());
-            }
-        }
-        {
-            int[] nums = {1};
-            try {
-                duplicateFinder.findDuplicate(nums);
-                Assert.fail("Test should have failed");
-            } catch (IllegalArgumentException iae) {
-                Assert.assertEquals(duplicateFinder.ARRAY_IS_NULL_EMPTY_SIZE_1, iae.getMessage());
+                Assert.assertEquals(duplicateFinder.ARRAY_IS_EMPTY, iae.getMessage());
             }
         }
     }
 
     public void noDuplicatesTest() {
         {
+            int[] nums = {1};
+            try {
+                duplicateFinder.findDuplicate(nums);
+                Assert.fail("Test should have failed");
+            } catch (IllegalArgumentException iae) {
+                Assert.assertEquals(duplicateFinder.NO_DUPLICATES_FOUND, iae.getMessage());
+            }
+        }
+        {
             int[] nums = {1, 2, 0};
             try {
                 int i = duplicateFinder.findDuplicate(nums);
-                System.out.println(i);
                 Assert.fail("Test should have failed");
             } catch (IllegalArgumentException iae) {
                 Assert.assertEquals(duplicateFinder.NO_DUPLICATES_FOUND, iae.getMessage());

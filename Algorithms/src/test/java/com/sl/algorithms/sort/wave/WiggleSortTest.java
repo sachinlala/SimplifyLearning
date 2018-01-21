@@ -37,5 +37,10 @@ public class WiggleSortTest extends BaseTest {
             sortingEngine.sort(sampleData);
             Assert.assertEquals("[A,C,B,E,D]", printArray(sampleData));
         }
+        {
+            Integer[] sampleNumbers = new Integer[]{1,2,2,1,1};
+            sortingEngine.sort(sampleNumbers);
+            Assert.assertEquals("[1,2,1,2,1]", printArray(sampleNumbers));
+        }
     }
 }

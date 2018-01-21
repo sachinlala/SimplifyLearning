@@ -8,9 +8,9 @@ import static com.sl.algorithms.core.utils.ArrayOps.swap;
 /**
  * <br><a href="https://leetcode.com/problems/wiggle-sort/description/">Reference</a><br>
  */
-@SuppressWarnings("unchecked") // compareTo
 public class WiggleSort<T extends Comparable> implements SortingEngine<T> {
 
+    @SuppressWarnings("unchecked")
     @Override
     public void sort(T[] objects) {
         checkArray(objects);

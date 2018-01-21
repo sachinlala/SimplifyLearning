@@ -22,7 +22,9 @@ public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
 
     /**
      * <br>QuickSelect based default implementation for findKthSmallest problem.
-     * <br>e.g. 3rd smallest = 3, when objects:[1,2,3,4,5] & kMax=3
+     * @param objects input array
+     * @param k 3rd smallest = 3, when objects:[1,2,3,4,5] and k=3
+     * @return kth smallest element in objects
      */
     default T findKthSmallest(T[] objects, int k) {
         checkArray(objects);
@@ -36,6 +38,11 @@ public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
 
     /**
      * <br>Core QuickSelect Algorithm.<br>
+     * @param objects input array
+     * @param k 3rd smallest = 3, when objects:[1,2,3,4,5] and k=3
+     * @param s start index (inclusive)
+     * @param e end index (inclusive)
+     * @return kth element
      */
     default T quickSelect(T[] objects, int k, int s, int e) {
         k--; // because 1 <= kMax <= N, while an array starts from 0 index
@@ -55,6 +62,11 @@ public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
 
     /**
      * <br>Core Algorithm to sort one side of the pivot.<br>
+     * @param a input array
+     * @param s start index (inclusive)
+     * @param e end index (inclusive)
+     * @param p initial pivot
+     * @return pivot index after sort
      */
     default int pivotSort(T[] a, int s, int e, int p) {
         T pivotValue = a[p];
@@ -72,6 +84,10 @@ public interface QuickSelect<T extends Comparable> extends BaseInterface<T> {
 
     /**
      * <br><a href="https://stackoverflow.com/a/7560859/5775247">Median of 3 strategy</a>
+     * @param a input array
+     * @param s start index (inclusive)
+     * @param e end index (inclusive)
+     * @return median index
      */
     default int medianOf3(T[] a, int s, int e) {
         int m = Formulas.midPoint(s, e);

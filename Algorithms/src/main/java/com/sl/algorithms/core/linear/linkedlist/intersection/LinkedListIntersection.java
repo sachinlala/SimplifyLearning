@@ -12,20 +12,25 @@ public class LinkedListIntersection<T extends Comparable> implements Intersectio
     @Override
     public ListNode<T> getIntersectionPoint(ListNode<T> list1, ListNode<T> list2) {
         if (list1 == null || list2 == null) return null;
-        int m = list1.size(), n = list2.size();
-        ListNode<T> ptr1 = list1, ptr2 = list2;
-        while (m > n) {
-            ptr1 = ptr1.next;
-            --m;
-        }
-        while (m < n) {
-            ptr2 = ptr2.next;
-            --n;
-        }
-        while (ptr1 != ptr2) { // by this time, ptr1 & ptr2 are equidistant from the end
+        int d = list1.size() - list2.size();
+        ListNode<T> ptr1 = travel(list1, d);
+        ListNode<T> ptr2 = travel(list2, -d);
+        while (ptr1 != null && ptr2 != null && ptr1.compareTo(ptr2) != 0) { // by this time, ptr1 & ptr2 are equidistant from the end
             ptr1 = ptr1.next;
             ptr2 = ptr2.next;
         }
         return ptr1;
+    }
+
+    private ListNode<T> travel(ListNode<T> list, int d) {
+        if (d <= 0) {
+            return list;
+        }
+        ListNode<T> ptr = list;
+        while (d > 0 && ptr != null) {
+            ptr = ptr.next;
+            d--;
+        }
+        return ptr;
     }
 }

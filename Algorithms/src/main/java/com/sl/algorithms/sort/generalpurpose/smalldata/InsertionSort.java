@@ -4,7 +4,7 @@ import com.sl.algorithms.core.baseObj.ListNode;
 import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 
 /**
- * <br>In-place, stable & online quadratic-complexity sort algorithm useful for small data-set.<br>
+ * <br>In-place, stable and online quadratic-complexity sort algorithm useful for small data-set.<br>
  * <br><u>Approach</u>:&nbsp;Given a list, take the current element and insert it at the appropriate position of the list, adjusting the list every time you insert. It is similar to arranging the cards in a Card game.<br>
  * <br><u>Usage</u>:&nbsp;Typical implementations of the general-purpose quick/merge-sort also switch to insertion-sort for small data-sets.<br>
  * Insertion Sort an adaptive algorithm i.e. efficient for data sets already sorted to some degree.<br>

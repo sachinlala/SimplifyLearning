@@ -17,6 +17,8 @@ public class StringOps implements Constants {
      * <br>3. Ignore leading spaces.
      * <br>4. Handle overflow.
      * <br>5. Honor sign ('-' or '+'/empty).
+     * @param str input string
+     * @return output integer
      */
     public static int atoi(String str) {
         if (str == null || str.length() == 0) {

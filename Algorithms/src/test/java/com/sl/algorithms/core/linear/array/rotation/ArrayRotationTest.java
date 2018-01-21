@@ -17,7 +17,7 @@ public class ArrayRotationTest {
         rotationEngine = new BruteForceRotation();
         testRotationLeft();
         testRotationRight(true);
-        assertListNodeRotation();
+        testListNodeRotation();
     }
 
     @Test
@@ -25,7 +25,7 @@ public class ArrayRotationTest {
         rotationEngine = new BruteForceRotationWithSpace();
         testRotationLeft();
         testRotationRight(false);
-        assertListNodeRotation();
+        testListNodeRotation();
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ArrayRotationTest {
         rotationEngine = new DougMcIlroyAlgorithm();
         testRotationLeft();
         testRotationRight(true);
-        assertListNodeRotation();
+        testListNodeRotation();
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ArrayRotationTest {
         rotationEngine = new BentleyShufflingAlgorithm();
         testRotationLeft();
         testRotationRight(false);
-        assertListNodeRotation();
+        testListNodeRotation();
     }
 
     @Test
@@ -49,9 +49,9 @@ public class ArrayRotationTest {
         rotationEngine = new GriesMillsAlgorithm();
         testRotationLeft();
         testRotationRight(false);
-        assertListNodeRotation();
+        testListNodeRotation();
     }
-
+    
     public void testRotationLeft() {
         Assert.assertEquals("[2,3,4,5,1]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 1, false)));
         Assert.assertEquals("[3,4,5,1,2]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 2, false)));
@@ -61,6 +61,30 @@ public class ArrayRotationTest {
         Assert.assertEquals("[2,3,4,5,1]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 6, false)));
         Assert.assertEquals("[3,4,5,1,2]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 7, false)));
         Assert.assertEquals("[3,4,1,2]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4}, 2, false)));
+        assertIsRotation();
+    }
+
+    public void assertIsRotation() {
+        {
+            String[] A = new String[]{"A", "B", "C", "D"};
+            String[] B = new String[]{"A", "B", "C", "D", "E"};
+            Assert.assertFalse(rotationEngine.isRotation(A, B));
+        }
+        {
+            String[] A = new String[]{"A", "B", "C", "D", "E"};
+            String[] B = new String[]{"A", "B", "C", "D", "E"};
+            Assert.assertTrue(rotationEngine.isRotation(A, B));
+        }
+        {
+            String[] A = new String[]{"A", "B", "C", "D", "E"};
+            String[] B = new String[]{"B", "A", "C", "D", "E"};
+            Assert.assertFalse(rotationEngine.isRotation(A, B));
+        }
+        {
+            String[] A = new String[]{"A", "B", "C", "D", "E"};
+            String[] B = new String[]{"D", "E", "A", "B", "C"};
+            Assert.assertTrue(rotationEngine.isRotation(A, B));
+        }
     }
 
     public void testRotationRight(boolean isSupported) {
@@ -81,7 +105,7 @@ public class ArrayRotationTest {
         Assert.assertEquals("[5,1,2,3,4]", printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 6, true)));
     }
 
-    private void assertListNodeRotation() {
+    private void testListNodeRotation() {
         try {
             rotationEngine.rotate(ListNode.dummyNode(), 1, true);
             Assert.fail("Should have thrown an UnsupportedOperationException");

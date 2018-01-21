@@ -5,7 +5,7 @@ import com.sl.algorithms.core.interfaces.search.pigeonhole.MissingNumberFinder;
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
- * <p>O(n) time & O(1) space algorithm to find the first missing positive number.</p>
+ * <p>O(n) time and O(1) space algorithm to find the first missing positive number.</p>
  *
  * @see MissingNumberFinder
  */
@@ -15,7 +15,7 @@ public class LinearTimeMNFinder implements MissingNumberFinder {
      * <br><a href="https://leetcode.com/problems/first-missing-positive/description/">First Missing Positive</a><br>
      * <br><u>Approach (Reverse of Pigeonhole)</u>: you can 'n' balls, you put them into n+1 bins, one bin will remain empty.<br>
      * <br>Phase-1: "approximate" sort to ensure the elements are at their rightful index e.g. 3 is at 3
-     * <br>Phase-2: detect mis-match => missing-number.<br>
+     * <br>Phase-2: detect mis-match i.e. missing-number.<br>
      * <br>Usefulness: can handle duplicates and space is constant.<br>
      */
     @Override
@@ -42,7 +42,7 @@ public class LinearTimeMNFinder implements MissingNumberFinder {
     }
 
     /**
-     * <br><u>Complexity</u>: O(n) time & O(1) space.<br>
+     * <br><u>Complexity</u>: O(n) time and O(1) space.<br>
      * <br><u>Assumption</u>: no duplicates.<br>
      * <br><u>Approach</u>: Because we know that 'nums' contains 'n' numbers and that it is missing exactly one number in the range [0..n-1], we can infer that 'n' definitely replaces the missing number in nums.<br>
      * <br>Therefore, if we initialize an integer to 'n' and XOR it with every index and value, we will be left with the missing number.<br>

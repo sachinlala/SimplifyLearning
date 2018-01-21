@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <p>A sort algorithm (non-stable, out-of-place) that uses O(n) space & provides O(n) best-case and O(n^2) average/worst-case time-complexity.</p>
+ * <p>A sort algorithm (non-stable, out-of-place) that uses O(n) space and provides O(n) best-case and O(n^2) average/worst-case time-complexity.</p>
  * <br><a href="https://en.wikipedia.org/wiki/Bucket_sort">Reference Reading</a>
  * <br><a href="https://www.cs.usfca.edu/~galles/visualization/BucketSort.html">Visualization</a>
  */
@@ -29,7 +29,7 @@ public abstract class BucketSort<T extends Comparable> implements SortingEngine<
      * <br><u>Steps</u>:<br>
      * <br>0. Create n buckets.
      * <br>1. Put elements in their respective 'range' buckets:
-     * <br>e.g. for {0.4, 0.6, 0.9} => buckets : {b0, b1, b2, b3} => b0:{}, b1:{0.4, 0.6}, b2:{0.9}, b3:{}.
+     * <br>e.g. for {0.4, 0.6, 0.9}, buckets : {b0, b1, b2, b3}, and then b0:{}, b1:{0.4, 0.6}, b2:{0.9}, b3:{}.
      * <br>2. Sort each bucket, using insertion sort.
      * <br>3. Concatenate the buckets to produce the resultant sorted list.
      */

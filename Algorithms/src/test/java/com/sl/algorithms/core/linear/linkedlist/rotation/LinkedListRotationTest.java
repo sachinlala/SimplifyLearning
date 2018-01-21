@@ -149,4 +149,45 @@ public class LinkedListRotationTest extends LinkedListRotation {
             Assert.assertTrue(Arrays.equals(expectedOutput, rotate(strArray, 3, false)));
         }
     }
+
+    @Test
+    public void assertIsRotation() {
+        {
+            ListNode<String> A = createLinkedList(new String[]{"A", "B", "C", "D"});
+            ListNode<String> B = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            Assert.assertFalse(isRotation(A, B));
+        }
+        {
+            ListNode<String> A = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            ListNode<String> B = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            Assert.assertTrue(isRotation(A, B));
+            {
+                try {
+                    isRotation(A, null);
+                    Assert.fail("Exception should've come.");
+                } catch (IllegalArgumentException iae) {
+                    Assert.assertNotNull(iae);
+                }
+
+            }
+            {
+                try {
+                    isRotation(null, B);
+                    Assert.fail("Exception should've come.");
+                } catch (IllegalArgumentException iae) {
+                    Assert.assertNotNull(iae);
+                }
+            }
+        }
+        {
+            ListNode<String> A = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            ListNode<String> B = createLinkedList(new String[]{"B", "A", "C", "D", "E"});
+            Assert.assertFalse(isRotation(A, B));
+        }
+        {
+            ListNode<String> A = createLinkedList(new String[]{"A", "B", "C", "D", "E"});
+            ListNode<String> B = createLinkedList(new String[]{"D", "E", "A", "B", "C"});
+            Assert.assertTrue(isRotation(A, B));
+        }
+    }
 }

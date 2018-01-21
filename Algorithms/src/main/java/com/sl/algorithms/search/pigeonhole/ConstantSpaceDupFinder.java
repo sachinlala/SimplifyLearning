@@ -11,10 +11,13 @@ import com.sl.algorithms.core.interfaces.search.pigeonhole.DuplicateFinder;
 public class ConstantSpaceDupFinder implements DuplicateFinder {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int findDuplicate(int[] nums) {
-        nullCheck(nums);
+        checkIntArray(nums);
+        if (nums.length == 1) {
+            throw new IllegalArgumentException(NO_DUPLICATES_FOUND);
+        }
         int slow = nums[0], fast = nums[0];
         do {
             slow = nums[slow];

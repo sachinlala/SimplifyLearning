@@ -15,6 +15,8 @@ public class SampleRESTController {
 
     /**
      * For a given input 'name', output the JSON form of "Hello 'name'".
+     * @param name input
+     * @return SampleRESTResource
      */
     @RequestMapping(method = RequestMethod.GET, path = "/hello")
     public SampleRESTResource sayHello(@RequestParam(value = "name", required = true, defaultValue = "World") String name) {
@@ -23,6 +25,9 @@ public class SampleRESTController {
 
     /**
      * Apply Binary Search to find the position of a number in a sorted linear.
+     * @param sortedInput input array e.g. [1,2,3,4,5]
+     * @param numberToSearch integer to search
+     * @return BinarySearchResult
      */
     @RequestMapping(method = RequestMethod.GET, path = "/binarySearch/[{sortedInput}]")
     public BinarySearchResult searchBinary(@PathVariable Integer[] sortedInput,

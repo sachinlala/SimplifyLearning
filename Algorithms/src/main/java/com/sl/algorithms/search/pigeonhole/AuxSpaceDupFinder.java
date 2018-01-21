@@ -9,13 +9,15 @@ import java.util.Set;
 public class AuxSpaceDupFinder implements DuplicateFinder {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int findDuplicate(int[] nums) {
-        nullCheck(nums);
+        checkIntArray(nums);
         Set<Integer> numSet = new HashSet<>();
         for (int num : nums) {
-            if (numSet.contains(num)) return num;
+            if (numSet.contains(num)) {
+                return num;
+            }
             numSet.add(num);
         }
         throw new IllegalArgumentException(NO_DUPLICATES_FOUND);

@@ -5,7 +5,7 @@ import com.sl.algorithms.core.interfaces.search.Search;
 import static com.sl.algorithms.core.utils.Formulas.midPoint;
 
 /**
- * <br>Search object in a sorted (& rotated) list.<br>
+ * <br>Search object in a sorted (and rotated) list.<br>
  * <br><u>Related Problems</u>:
  * <br><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/">Find Minimum in a Rotated Sorted Array</a>
  * <br><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/">Find Minimum in a Rotated Sorted Array (with duplicates)</a>

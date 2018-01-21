@@ -10,7 +10,7 @@ import com.sl.algorithms.core.utils.Formulas;
 public class LogTimePEFinder<T extends Comparable> implements PeakElementFinder<T> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     @Override

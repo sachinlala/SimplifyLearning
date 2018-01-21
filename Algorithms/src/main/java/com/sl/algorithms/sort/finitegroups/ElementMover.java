@@ -20,7 +20,6 @@ public class ElementMover<T extends Comparable> implements SortingEngine<T> {
 
     /**
      * O(n) time and O(1) space, with optimal # operations in worst case.
-     * @param objects
      */
     @Override
     public void sort(T[] objects) {

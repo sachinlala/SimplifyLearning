@@ -8,7 +8,7 @@ import com.sl.algorithms.select.median.QuickSelectMedianFinder;
 import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
 
 /**
- * <br>A stable special-purpose integer-sort algorithm with linear time & space complexity = O(N+kMax), the range of legit values in the array i.e. (0..kMax-1).<br>
+ * <br>A stable special-purpose integer-sort algorithm with linear time and space complexity = O(N+kMax), the range of legit values in the array i.e. (0..kMax-1).<br>
  * <br><u>Inventor</u>:&nbsp;<a href="https://en.wikipedia.org/wiki/Harold_H._Seward">Harold H Seward</a><br>
  * <br><u>Note</u>:&nbsp;kMax is not significantly more than n (only then this algo is advantageous). While I have implemented for integeres, counting-sort can be used for any elements as long as their key is an integer.<br>
  * <br><a href="https://en.wikipedia.org/wiki/Counting_sort">Reference Reading 0</a>

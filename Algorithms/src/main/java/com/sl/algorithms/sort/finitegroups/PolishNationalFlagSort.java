@@ -25,7 +25,7 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
 
     /**
      * @param _white : primary value for sort.<br>
-     * i.e. everything else is red and can be any value => will settle in the right.<br>
+     * i.e. everything else is red and can be any value hence will settle in the right.<br>
      */
     public PolishNationalFlagSort(T _white) {
         white = _white;
@@ -38,7 +38,6 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
      * and we scan from the right end of the array by decrementing 'r' until we find a white element.
      * We then exchange the two elements. Continue this way until 'w' and 'r' meet.<br>
      * Note that the scanning process is the same as that of the partition procedure of {@link com.sl.algorithms.sort.generalpurpose.QuickSort} or {@link com.sl.algorithms.select.median.QuickSelectMedianFinder}.</p>
-     * @param objects
      */
     @Override
     public void sort(T[] objects) {

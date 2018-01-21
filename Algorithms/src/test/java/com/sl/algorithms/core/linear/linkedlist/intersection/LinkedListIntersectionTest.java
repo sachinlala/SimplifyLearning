@@ -18,9 +18,9 @@ public class LinkedListIntersectionTest extends LinkedListIntersection {
     public void testGetIntersectionNodeNothingCommon() {
         ListNode<Integer> list1 = createLinkedList(new Integer[]{1, 2, 3, 4, 5});
         ListNode<Integer> list2 = createLinkedList(new Integer[]{-1, -2, 0});
-        Assert.assertTrue(getIntersectionPoint(list1, null) == null);
-        Assert.assertTrue(getIntersectionPoint(null, list2) == null);
-        Assert.assertTrue(getIntersectionPoint(list1, list2) == null);
+        Assert.assertNull(getIntersectionPoint(list1, null));
+        Assert.assertNull(getIntersectionPoint(null, list2));
+        Assert.assertNull(getIntersectionPoint(list1, list2));
     }
 
     @Test

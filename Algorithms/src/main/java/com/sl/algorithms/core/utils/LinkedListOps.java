@@ -92,6 +92,9 @@ public class LinkedListOps {
 
     /**
      * O(n) time and O(1) space method to reverse a list.
+     * @param head input list
+     * @param <T> {@link Comparable}
+     * @return reversed list
      */
     public static <T extends Comparable> ListNode<T> reverse(ListNode<T> head) {
         ListNode<T> prev = null, curr = head, next;
@@ -107,6 +110,10 @@ public class LinkedListOps {
 
     /**
      * O(n) time and O(n/kMax) recursion-space method to reverse list in groups of kMax.
+     * @param head input list
+     * @param k batch-size
+     * @param <T> {@link Comparable}
+     * @return reversed list
      */
     public static <T extends Comparable> ListNode<T> reverseListInGroups(ListNode<T> head, int k) {
         if (head == null || head.next == null || k > head.size() || k == 0) {
@@ -126,6 +133,9 @@ public class LinkedListOps {
 
     /**
      * O(n) time and O(n/2) recursion-space method to swap/reverse in pairs.
+     * @param head input list
+     * @param <T> {@link Comparable}
+     * @return transformed list
      */
     public static <T extends Comparable> ListNode<T> swapInPairs(ListNode<T> head) {
         if (head == null || head.next == null) return head;
@@ -168,6 +178,9 @@ public class LinkedListOps {
     /**
      * <br><a href="https://leetcode.com/problems/reorder-list/description/">Reorder List</a><br>
      * <br><u>Approach</u>:&nbsp;Find the mid-point; break the list into 2 parts around the mid-point; establish new links.<br>
+     * @param head input list
+     * @param <T> {@link Comparable}
+     * @return re-ordered list
      */
     public static <T extends Comparable> ListNode<T> reorderList(ListNode<T> head) {
         if (head == null || head.next == null || head.next.next == null) return head;
@@ -188,6 +201,9 @@ public class LinkedListOps {
 
     /**
      * <br><a href="https://leetcode.com/problems/palindrome-linked-list/description/">Palindrome Linked List</a><br>
+     * @param head input list
+     * @param <T> {@link Comparable}
+     * @return true, when the list follows a palindrome pattern
      */
     public static <T extends Comparable> boolean isPalindrome(ListNode<T> head) {
         if (head == null || head.next == null) return true;

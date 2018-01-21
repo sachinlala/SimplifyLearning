@@ -22,7 +22,7 @@ public class TopDownMergeSort<T extends Comparable> extends MergeSort<T> {
      * <br>(1) partition the array into to a cluster of single units (divide).
      * <br>(2) sort adjacent units as a pair (conquer).
      * <br>(3) merge adjacent unit (combine).
-     * <br>(4) repeat (2) & (3) till all units are merged.<br>
+     * <br>(4) repeat (2) and (3) till all units are merged.<br>
      * <br><u>Note</u>: The copy-back step is avoided by alternating the direction of merge, during each recursion.<br>
      */
     @Override

@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("javadoc")
 public class Formulas implements Constants {
 
     Formulas() {
@@ -16,16 +17,17 @@ public class Formulas implements Constants {
          */
     }
 
-    /**
-     * Find mid-point between 2 numbers; prevent integer overflow.
-     */
     public static int midPoint(int start, int end) {
-        int mid = start + (end - start) / 2;
+        int mid = start + (end - start) / 2; // the 2nd part is to prevent integer overflow
         return mid;
     }
 
     /**
-     * O(log(n)) solution, based on the works of Euclid & Aryabhatta.<br>
+     * O(log(n)) solution, based on the works of Euclid and Aryabhatta.<br>
+     *
+     * @param a integer
+     * @param b integer
+     * @return HCF
      */
     public static int hcf(int a, int b) {
         if (a == 0) return b;
@@ -61,14 +63,17 @@ public class Formulas implements Constants {
 
     /**
      * <a href="https://en.wikipedia.org/wiki/Narcissistic_number">Armstrong NumberOps</a>
+     *
+     * @param number input
+     * @return true, when the number is Armstrong
      */
-    public static boolean isArmstrongNumber(int n) {
+    public static boolean isArmstrongNumber(int number) {
         int sum = 0;
-        int power = orderOf(n);
-        for (int i = n; i > 0; i /= DECIMAL_RADIX) {
+        int power = orderOf(number);
+        for (int i = number; i > 0; i /= DECIMAL_RADIX) {
             sum += raiseTo(i % DECIMAL_RADIX, power);
         }
-        return (sum == n);
+        return (sum == number);
     }
 
     public static int orderOf(int n) {
@@ -100,6 +105,9 @@ public class Formulas implements Constants {
 
     /**
      * <a href="http://www.geeksforgeeks.org/neon-number/">Neon NumberOps</a>
+     *
+     * @param number input
+     * @return true, when the number is Neon
      */
     public static boolean isNeonNumber(int number) {
         int sum = 0;
@@ -110,7 +118,9 @@ public class Formulas implements Constants {
     }
 
     /**
-     * Scope: (1) 32-bit numbers (2) digits and length are same.<br>
+     * @param a 32-bit unsigned integer
+     * @param b 32-bit unsigned integer
+     * @return true, when a and b have same digits and length
      */
     public static boolean haveSameDigitsAndLengthPrimes(int a, int b) {
         int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
@@ -148,8 +158,11 @@ public class Formulas implements Constants {
     }
 
     /**
-     * <a href="https://en.wikipedia.org/wiki/Palindromic_number">Palindromic NumberOps</a>
+     * <br><a href="https://en.wikipedia.org/wiki/Palindromic_number">Palindromic NumberOps</a><br>
      * //O(n) time and O(1) space
+     *
+     * @param number input
+     * @return true, when the number has palindrome pattern
      */
     public static boolean isPalindrome(int number) {
         if (number < 0) return false;

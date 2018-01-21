@@ -41,18 +41,24 @@ public class ListNode<T extends Comparable>
     }
 
     /**
-     * <br>Create singly linked-list from an array.
-     * <br>Depends on {@link #createLinkedList(T[], int, ListNode)}.
+     * @param objects input array
+     * @param <T>     {@link Comparable}
+     * @return head of the list
      */
     public static <T extends Comparable> ListNode<T> createLinkedList(T[] objects) {
-        if (objects == null || objects.length == 0) return null;
-        int tailIndex = objects.length-1;
+        if (objects == null || objects.length == 0) {
+            return null;
+        }
+        int tailIndex = objects.length - 1;
         return createLinkedList(objects, tailIndex, new ListNode<>(objects[tailIndex]));
     }
 
     /**
-     * <br>Create singly linked-list from an array.
-     * <br>Helper function required by {@link #createLinkedList(T[])}.
+     * @param objects input array
+     * @param index   current index in the array traversal
+     * @param head    initial
+     * @param <T>     {@link Comparable}
+     * @return head of the list
      */
     private static <T extends Comparable> ListNode<T> createLinkedList(T[] objects, int index, ListNode<T> head) {
         if (index <= 0) {
@@ -145,8 +151,9 @@ public class ListNode<T extends Comparable>
     }
 
     /**
-     * <br>Find the tail of list. Applicable for regular & circular lists, not cyclic list.
-     * <br>For cyclic list, use #getEndPointsForCyclicList.
+     * <u>Scope</u>: regular or circular list; for cyclic list, use #getEndPointsForCyclicList.
+     *
+     * @return tail node of the list
      */
     public ListNode<T> tail() {
         if (next == null) return null;
@@ -164,6 +171,8 @@ public class ListNode<T extends Comparable>
 
     /**
      * Floyd is great !
+     *
+     * @return node at the mid of the list
      */
     public ListNode<T> midPoint() {
         if (next == null || next.next == null) return this; // null, {1}, {1,2}

@@ -9,7 +9,7 @@ import com.sl.algorithms.core.interfaces.search.PeakElementFinder;
 public class LinearTimePEFinder<T extends Comparable> implements PeakElementFinder<T> {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     @Override

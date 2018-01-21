@@ -53,7 +53,14 @@ subprojects {
     check.dependsOn jacocoTestReport
 }
 
-task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+task alljavadoc(type: Javadoc) {
+    dependsOn = subprojects.test
+    source subprojects.collect { subprojects.sourceSets.main.allJava }
+    classpath = files(subprojects.collect { subprojects.sourceSets.main.compileClasspath })
+    destinationDir = file("docs/javadoc")
+}
+
+task jacocoRootReport(type: JacocoReport) {
     dependsOn = subprojects.test
     sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
     classDirectories = files(subprojects.sourceSets.main.output)

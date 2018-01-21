@@ -6,8 +6,8 @@ import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
 import static com.sl.algorithms.core.utils.ArrayOps.reverse;
 
 /**
- * <br><b>Left Rotation</b>: Flip Left Hand -> Flip Right Hand -> Flip Both Hands <br>
- * <br><b>Right Rotation</b>: Flip Both Hands -> Flip Right Hand -> Flip Left Hand <br>
+ * <br><b>Left Rotation</b>: Flip left hand, flip right hand, flip both hands <br>
+ * <br><b>Right Rotation</b>: Flip both hands, flip right hand, flip left hand <br>
  * <br><a href="https://en.wikipedia.org/wiki/Douglas_McIlroy">Doug McIlroy</a><br>
  */
 public class DougMcIlroyAlgorithm<T extends Comparable> implements RotationEngine<T> {

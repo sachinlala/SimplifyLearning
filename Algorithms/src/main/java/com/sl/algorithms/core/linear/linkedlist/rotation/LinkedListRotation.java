@@ -10,12 +10,12 @@ public class LinkedListRotation<T extends Comparable> implements RotationEngine<
 
     /**
      * <br><u>Approach</u>:
-     * <br>0. If kMax%size or kMax == 0 => no/full rotation.
+     * <br>0. If kMax%size or kMax == 0 then no/full rotation.
      * <br>1. Track 2 pointers, one for originalTail and second for newTail.
      * <br>2. Join originalTail with originalHead.
      * <br>3. newTail : right=(n-kMax) | left=(kMax)
      * <br>4. newHead = newTail.next, newTail.next = null.
-     * <br>5. Handle kMax>size i.e. kMax = kMax%size.
+     * <br>5. Handle scenario when kMax is greater than the size of the list (solution: kMax = kMax%size).
      */
     @Override
     public ListNode<T> rotate(ListNode<T> head, int k, boolean clockwise) {

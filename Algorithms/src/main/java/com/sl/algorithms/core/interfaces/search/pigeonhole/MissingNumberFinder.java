@@ -13,14 +13,16 @@ public interface MissingNumberFinder {
     /**
      * <br><a href="https://leetcode.com/problems/first-missing-positive/description/">Reference Problem</a><br>
      * <br><u>Scope</u>: Input: integers; Output: positive integer<br>
-     *     // find first positive missing number from an array which can contain any integer
+     * @param integers input array
+     * @return first positive number missing from the array which can contain any integer
      */
     int findFirstMissingPositive(int[] integers);
 
     /**
      * <br><a href="https://leetcode.com/problems/missing-number/description/">Reference Problem</a><br>
      * <br><u>Scope</u>: Input: non-negative integers; Output: non-negative integer.<br>
-     *     // find first non-negative missing number from an array containing only 0->n numbers
+     * @param nonnegatives input array
+     * @return first non-negative missing number missing from the array which contains 0 to n numbers
      */
     int findMissingNumber(int[] nonnegatives);
 }

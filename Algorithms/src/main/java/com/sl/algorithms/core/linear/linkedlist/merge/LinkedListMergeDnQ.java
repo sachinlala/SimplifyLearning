@@ -9,8 +9,8 @@ public class LinkedListMergeDnQ<T extends Comparable> implements MergeEngine<T> 
     /**
      * <br><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">Merge K sorted lists, using divide-n-conquer technique</a><br>
      * <br>Complexity:
-     * <br>> Time: O(N * logK): N = total number of nodes & K = total number of lists.
-     * <br>> Space: O(N): because we're using the recursive @{@link LinkedListMergeDnQ#merge2SortedLists(ListNode, ListNode)} method.
+     * <br>- Time: O(N * logK): N = total number of nodes and K = total number of lists.
+     * <br>- Space: O(N): because we're using the recursive @{@link LinkedListMergeDnQ#merge2SortedLists(ListNode, ListNode)} method.
      */
     @Override
     public ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray) {

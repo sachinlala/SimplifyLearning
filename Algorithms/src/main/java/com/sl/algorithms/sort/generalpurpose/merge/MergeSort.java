@@ -12,7 +12,7 @@ import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
 public abstract class MergeSort<T extends Comparable> implements SortingEngine<T> {
 
     /**
-     * <u>Objective</u>: MERGE and SORT 2 parts (s->m & m->e) of an array A (read-only), into an output array B.
+     * <u>Objective</u>: MERGE and SORT 2 parts (s to m and m to e) of an array A (read-only), into an output array B.
      *
      * @param source unsorted input array
      * @param s      start index

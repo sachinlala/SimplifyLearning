@@ -8,8 +8,5 @@ import com.sl.algorithms.core.interfaces.base.BaseInterface;
  */
 public interface PeakElementFinder<T extends Comparable> extends BaseInterface<T> {
 
-    /**
-     * <br>The input series has a peak element.<br>
-     */
     T findPeakElement(T[] objects);
 }

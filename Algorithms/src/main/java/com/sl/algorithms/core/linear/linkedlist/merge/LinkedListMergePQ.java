@@ -10,7 +10,7 @@ import java.util.Queue;
 /**
  * <br><a href="https://leetcode.com/problems/merge-k-sorted-lists/description/">Merge K sorted lists, using priority-queue</a><br>
  * <br><u>Complexity</u>:
- * <br>Time: O(N * logK): N = total number of nodes & K = total number of lists.
+ * <br>Time: O(N * logK): N = total number of nodes and K = total number of lists.
  * <br>Space: O(N): for merged list + O(kMax): for the priority-queue.
  */
 public class LinkedListMergePQ<T extends Comparable> implements MergeEngine<T> {
