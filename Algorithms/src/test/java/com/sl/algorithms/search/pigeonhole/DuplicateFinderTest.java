@@ -11,7 +11,7 @@ public class DuplicateFinderTest {
     @Test
     public void testNaiveDuplicateFinder() {
         duplicateFinder = new AuxSpaceDupFinder();
-        nullTests();
+        baseTests();
         noDuplicatesTest();
         testDuplicateFinder();
     }
@@ -19,12 +19,12 @@ public class DuplicateFinderTest {
     @Test
     public void testEfficientDuplicateFinder() {
         duplicateFinder = new ConstantSpaceDupFinder();
-        nullTests();
+        baseTests();
         //N.A. noDuplicatesTest();
         testDuplicateFinder();
     }
 
-    public void nullTests() {
+    public void baseTests() {
         {
             try {
                 duplicateFinder.findDuplicate(null);
@@ -41,9 +41,6 @@ public class DuplicateFinderTest {
                 Assert.assertEquals(duplicateFinder.ARRAY_IS_EMPTY, iae.getMessage());
             }
         }
-    }
-
-    public void noDuplicatesTest() {
         {
             int[] nums = {1};
             try {
@@ -53,6 +50,9 @@ public class DuplicateFinderTest {
                 Assert.assertEquals(duplicateFinder.NO_DUPLICATES_FOUND, iae.getMessage());
             }
         }
+    }
+
+    public void noDuplicatesTest() {
         {
             int[] nums = {1, 2, 0};
             try {
