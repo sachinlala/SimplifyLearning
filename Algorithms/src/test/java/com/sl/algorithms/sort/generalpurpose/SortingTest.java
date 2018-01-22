@@ -17,7 +17,7 @@ import static com.sl.algorithms.core.baseObj.ListNode.createLinkedList;
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 @SuppressWarnings("unchecked")
-public class SortingEngineTest extends BaseTest {
+public class SortingTest extends BaseTest {
 
     private SortingEngine<Integer> integerSortingEngine;
     private SortingEngine<String> stringSortingEngine;
@@ -150,7 +150,6 @@ public class SortingEngineTest extends BaseTest {
         }
         {
             int largeSize = 65536/8; // calibrated till Integer.MAX_VALUE/1024 i.e. 2097151
-            System.out.println(Integer.MAX_VALUE/1024);
             Integer[] largeList = new Integer[largeSize];
             Integer[] expectedList = new Integer[largeSize];
             for (int i = largeSize - 1; i >= 0; i--) {

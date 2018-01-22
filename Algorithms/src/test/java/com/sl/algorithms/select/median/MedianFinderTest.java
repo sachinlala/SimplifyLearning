@@ -2,6 +2,7 @@ package com.sl.algorithms.select.median;
 
 import com.sl.algorithms.core.interfaces.rwops.ShufflingEngine;
 import com.sl.algorithms.core.interfaces.selection.MedianFinder;
+import com.sl.algorithms.shuffle.FisherYatesKnuthShuffle;
 import com.sl.algorithms.shuffle.NaiveShuffle;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +14,7 @@ public class MedianFinderTest<T extends Comparable> {
 
     private MedianFinder<Integer> integerMedianFinder;
     private MedianFinder<String> stringMedianFinder;
-    private ShufflingEngine<Integer> integerShufflingEngine = new NaiveShuffle<>();
+    private ShufflingEngine<Integer> integerShufflingEngine = new FisherYatesKnuthShuffle<>();
     private ShufflingEngine<String> stringShufflingEngine = new NaiveShuffle<>();
 
     @Test
