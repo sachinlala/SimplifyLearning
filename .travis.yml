@@ -10,4 +10,4 @@ cache:
 before_install:
  - chmod +x gradlew
 after_success:
-- ./gradlew alljavadoc jacocoRootReport coveralls
+- ./gradlew jacocoRootReport coveralls

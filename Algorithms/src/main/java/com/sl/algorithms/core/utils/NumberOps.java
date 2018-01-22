@@ -54,7 +54,7 @@ public class NumberOps implements Constants {
         for (int digit : a) {
             n = n * DECIMAL_RADIX + digit;
         }
-        if (n > Integer.MAX_VALUE) {
+        if (n > Integer.MAX_VALUE || n < 0) {
             return -1;
         }
         return (int) n;

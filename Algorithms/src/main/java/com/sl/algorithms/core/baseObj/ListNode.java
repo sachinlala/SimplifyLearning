@@ -49,22 +49,14 @@ public class ListNode<T extends Comparable>
         if (objects == null || objects.length == 0) {
             return null;
         }
-        int tailIndex = objects.length - 1;
-        return createLinkedList(objects, tailIndex, new ListNode<>(objects[tailIndex]));
-    }
-
-    /**
-     * @param objects input array
-     * @param index   current index in the array traversal
-     * @param head    initial
-     * @param <T>     {@link Comparable}
-     * @return head of the list
-     */
-    private static <T extends Comparable> ListNode<T> createLinkedList(T[] objects, int index, ListNode<T> head) {
-        if (index <= 0) {
-            return head;
+        ListNode<T> dummyNode = ListNode.dummyNode();
+        ListNode<T> head = new ListNode<>(objects[0]);
+        dummyNode.next = head;
+        for (int i = 1; i < objects.length; i++) {
+            head.next = new ListNode<>(objects[i]);
+            head = head.next;
         }
-        return createLinkedList(objects, --index, new ListNode<>(objects[index], head));
+        return dummyNode.next;
     }
 
     /**

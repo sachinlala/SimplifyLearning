@@ -149,8 +149,18 @@ public class SortingEngineTest extends BaseTest {
             Assert.assertEquals("[1,2,3,3,5]", integerSortingEngine.sortList(sampleNumbersOddCount).toString());
         }
         {
-            ListNode<Integer> sampleNumbers32Plus = createLinkedList(new Integer[]{2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 7, 10, 6, 9, 8, 100, 99, 100});
-            Assert.assertEquals("[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,6,7,8,9,10,99,100,100]", integerSortingEngine.sortList(sampleNumbers32Plus).toString());
+            int largeSize = 65536/8; // calibrated till Integer.MAX_VALUE/1024 i.e. 2097151
+            System.out.println(Integer.MAX_VALUE/1024);
+            Integer[] largeList = new Integer[largeSize];
+            Integer[] expectedList = new Integer[largeSize];
+            for (int i = largeSize - 1; i >= 0; i--) {
+                largeList[i] = i;
+            }
+            for (int i = 0; i < largeSize; i++) {
+                expectedList[i] = i;
+            }
+            ListNode<Integer> sampleNumbers32Plus = createLinkedList(largeList);
+            Assert.assertEquals(printArray(expectedList), integerSortingEngine.sortList(sampleNumbers32Plus).toString());
         }
     }
 }

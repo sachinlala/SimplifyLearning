@@ -50,24 +50,25 @@ public class BottomUpMergeSort<T extends Comparable> extends MergeSort<T> {
         if (head.next == null) {
             return head;
         }
-        ListNode<T>[] auxList = new ListNode[32];
+        int sizeLimit = 8;
+        ListNode<T>[] auxList = new ListNode[sizeLimit];
         ListNode<T> result = head;
         while (result != null) {
             ListNode<T> next = result.next;
             result.next = null;
             int i = 0;
-            for (; i < 32 && auxList[i] != null; i++) {
+            for (; i < sizeLimit && auxList[i] != null; i++) {
                 result = mergeEngine.merge2SortedLists(auxList[i], result);
                 auxList[i] = null;
             }
-            if (i == 32) {
+            if (i == sizeLimit) {
                 i--;
             }
             auxList[i] = result;
             result = next;
         }
         result = null;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < sizeLimit; i++) {
             result = mergeEngine.merge2SortedLists(auxList[i], result);
         }
         return result;

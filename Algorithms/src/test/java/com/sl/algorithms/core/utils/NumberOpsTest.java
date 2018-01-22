@@ -123,7 +123,7 @@ public class NumberOpsTest extends NumberOps {
         Assert.assertEquals(123, convertToNumber(new int[]{1,2,3}));
         Assert.assertEquals(1234567890, convertToNumber(new int[]{1,2,3,4,5,6,7,8,9,0}));
         Assert.assertEquals(1999999999, convertToNumber(new int[]{1,9,9,9,9,9,9,9,9,9}));
-        Assert.assertEquals(-1, convertToNumber(new int[]{9,1,9,9,9,9,9,9,9,9}));
+        Assert.assertEquals(-1, convertToNumber(new int[]{9,2,2,3,3,7,2,0,3,6,8,5,4,7,7,5,8,0,6}));
     }
 
     @Test
