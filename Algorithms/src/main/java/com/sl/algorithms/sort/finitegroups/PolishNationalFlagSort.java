@@ -40,18 +40,18 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
      * Note that the scanning process is the same as that of the partition procedure of {@link com.sl.algorithms.sort.generalpurpose.QuickSort} or {@link com.sl.algorithms.select.median.QuickSelectMedianFinder}.</p>
      */
     @Override
-    public void sort(T[] objects) {
-        checkArray(objects);
-        int w = 0, r = objects.length - 1;
+    public void sort(T[] A) {
+        checkArray(A);
+        int w = 0, r = A.length - 1;
         while (w < r) {
-            while (objects[w].equals(white) && w < r) {
+            while (A[w].equals(white) && w < r) {
                 w++;
             }
-            while (!objects[r].equals(white) && w < r) {
+            while (!A[r].equals(white) && w < r) {
                 r--;
             }
             if (w < r) {
-                swap(objects, w, r);
+                swap(A, w, r);
                 w++;
                 r--;
             }

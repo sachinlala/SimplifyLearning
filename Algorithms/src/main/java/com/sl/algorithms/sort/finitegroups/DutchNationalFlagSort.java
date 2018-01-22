@@ -48,21 +48,22 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
      * <br>- swap with A[b] if it is blue
      * <br>- decrement w if it is white.
      * <br>The variables r and b indicate red and blue boundaries such that all elements to the left of r are red and all elements to the right of b are blue.
-     * <br>It is clear that a swap occurs when A[w] is red or blue.</p>
+     * <br>It is clear that A swap occurs when A[w] is red or blue.</p>
      */
     @Override
-    public void sort(T[] objects) {
-        checkArray(objects);
-        int r = 0, w = objects.length - 1, b = objects.length - 1;
+    public void sort(T[] A) {
+        checkArray(A);
+        int n = A.length;
+        int r = 0, w = n - 1, b = n - 1;
         while (w >= r) {
-            T obj = objects[w];
+            T obj = A[w];
             if (obj.equals(red)) {
-                swap(objects, w, r);
+                swap(A, r, w);
                 r++;
             } else if (obj.equals(blue)) {
-                swap(objects, w, b);
+                swap(A, w, b);
                 b--;
-                w--; // w needs to be move lock-step with b { example to assert: 2, 0, 1, 0, 1, 0, 0, 2, 2 }
+                w--; // w needs to be move lock-step with b or faster than b { example to assert: 2, 0, 1, 0, 1, 0, 0, 2, 2 }
             } else { // white (implicit) // middle layer
                 w--;
             }
