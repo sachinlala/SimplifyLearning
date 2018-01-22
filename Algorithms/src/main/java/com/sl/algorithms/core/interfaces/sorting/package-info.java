@@ -4,4 +4,4 @@
  * <br><a href="https://www.hackerearth.com/practice/algorithms/sorting">Reference 3</a><br>
  * <br><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability">Stability</a><br>
  */
-package com.sl.algorithms.sort;
+package com.sl.algorithms.core.interfaces.sorting;

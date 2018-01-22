@@ -7,8 +7,8 @@ import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
  * <p>An in-place non-stable sorting algorithm with O(nlogn) time-complexity.</p>
- * <a href="https://brilliant.org/wiki/heap-sort/">Reference Reading 1</a>
- * <a href="https://www.hackerearth.com/practice/algorithms/sorting/heap-sort/tutorial/">Reference Reading 3</a>
+ * <br><a href="https://brilliant.org/wiki/heap-sort/">Reference Reading 1</a>
+ * <br><a href="https://www.hackerearth.com/practice/algorithms/sorting/heap-sort/tutorial/">Reference Reading 3</a>
  */
 public class HeapSort<T extends Comparable> implements SortingEngine<T> {
 
