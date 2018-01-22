@@ -38,7 +38,7 @@ public class ArrayRotationTest {
 
     @Test
     public void assertBentleyShufflingAlgorithm() {
-        rotationEngine = new BentleyShufflingAlgorithm();
+        rotationEngine = new BentleyRotationByShuffling();
         testRotationLeft();
         testRotationRight(false);
         testListNodeRotation();
@@ -46,7 +46,7 @@ public class ArrayRotationTest {
 
     @Test
     public void assertGriesMillsAlgorithm() {
-        rotationEngine = new GriesMillsAlgorithm();
+        rotationEngine = new GriesMillsRotation();
         testRotationLeft();
         testRotationRight(false);
         testListNodeRotation();

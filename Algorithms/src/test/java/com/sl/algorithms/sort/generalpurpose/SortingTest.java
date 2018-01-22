@@ -10,11 +10,12 @@ import com.sl.algorithms.sort.generalpurpose.smalldata.BubbleSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.InsertionSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.SelectionSort;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.sl.algorithms.core.baseObj.ListNode.createLinkedList;
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
+import static com.sl.algorithms.sort.generalpurpose.heap.HeapType.MAX_HEAP;
+import static com.sl.algorithms.sort.generalpurpose.heap.HeapType.MIN_HEAP;
 
 @SuppressWarnings("unchecked")
 public class SortingTest extends BaseTest {
@@ -73,16 +74,35 @@ public class SortingTest extends BaseTest {
         assertSort();
     }
 
-    @Ignore //FIXME
     @Test
-    public void testHeapSort() {
-        integerSortingEngine = new HeapSort<>();
-        stringSortingEngine = new HeapSort<>();
+    public void testMaxHeapSort() {
+        integerSortingEngine = new HeapSort<>(MAX_HEAP);
+        stringSortingEngine = new HeapSort<>(MAX_HEAP);
         assertBaseCases(integerSortingEngine);
         assertSort();
     }
 
+    @Test
+    public void testMinHeapSort() {
+        stringSortingEngine = new HeapSort<>(MIN_HEAP);
+        {
+            String[] sampleData = new String[]{"X", "A", "C", "Y", "B", "Z"};
+            stringSortingEngine.sort(sampleData);
+            Assert.assertEquals("[Z,Y,X,C,B,A]", printArray(sampleData));
+        }
+    }
+
     private void assertSort() {
+        {
+            String[] sampleData = new String[]{"X", "A", "C", "Y", "B", "Z"};
+            stringSortingEngine.sort(sampleData);
+            Assert.assertEquals("[A,B,C,X,Y,Z]", printArray(sampleData));
+        }
+        {
+            Integer[] sampleNumbers = new Integer[]{15, 19, 10, 7, 17, 16};
+            integerSortingEngine.sort(sampleNumbers);
+            Assert.assertEquals("[7,10,15,16,17,19]", printArray(sampleNumbers));
+        }
         {
             Integer[] sampleNumbers = new Integer[]{10, 7, 3, 1, 2, 11};
             integerSortingEngine.sort(sampleNumbers);

@@ -9,7 +9,7 @@ import com.sl.algorithms.core.utils.Formulas;
  * <br><a href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a><br>
  * <br><a href="https://en.wikipedia.org/wiki/Jon_Bentley_(computer_scientist)">Jon Bentley</a><br>
  */
-public class BentleyShufflingAlgorithm<T extends Comparable> implements RotationEngine<T> {
+public class BentleyRotationByShuffling<T extends Comparable> implements RotationEngine<T> {
 
     @Override
     public T[] rotate(T[] objects, int k, boolean clockwise) {
@@ -19,23 +19,26 @@ public class BentleyShufflingAlgorithm<T extends Comparable> implements Rotation
     }
 
     // O(n) time and O(1) space
-    private T[] rotateLeftByJuggling(T[] objects, int k) {
-        int n = objects.length;
+    private T[] rotateLeftByJuggling(T[] a, int k) {
+        int n = a.length;
+        k = k % n;
+        if (k == 0) return a;
         int hcf = Formulas.hcf(n, k);
         int i, j, delta;
         T temp;
         for (i = 0; i < hcf; i++) {
-            temp = objects[i];
+            temp = a[i];
             for (j = i; j < n; ) {
-                delta = j + k;
-                delta = delta % n; // this is required to prevent overflow
-                if (delta == i) break;
-                objects[j] = objects[delta];
+                delta = (j + k) % n; // %n is required to prevent overflow
+                if (delta == i) {
+                    break;
+                }
+                a[j] = a[delta];
                 j = delta;
             }
-            objects[j] = temp;
+            a[j] = temp;
         }
-        return objects;
+        return a;
     }
 
     @Override

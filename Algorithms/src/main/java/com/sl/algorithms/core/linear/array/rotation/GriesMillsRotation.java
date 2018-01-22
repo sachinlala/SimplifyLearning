@@ -8,7 +8,7 @@ import static com.sl.algorithms.core.utils.ArrayOps.swapInBlocks;
 /**
  * <br><a href="http://www.drdobbs.com/parallel/benchmarking-block-swapping-algorithms/232900395?pgno=2">Gries-Mills Block-Swap Algorithm</a><br>
  */
-public class GriesMillsAlgorithm<T extends Comparable> implements RotationEngine<T> {
+public class GriesMillsRotation<T extends Comparable> implements RotationEngine<T> {
 
     // O(n) time and O(1) space
     @Override
