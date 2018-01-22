@@ -54,10 +54,6 @@ public class HeapSort<T extends Comparable> implements SortingEngine<T> {
                 min_heapify(objects, n, i);
                 break;
             }
-            default: {
-                max_heapify(objects, n, i);
-                break;
-            }
         }
     }
 
