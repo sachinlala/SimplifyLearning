@@ -25,11 +25,6 @@ public class ListNode<T extends Comparable>
         next = null;
     }
 
-    public ListNode(final T _data, final ListNode<T> _next) {
-        data = _data;
-        next = _next;
-    }
-
     private ListNode() {
         /**
          * Only available for internal rwops.<br>
