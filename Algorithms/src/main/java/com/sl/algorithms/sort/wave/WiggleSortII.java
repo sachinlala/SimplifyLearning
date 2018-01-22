@@ -23,15 +23,18 @@ public class WiggleSortII<T extends Comparable> implements SortingEngine<T> {
     @Override
     public void sort(T[] A) {
         checkArray(A);
-        Comparable M = medianFinder.findMedian(A);
         int n = A.length;
+        if (n < 2) {
+            return;
+        }
+        Comparable M = medianFinder.findMedian(A);
         int r = 0, w = n - 1, b = n - 1;
         while (w >= r) {
             T obj = A[index(w, n)];
-            if (obj.compareTo(M) < 0) {
+            if (obj.compareTo(M) > 0) { // because the requirement is num1 < num2 > num3
                 swap(A, index(r, n), index(w, n));
                 r++;
-            } else if (obj.compareTo(M) > 0) {
+            } else if (obj.compareTo(M) < 0) {
                 swap(A, index(b, n), index(w, n));
                 b--;
                 w--;

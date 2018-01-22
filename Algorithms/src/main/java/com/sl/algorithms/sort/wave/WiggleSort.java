@@ -12,13 +12,13 @@ public class WiggleSort<T extends Comparable> implements SortingEngine<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void sort(T[] objects) {
-        checkArray(objects);
-        for (int i = 0; i < objects.length - 1; i++) {
+    public void sort(T[] A) {
+        checkArray(A);
+        for (int i = 0; i < A.length - 1; i++) {
             boolean isEven = (i % 2 == 0);
-            boolean isHigher = (objects[i].compareTo(objects[i + 1]) > 0);
+            boolean isHigher = (A[i].compareTo(A[i + 1]) > 0);
             if (isEven == isHigher) {
-                swap(objects, i, i + 1);
+                swap(A, i, i + 1);
             }
         }
     }
