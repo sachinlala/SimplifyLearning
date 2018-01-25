@@ -1,12 +1,12 @@
 package com.sl.algorithms.sort.generalpurpose.heap;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 
 /**
- * <p>An in-place non-stable sorting algorithm with O(nlogn) time-complexity.</p>
+ * <p>An in-place non-stable sort algorithm with O(nlogn) time-complexity.</p>
  * <br><a href="https://brilliant.org/wiki/heap-sort/">Reference Reading 1</a>
  * <br><a href="https://www.hackerearth.com/practice/algorithms/sorting/heap-sort/tutorial/">Reference Reading 3</a>
  */

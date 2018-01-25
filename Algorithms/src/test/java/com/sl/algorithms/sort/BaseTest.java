@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.sort.generalpurpose.merge.MergeSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.InsertionSort;
 import org.junit.Assert;

@@ -27,7 +27,7 @@ public class ListNode<T extends Comparable>
 
     private ListNode() {
         /**
-         * Only available for internal rwops.<br>
+         * Only available for internal shuffle.<br>
          */
     }
 

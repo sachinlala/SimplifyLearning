@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.linear.linkedlist.merge;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.rwops.MergeEngine;
+import com.sl.algorithms.core.interfaces.merge.MergeEngine;
 
 import java.util.Collections;
 import java.util.PriorityQueue;

@@ -1,6 +1,6 @@
 package com.sl.algorithms.shuffle;
 
-import com.sl.algorithms.core.interfaces.rwops.ShufflingEngine;
+import com.sl.algorithms.core.interfaces.shuffle.ShufflingEngine;
 import com.sl.algorithms.core.utils.ArrayOps;
 
 import java.util.Random;

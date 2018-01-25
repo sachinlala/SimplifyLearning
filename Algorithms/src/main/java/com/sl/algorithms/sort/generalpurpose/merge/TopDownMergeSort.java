@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.generalpurpose.merge;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.rwops.MergeEngine;
+import com.sl.algorithms.core.interfaces.merge.MergeEngine;
 import com.sl.algorithms.core.linear.linkedlist.merge.LinkedListMergeDnQ;
 import com.sl.algorithms.core.utils.Formulas;
 

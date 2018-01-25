@@ -1,6 +1,6 @@
 package com.sl.algorithms.sort.wave;
 
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.sort.BaseTest;
 import org.junit.Assert;
 import org.junit.Before;

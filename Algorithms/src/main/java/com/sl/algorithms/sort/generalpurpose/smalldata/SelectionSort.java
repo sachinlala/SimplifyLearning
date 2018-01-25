@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.generalpurpose.smalldata;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 

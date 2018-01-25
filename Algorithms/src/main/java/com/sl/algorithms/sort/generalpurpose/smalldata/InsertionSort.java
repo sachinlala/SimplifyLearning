@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.generalpurpose.smalldata;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 
 /**
  * <br>In-place, stable and online quadratic-complexity sort algorithm useful for small data-set.<br>

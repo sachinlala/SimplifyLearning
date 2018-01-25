@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.linear.array.rotation;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.rwops.RotationEngine;
+import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
 import com.sl.algorithms.core.utils.Formulas;
 
 /**

@@ -1,6 +1,6 @@
 package com.sl.algorithms.sort.generalpurpose.merge;
 
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 
 /**
  * <br>A general-purpose stable sort algorithm with a guaranteed time complexity of O(nlogn) and O(n) space.<br>

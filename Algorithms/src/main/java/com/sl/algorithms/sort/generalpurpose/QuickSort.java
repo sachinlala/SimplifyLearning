@@ -1,8 +1,8 @@
 package com.sl.algorithms.sort.generalpurpose;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.selection.QuickSelect;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
+import com.sl.algorithms.core.interfaces.select.QuickSelect;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 
 /**
  * <br>A general-purpose non-stable sort algorithm with an average time complexity of O(nlogn) and O(n) worst-case recursive space.<br>

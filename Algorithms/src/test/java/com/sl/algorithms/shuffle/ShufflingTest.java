@@ -1,8 +1,8 @@
 package com.sl.algorithms.shuffle;
 
-import com.sl.algorithms.core.interfaces.rwops.ShufflingEngine;
-import com.sl.algorithms.core.interfaces.selection.MedianFinder;
-import com.sl.algorithms.select.median.QuickSelectMedianFinder;
+import com.sl.algorithms.core.interfaces.shuffle.ShufflingEngine;
+import com.sl.algorithms.core.interfaces.select.MedianFinder;
+import com.sl.algorithms.search.median.QuickSelectMedianFinder;
 import org.junit.Assert;
 import org.junit.Test;
 

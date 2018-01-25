@@ -1,9 +1,9 @@
 package com.sl.algorithms.sort.finitegroups.integersorting;
 
 import com.sl.algorithms.core.baseObj.ListNode;
-import com.sl.algorithms.core.interfaces.selection.MedianFinder;
-import com.sl.algorithms.core.interfaces.sorting.SortingEngine;
-import com.sl.algorithms.select.median.QuickSelectMedianFinder;
+import com.sl.algorithms.core.interfaces.select.MedianFinder;
+import com.sl.algorithms.core.interfaces.sort.SortingEngine;
+import com.sl.algorithms.search.median.QuickSelectMedianFinder;
 
 import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
 
