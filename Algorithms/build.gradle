@@ -1,7 +1,0 @@
-group 'SimplifyLearning'
-sourceCompatibility = JDKVersion
-
-jar {
-    baseName = 'sl-algorithms'
-    version =  '0.1.0'
-}

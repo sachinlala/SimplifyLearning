@@ -1,5 +1,7 @@
 * text=auto
 * text eol=crlf
 *.png -text
+*.jpg -text
+*.gif -text
 *.jar -text
 gradlew -text

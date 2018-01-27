@@ -1,1 +1,0 @@
-Examples to demonstrate few of the Java language advanced semantics/features.

@@ -1,0 +1,13 @@
+group 'SimplifyLearning'
+sourceCompatibility = JDKVersion
+
+apply plugin: 'java'
+
+dependencies {
+    compile project(':Kihon')
+}
+
+jar {
+    baseName = 'sl-algorithms-kata'
+    version =  '0.1.0'
+}

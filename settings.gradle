@@ -1,5 +1,6 @@
 rootProject.name = 'SimplifyLearning'
 
-include 'SampleRESTService'
-include 'Algorithms'
-include 'LanguageSemantics'
+include 'Kihon'
+include 'Kata'
+include 'Kumite'
+

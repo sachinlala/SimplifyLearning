@@ -1,11 +1,15 @@
 ### SimplifyLearning [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning) [![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master) [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
-Algorithms, written in Java, built with Gradle.
+An anthology of programs to simplify understanding of algorithms.
+
+Written in Java, built with Gradle goodness, 
 
 |Project|Objective|
 |-------|----------|
-|[Algorithms](Algorithms)|Basic Algorithms.|
-|[LanguageSemantics](LanguageSemantics)|Examples to demonstrate few of the Java language advanced semantics/features.|
-|[SampleRESTService](SampleRESTService)|A basic Java & Spring Boot based RESTful service.|
+|[Kihon](Kihon)|Foundational Algorithms.|
+|[Kata](Kata)|Solutions to problems requiring 1+ of the core algorithms.|
+|[Kumite](Kumite)|Sample app & integration w/ frameworks.|
+
+![karate-do](karate-do.jpg)
 
 [JavaDocs](https://sachinlala.github.io/SimplifyLearning/)
 
