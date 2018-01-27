@@ -1,4 +1,4 @@
-[Kihon](https://en.wikipedia.org/wiki/Kihon)embodies the basic algorithmic concepts and fundamental techniques.
+[Kihon](https://en.wikipedia.org/wiki/Kihon) embodies the basic algorithmic concepts and fundamental techniques.
 
 ![Kihon](kihon.gif)
 
