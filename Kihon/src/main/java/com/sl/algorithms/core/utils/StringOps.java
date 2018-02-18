@@ -2,6 +2,8 @@ package com.sl.algorithms.core.utils;
 
 import com.sl.algorithms.core.interfaces.base.Constants;
 
+import java.util.*;
+
 public class StringOps implements Constants {
 
     StringOps() {
@@ -17,6 +19,7 @@ public class StringOps implements Constants {
      * <br>3. Ignore leading spaces.
      * <br>4. Handle overflow.
      * <br>5. Honor sign ('-' or '+'/empty).
+     *
      * @param str input string
      * @return output integer
      */
@@ -57,5 +60,53 @@ public class StringOps implements Constants {
         }
         if (isNegative) intValue *= -1;
         return (int) intValue;
+    }
+
+    /**
+     * <br>Print all case-sensitive permutations of a string, without changing the positions of any characters.<br>
+     * <br><a href="https://leetcode.com/problems/letter-case-permutation/description/">Problem Reference</a><br>
+     */
+    public static List<String> findPermutations(String s) {
+        List<String> outputList = new ArrayList<>();
+        if (s == null || s.length() == 0) {
+            return outputList;
+        }
+        int charCount = getCharCount(s);
+        if (charCount == 0) {
+            outputList.add(s);
+            return outputList;
+        }
+        int max = 1 << charCount; // 2 raised to the power of charCount
+        for (int i = 0; i < max; i++) {
+            int j = 0;
+            StringBuilder word = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                if (Character.isLetter(c)) {
+                    if (isBitSet(i, j++)) {
+                        word.append(Character.toLowerCase(c));
+                    } else {
+                        word.append(Character.toUpperCase(c));
+                    }
+                } else {
+                    word.append(c);
+                }
+            }
+            outputList.add(word.toString());
+        }
+        return outputList;
+    }
+
+    public static boolean isBitSet(int n, int offset) {
+        return ((n >> offset) & 1) == 1;
+    }
+
+    private static int getCharCount(String s) {
+        int charCount = 0;
+        for (char c : s.toCharArray()) {
+            if (Character.isLetter(c)) {
+                charCount++;
+            }
+        }
+        return charCount;
     }
 }

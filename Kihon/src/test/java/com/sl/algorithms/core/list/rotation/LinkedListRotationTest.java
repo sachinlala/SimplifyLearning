@@ -1,5 +1,6 @@
-package com.sl.algorithms.core.linkedlist.rotation;
+package com.sl.algorithms.core.list.rotation;
 
+import com.sl.algorithms.core.list.rotation.LinkedListRotation;
 import com.sl.algorithms.core.objects.ListNode;
 import org.junit.Assert;
 import org.junit.Before;

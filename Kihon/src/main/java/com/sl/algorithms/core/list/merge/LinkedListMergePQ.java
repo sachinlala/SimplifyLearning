@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linkedlist.merge;
+package com.sl.algorithms.core.list.merge;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
 import com.sl.algorithms.core.objects.ListNode;

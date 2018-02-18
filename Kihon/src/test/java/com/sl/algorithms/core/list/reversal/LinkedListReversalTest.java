@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linkedlist.reversal;
+package com.sl.algorithms.core.list.reversal;
 
 import com.sl.algorithms.core.objects.ListNode;
 import org.junit.Assert;

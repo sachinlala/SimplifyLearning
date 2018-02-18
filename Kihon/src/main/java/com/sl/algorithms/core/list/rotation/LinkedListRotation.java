@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linkedlist.rotation;
+package com.sl.algorithms.core.list.rotation;
 
 import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
 import com.sl.algorithms.core.objects.ListNode;

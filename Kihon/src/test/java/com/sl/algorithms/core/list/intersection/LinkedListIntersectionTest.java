@@ -1,4 +1,4 @@
-package com.sl.algorithms.core.linkedlist.intersection;
+package com.sl.algorithms.core.list.intersection;
 
 import com.sl.algorithms.core.objects.ListNode;
 import org.junit.Assert;
@@ -7,7 +7,7 @@ import org.junit.Test;
 import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
 
 @SuppressWarnings("unchecked")
-public class LinkedListIntersectionTest extends LinkedListIntersection {
+public class LinkedListIntersectionTest extends ListIntersection {
 
     @Test
     public void testGetIntersectionNodeNull() {

@@ -3,9 +3,7 @@ package com.sl.algorithms.core.utils;
 import com.sl.algorithms.core.interfaces.base.Constants;
 import com.sl.algorithms.core.objects.ListNode;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 
 public class NumberOps implements Constants {
 
@@ -86,7 +84,10 @@ public class NumberOps implements Constants {
         return (int) n;
     }
 
-    // Sieve of Eratosthenes: O(nlog(log(n))
+    /**
+     * <br><a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a><br>
+     * <br><u>Complexity</u>: O(nlog(log(n))<br>
+     */
     public static int countPrimes(int n) {
         if (n < 2) return 0;
         int primeCount = 0;
@@ -96,7 +97,9 @@ public class NumberOps implements Constants {
             primeCount++;
         }
         for (int i = 2; i * i < n; i++) {
-            if (!isPrime[i]) continue;
+            if (!isPrime[i]) {
+                continue;
+            }
             for (int j = i * i; j < n; j += i) {
                 if (isPrime[j]) {
                     isPrime[j] = false;

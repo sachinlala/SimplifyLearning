@@ -1,6 +1,9 @@
-package com.sl.algorithms.core.linkedlist.merge;
+package com.sl.algorithms.core.list.merge;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
+import com.sl.algorithms.core.list.merge.LinkedListMergeDnQ;
+import com.sl.algorithms.core.list.merge.LinkedListMergeIterative;
+import com.sl.algorithms.core.list.merge.LinkedListMergePQ;
 import com.sl.algorithms.core.objects.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
