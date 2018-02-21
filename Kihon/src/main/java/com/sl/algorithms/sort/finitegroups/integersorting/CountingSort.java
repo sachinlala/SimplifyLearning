@@ -10,7 +10,7 @@ import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
 /**
  * <br>A stable special-purpose integer-sort algorithm with linear time and space complexity = O(N+kMax), the range of legit values in the array i.e. (0..kMax-1).<br>
  * <br><u>Inventor</u>:&nbsp;<a href="https://en.wikipedia.org/wiki/Harold_H._Seward">Harold H Seward</a><br>
- * <br><u>Note</u>:&nbsp;kMax is not significantly more than n (only then this algo is advantageous). While I have implemented for integeres, counting-sort can be used for any elements as long as their key is an integer.<br>
+ * <br><u>Note</u>:&nbsp;kMax is not significantly more than n (only then this algo is advantageous). While I have implemented for integers, counting-sort can be used for any elements as long as their key is an integer.<br>
  * <br><a href="https://en.wikipedia.org/wiki/Counting_sort">Reference Reading 0</a>
  * <br><a href="https://brilliant.org/wiki/counting-sort/">Reference Reading 1</a>
  * <br><a href="https://stackoverflow.com/a/17111445/5775247">Reference Reading 2 (how stability is achieved)</a>
@@ -50,7 +50,7 @@ public class CountingSort<T extends Integer> implements SortingEngine<T> {
     private int[] count(T[] objects, int digitPlace, int kMax) {
         int[] countArray = new int[kMax + 1];
         for (T obj : objects) { // count
-            int i = getIndex((Integer) obj, digitPlace);
+            int i = getIndex(obj, digitPlace);
             ++countArray[i];
         }
         for (int i = 1; i <= kMax; i++) { // mark start-index for each element

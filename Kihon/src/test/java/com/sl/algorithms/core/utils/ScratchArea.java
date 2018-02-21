@@ -25,5 +25,24 @@ public class ScratchArea {
         Deque<Integer> stack = new ArrayDeque<>();
         stack.push(10);
         stack.pop();
+
+        Map<Character, Integer> frequencyMap = new LinkedHashMap<>();
+        for (Map.Entry entry : frequencyMap.entrySet()) {}
+
+        Map<Character, Integer> sortedMap = new TreeMap<>(new Comparator<Character>() {
+            @Override
+            public int compare(Character o1, Character o2) {
+                return 0;
+            }
+        });
+        for (Map.Entry entry : sortedMap.entrySet()) {}
+
+        Queue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>(new Comparator<Map.Entry<Character, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Character, Integer> o1, Map.Entry<Character, Integer> o2) {
+                return 0;
+            }
+        });
+        pq.addAll(frequencyMap.entrySet());
     }
 }

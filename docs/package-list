@@ -17,6 +17,7 @@ com.sl.algorithms.core.list
 com.sl.algorithms.core.list.intersection
 com.sl.algorithms.core.list.merge
 com.sl.algorithms.core.list.rotation
+com.sl.algorithms.core.stack
 com.sl.algorithms.core.strings.checks
 com.sl.algorithms.core.strings.checks.parenthesis
 com.sl.algorithms.core.strings.codec
