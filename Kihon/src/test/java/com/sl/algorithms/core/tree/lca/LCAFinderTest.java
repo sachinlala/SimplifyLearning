@@ -16,6 +16,7 @@ public class LCAFinderTest {
         testNull();
         testSimpleTreeLCA();
         testParentChild();
+        testBST();
     }
 
     @Test
@@ -25,10 +26,12 @@ public class LCAFinderTest {
         testNull();
         testSimpleTreeLCA();
         testParentChild();
+        testBST();
     }
 
     private void testNull() {
         Assert.assertNull(lowestCommonAncestorI.findLCA(null, null, null));
+        Assert.assertNull(lowestCommonAncestorI.findLCABST(null, null, null));
     }
 
     private void testSimpleTreeLCA() {
@@ -45,5 +48,14 @@ public class LCAFinderTest {
         Assert.assertEquals(bTree, lowestCommonAncestorS.findLCA(bTree, bTree.left, bTree.right));
         Assert.assertEquals(bTree, lowestCommonAncestorS.findLCA(bTree, bTree, bTree.right));
         Assert.assertEquals(bTree, lowestCommonAncestorS.findLCA(bTree, bTree.left, bTree));
+    }
+
+    private void testBST() {
+        TreeNode<Integer> bst = new TreeNode<>(2);
+        bst.left = new TreeNode<>(1);
+        bst.right = new TreeNode<>(3);
+        Assert.assertEquals(bst, lowestCommonAncestorI.findLCABST(bst, bst.left, bst.right));
+        Assert.assertEquals(bst, lowestCommonAncestorI.findLCABST(bst, bst, bst.right));
+        Assert.assertEquals(bst, lowestCommonAncestorI.findLCABST(bst, bst.left, bst));
     }
 }

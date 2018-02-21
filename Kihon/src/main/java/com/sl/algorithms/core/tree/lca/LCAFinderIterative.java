@@ -41,4 +41,19 @@ public class LCAFinderIterative<T extends Comparable> implements LowestCommonAnc
         }
         return q;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public TreeNode<T> findLCABST(TreeNode<T> root, TreeNode<T> p, TreeNode<T> q) {
+        while (root != null) {
+            if (root.data.compareTo(p.data) < 0 && root.data.compareTo(q.data) < 0) {
+                root = root.right;
+            } else if (root.data.compareTo(p.data) > 0 && root.data.compareTo(q.data) > 0) {
+                root = root.left;
+            } else {
+                break;
+            }
+        }
+        return root;
+    }
 }

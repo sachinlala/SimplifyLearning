@@ -10,4 +10,6 @@ import com.sl.algorithms.core.tree.TreeNode;
 public interface LowestCommonAncestor<T extends Comparable> extends BaseInterface<T> {
 
     TreeNode<T> findLCA(TreeNode<T> root, TreeNode<T> p, TreeNode<T> q);
+
+    TreeNode<T> findLCABST(TreeNode<T> root, TreeNode<T> p, TreeNode<T> q);
 }
