@@ -1,14 +1,11 @@
 package com.sl.algorithms.core.list.merge;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
-import com.sl.algorithms.core.list.merge.LinkedListMergeDnQ;
-import com.sl.algorithms.core.list.merge.LinkedListMergeIterative;
-import com.sl.algorithms.core.list.merge.LinkedListMergePQ;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
+import static com.sl.algorithms.core.list.ListNode.createLinkedList;
 
 public class LinkedListMergeTest {
     private MergeEngine<Integer> mergeEngine;

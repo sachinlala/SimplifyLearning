@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.list.intersection;
 
 import com.sl.algorithms.core.interfaces.search.IntersectionFinder;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import java.util.ArrayList;
 import java.util.HashSet;

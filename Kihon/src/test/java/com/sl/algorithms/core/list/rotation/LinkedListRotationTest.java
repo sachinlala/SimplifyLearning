@@ -1,14 +1,13 @@
 package com.sl.algorithms.core.list.rotation;
 
-import com.sl.algorithms.core.list.rotation.LinkedListRotation;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
+import static com.sl.algorithms.core.list.ListNode.createLinkedList;
 
 @SuppressWarnings("unchecked")
 public class LinkedListRotationTest extends LinkedListRotation {

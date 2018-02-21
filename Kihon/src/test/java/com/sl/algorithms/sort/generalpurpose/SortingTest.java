@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.generalpurpose;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.sort.BaseTest;
 import com.sl.algorithms.sort.generalpurpose.heap.HeapSort;
 import com.sl.algorithms.sort.generalpurpose.merge.BottomUpMergeSort;
@@ -12,7 +12,7 @@ import com.sl.algorithms.sort.generalpurpose.smalldata.SelectionSort;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
+import static com.sl.algorithms.core.list.ListNode.createLinkedList;
 import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 import static com.sl.algorithms.sort.generalpurpose.heap.HeapType.MAX_HEAP;
 import static com.sl.algorithms.sort.generalpurpose.heap.HeapType.MIN_HEAP;

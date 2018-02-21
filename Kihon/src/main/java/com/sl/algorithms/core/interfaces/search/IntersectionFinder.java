@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.interfaces.search;
 
 import com.sl.algorithms.core.interfaces.base.BaseInterface;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import java.util.List;
 

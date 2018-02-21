@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.array.rotation;
 
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
 import org.junit.Assert;
 import org.junit.Test;

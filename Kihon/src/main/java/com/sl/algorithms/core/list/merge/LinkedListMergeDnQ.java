@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.list.merge;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.core.utils.Formulas;
 
 public class LinkedListMergeDnQ<T extends Comparable> implements MergeEngine<T> {

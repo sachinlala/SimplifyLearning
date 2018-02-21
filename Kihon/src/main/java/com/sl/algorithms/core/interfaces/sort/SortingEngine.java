@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.interfaces.sort;
 
 import com.sl.algorithms.core.interfaces.base.BaseInterface;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 /**
  * @param <T> : comparable object

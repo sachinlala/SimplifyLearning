@@ -1,12 +1,12 @@
 package com.sl.algorithms.core.utils;
 
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
-import static com.sl.algorithms.core.objects.OpPosition.*;
+import static com.sl.algorithms.core.list.ListNode.createLinkedList;
+import static com.sl.algorithms.core.interfaces.base.OpPosition.*;
 
 public class LinkedListOpsTest extends LinkedListOps {
     private ListNode<Integer> testNode;

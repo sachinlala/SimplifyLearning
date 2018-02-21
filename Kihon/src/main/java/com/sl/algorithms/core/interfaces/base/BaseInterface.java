@@ -1,6 +1,6 @@
 package com.sl.algorithms.core.interfaces.base;
 
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 public interface BaseInterface<T extends Comparable> extends Constants {
 

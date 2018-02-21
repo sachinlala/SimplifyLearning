@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.finitegroups.bucketsort;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import java.util.ArrayList;
 import java.util.Collections;

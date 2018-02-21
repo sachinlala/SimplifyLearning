@@ -65,6 +65,9 @@ public class StringOps implements Constants {
     /**
      * <br>Print all case-sensitive permutations of a string, without changing the positions of any characters.<br>
      * <br><a href="https://leetcode.com/problems/letter-case-permutation/description/">Problem Reference</a><br>
+     *
+     * @param s string to introspect
+     * @return List of permutations, including the string itself
      */
     public static List<String> findPermutations(String s) {
         List<String> outputList = new ArrayList<>();

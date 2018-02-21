@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.array.rotation;
 
 import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swapInBlocks;
 

@@ -1,7 +1,7 @@
 package com.sl.algorithms.sort.wave;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import static com.sl.algorithms.core.utils.ArrayOps.swap;
 

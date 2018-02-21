@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.utils;
 
-import com.sl.algorithms.core.objects.ListNode;
-import com.sl.algorithms.core.objects.OpPosition;
+import com.sl.algorithms.core.list.ListNode;
+import com.sl.algorithms.core.interfaces.base.OpPosition;
 
 public class LinkedListOps {
 

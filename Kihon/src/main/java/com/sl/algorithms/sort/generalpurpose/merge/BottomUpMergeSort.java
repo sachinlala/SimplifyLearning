@@ -2,7 +2,7 @@ package com.sl.algorithms.sort.generalpurpose.merge;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
 import com.sl.algorithms.core.list.merge.LinkedListMergeIterative;
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 
 import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
 

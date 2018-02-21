@@ -1,10 +1,10 @@
 package com.sl.algorithms.core.list.reversal;
 
-import com.sl.algorithms.core.objects.ListNode;
+import com.sl.algorithms.core.list.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.sl.algorithms.core.objects.ListNode.createLinkedList;
+import static com.sl.algorithms.core.list.ListNode.createLinkedList;
 import static com.sl.algorithms.core.utils.LinkedListOps.swapInPairs;
 
 @SuppressWarnings("unchecked")
