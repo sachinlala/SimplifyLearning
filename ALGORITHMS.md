@@ -28,7 +28,7 @@
 |[Median Finder](algorithms/src/main/java/com/sl/algorithms/search/median)|Quick Select, Priority Queue|
 |[Next Greater Element Finder](algorithms/src/main/java/com/sl/algorithms/search/nge)|[Narayana Pandit Permutation Algorithm](http://www.tropicalcoder.com/APermutationOnCombinatorialAlgorithms.htm)|
 |[Peak Element Search](algorithms/src/main/java/com/sl/algorithms/search/peakelement)|Bitonic Series, Linear & Logarithmic time-complexity|
-|[Duplicate or Missing Element Search(algorithms/src/main/java/com/sl/algorithms/search/pigeonhole)|[Pigeonhole Principle](https://en.wikipedia.org/wiki/Pigeonhole_principle)|
+|[Duplicate or Missing Element Search](algorithms/src/main/java/com/sl/algorithms/search/pigeonhole)|[Pigeonhole Principle](https://en.wikipedia.org/wiki/Pigeonhole_principle)|
 
 #### [Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle)
 |Technique|Characteristics|
