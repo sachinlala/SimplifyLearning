@@ -12,6 +12,8 @@
 
 > So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
+> [List of Algorithms](ALGORITHMS.md)
+
 #### Stages of Learning
 |Stage|Visual|Description|
 |-----|------|-----------|
