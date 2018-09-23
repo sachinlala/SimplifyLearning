@@ -1,3 +1,5 @@
+[TOC]
+
 #### [Core Interfaces](algorithms/src/main/java/com/sl/algorithms/core/interfaces)
 
 |Algorithm Group|Content|
@@ -36,3 +38,11 @@
 |[Naive](algorithms/src/main/java/com/sl/algorithms/shuffle/NaiveShuffle.java)| In-place, randomized, un-even probability.|
 |[Fisher Yates Knuth Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle/FisherYatesKnuthShuffle.java)|In-place, randomized, equal probability, asymptotically optimal.|
 |[Sattolo Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle/SattoloShuffle.java)|In-place, randomized, equal probability, asymptotically optimal, one cycle only.|
+
+#### [Sort](algorithms/src/main/java/com/sl/algorithms/sort)
+|Domain|Notable(s)|
+|------|----------|
+|[Finite Range](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups)|[Counting Sort](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups/integersorting/CountingSort.java), [Radix Sort](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups/integersorting/RadixSort.java), [Bucket Sort](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups/bucketsort), [Polish National Flags - for 2 groups](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups/PolishNationalFlagSort.java), [Dutch National Flags - for 3 groups](algorithms/src/main/java/com/sl/algorithms/sort/finitegroups/DutchNationalFlagSort.java)|
+|[Small Dataset](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata)|[Bubble Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/BubbleSort.java), [Insertion Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/InsertionSort.java), [Selection Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/SelectionSort.java)|
+|[General Purpose](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose)|[Quick Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/QuickSort.java), [Merge Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/merge), [Heap Sort](algorithms/src/main/java/com/sl/algorithms/sort/generalpurpose/heap)|
+|Special Purpose|[Wave Sort](algorithms/src/main/java/com/sl/algorithms/sort/wave)|
