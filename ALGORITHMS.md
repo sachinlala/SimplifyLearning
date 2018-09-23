@@ -20,7 +20,7 @@
 |[StringOps](algorithms/src/main/java/com/sl/algorithms/core/utils/StringOps.java)| Convert to Integer, Find Permutations, Count chars etc.|
 
 #### [Element Search](algorithms/src/main/java/com/sl/algorithms/search)
-|Requirement|Notables|
+|Requirement|Notable(s)|
 |-----------|--------|
 |[Linear Search](algorithms/src/main/java/com/sl/algorithms/search/linearsearch)| Basic O(n) traversal|
 |[Binary Search](algorithms/src/main/java/com/sl/algorithms/search/binarysearch)| Generic, Iterative, Recursive|
@@ -28,5 +28,11 @@
 |[Median Finder](algorithms/src/main/java/com/sl/algorithms/search/median)|Quick Select, Priority Queue|
 |[Next Greater Element Finder](algorithms/src/main/java/com/sl/algorithms/search/nge)|[Narayana Pandit Permutation Algorithm](http://www.tropicalcoder.com/APermutationOnCombinatorialAlgorithms.htm)|
 |[Peak Element Search](algorithms/src/main/java/com/sl/algorithms/search/peakelement)|Bitonic Series, Linear & Logarithmic time-complexity|
-|[Duplicate or Missing Element Search|[Pigeonhole Principle](https://en.wikipedia.org/wiki/Pigeonhole_principle))|
+|[Duplicate or Missing Element Search(algorithms/src/main/java/com/sl/algorithms/search/pigeonhole)|[Pigeonhole Principle](https://en.wikipedia.org/wiki/Pigeonhole_principle)|
 
+#### [Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle)
+|Technique|Characteristics|
+|---------|---------------|
+|[Naive](algorithms/src/main/java/com/sl/algorithms/shuffle/NaiveShuffle.java)| In-place, randomized, un-even probability.|
+|[Fisher Yates Knuth Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle/FisherYatesKnuthShuffle.java)|In-place, randomized, equal probability, asymptotically optimal.|
+|[Sattolo Shuffle](algorithms/src/main/java/com/sl/algorithms/shuffle/SattoloShuffle.java)|In-place, randomized, equal probability, asymptotically optimal, one cycle only.|
