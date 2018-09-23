@@ -1,3 +1,16 @@
+> One becomes a beginner after one thousand days of training and an expert after ten thousand days of practice.
+
+> When an artist begins a sculpture he or she doesn’t start with the eye and finish and perfect the eye before moving to another part of the sculpture. No, the artist begins with an outline of the entire piece and slowly chips away revealing the sculpture that lies within the stone.
+
+> So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
+
+#### Stages of Learning
+|Stage|Visual|Description|
+|-----|------|-----------|
+|[Kihon](https://en.wikipedia.org/wiki/Kihon)|![Kihon](images/kihon.gif)|The basic algorithmic concepts and fundamental techniques.|
+|[Kata](https://en.wikipedia.org/wiki/Kata)|![Kata](images/kata.gif)|Assert the learnings with rigorous practice and achieve 1+ level of proficiency.|
+|[Kumite](https://en.wikipedia.org/wiki/Kumite)|![karate-do](images/karate-do.jpg)|The assembling of basic moves into coherent sequences, leading to something that solves a real-life problem.|
+
 ### SimplifyLearning 
 [![JavaDocs](https://img.shields.io/badge/javadocs-latest-blue.svg)](https://sachinlala.github.io/SimplifyLearning/)
 [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning) 
@@ -7,19 +20,6 @@
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks.
 
 Written in Java, built with Gradle goodness, 
-
-#### Stages of Learning
-|Stage|Visual|Description|
-|-----|------|-----------|
-|[Kihon](https://en.wikipedia.org/wiki/Kihon)|![Kihon](images/kihon.gif)|The basic algorithmic concepts and fundamental techniques.|
-|[Kata](https://en.wikipedia.org/wiki/Kata)|![Kata](images/kata.gif)|Assert the learnings with rigorous practice and achieve 1+ level of proficiency.|
-|[Kumite](https://en.wikipedia.org/wiki/Kumite)|![karate-do](images/karate-do.jpg)|The assembling of basic moves into coherent sequences, leading to something that solves a real-life problem.|
-
-> One becomes a beginner after one thousand days of training and an expert after ten thousand days of practice.
-
->When an artist begins a sculpture he or she doesn’t start with the eye and finish and perfect the eye before moving to another part of the sculpture. No, the artist begins with an outline of the entire piece and slowly chips away revealing the sculpture that lies within the stone.
-
->So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
 #### Dev Help
 0. Build: `./gradlew clean build`
