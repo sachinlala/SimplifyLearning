@@ -1,4 +1,4 @@
-A basic Java & Spring Boot based RESTful service.
+> [Sample REST Service](algorithms/src/main/java/com/sl/sample/rest/service)
 
 ### Build & bring up the application
 `./gradlew clean build`
