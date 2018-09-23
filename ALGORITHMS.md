@@ -1,5 +1,3 @@
-[TOC]
-
 #### [Core Interfaces](algorithms/src/main/java/com/sl/algorithms/core/interfaces)
 
 |Algorithm Group|Content|
