@@ -1,4 +1,4 @@
-package com.sl.algorithms.sort.wave;
+package com.sl.algorithms.sort.advanced.wave;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.core.list.ListNode;

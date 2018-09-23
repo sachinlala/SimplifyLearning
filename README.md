@@ -1,7 +1,7 @@
 ### SimplifyLearning 
 [![JavaDocs](https://img.shields.io/badge/javadocs-latest-blue.svg)](https://sachinlala.github.io/SimplifyLearning/)
-[![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning) 
-[![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master) 
+[![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning)
+[![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
 [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
 
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks.
