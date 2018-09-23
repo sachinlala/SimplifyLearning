@@ -8,7 +8,7 @@ An anthology of programs to simplify understanding of foundational algorithms an
 
 Written in Java, built with Gradle goodness, 
 
-##### Stages of Learning
+#### Stages of Learning
 |Stage|Visual|Description|
 |-----|------|-----------|
 |[Kihon](https://en.wikipedia.org/wiki/Kihon)|![Kihon](images/kihon.gif)|The basic algorithmic concepts and fundamental techniques.|
@@ -21,12 +21,12 @@ Written in Java, built with Gradle goodness,
 
 >So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
-##### Dev Help
+#### Dev Help
 0. Build: `./gradlew clean build`
 1. To publish from localhost to coveralls cloud, set the COVERALLS_REPO_TOKEN environment variable.
 2. To update/refresh the javadocs, run `./gradlew alljavadoc` and re-commit the docs/ folder.
 
-##### How to contribute ?
+#### How to contribute ?
 Please create a new branch from 'master' and raise a pull-request once ready for review.
 * [Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)
 * [Copyright License](LICENSE)
