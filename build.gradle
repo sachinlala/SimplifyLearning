@@ -20,7 +20,7 @@ allprojects {
 }
 
 group 'SimplifyLearning'
-version '1.0-SNAPSHOT'
+version '0.9'
 
 subprojects {
     apply plugin: 'java'

@@ -1,9 +1,0 @@
-group 'SimplifyLearning'
-sourceCompatibility = JDKVersion
-
-apply plugin: 'java'
-
-jar {
-    baseName = 'sl-algorithms-kihon'
-    version =  '0.1.0'
-}

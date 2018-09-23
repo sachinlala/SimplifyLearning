@@ -1,6 +1,4 @@
 rootProject.name = 'SimplifyLearning'
 
-include 'Kihon'
-include 'Kata'
-include 'Kumite'
+include 'algorithms'
 

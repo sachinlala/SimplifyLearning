@@ -40,5 +40,5 @@ com.sl.algorithms.sort.generalpurpose.heap
 com.sl.algorithms.sort.generalpurpose.merge
 com.sl.algorithms.sort.generalpurpose.smalldata
 com.sl.algorithms.sort.wave
-com.sl.app.sample.rest.service
-com.sl.app.sample.rest.service.predicate
+com.sl.sample.rest.service
+com.sl.sample.rest.service.predicate
