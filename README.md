@@ -8,8 +8,8 @@
 [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
 
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java, built with Gradle goodness:
-* [List of Algorithms](ALGORITHMS.md)
-* [Spring Boot 101](SERVICE.md)
+* [List of Algorithms](algorithms/ALGORITHMS.md)
+* [Spring Boot 101](sample-rest-service/SERVICE.md)
 
 > One becomes a beginner after one thousand days of training and an expert after ten thousand days of practice.
 

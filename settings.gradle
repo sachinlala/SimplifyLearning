@@ -1,4 +1,4 @@
 rootProject.name = 'SimplifyLearning'
 
 include 'algorithms'
-
+include 'sample-rest-service'
