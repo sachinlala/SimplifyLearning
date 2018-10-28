@@ -2,6 +2,9 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
+group 'SimplifyLearning'
+version '0.9'
+
 allprojects {
     apply plugin: 'base'
     apply plugin: 'jacoco'
@@ -14,13 +17,10 @@ allprojects {
     }
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+            options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
         }
     }
 }
-
-group 'SimplifyLearning'
-version '0.9'
 
 subprojects {
     apply plugin: 'java'

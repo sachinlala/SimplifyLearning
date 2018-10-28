@@ -7,14 +7,14 @@ import com.sl.algorithms.core.interfaces.search.Search;
  */
 public class LinearSearch<T extends Comparable> implements Search<T> {
 
-    @Override
-    public int findIndex(T[] inputArray, T targetElement) {
-        checkArray(inputArray);
-        for (int i = 0; i < inputArray.length; i++) {
-            if (inputArray[i].equals(targetElement)) {
-                return i;
-            }
-        }
-        return ELEMENT_NOT_FOUND;
+  @Override
+  public int findIndex(T[] inputArray, T targetElement) {
+    checkArray(inputArray);
+    for (int i = 0; i < inputArray.length; i++) {
+      if (inputArray[i].equals(targetElement)) {
+        return i;
+      }
     }
+    return ELEMENT_NOT_FOUND;
+  }
 }

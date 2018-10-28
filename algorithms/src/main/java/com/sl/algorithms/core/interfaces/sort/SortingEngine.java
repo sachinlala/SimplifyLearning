@@ -8,7 +8,7 @@ import com.sl.algorithms.core.list.ListNode;
  */
 public interface SortingEngine<T extends Comparable> extends BaseInterface<T> {
 
-    void sort(T[] objects);
+  void sort(T[] objects);
 
-    ListNode<T> sortList(ListNode<T> head);
+  ListNode<T> sortList(ListNode<T> head);
 }

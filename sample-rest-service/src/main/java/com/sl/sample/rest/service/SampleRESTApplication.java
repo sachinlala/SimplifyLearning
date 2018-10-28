@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @ComponentScan
 public class SampleRESTApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(SampleRESTApplication.class, args);
-    }
+
+  public static void main(String[] args) {
+    SpringApplication.run(SampleRESTApplication.class, args);
+  }
 }

@@ -5,7 +5,7 @@ import com.sl.algorithms.core.list.ListNode;
 
 public interface MergeEngine<T extends Comparable> extends BaseInterface<T> {
 
-    ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray);
+  ListNode<T> mergeKSortedLists(ListNode<T>[] sortedListsArray);
 
-    ListNode<T> merge2SortedLists(ListNode<T> list1, ListNode<T> list2);
+  ListNode<T> merge2SortedLists(ListNode<T> list1, ListNode<T> list2);
 }
