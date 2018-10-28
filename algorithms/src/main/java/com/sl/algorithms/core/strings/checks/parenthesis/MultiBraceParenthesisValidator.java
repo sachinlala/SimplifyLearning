@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class MultiBraceParenthesisValidator implements ParenthesisValidator {
 
-  static Map<Character, Character> BRACES_MAP = new HashMap<>();
+  private static Map<Character, Character> bracesMap = new HashMap<>();
 
   static {
-    BRACES_MAP.put('(', ')');
-    BRACES_MAP.put('{', '}');
-    BRACES_MAP.put('[', ']');
+    bracesMap.put('(', ')');
+    bracesMap.put('{', '}');
+    bracesMap.put('[', ']');
   }
 
   /**
@@ -32,7 +32,7 @@ public class MultiBraceParenthesisValidator implements ParenthesisValidator {
         stack.push(c);
         continue;
       }
-      Character charInMap = BRACES_MAP.get(stack.peek());
+      Character charInMap = bracesMap.get(stack.peek());
       if (charInMap != null && c == charInMap) {
         stack.pop();
       } else {

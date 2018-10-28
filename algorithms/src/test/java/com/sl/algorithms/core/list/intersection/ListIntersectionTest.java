@@ -35,13 +35,12 @@ public class ListIntersectionTest extends ListIntersection {
     try {
       BufferedReader reader = new BufferedReader(
           new InputStreamReader(new FileInputStream(new File(filePath))));
-      String s = null;
+      String s;
       while ((s = reader.readLine()) != null) {
         list.add(Integer.parseInt(s));
       }
     } catch (Exception e) {
       Assert.fail("Problem in reading the test-data file.");
-      e.printStackTrace();
     }
     return list;
   }

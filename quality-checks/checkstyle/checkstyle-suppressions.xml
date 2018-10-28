@@ -1,0 +1,16 @@
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+  "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<!--
+    This file contains suppression rules for Checkstyle checks.
+    Endeavour to keep the suppressions to a minimum.
+-->
+
+<suppressions>
+  <suppress checks="ImportOrder" files="."/>
+  <suppress checks="ParameterName" files="."/>
+  <suppress checks="LineLength" files="."/>
+  <suppress checks="LocalVariableName" files="."/>
+  <suppress checks="." files="ScratchArea.java"/>
+</suppressions>

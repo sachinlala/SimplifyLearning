@@ -15,9 +15,9 @@ public class ListIntersection<T extends Comparable> implements IntersectionFinde
 
   @Override
   public ListNode<T> getIntersectionPoint(ListNode<T> list1, ListNode<T> list2) {
-      if (list1 == null || list2 == null) {
-          return null;
-      }
+    if (list1 == null || list2 == null) {
+      return null;
+    }
     int d = list1.size() - list2.size();
     ListNode<T> ptr1 = travelDelta(list1, d);
     ListNode<T> ptr2 = travelDelta(list2, -d);

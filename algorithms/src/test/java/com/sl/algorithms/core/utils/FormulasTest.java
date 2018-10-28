@@ -68,15 +68,15 @@ public class FormulasTest extends Formulas {
   public void testPrintArmstrongNumbers() {
     Assert.assertEquals(true, isArmstrongNumber(153));
     //final int[] ARMSTRONG_NUMBERS = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407, 1634, 8208, 9474, 54748, 92727, 93084, 548834, 1741725, 4210818, 9800817, 9926315, 24678050, 24678051, 88593477, 146511208, 472335975, 534494836, 912985153};
-    final int[] ARMSTRONG_NUMBERS = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407};
-    List<Integer> ARMSTRONG_NUMBERS_LIST = new ArrayList<>();
-    for (int an : ARMSTRONG_NUMBERS) {
-      ARMSTRONG_NUMBERS_LIST.add(an);
+    final int[] armstrongNumbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407};
+    List<Integer> armstrongNumbersList = new ArrayList<>();
+    for (int an : armstrongNumbers) {
+      armstrongNumbersList.add(an);
     }
     try {
       List<Integer> armstrongList = printArmstrongNumbers(1000);
       Assert.assertEquals(13, armstrongList.size());
-      Assert.assertTrue(ArrayOps.haveSameData(ARMSTRONG_NUMBERS_LIST, armstrongList));
+      Assert.assertTrue(ArrayOps.haveSameData(armstrongNumbersList, armstrongList));
     } catch (InterruptedException ie) {
       Assert.fail(ie.getMessage());
     }

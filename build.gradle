@@ -24,8 +24,18 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'checkstyle'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+    checkstyle {
+        toolVersion = CheckStyleVersion
+        configFile = rootProject.file('quality-checks/checkstyle/google_checks.xml')
+        configProperties = [
+                'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
+        ]
+        ignoreFailures = false
+        showViolations = true
+    }
     dependencies {
         testCompile group: 'junit', name: 'junit', version: JUnitVersion
     }

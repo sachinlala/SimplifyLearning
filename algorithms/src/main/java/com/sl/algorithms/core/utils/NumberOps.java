@@ -16,15 +16,15 @@ public class NumberOps implements Constants {
 
   public static int countDigits(int n) {
     int count = 0;
-      if (n < 0) {
-          n *= -1;
-      }
-      if (n < DECIMAL_RADIX) {
-          return 1;
-      }
-      for (int i = n; i > 0; i = i / DECIMAL_RADIX) {
-          count++;
-      }
+    if (n < 0) {
+      n *= -1;
+    }
+    if (n < DECIMAL_RADIX) {
+      return 1;
+    }
+    for (int i = n; i > 0; i = i / DECIMAL_RADIX) {
+      count++;
+    }
     return count;
   }
 
@@ -33,9 +33,9 @@ public class NumberOps implements Constants {
     long r = 0;
     while (n != 0) {
       r = r * DECIMAL_RADIX + n % DECIMAL_RADIX;
-        if (r > Integer.MAX_VALUE || r < Integer.MIN_VALUE) {
-            return 0;
-        }
+      if (r > Integer.MAX_VALUE || r < Integer.MIN_VALUE) {
+        return 0;
+      }
       n /= DECIMAL_RADIX;
     }
     return (int) r;
@@ -101,9 +101,9 @@ public class NumberOps implements Constants {
    * @return count of prime-numbers before n
    */
   public static int countPrimes(int n) {
-      if (n < 2) {
-          return 0;
-      }
+    if (n < 2) {
+      return 0;
+    }
     int primeCount = 0;
     boolean[] isNotPrime = new boolean[n];
     for (int i = 2; i < n; i++) {
@@ -120,9 +120,9 @@ public class NumberOps implements Constants {
 
   // n >= 0
   public static String convertToBinary(int decimalNum) {
-      if (decimalNum == 0) {
-          return "0";
-      }
+    if (decimalNum == 0) {
+      return "0";
+    }
     Deque<Integer> bitStack = new ArrayDeque<>();
     StringBuilder bits = new StringBuilder();
     for (int i = decimalNum; i > 0; i >>= 1) {
@@ -152,16 +152,16 @@ public class NumberOps implements Constants {
 
   // O(n) time and O(n) space
   public static Integer[] plusOne(Integer[] digits) {
-      if (digits == null || digits.length == 0) {
-          return digits;
-      }
+    if (digits == null || digits.length == 0) {
+      return digits;
+    }
     int length = digits.length;
     boolean addOne = true;
     int numberToAdd = 1;
     for (int i = length - 1; i >= 0; i--) {
-        if (addOne) {
-            digits[i] += numberToAdd;
-        }
+      if (addOne) {
+        digits[i] += numberToAdd;
+      }
       if (digits[i] > 9) {
         digits[i] = digits[i] % DECIMAL_RADIX;
         addOne = true;

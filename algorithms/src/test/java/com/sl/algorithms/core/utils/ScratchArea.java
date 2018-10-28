@@ -19,14 +19,6 @@ import java.util.TreeMap;
 public class ScratchArea {
 
   public static void main(String[] args) {
-    int win[][] = {{0, 1, 2}, // Check first row.
-        {3, 4, 5}, // Check second Row
-        {6, 7, 8}, // Check third Row
-        {0, 3, 6}, // Check first column
-        {1, 4, 7}, // Check second Column
-        {2, 5, 8}, // Check third Column
-        {0, 4, 8}, // Check first Diagonal
-        {2, 4, 6}}; // Check second Diagonal
     Map<Integer, Integer> countMap = new HashMap<>();
     for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
       entry.getKey();

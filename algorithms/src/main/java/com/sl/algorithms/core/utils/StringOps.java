@@ -56,9 +56,9 @@ public class StringOps implements Constants {
       }
       index++;
     }
-      if (isNegative) {
-          intValue *= -1;
-      }
+    if (isNegative) {
+      intValue *= -1;
+    }
     return (int) intValue;
   }
 
