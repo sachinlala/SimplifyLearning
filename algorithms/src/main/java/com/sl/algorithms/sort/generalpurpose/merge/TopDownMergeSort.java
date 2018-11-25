@@ -1,6 +1,5 @@
 package com.sl.algorithms.sort.generalpurpose.merge;
 
-import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
 import static com.sl.algorithms.core.utils.Formulas.midPoint;
 
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
@@ -33,7 +32,7 @@ public class TopDownMergeSort<T extends Comparable> extends MergeSort<T> {
       return;
     }
     T[] aux = (T[]) new Comparable[n];
-    copyArray(objects, aux);
+    System.arraycopy(objects, 0, aux, 0, n);
     topDownMerge(aux, 0, n, objects);
   }
 

@@ -1,7 +1,5 @@
 package com.sl.algorithms.sort.generalpurpose.merge;
 
-import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
-
 import com.sl.algorithms.core.interfaces.merge.MergeEngine;
 import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.core.list.merge.LinkedListMergeIterative;
@@ -32,15 +30,14 @@ public class BottomUpMergeSort<T extends Comparable> extends MergeSort<T> {
       return;
     }
     T[] aux = (T[]) new Comparable[n];
-    copyArray(objects, aux);
+    System.arraycopy(objects, 0, aux, 0, n);
     for (int w = 1; w < n; w <<= 1) {
       for (int i = 0; i < n; i += w << 1) {
-        int s = i;
         int m = Math.min(n, i + w);
         int e = Math.min(n, i + (w << 1));
-        merge(objects, s, m, e, aux);
+        merge(objects, i, m, e, aux);
       }
-      copyArray(aux, objects);
+      System.arraycopy(aux, 0, objects, 0, n);
     }
   }
 

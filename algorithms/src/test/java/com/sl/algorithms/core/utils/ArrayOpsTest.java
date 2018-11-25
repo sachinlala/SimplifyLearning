@@ -97,4 +97,22 @@ public class ArrayOpsTest extends ArrayOps {
     }
     Assert.assertFalse(haveSameData(list1, list2));
   }
+
+  @Test
+  public void testIsMountain() {
+    Assert.assertFalse(isMountain(null));
+    Assert.assertFalse(isMountain(new int[]{1}));
+    Assert.assertFalse(isMountain(new int[]{1, 2}));
+    Assert.assertFalse(isMountain(new int[]{1, 2, 3}));
+    Assert.assertTrue(isMountain(new int[]{1, 3, 2}));
+    Assert.assertFalse(isMountain(new int[]{2, 1}));
+    Assert.assertTrue(isMountain(new int[]{1, 2, 1}));
+    Assert.assertTrue(isMountain(new int[]{1, 3, 4, 5, 2, 0}));
+    Assert.assertFalse(isMountain(new int[]{1, 4, 3, 5, 2, 0}));
+    Assert.assertFalse(isMountain(new int[]{3, 5, 5}));
+    Assert.assertFalse(isMountain(
+        new int[]{14, 82, 89, 84, 79, 70, 70, 68, 67, 66, 63, 60, 58, 54, 44, 43, 32, 28, 26, 25,
+            22, 15, 13, 12, 10, 8, 7, 5, 4, 3}));
+    Assert.assertTrue(isMountain(new int[]{0, 3, 2, 1}));
+  }
 }

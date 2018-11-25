@@ -1,7 +1,5 @@
 package com.sl.algorithms.sort.finitegroups.integersorting;
 
-import static com.sl.algorithms.core.utils.ArrayOps.copyArray;
-
 import com.sl.algorithms.core.interfaces.select.MedianFinder;
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.core.list.ListNode;
@@ -46,7 +44,7 @@ public class CountingSort<T extends Integer> implements SortingEngine<T> {
       output[counts[j] - 1] = obj;
       --counts[j];
     }
-    copyArray(output, nums);
+    System.arraycopy(output, 0, nums, 0, n);
   }
 
   private int[] count(T[] objects, int digitPlace, int kMax) {

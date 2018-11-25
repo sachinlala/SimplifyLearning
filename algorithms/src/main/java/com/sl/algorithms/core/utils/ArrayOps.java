@@ -8,7 +8,7 @@ import java.util.List;
 public class ArrayOps implements Constants {
 
   ArrayOps() {
-    /**
+    /*
      * This is a utility class.<br>
      */
   }
@@ -117,9 +117,36 @@ public class ArrayOps implements Constants {
     return (intersection.size() == 0);
   }
 
-  public static <T> void copyArray(T[] source, T[] target) {
-    for (int i = 0; i < source.length; i++) {
-      target[i] = source[i];
+  public static boolean isMountain(int[] nums) {
+    if (nums == null) {
+      return false;
     }
+    int n = nums.length;
+    if (n < 3) {
+      return false;
+    }
+    //search for peak
+    int p = -1;
+    for (int i = 1; i < (n - 1); i++) {
+      if (nums[i - 1] < nums[i] && nums[i] > nums[i + 1]) {
+        p = i;
+      }
+    }
+    if (p == -1) {
+      return false;
+    }
+    //assert ascent
+    for (int i = 0; i < p; i++) {
+      if (nums[i] >= nums[i + 1]) {
+        return false;
+      }
+    }
+    //assert descent
+    for (int i = p; i < (n - 1); i++) {
+      if (nums[i] <= nums[i + 1]) {
+        return false;
+      }
+    }
+    return true;
   }
 }
