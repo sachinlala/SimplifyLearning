@@ -23,7 +23,9 @@
 what the following rules do, please see the checkstyle configuration
 page at http://checkstyle.sourceforge.net/config.html -->
 
+
 <module name="Checker">
+
 
   <module name="FileTabCharacter">
     <property name="severity" value="error"/>
@@ -407,7 +409,8 @@ page at http://checkstyle.sourceforge.net/config.html -->
   </module>
 
   <module name="SuppressionFilter">
-      <property name="file" value="./quality-checks/checkstyle/checkstyle-suppressions.xml"/>
+<!--      <property name="file" value="./quality-checks/checkstyle/checkstyle-suppressions.xml"/>-->
+    <property name="file" value="${config_loc}/checkstyle-suppressions.xml"/>
   </module>
 
   <module name="SuppressionCommentFilter">

@@ -1,14 +1,14 @@
-group 'SimplifyLearning'
 sourceCompatibility = JDKVersion
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile project(':algorithms')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter')
-    testCompile('io.rest-assured:spring-mock-mvc:' + RESTAssuredVersion)
+    api platform("org.springframework.boot:spring-boot-dependencies:${SpringBootGradlePluginVersion}")
+    implementation project(':algorithms')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter')
+    testImplementation('io.rest-assured:spring-mock-mvc:' + RESTAssuredVersion)
 }
 
 jar {
