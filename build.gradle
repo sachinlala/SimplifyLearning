@@ -29,6 +29,7 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
     checkstyle {
         toolVersion = CheckStyleVersion
+        configDir = file("$rootProject.projectDir/quality-checks/checkstyle")
         configFile = rootProject.file('quality-checks/checkstyle/google_checks.xml')
         configProperties = [
                 'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
@@ -49,12 +50,12 @@ subprojects {
             true
         }
         doFirst {
-            executionData = files(executionData.findAll {
+            executionData.from = files(executionData.findAll {
                 it.exists()
             })
         }
         afterEvaluate {
-            classDirectories = files(classDirectories.files.collect {
+            classDirectories.from = files(classDirectories.files.collect {
                 fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
             })
         }
@@ -72,9 +73,9 @@ task alljavadoc(type: Javadoc) {
 
 task jacocoRootReport(type: JacocoReport) {
     dependsOn = subprojects.test
-    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories = files(subprojects.sourceSets.main.output)
-    executionData = files(subprojects.jacocoTestReport.executionData)
+    sourceDirectories.from = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories.from = files(subprojects.sourceSets.main.output)
+    executionData.from = files(subprojects.jacocoTestReport.executionData)
     reports {
         html.enabled = true
         xml.enabled = true
@@ -89,7 +90,7 @@ task jacocoRootReport(type: JacocoReport) {
         })
     }
     afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
+        classDirectories.from = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
         })
     }
