@@ -3,7 +3,8 @@ package com.sl.algorithms.search.pigeonhole;
 import com.sl.algorithms.core.interfaces.search.pigeonhole.DuplicateFinder;
 
 /**
- * <br><a href="https://www.interviewcake.com/question/java/find-duplicate-optimize-for-space-beast-mode">Reference</a><br>
+ * <br><a
+ * href="https://www.interviewcake.com/question/java/find-duplicate-optimize-for-space-beast-mode">Reference</a><br>
  * <br><u>Crux</u>: Position of the node with multiple incoming pointers is the duplicate.<br>
  * <br><u>Assumption</u>: There is at least one duplicate in the list.<br> <br><u>Complexity</u>:
  * O(n) time, O(1) space<br>

@@ -6,7 +6,8 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
- * <br>{@link PriorityQueue} (Max Heap) based solution, for reference only.<br> <br>Time : O(N logN)
+ * <br>{@link PriorityQueue} (Max Heap) based solution, for reference only.<br> <br>Time : O(N
+ * logN)
  * worst-case and O(N logk) on average <br>Space: O(N) worst case and O(kMax) on average
  */
 public class PQMedianFinder<T extends Comparable> implements MedianFinder<T> {

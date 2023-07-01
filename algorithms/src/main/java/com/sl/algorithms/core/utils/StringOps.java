@@ -13,7 +13,8 @@ public class StringOps implements Constants {
   }
 
   /**
-   * <br>Convert a given string to integer.<br> <br>1. Validate that the string only contains digits
+   * <br>Convert a given string to integer.<br> <br>1. Validate that the string only contains
+   * digits
    * or (, +, -) signs. <br>2. If the string starts with '.' then it is immaterial value; break
    * wherever '.' is encountered. <br>3. Ignore leading spaces. <br>4. Handle overflow. <br>5. Honor
    * sign ('-' or '+'/empty).
@@ -64,7 +65,8 @@ public class StringOps implements Constants {
 
   /**
    * <br>Print all case-sensitive permutations of a string, without changing the positions of any
-   * characters.<br> <br><a href="https://leetcode.com/problems/letter-case-permutation/description/">Problem
+   * characters.<br> <br><a
+   * href="https://leetcode.com/problems/letter-case-permutation/description/">Problem
    * Reference</a><br>
    *
    * @param s string to introspect

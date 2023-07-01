@@ -197,7 +197,8 @@ public class LinkedListOps {
 
   /**
    * <br><a href="https://leetcode.com/problems/reorder-list/description/">Reorder List</a><br>
-   * <br><u>Approach</u>:&nbsp;Find the mid-point; break the list into 2 parts around the mid-point;
+   * <br><u>Approach</u>:&nbsp;Find the mid-point; break the list into 2 parts around the
+   * mid-point;
    * establish new links.<br>
    *
    * @param head input list

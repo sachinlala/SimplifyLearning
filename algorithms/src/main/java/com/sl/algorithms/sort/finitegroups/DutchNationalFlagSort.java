@@ -7,9 +7,10 @@ import com.sl.algorithms.core.list.ListNode;
 
 /**
  * <br>A customized quick-sort, this algorithm is specific for cases when the data could be divided
- * into 2-3 finite groups. <br><a href="https://rosettacode.org/wiki/Dutch_national_flag_problem">Reference
- * 1</a> <br><a href="http://users.monash.edu/~lloyd/tildeAlgDS/Sort/Flag/">Reference 2</a> <br>Time
- * = O(N) and Space = O(1)<br>
+ * into 2-3 finite groups. <br><a
+ * href="https://rosettacode.org/wiki/Dutch_national_flag_problem">Reference 1</a> <br><a
+ * href="http://users.monash.edu/~lloyd/tildeAlgDS/Sort/Flag/">Reference 2</a> <br>Time = O(N) and
+ * Space = O(1)<br>
  */
 public class DutchNationalFlagSort<T extends Comparable> implements SortingEngine<T> {
 
@@ -44,7 +45,8 @@ public class DutchNationalFlagSort<T extends Comparable> implements SortingEngin
 
   /**
    * <br><u>Approach</u>:<br> <p>There is just one check pointer 'w'. All steps depend on A[w]:
-   * <br>- swap with A[r] if it is red <br>- swap with A[b] if it is blue <br>- decrement w if it is
+   * <br>- swap with A[r] if it is red <br>- swap with A[b] if it is blue <br>- decrement w if it
+   * is
    * white. <br>The variables r and b indicate red and blue boundaries such that all elements to the
    * left of r are red and all elements to the right of b are blue. <br>It is clear that A swap
    * occurs when A[w] is red or blue.</p>

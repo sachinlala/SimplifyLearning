@@ -24,8 +24,7 @@ public class Pair<L, R> {
       return false;
     }
     Pair<?, ?> pair = (Pair<?, ?>) o;
-    return Objects.equals(left, pair.left) &&
-        Objects.equals(right, pair.right);
+    return Objects.equals(left, pair.left) && Objects.equals(right, pair.right);
   }
 
   @Override
@@ -35,11 +34,7 @@ public class Pair<L, R> {
 
   @Override
   public String toString() {
-    return new StringBuilder()
-        .append("{ ")
-        .append("Left:").append(left)
-        .append("; ")
-        .append("Right:").append(right)
-        .append(" }").toString();
+    return new StringBuilder().append("{ ").append("Left:").append(left).append("; ")
+        .append("Right:").append(right).append(" }").toString();
   }
 }

@@ -8,8 +8,9 @@ import java.util.List;
 
 /**
  * <p>A sort algorithm (non-stable, out-of-place) that uses O(n) space and provides O(n) best-case
- * and O(n^2) average/worst-case time-complexity.</p> <br><a href="https://en.wikipedia.org/wiki/Bucket_sort">Reference
- * Reading</a> <br><a href="https://www.cs.usfca.edu/~galles/visualization/BucketSort.html">Visualization</a>
+ * and O(n^2) average/worst-case time-complexity.</p> <br><a
+ * href="https://en.wikipedia.org/wiki/Bucket_sort">Reference Reading</a> <br><a
+ * href="https://www.cs.usfca.edu/~galles/visualization/BucketSort.html">Visualization</a>
  */
 @SuppressWarnings("unchecked")
 public abstract class BucketSort<T extends Comparable> implements SortingEngine<T> {

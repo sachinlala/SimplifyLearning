@@ -6,10 +6,13 @@ import com.sl.algorithms.core.utils.Formulas;
 /**
  * <br>Search object in a sorted (and rotated) list.<br> <br><u>Related Problems</u>: <br><a
  * href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/">Find
- * Minimum in a Rotated Sorted Array</a> <br><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/">Find
- * Minimum in a Rotated Sorted Array (with duplicates)</a> <br><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/description/">Search
- * in Rotated Sorted Array</a> <br><a href="https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/">Search
- * in Rotated Sorted Array (with duplicates)</a>
+ * Minimum in a Rotated Sorted Array</a> <br><a
+ * href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/">Find
+ * Minimum in a Rotated Sorted Array (with duplicates)</a> <br><a
+ * href="https://leetcode.com/problems/search-in-rotated-sorted-array/description/">Search in
+ * Rotated Sorted Array</a> <br><a
+ * href="https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/">Search in
+ * Rotated Sorted Array (with duplicates)</a>
  */
 public class GenericBinarySearch<T extends Comparable> implements Search<T> {
 

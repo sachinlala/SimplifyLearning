@@ -17,7 +17,8 @@ public class MultiBraceParenthesisValidator implements ParenthesisValidator {
   }
 
   /**
-   * <br>Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if
+   * <br>Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine
+   * if
    * the input string is valid.<br> <br>The brackets must close in the correct order, "()" and
    * "()[]{}" are all valid but "(]" and "([)]" are not.<br> <br>Solve in O(n) time and O(n)
    * space.<br>

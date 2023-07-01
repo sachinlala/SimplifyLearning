@@ -7,7 +7,8 @@ import static com.sl.algorithms.core.interfaces.strings.checks.ParenthesisValida
 import com.sl.algorithms.core.interfaces.strings.checks.ParenthesisValidator;
 
 /**
- * <u>Validations</u>: <ul> <li>Any left parenthesis '(' must have a corresponding right parenthesis
+ * <u>Validations</u>: <ul> <li>Any left parenthesis '(' must have a corresponding right
+ * parenthesis
  * ')'</li> <li>Any right parenthesis ')' must have a corresponding left parenthesis '('</li>
  * <li>Left parenthesis '(' must go before the corresponding right parenthesis ')'</li> <li>'*'
  * could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty
