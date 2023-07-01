@@ -10,9 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>The Fisher-Yates algorithm (presented by Knuth in TAOCP) is both the canonical shuffling
  * algorithm and asymptotically optimal (linear). The range provided for random-number generation
  * changes at each step i.e. does not include what has been seen so far, which guarantees equal
- * probability for all elements.</p> <br><a href="https://eli.thegreenplace.net/2010/05/28/the-intuition-behind-fisher-yates-shuffling/">Reference
- * Reading 1</a><br> <br><a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Reference
- * Reading 2</a>
+ * probability for all elements.</p> <br><a
+ * href="https://eli.thegreenplace.net/2010/05/28/the-intuition-behind-fisher-yates-shuffling/">Reference
+ * Reading 1</a><br> <br><a
+ * href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Reference Reading 2</a>
  */
 public class FisherYatesKnuthShuffle<T extends Comparable> implements ShufflingEngine<T> {
 

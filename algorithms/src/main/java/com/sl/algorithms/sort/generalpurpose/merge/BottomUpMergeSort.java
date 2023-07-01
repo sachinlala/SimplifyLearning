@@ -5,7 +5,8 @@ import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.core.list.merge.LinkedListMergeIterative;
 
 /**
- * <p>BottomUpMergeSort treats the input array as a cluster of sub-lists and iteratively merges them
+ * <p>BottomUpMergeSort treats the input array as a cluster of sub-lists and iteratively merges
+ * them
  * back and forth b/n 2 buffers to produce a sorted list.</p>
  *
  * @see MergeSort

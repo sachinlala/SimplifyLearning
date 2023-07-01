@@ -7,7 +7,8 @@ import java.util.Deque;
 
 /**
  * <a href="https://leetcode.com/problems/next-greater-element-i/description/">Next Greater
- * Element</a> <br><a href="https://leetcode.com/contest/weekly-contest-61/problems/daily-temperatures/">Daily
+ * Element</a> <br><a
+ * href="https://leetcode.com/contest/weekly-contest-61/problems/daily-temperatures/">Daily
  * Temperatures</a><br>
  */
 @SuppressWarnings("unchecked")

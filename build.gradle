@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'SimplifyLearning'
-version '0.9'
+version '0.9.1'
 
 allprojects {
     apply plugin: 'base'
@@ -25,20 +25,20 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    apply plugin: 'jacoco'
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
     checkstyle {
         toolVersion = CheckStyleVersion
-        configDir = file("$rootProject.projectDir/quality-checks/checkstyle")
-        configFile = rootProject.file('quality-checks/checkstyle/google_checks.xml')
+        configFile = file('../config/checkstyle/checkstyle.xml')
         configProperties = [
                 'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
         ]
         ignoreFailures = false
-        showViolations = true
+        showViolations = false
     }
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: JUnitVersion
+        testImplementation group: 'junit', name: 'junit', version: JUnitVersion
     }
     jacocoTestReport {
         reports {
@@ -48,11 +48,6 @@ subprojects {
         }
         onlyIf = {
             true
-        }
-        doFirst {
-            executionData.from = files(executionData.findAll {
-                it.exists()
-            })
         }
         afterEvaluate {
             classDirectories.from = files(classDirectories.files.collect {

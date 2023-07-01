@@ -94,7 +94,8 @@ public class NumberOps implements Constants {
   }
 
   /**
-   * <br><a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a><br>
+   * <br><a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of
+   * Eratosthenes</a><br>
    * <br><u>Complexity</u>: O(nlog(log(n))<br>
    *
    * @param n number to introspect

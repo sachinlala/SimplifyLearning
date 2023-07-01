@@ -7,7 +7,8 @@ import com.sl.algorithms.core.list.ListNode;
 
 /**
  * <br>Problem: Rotate linear of size 'n' by 'kMax' positions, leftwards (counter-clockwise).<br>
- * <br><a href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a><br>
+ * <br><a
+ * href="https://eli.thegreenplace.net/2008/08/29/space-efficient-list-rotation">Reference</a><br>
  * <br><a href="https://en.wikipedia.org/wiki/Jon_Bentley_(computer_scientist)">Jon Bentley</a><br>
  */
 public class BentleyRotationByShuffling<T extends Comparable> implements RotationEngine<T> {

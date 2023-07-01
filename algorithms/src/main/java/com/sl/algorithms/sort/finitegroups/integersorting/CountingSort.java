@@ -11,10 +11,12 @@ import com.sl.algorithms.search.median.QuickSelectMedianFinder;
  * <br><u>Inventor</u>:&nbsp;<a href="https://en.wikipedia.org/wiki/Harold_H._Seward">Harold H
  * Seward</a><br> <br><u>Note</u>:&nbsp;kMax is not significantly more than n (only then this algo
  * is advantageous). While I have implemented for integers, counting-sort can be used for any
- * elements as long as their key is an integer.<br> <br><a href="https://en.wikipedia.org/wiki/Counting_sort">Reference
- * Reading 0</a> <br><a href="https://brilliant.org/wiki/counting-sort/">Reference Reading 1</a>
+ * elements as long as their key is an integer.<br> <br><a
+ * href="https://en.wikipedia.org/wiki/Counting_sort">Reference Reading 0</a> <br><a
+ * href="https://brilliant.org/wiki/counting-sort/">Reference Reading 1</a>
  * <br><a href="https://stackoverflow.com/a/17111445/5775247">Reference Reading 2 (how stability is
- * achieved)</a> <br><a href="http://www.cs.usfca.edu/~galles/visualization/CountingSort.html">Animation</a><br>
+ * achieved)</a> <br><a
+ * href="http://www.cs.usfca.edu/~galles/visualization/CountingSort.html">Animation</a><br>
  */
 @SuppressWarnings("unchecked") // valueOf
 public class CountingSort<T extends Integer> implements SortingEngine<T> {

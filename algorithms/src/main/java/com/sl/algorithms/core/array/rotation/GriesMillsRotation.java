@@ -6,7 +6,8 @@ import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
 import com.sl.algorithms.core.list.ListNode;
 
 /**
- * <br><a href="http://www.drdobbs.com/parallel/benchmarking-block-swapping-algorithms/232900395?pgno=2">Gries-Mills
+ * <br><a
+ * href="http://www.drdobbs.com/parallel/benchmarking-block-swapping-algorithms/232900395?pgno=2">Gries-Mills
  * Block-Swap Algorithm</a><br>
  */
 public class GriesMillsRotation<T extends Comparable> implements RotationEngine<T> {

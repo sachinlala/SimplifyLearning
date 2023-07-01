@@ -8,9 +8,11 @@ import static com.sl.algorithms.core.utils.NumberOps.countDigits;
 import com.sl.algorithms.core.interfaces.search.NextGreaterElement;
 
 /**
- * <br>&nbsp;<a href="https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order">Generate
- * Permutations</a> <br>&nbsp;<a href="https://leetcode.com/problems/next-greater-element-iii/description/">Next
- * Greater Number (NGN) with same digits</a><br> <br><u>Inventor</u>:&nbsp;<a
+ * <br>&nbsp;<a
+ * href="https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order">Generate
+ * Permutations</a> <br>&nbsp;<a
+ * href="https://leetcode.com/problems/next-greater-element-iii/description/">Next Greater Number
+ * (NGN) with same digits</a><br> <br><u>Inventor</u>:&nbsp;<a
  * href="https://en.wikipedia.org/wiki/Narayana_Pandit">Narayan Pandit</a>
  */
 @SuppressWarnings("unchecked")

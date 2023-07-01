@@ -4,6 +4,6 @@ sourceCompatibility = JDKVersion
 apply plugin: 'java'
 
 jar {
-    baseName = 'core-algorithms'
-    version =  '0.9.0'
+    archiveBaseName = 'core-algorithms'
+    archiveVersion =  '0.9.1'
 }

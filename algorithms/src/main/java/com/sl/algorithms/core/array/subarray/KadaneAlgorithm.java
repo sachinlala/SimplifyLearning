@@ -15,7 +15,7 @@ public class KadaneAlgorithm implements SubArraySum, SubArrayProduct {
     if (nums.length == 1) {
       return nums[0];
     }
-    Integer maxContiguousSum = Integer.MIN_VALUE;
+    int maxContiguousSum = Integer.MIN_VALUE;
     int maxTillHere = 0;
     for (int num : nums) {
       if (maxTillHere < 0) {

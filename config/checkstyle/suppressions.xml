@@ -1,0 +1,29 @@
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+  "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<!--
+    This file contains suppression rules for Checkstyle checks.
+    Endeavour to keep the suppressions to a minimum.
+-->
+
+<suppressions>
+  <suppress checks="ImportOrder" files="."/>
+  <suppress checks="ParameterName" files="."/>
+  <suppress checks="LineLength" files="."/>
+  <suppress checks="LocalVariableName" files="."/>
+  <suppress checks="MultipleVariableDeclarations" files="."/>
+  <suppress checks="SummaryJavadoc" files="."/>
+  <suppress checks="MissingJavadocType" files="."/>
+  <suppress checks="MissingJavadocMethod" files="."/>
+  <suppress checks="JavadocTagContinuationIndentation" files="."/>
+  <suppress checks="InvalidJavadocPosition" files="."/>
+  <suppress checks="AbbreviationAsWordInName" files="."/>
+  <suppress checks="OverloadMethodsDeclarationOrder" files="."/>
+  <suppress checks="MethodName" files="."/>
+  <suppress checks="MissingSwitchDefault" files="."/>
+  <suppress checks="ArrayTypeStyle" files="."/>
+  <suppress checks="VariableDeclarationUsageDistance" files="."/>
+  <suppress checks="." files="[\\/]test[\\/]"/>
+  <suppress checks="." files="ScratchArea.java"/>
+</suppressions>

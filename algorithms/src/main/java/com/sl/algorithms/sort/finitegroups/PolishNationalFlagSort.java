@@ -6,7 +6,8 @@ import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.core.list.ListNode;
 
 /**
- * <br>A precursor to {@link DutchNationalFlagSort}, inspired by <a href="https://www.sciencedirect.com/science/article/pii/S0304397505001684">Wei-Mei
+ * <br>A precursor to {@link DutchNationalFlagSort}, inspired by <a
+ * href="https://www.sciencedirect.com/science/article/pii/S0304397505001684">Wei-Mei
  * Chen's paper</a>.<br>
  */
 public class PolishNationalFlagSort<T extends Comparable> implements SortingEngine<T> {
@@ -39,8 +40,8 @@ public class PolishNationalFlagSort<T extends Comparable> implements SortingEngi
    * until we find a !white element, and we scan from the right end of the array by decrementing 'r'
    * until we find a white element. We then exchange the two elements. Continue this way until 'w'
    * and 'r' meet.<br> Note that the scanning process is the same as that of the partition procedure
-   * of {@link com.sl.algorithms.sort.generalpurpose.QuickSort} or {@link
-   * com.sl.algorithms.search.median.QuickSelectMedianFinder}.</p>
+   * of {@link com.sl.algorithms.sort.generalpurpose.QuickSort} or
+   * {@link com.sl.algorithms.search.median.QuickSelectMedianFinder}.</p>
    */
   @Override
   public void sort(T[] A) {

@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <br><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/">Problem
+ * <br><a
+ * href="https://leetcode.com/problems/intersection-of-two-linked-lists/description/">Problem
  * Reference</a><br> <br>Requirement: O(m+n) time and O(1) space
  */
 public class ListIntersection<T extends Comparable> implements IntersectionFinder<T> {

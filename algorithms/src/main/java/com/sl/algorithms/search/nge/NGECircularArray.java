@@ -6,7 +6,8 @@ import java.util.Arrays;
 import java.util.Deque;
 
 /**
- * <a href="https://leetcode.com/problems/next-greater-element-ii/description/">Next Greater Element
+ * <a href="https://leetcode.com/problems/next-greater-element-ii/description/">Next Greater
+ * Element
  * in a Circular Array</a>
  */
 @SuppressWarnings("unchecked")
