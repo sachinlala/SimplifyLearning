@@ -4,16 +4,16 @@ import com.sl.algorithms.core.interfaces.select.QuickSelect;
 import com.sl.algorithms.core.interfaces.shuffle.ShufflingEngine;
 import com.sl.algorithms.search.median.QuickSelectMedianFinder;
 import com.sl.algorithms.shuffle.NaiveShuffle;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class QuickSelectTest implements QuickSelect {
 
   private QuickSelect<Integer> integerQuickSelect;
   private ShufflingEngine<Integer> integerShufflingEngine;
 
-  @Before
+  @BeforeEach
   public void setup() {
     integerQuickSelect = new QuickSelectMedianFinder<>();
     integerShufflingEngine = new NaiveShuffle<>();
@@ -23,17 +23,17 @@ public class QuickSelectTest implements QuickSelect {
   public void testKthSmallest() {
     {
       Integer[] sampleDataNegative = new Integer[]{-1, 2, 0};
-      Assert.assertTrue(integerQuickSelect.findKthSmallest(sampleDataNegative, 2) == 0);
+      assertTrue(integerQuickSelect.findKthSmallest(sampleDataNegative, 2) == 0);
     }
     {
       Integer[] shuffled = new Integer[]{5, 4, 3, 1, 2};
-      Assert.assertTrue(integerQuickSelect.findKthSmallest(shuffled, 2) == 2);
+      assertTrue(integerQuickSelect.findKthSmallest(shuffled, 2) == 2);
     }
     {
       Integer[] reversed = new Integer[]{7, 6, 5, 4, 3, 2, 1};
-      Assert.assertTrue(integerQuickSelect.findKthSmallest(reversed, 2) == 2);
+      assertTrue(integerQuickSelect.findKthSmallest(reversed, 2) == 2);
       integerShufflingEngine.shuffle(reversed);
-      Assert.assertTrue(integerQuickSelect.findKthSmallest(reversed, 7) == 7);
+      assertTrue(integerQuickSelect.findKthSmallest(reversed, 7) == 7);
     }
   }
 
@@ -41,17 +41,17 @@ public class QuickSelectTest implements QuickSelect {
   public void testKthLargest() {
     {
       Integer[] sampleDataNegative = new Integer[]{-1, 2, 0};
-      Assert.assertTrue(integerQuickSelect.findKthLargest(sampleDataNegative, 2) == 0);
+      assertTrue(integerQuickSelect.findKthLargest(sampleDataNegative, 2) == 0);
     }
     {
       Integer[] shuffled = new Integer[]{5, 4, 3, 1, 2};
-      Assert.assertTrue(integerQuickSelect.findKthLargest(shuffled, 2) == 4);
+      assertTrue(integerQuickSelect.findKthLargest(shuffled, 2) == 4);
     }
     {
       Integer[] reversed = new Integer[]{7, 6, 5, 4, 3, 2, 1};
-      Assert.assertTrue(integerQuickSelect.findKthLargest(reversed, 2) == 6);
+      assertTrue(integerQuickSelect.findKthLargest(reversed, 2) == 6);
       integerShufflingEngine.shuffle(reversed);
-      Assert.assertTrue(integerQuickSelect.findKthLargest(reversed, 7) == 1);
+      assertTrue(integerQuickSelect.findKthLargest(reversed, 7) == 1);
     }
   }
 }

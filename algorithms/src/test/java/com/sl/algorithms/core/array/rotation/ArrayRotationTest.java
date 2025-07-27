@@ -4,8 +4,8 @@ import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 import com.sl.algorithms.core.interfaces.rotate.RotationEngine;
 import com.sl.algorithms.core.list.ListNode;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unchecked")
 public class ArrayRotationTest {
@@ -53,21 +53,21 @@ public class ArrayRotationTest {
   }
 
   public void testRotationLeft() {
-    Assert.assertEquals("[2,3,4,5,1]",
+    assertEquals("[2,3,4,5,1]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 1, false)));
-    Assert.assertEquals("[3,4,5,1,2]",
+    assertEquals("[3,4,5,1,2]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 2, false)));
-    Assert.assertEquals("[4,5,1,2,3]",
+    assertEquals("[4,5,1,2,3]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 3, false)));
-    Assert.assertEquals("[5,1,2,3,4]",
+    assertEquals("[5,1,2,3,4]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 4, false)));
-    Assert.assertEquals("[1,2,3,4,5]",
+    assertEquals("[1,2,3,4,5]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 5, false)));
-    Assert.assertEquals("[2,3,4,5,1]",
+    assertEquals("[2,3,4,5,1]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 6, false)));
-    Assert.assertEquals("[3,4,5,1,2]",
+    assertEquals("[3,4,5,1,2]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 7, false)));
-    Assert.assertEquals("[3,4,1,2]",
+    assertEquals("[3,4,1,2]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4}, 2, false)));
     assertIsRotation();
   }
@@ -76,27 +76,27 @@ public class ArrayRotationTest {
     {
       String[] A = new String[]{"A", "B", "C"};
       String[] B = new String[]{"X", "Y", "Z"};
-      Assert.assertFalse(rotationEngine.isRotation(A, B));
+      assertFalse(rotationEngine.isRotation(A, B));
     }
     {
       String[] A = new String[]{"A", "B", "C", "D"};
       String[] B = new String[]{"A", "B", "C", "D", "E"};
-      Assert.assertFalse(rotationEngine.isRotation(A, B));
+      assertFalse(rotationEngine.isRotation(A, B));
     }
     {
       String[] A = new String[]{"A", "B", "C", "D", "E"};
       String[] B = new String[]{"A", "B", "C", "D", "E"};
-      Assert.assertTrue(rotationEngine.isRotation(A, B));
+      assertTrue(rotationEngine.isRotation(A, B));
     }
     {
       String[] A = new String[]{"A", "B", "C", "D", "E"};
       String[] B = new String[]{"B", "A", "C", "D", "E"};
-      Assert.assertFalse(rotationEngine.isRotation(A, B));
+      assertFalse(rotationEngine.isRotation(A, B));
     }
     {
       String[] A = new String[]{"A", "B", "C", "D", "E"};
       String[] B = new String[]{"D", "E", "A", "B", "C"};
-      Assert.assertTrue(rotationEngine.isRotation(A, B));
+      assertTrue(rotationEngine.isRotation(A, B));
     }
   }
 
@@ -104,32 +104,32 @@ public class ArrayRotationTest {
     if (!isSupported) {
       try {
         rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 1, true);
-        Assert.fail("Should have thrown an exception");
+        fail("Should have thrown an exception");
       } catch (IllegalArgumentException iae) {
-        Assert.assertEquals(iae.getMessage(), RotationEngine.OPERATION_NOT_SUPPORTED_YET);
+        assertEquals(iae.getMessage(), RotationEngine.OPERATION_NOT_SUPPORTED_YET);
       }
       return;
     }
-    Assert.assertEquals("[5,1,2,3,4]",
+    assertEquals("[5,1,2,3,4]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 1, true)));
-    Assert.assertEquals("[4,5,1,2,3]",
+    assertEquals("[4,5,1,2,3]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 2, true)));
-    Assert.assertEquals("[3,4,5,1,2]",
+    assertEquals("[3,4,5,1,2]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 3, true)));
-    Assert.assertEquals("[2,3,4,5,1]",
+    assertEquals("[2,3,4,5,1]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 4, true)));
-    Assert.assertEquals("[1,2,3,4,5]",
+    assertEquals("[1,2,3,4,5]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 5, true)));
-    Assert.assertEquals("[5,1,2,3,4]",
+    assertEquals("[5,1,2,3,4]",
         printArray(rotationEngine.rotate(new Integer[]{1, 2, 3, 4, 5}, 6, true)));
   }
 
   private void testListNodeRotation() {
     try {
       rotationEngine.rotate(ListNode.dummyNode(), 1, true);
-      Assert.fail("Should have thrown an UnsupportedOperationException");
+      fail("Should have thrown an UnsupportedOperationException");
     } catch (UnsupportedOperationException uoe) {
-      Assert.assertNotNull(uoe);
+      assertNotNull(uoe);
     }
   }
 }

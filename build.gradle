@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.kt3k.coveralls' version '2.6.3'
+    id 'com.github.kt3k.coveralls' version '2.12.2'
 }
 
 group 'SimplifyLearning'
@@ -11,6 +11,14 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+    }
+    configurations.all {
+        resolutionStrategy {
+            // Force the use of guava and exclude google-collections to resolve conflict
+            force 'com.google.guava:guava:33.0.0-jre'
+        }
+        // Exclude the problematic google-collections dependency
+        exclude group: 'com.google.collections', module: 'google-collections'
     }
     jacoco {
         toolVersion = JaCoCoVersion
@@ -26,8 +34,8 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'jacoco'
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JDKVersion
+    targetCompatibility = JDKVersion
     checkstyle {
         toolVersion = CheckStyleVersion
         configFile = file('../config/checkstyle/checkstyle.xml')
@@ -38,13 +46,19 @@ subprojects {
         showViolations = false
     }
     dependencies {
-        testImplementation group: 'junit', name: 'junit', version: JUnitVersion
+        testImplementation platform("org.junit:junit-bom:${JUnitVersion}")
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.hamcrest:hamcrest:2.2'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+    test {
+        useJUnitPlatform()
     }
     jacocoTestReport {
         reports {
-            html.enabled = true
-            xml.enabled = true
-            csv.enabled = false
+            html.required = true
+            xml.required = true
+            csv.required = false
         }
         onlyIf = {
             true
@@ -72,9 +86,9 @@ task jacocoRootReport(type: JacocoReport) {
     classDirectories.from = files(subprojects.sourceSets.main.output)
     executionData.from = files(subprojects.jacocoTestReport.executionData)
     reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
+        html.required = true
+        xml.required = true
+        csv.required = false
     }
     onlyIf = {
         true

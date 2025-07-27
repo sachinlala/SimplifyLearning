@@ -6,7 +6,7 @@ import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.core.list.ListNode;
 import com.sl.algorithms.sort.generalpurpose.merge.MergeSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.InsertionSort;
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("unchecked")
 public class BaseTest {
@@ -14,20 +14,20 @@ public class BaseTest {
   public void assertBaseCases(SortingEngine sortingEngine) {
     try {
       sortingEngine.sort(null);
-      Assert.fail("Exception should've been raised");
+      fail("Exception should've been raised");
     } catch (IllegalArgumentException iae) {
-      Assert.assertNotNull(iae);
+      assertNotNull(iae);
     }
     try {
       sortingEngine.sort(new Integer[]{});
-      Assert.fail("Exception should've been raised");
+      fail("Exception should've been raised");
     } catch (IllegalArgumentException iae) {
-      Assert.assertNotNull(iae);
+      assertNotNull(iae);
     }
     {
       Integer[] singleElementArray = new Integer[]{1};
       sortingEngine.sort(singleElementArray);
-      Assert.assertEquals("[1]", printArray(singleElementArray));
+      assertEquals("[1]", printArray(singleElementArray));
     }
     {
       assertListSupport(sortingEngine);
@@ -43,12 +43,12 @@ public class BaseTest {
       throwable = e;
     }
     if (sortingEngine instanceof InsertionSort || sortingEngine instanceof MergeSort) {
-      Assert.assertNull(throwable);
-      Assert.assertEquals("[1]", expectedOutput.toString());
+      assertNull(throwable);
+      assertEquals("[1]", expectedOutput.toString());
     } else {
-      Assert.assertNull(expectedOutput);
-      Assert.assertNotNull(throwable);
-      Assert.assertTrue(throwable instanceof UnsupportedOperationException);
+      assertNull(expectedOutput);
+      assertNotNull(throwable);
+      assertTrue(throwable instanceof UnsupportedOperationException);
     }
   }
 }

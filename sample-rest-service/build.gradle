@@ -7,8 +7,9 @@ dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${SpringBootGradlePluginVersion}")
     implementation project(':algorithms')
     implementation('org.springframework.boot:spring-boot-starter-web')
-    testImplementation('org.springframework.boot:spring-boot-starter')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.rest-assured:spring-mock-mvc:' + RESTAssuredVersion)
+    testImplementation('jakarta.servlet:jakarta.servlet-api')
 }
 
 jar {

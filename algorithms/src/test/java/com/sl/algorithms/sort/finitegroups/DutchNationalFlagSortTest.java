@@ -4,8 +4,8 @@ import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.sort.BaseTest;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class DutchNationalFlagSortTest extends BaseTest {
 
@@ -20,7 +20,7 @@ public class DutchNationalFlagSortTest extends BaseTest {
     {
       Integer[] sampleNumbers = new Integer[]{2, 0, 1, 0, 1, 0, 0, 2, 2};
       integerSortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[0,0,0,0,1,1,2,2,2]", printArray(sampleNumbers));
+      assertEquals("[0,0,0,0,1,1,2,2,2]", printArray(sampleNumbers));
     }
   }
 
@@ -40,12 +40,12 @@ public class DutchNationalFlagSortTest extends BaseTest {
     {
       String[] sampleData = new String[]{"A", "C", "B", "A", "A", "C", "B", "B"};
       stringSortingEngine.sort(sampleData);
-      Assert.assertEquals("[A,A,A,B,B,B,C,C]", printArray(sampleData));
+      assertEquals("[A,A,A,B,B,B,C,C]", printArray(sampleData));
     }
     {
       String[] sampleData = new String[]{"A", "C", "B", "A", "A", "C", "E", "D"};
       stringSortingEngine.sort(sampleData);
-      Assert.assertEquals("[A,A,A,B,E,D,C,C]", printArray(sampleData));
+      assertEquals("[A,A,A,B,E,D,C,C]", printArray(sampleData));
     }
   }
 }

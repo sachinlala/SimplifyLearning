@@ -14,8 +14,8 @@ import com.sl.algorithms.sort.generalpurpose.merge.TopDownMergeSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.BubbleSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.InsertionSort;
 import com.sl.algorithms.sort.generalpurpose.smalldata.SelectionSort;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unchecked")
 public class SortingTest extends BaseTest {
@@ -88,7 +88,7 @@ public class SortingTest extends BaseTest {
     {
       String[] sampleData = new String[]{"X", "A", "C", "Y", "B", "Z"};
       stringSortingEngine.sort(sampleData);
-      Assert.assertEquals("[Z,Y,X,C,B,A]", printArray(sampleData));
+      assertEquals("[Z,Y,X,C,B,A]", printArray(sampleData));
     }
   }
 
@@ -96,39 +96,38 @@ public class SortingTest extends BaseTest {
     {
       String[] sampleData = new String[]{"X", "A", "C", "Y", "B", "Z"};
       stringSortingEngine.sort(sampleData);
-      Assert.assertEquals("[A,B,C,X,Y,Z]", printArray(sampleData));
+      assertEquals("[A,B,C,X,Y,Z]", printArray(sampleData));
     }
     {
       Integer[] sampleNumbers = new Integer[]{15, 19, 10, 7, 17, 16};
       integerSortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[7,10,15,16,17,19]", printArray(sampleNumbers));
+      assertEquals("[7,10,15,16,17,19]", printArray(sampleNumbers));
     }
     {
       Integer[] sampleNumbers = new Integer[]{10, 7, 3, 1, 2, 11};
       integerSortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[1,2,3,7,10,11]", printArray(sampleNumbers));
+      assertEquals("[1,2,3,7,10,11]", printArray(sampleNumbers));
     }
     {
       String[] sampleStrings = new String[]{"Sarika", "Nikunj", "Roohani", "Sachin"};
       stringSortingEngine.sort(sampleStrings);
-      Assert.assertEquals("[Nikunj,Roohani,Sachin,Sarika]", printArray(sampleStrings));
+      assertEquals("[Nikunj,Roohani,Sachin,Sarika]", printArray(sampleStrings));
     }
     {
       Integer[] sampleNumbersOddCount = new Integer[]{100, -100, 2, 0, -1, 1, -2};
       integerSortingEngine.sort(sampleNumbersOddCount);
-      Assert.assertEquals("[-100,-2,-1,0,1,2,100]", printArray(sampleNumbersOddCount));
+      assertEquals("[-100,-2,-1,0,1,2,100]", printArray(sampleNumbersOddCount));
     }
     {
       Integer[] sampleNumbers = new Integer[]{2, 1, 3, 5, 3};
       integerSortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[1,2,3,3,5]", printArray(sampleNumbers));
+      assertEquals("[1,2,3,3,5]", printArray(sampleNumbers));
     }
     {
       Integer[] sampleNumbers = new Integer[]{2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 2, 1, 3, 5, 3, 2, 1, 3,
           5, 3, 2, 1, 3, 5, 3, 7, 10, 6, 9, 8, 100, 99, 100};
       integerSortingEngine.sort(sampleNumbers);
-      Assert
-          .assertEquals("[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,6,7,8,9,10,99,100,100]",
+      assertEquals("[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,5,5,5,5,5,6,7,8,9,10,99,100,100]",
               printArray(sampleNumbers));
     }
   }
@@ -137,44 +136,43 @@ public class SortingTest extends BaseTest {
     {
       try {
         integerSortingEngine.sortList(null);
-        Assert.fail("Exception should've been raised");
+        fail("Exception should've been raised");
       } catch (IllegalArgumentException iae) {
-        Assert.assertNotNull(iae);
+        assertNotNull(iae);
       }
     }
     {
       ListNode<Integer> emptyList = createLinkedList(new Integer[]{});
       try {
         integerSortingEngine.sortList(emptyList);
-        Assert.fail("Exception should've been raised");
+        fail("Exception should've been raised");
       } catch (IllegalArgumentException iae) {
-        Assert.assertNotNull(iae);
+        assertNotNull(iae);
       }
     }
     {
       ListNode<Integer> singleElement = createLinkedList(new Integer[]{1});
-      Assert.assertEquals("[1]", integerSortingEngine.sortList(singleElement).toString());
+      assertEquals("[1]", integerSortingEngine.sortList(singleElement).toString());
     }
     {
       ListNode<Integer> sampleNumbers = createLinkedList(new Integer[]{10, 7, 3, 1, 2, 11});
-      Assert
-          .assertEquals("[1,2,3,7,10,11]", integerSortingEngine.sortList(sampleNumbers).toString());
+      assertEquals("[1,2,3,7,10,11]", integerSortingEngine.sortList(sampleNumbers).toString());
     }
     {
       ListNode<String> sampleStrings = createLinkedList(
           new String[]{"Sarika", "Nikunj", "Roohani", "Sachin"});
-      Assert.assertEquals("[Nikunj,Roohani,Sachin,Sarika]",
+      assertEquals("[Nikunj,Roohani,Sachin,Sarika]",
           stringSortingEngine.sortList(sampleStrings).toString());
     }
     {
       ListNode<Integer> sampleNumbersOddCount = createLinkedList(
           new Integer[]{100, -100, 2, 0, -1, 1, -2});
-      Assert.assertEquals("[-100,-2,-1,0,1,2,100]",
+      assertEquals("[-100,-2,-1,0,1,2,100]",
           integerSortingEngine.sortList(sampleNumbersOddCount).toString());
     }
     { // dup
       ListNode<Integer> sampleNumbersOddCount = createLinkedList(new Integer[]{2, 1, 3, 5, 3});
-      Assert.assertEquals("[1,2,3,3,5]",
+      assertEquals("[1,2,3,3,5]",
           integerSortingEngine.sortList(sampleNumbersOddCount).toString());
     }
     {
@@ -188,7 +186,7 @@ public class SortingTest extends BaseTest {
         expectedList[i] = i;
       }
       ListNode<Integer> sampleNumbers32Plus = createLinkedList(largeList);
-      Assert.assertEquals(printArray(expectedList),
+      assertEquals(printArray(expectedList),
           integerSortingEngine.sortList(sampleNumbers32Plus).toString());
     }
   }

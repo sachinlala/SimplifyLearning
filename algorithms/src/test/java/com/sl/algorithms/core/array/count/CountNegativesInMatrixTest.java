@@ -1,7 +1,7 @@
 package com.sl.algorithms.core.array.count;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
 
@@ -11,7 +11,7 @@ public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
         {{-3, -2, 1},
             {-2, 1, 2},
             {1, 3, 4}};
-    Assert.assertEquals(3, countNegatives(matrix));
+    assertEquals(3, countNegatives(matrix));
   }
 
   @Test
@@ -20,7 +20,7 @@ public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
         {{-5, -4, -3},
             {-4, -3, -2},
             {-3, -2, -1}};
-    Assert.assertEquals(9, countNegatives(matrix));
+    assertEquals(9, countNegatives(matrix));
   }
 
   @Test
@@ -29,7 +29,7 @@ public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
         {{1, 2, 3},
             {2, 3, 4},
             {3, 4, 5}};
-    Assert.assertEquals(0, countNegatives(matrix));
+    assertEquals(0, countNegatives(matrix));
   }
 
   @Test
@@ -38,7 +38,7 @@ public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
         {{-3, -2, 0},
             {-2, 0, 2},
             {0, 3, 4}};
-    Assert.assertEquals(3, countNegatives(matrix));
+    assertEquals(3, countNegatives(matrix));
   }
 
   @Test
@@ -47,6 +47,6 @@ public class CountNegativesInMatrixTest extends CountNegativesInMatrix {
         {{-3, -2, -1, 1},
             {-2, 2, 3, 4},
             {4, 5, 7, 8}};
-    Assert.assertEquals(4, countNegatives(matrix));
+    assertEquals(4, countNegatives(matrix));
   }
 }
