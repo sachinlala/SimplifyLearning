@@ -28,13 +28,13 @@ public class BucketSortTest extends BaseTest {
     }
   }
 
-  @Disabled //https://github.com/sachinlala/SimplifyLearning/issues/26
   @Test
   public void testFPBucketSortNegativeNumbers() {
+    bucketSort = new FPBucketSort();
     { // has negatives also
       Double[] fpSeries = new Double[]{-0.897, 0.565, 0.656, -0.1234, 0.0, 0.3434};
       bucketSort.sort(fpSeries);
-      assertEquals("[-0.897,-0.1234,0.3434,0.565,0.656]", printArray(fpSeries));
+      assertEquals("[-0.897,-0.1234,0.0,0.3434,0.565,0.656]", printArray(fpSeries));
     }
   }
 }
