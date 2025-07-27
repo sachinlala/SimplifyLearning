@@ -1,11 +1,13 @@
 ### Simplify Learning 
-[![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.org/sachinlala/SimplifyLearning) 
+<!-- [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.
+org/sachinlala/SimplifyLearning) -->
 [![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master) 
 [![JavaDocs](https://img.shields.io/badge/javadocs-latest-blue.svg)](https://sachinlala.github.io/SimplifyLearning/)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
-[![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.im/SimplifyLearning)
+<!-- [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.
+im/SimplifyLearning) -->
 
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java, built with Gradle goodness:
 * [List of Algorithms](algorithms/ALGORITHMS.md)
