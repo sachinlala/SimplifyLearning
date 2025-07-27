@@ -1,7 +1,11 @@
 group 'SimplifyLearning'
-sourceCompatibility = JDKVersion
 
 apply plugin: 'java'
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+    targetCompatibility = JavaVersion.toVersion(JDKVersion)
+}
 
 jar {
     archiveBaseName = 'core-algorithms'

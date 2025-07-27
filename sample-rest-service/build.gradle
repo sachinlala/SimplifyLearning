@@ -1,14 +1,18 @@
-sourceCompatibility = JDKVersion
-
 apply plugin: 'java-library'
 apply plugin: 'org.springframework.boot'
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+    targetCompatibility = JavaVersion.toVersion(JDKVersion)
+}
 
 dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${SpringBootGradlePluginVersion}")
     implementation project(':algorithms')
     implementation('org.springframework.boot:spring-boot-starter-web')
-    testImplementation('org.springframework.boot:spring-boot-starter')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.rest-assured:spring-mock-mvc:' + RESTAssuredVersion)
+    testImplementation('jakarta.servlet:jakarta.servlet-api')
 }
 
 jar {
@@ -18,7 +22,7 @@ jar {
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:' + SpringBootGradlePluginVersion)

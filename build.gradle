@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.kt3k.coveralls' version '2.6.3'
+    id 'com.github.kt3k.coveralls' version '2.12.2'
 }
 
 group 'SimplifyLearning'
@@ -10,7 +10,14 @@ allprojects {
     apply plugin: 'jacoco'
     repositories {
         mavenCentral()
-        jcenter()
+    }
+    configurations.all {
+        resolutionStrategy {
+            // Force the use of guava and exclude google-collections to resolve conflict
+            force 'com.google.guava:guava:33.0.0-jre'
+        }
+        // Exclude the problematic google-collections dependency
+        exclude group: 'com.google.collections', module: 'google-collections'
     }
     jacoco {
         toolVersion = JaCoCoVersion
@@ -26,8 +33,11 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'jacoco'
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    
+    java {
+        sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+        targetCompatibility = JavaVersion.toVersion(JDKVersion)
+    }
     checkstyle {
         toolVersion = CheckStyleVersion
         configFile = file('../config/checkstyle/checkstyle.xml')
@@ -35,25 +45,46 @@ subprojects {
                 'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
         ]
         ignoreFailures = false
-        showViolations = false
+        showViolations = true
+        maxWarnings = 0
     }
     dependencies {
-        testImplementation group: 'junit', name: 'junit', version: JUnitVersion
+        testImplementation platform("org.junit:junit-bom:${JUnitVersion}")
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.hamcrest:hamcrest:2.2'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
+    test {
+        useJUnitPlatform()
+    }
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    counter = 'INSTRUCTION'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.95
+                }
+                limit {
+                    counter = 'BRANCH'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.80
+                }
+            }
+        }
+    }
+    test.finalizedBy jacocoTestCoverageVerification
+    check.dependsOn jacocoTestCoverageVerification
     jacocoTestReport {
         reports {
-            html.enabled = true
-            xml.enabled = true
-            csv.enabled = false
+            html.required = true
+            xml.required = true
+            csv.required = false
         }
-        onlyIf = {
-            true
-        }
-        afterEvaluate {
-            classDirectories.from = files(classDirectories.files.collect {
-                fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
-            })
-        }
+        def filteredClassDirs = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*SampleREST*'])
+        })
+        classDirectories.setFrom(filteredClassDirs)
     }
     test.finalizedBy(project.tasks.jacocoTestReport)
     check.dependsOn jacocoTestReport
@@ -68,27 +99,20 @@ task alljavadoc(type: Javadoc) {
 
 task jacocoRootReport(type: JacocoReport) {
     dependsOn = subprojects.test
-    sourceDirectories.from = files(subprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories.from = files(subprojects.sourceSets.main.output)
-    executionData.from = files(subprojects.jacocoTestReport.executionData)
+    def srcDirs = files(subprojects.collect { it.sourceSets.main.allSource.srcDirs }).files
+    def classDirs = files(subprojects.collect {
+        fileTree(dir: it.sourceSets.main.output.classesDirs.asPath, exclude: ['**/*SampleREST*'])
+    })
+    def execData = files(subprojects.collect { it.tasks.jacocoTestReport.executionData })
+    sourceDirectories.setFrom(srcDirs)
+    classDirectories.setFrom(classDirs)
+    executionData.setFrom(execData)
     reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
+        html.required = true
+        xml.required = true
+        csv.required = false
     }
-    onlyIf = {
-        true
-    }
-    doFirst {
-        executionData = files(executionData.findAll {
-            it.exists()
-        })
-    }
-    afterEvaluate {
-        classDirectories.from = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*SampleRESTApplication.*'])
-        })
-    }
+    onlyIf { execData.files.any { it.exists() } }
 }
 
 coveralls {
@@ -99,3 +123,35 @@ coveralls {
 tasks.coveralls {
     dependsOn jacocoRootReport
 }
+
+task printCoverage {
+    dependsOn jacocoRootReport
+    doLast {
+        def reportFile = file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
+        if (!reportFile.exists()) {
+            println ">>> Coverage report not found at: ${reportFile}"
+            return
+        }
+        def xmlContent = reportFile.getText("UTF-8")
+                .replaceFirst(/<!DOCTYPE[^>]*>/, "")
+        def xml = new XmlSlurper(false, false).parseText(xmlContent)
+        def showCoverage = { counterType ->
+            def counter = xml.counter.find { it.@type == counterType }
+            if (counter != null) {
+                def covered = counter.@covered.toInteger()
+                def missed = counter.@missed.toInteger()
+                def total = covered + missed
+                def percent = total > 0 ? (covered * 100.0 / total) : 0.0
+                println "${counterType} coverage: ${String.format('%.2f', percent)}%"
+            } else {
+                println "${counterType} coverage information not found."
+            }
+        }
+        println "========================================="
+        showCoverage("INSTRUCTION")
+        showCoverage("BRANCH")
+        println "========================================="
+    }
+}
+
+build.finalizedBy printCoverage

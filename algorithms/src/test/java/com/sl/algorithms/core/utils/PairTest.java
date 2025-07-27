@@ -1,14 +1,14 @@
 package com.sl.algorithms.core.utils;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class PairTest {
 
   private Pair<Integer, Integer> integerPair;
 
-  @Before
+  @BeforeEach
   public void setup() {
     integerPair = new Pair<>(1, 2);
   }
@@ -16,8 +16,8 @@ public class PairTest {
   @Test
   public void assertBaseMethods() {
     Pair<Integer, Integer> similarPair = new Pair<>(1, 2);
-    Assert.assertTrue(integerPair.equals(similarPair));
-    Assert.assertTrue(integerPair.hashCode() == similarPair.hashCode());
-    Assert.assertTrue(integerPair.toString().equals(similarPair.toString()));
+    assertTrue(integerPair.equals(similarPair));
+    assertTrue(integerPair.hashCode() == similarPair.hashCode());
+    assertTrue(integerPair.toString().equals(similarPair.toString()));
   }
 }

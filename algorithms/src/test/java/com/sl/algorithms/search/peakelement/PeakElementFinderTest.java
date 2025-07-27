@@ -1,11 +1,12 @@
 package com.sl.algorithms.search.peakelement;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
 
 import com.sl.algorithms.core.interfaces.search.PeakElementFinder;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unchecked")
 public class PeakElementFinderTest<T extends Comparable> {
@@ -27,27 +28,27 @@ public class PeakElementFinderTest<T extends Comparable> {
   private void testFindPeakElement() {
     try {
       peakElementFinder.findPeakElement(null);
-      Assert.fail("Test should have failed as the array is empty");
+      fail("Test should have failed as the array is empty");
     } catch (IllegalArgumentException iea) {
-      Assert.assertNotNull(iea);
+      assertNotNull(iea);
     }
     try {
       peakElementFinder.findPeakElement(new Integer[]{});
-      Assert.fail("Test should have failed as the array is empty");
+      fail("Test should have failed as the array is empty");
     } catch (IllegalArgumentException iea) {
-      Assert.assertNotNull(iea);
+      assertNotNull(iea);
     }
-    Assert.assertEquals(1, peakElementFinder.findPeakElement(new Integer[]{1}));
-    Assert.assertEquals(0, peakElementFinder.findPeakElement(new Integer[]{-1, 0}));
-    Assert.assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 3, 2, 1}));
-    Assert.assertEquals(3,
+    assertEquals(1, peakElementFinder.findPeakElement(new Integer[]{1}));
+    assertEquals(0, peakElementFinder.findPeakElement(new Integer[]{-1, 0}));
+    assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 3, 2, 1}));
+    assertEquals(3,
         peakElementFinder.findPeakElement(new Integer[]{-15, -10, 0, 1, 2, 3, -1, -10, -15}));
-    Assert.assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 3, 1}));
-    Assert.assertEquals(2, peakElementFinder.findPeakElement(new Integer[]{1, 2}));
-    Assert.assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 3, 2, 1, 2, 3, 1}));
-    Assert.assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 1, 2, 3, 1}));
-    Assert.assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 3, 2, 1, 2, 1}));
-    Assert.assertThat(peakElementFinder.findPeakElement(new Integer[]{1, 3, 1, 2, 2, 1}),
+    assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 3, 1}));
+    assertEquals(2, peakElementFinder.findPeakElement(new Integer[]{1, 2}));
+    assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 3, 2, 1, 2, 3, 1}));
+    assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 2, 1, 2, 3, 1}));
+    assertEquals(3, peakElementFinder.findPeakElement(new Integer[]{1, 3, 2, 1, 2, 1}));
+    assertThat(peakElementFinder.findPeakElement(new Integer[]{1, 3, 1, 2, 2, 1}),
         anyOf(is(2), is(3)));
   }
 }

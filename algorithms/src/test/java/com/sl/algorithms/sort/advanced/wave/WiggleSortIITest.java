@@ -4,16 +4,16 @@ import static com.sl.algorithms.core.utils.ArrayOps.printArray;
 
 import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.sort.BaseTest;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unchecked")
 public class WiggleSortIITest extends BaseTest {
 
   private SortingEngine sortingEngine;
 
-  @Before
+  @BeforeEach
   public void setup() {
     sortingEngine = new WiggleSortII();
   }
@@ -24,12 +24,12 @@ public class WiggleSortIITest extends BaseTest {
     {
       Integer[] sampleNumbers = new Integer[]{1, 2, 3, 4, 5};
       sortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[3,5,1,4,2]", printArray(sampleNumbers));
+      assertEquals("[3,5,1,4,2]", printArray(sampleNumbers));
     }
     {
       String[] sampleData = new String[]{"A", "B", "C", "D", "E"};
       sortingEngine.sort(sampleData);
-      Assert.assertEquals("[C,E,A,D,B]", printArray(sampleData));
+      assertEquals("[C,E,A,D,B]", printArray(sampleData));
     }
   }
 
@@ -38,12 +38,12 @@ public class WiggleSortIITest extends BaseTest {
     {
       Integer[] sampleData = new Integer[]{1};
       sortingEngine.sort(sampleData);
-      Assert.assertEquals("[1]", printArray(sampleData));
+      assertEquals("[1]", printArray(sampleData));
     }
     {
       Integer[] sampleData = new Integer[]{2, 1};
       sortingEngine.sort(sampleData);
-      Assert.assertEquals("[1,2]", printArray(sampleData));
+      assertEquals("[1,2]", printArray(sampleData));
     }
   }
 
@@ -51,7 +51,7 @@ public class WiggleSortIITest extends BaseTest {
   public void assertWaveForListWithDupes() {
     Integer[] sampleData = new Integer[]{2, 2, 2, 1, 1, 1};
     sortingEngine.sort(sampleData);
-    Assert.assertEquals("[1,2,1,2,1,2]", printArray(sampleData));
+    assertEquals("[1,2,1,2,1,2]", printArray(sampleData));
   }
 
   @Test
@@ -59,12 +59,12 @@ public class WiggleSortIITest extends BaseTest {
     {
       Integer[] sampleNumbers = new Integer[]{3, 5, 2, 1, 6, 4};
       sortingEngine.sort(sampleNumbers);
-      Assert.assertEquals("[3,6,2,4,1,5]", printArray(sampleNumbers));
+      assertEquals("[3,6,2,4,1,5]", printArray(sampleNumbers));
     }
     {
       String[] sampleData = new String[]{"E", "A", "B", "D", "C"};
       sortingEngine.sort(sampleData);
-      Assert.assertEquals("[C,E,A,D,B]", printArray(sampleData));
+      assertEquals("[C,E,A,D,B]", printArray(sampleData));
     }
   }
 }

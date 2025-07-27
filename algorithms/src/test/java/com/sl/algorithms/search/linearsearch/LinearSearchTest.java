@@ -1,27 +1,27 @@
 package com.sl.algorithms.search.linearsearch;
 
 import com.sl.algorithms.core.interfaces.search.Search;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LinearSearchTest {
 
   private Search<Integer> searchEngine;
 
-  @Before
+  @BeforeEach
   public void setup() {
     searchEngine = new LinearSearch<>();
   }
 
   @Test
   public void testLinearSearch() {
-    Assert.assertEquals(0, searchEngine.findIndex(new Integer[]{1}, 1));
-    Assert.assertEquals(3, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 4));
-    Assert.assertEquals(Search.ELEMENT_NOT_FOUND,
+    assertEquals(0, searchEngine.findIndex(new Integer[]{1}, 1));
+    assertEquals(3, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 4));
+    assertEquals(Search.ELEMENT_NOT_FOUND,
         searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 10));
-    Assert.assertEquals(0, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 1));
-    Assert.assertEquals(5, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 6));
+    assertEquals(0, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 1));
+    assertEquals(5, searchEngine.findIndex(new Integer[]{1, 2, 3, 4, 5, 6}, 6));
   }
 
   @Test
@@ -59,6 +59,6 @@ public class LinearSearchTest {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-    Assert.assertEquals(699, searchEngine.findIndex(highlySparsedArray, 2));
+    assertEquals(699, searchEngine.findIndex(highlySparsedArray, 2));
   }
 }

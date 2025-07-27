@@ -1,8 +1,8 @@
 package com.sl.algorithms.core.strings.checks;
 
 import com.sl.algorithms.core.interfaces.strings.checks.CharSymmetryChecker;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class LapindromeTest {
 
@@ -10,26 +10,26 @@ public class LapindromeTest {
 
   @Test
   public void assertNull() {
-    Assert.assertFalse(charSymmetryChecker.isLapindrome(null));
+    assertFalse(charSymmetryChecker.isLapindrome(null));
   }
 
   @Test
   public void assertSingleCharString() {
-    Assert.assertTrue(charSymmetryChecker.isLapindrome(" "));
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("x"));
+    assertTrue(charSymmetryChecker.isLapindrome(" "));
+    assertTrue(charSymmetryChecker.isLapindrome("x"));
   }
 
   @Test
   public void assertPositive() {
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("abcba"));
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("abcab"));
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("x"));
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("abba"));
-    Assert.assertTrue(charSymmetryChecker.isLapindrome("abab"));
+    assertTrue(charSymmetryChecker.isLapindrome("abcba"));
+    assertTrue(charSymmetryChecker.isLapindrome("abcab"));
+    assertTrue(charSymmetryChecker.isLapindrome("x"));
+    assertTrue(charSymmetryChecker.isLapindrome("abba"));
+    assertTrue(charSymmetryChecker.isLapindrome("abab"));
   }
 
   @Test
   public void assertNegative() {
-    Assert.assertFalse(charSymmetryChecker.isLapindrome("median"));
+    assertFalse(charSymmetryChecker.isLapindrome("median"));
   }
 }

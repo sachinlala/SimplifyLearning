@@ -2,9 +2,9 @@ package com.sl.sample.rest.service.predicate;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MonkPredicatesTest extends MonkPredicates {
 
@@ -13,10 +13,10 @@ public class MonkPredicatesTest extends MonkPredicates {
   @Test
   public void testMonkUniqueness() {
     Monk monk = new Monk(20, true);
-    Assert.assertEquals(31 * 20 + 1, monk.hashCode());
+    assertEquals(31 * 20 + 1, monk.hashCode());
   }
 
-  @Before
+  @BeforeEach
   public void createMonkList() {
     monkList = new ArrayList<>();
     monkList.add(new Monk(1, false));
@@ -42,24 +42,24 @@ public class MonkPredicatesTest extends MonkPredicates {
 
   @Test
   public void assertSportPersonsCount() {
-    Assert.assertEquals(10, filterMonks(monkList, isSportsPerson()).size());
+    assertEquals(10, filterMonks(monkList, isSportsPerson()).size());
   }
 
   @Test
   public void assertTeenagerCount() {
-    Assert.assertEquals(9, filterMonks(monkList, isTeenager()).size());
+    assertEquals(9, filterMonks(monkList, isTeenager()).size());
   }
 
   @Test
   public void assertAdultSportPersonsCount() {
-    Assert.assertEquals(3, filterMonks(monkList, isAdultSportsPerson()).size());
+    assertEquals(3, filterMonks(monkList, isAdultSportsPerson()).size());
   }
 
   @Test
   public void assertCompareMonks() {
-    Assert.assertFalse(new Monk(18, true).equals(new Monk(19, true)));
-    Assert.assertFalse(new Monk(18, true).equals(new Monk(18, false)));
-    Assert.assertTrue(new Monk(18, true).equals(new Monk(18, true)));
-    Assert.assertFalse(new Monk(18, true).equals(null));
+    assertFalse(new Monk(18, true).equals(new Monk(19, true)));
+    assertFalse(new Monk(18, true).equals(new Monk(18, false)));
+    assertTrue(new Monk(18, true).equals(new Monk(18, true)));
+    assertFalse(new Monk(18, true).equals(null));
   }
 }

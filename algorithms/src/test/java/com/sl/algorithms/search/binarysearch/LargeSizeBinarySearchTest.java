@@ -1,7 +1,7 @@
 package com.sl.algorithms.search.binarysearch;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unchecked")
 public class LargeSizeBinarySearchTest {
@@ -14,7 +14,7 @@ public class LargeSizeBinarySearchTest {
     for (int i = 0; i < size; i++) {
       numArray[i] = i;
     }
-    Assert.assertEquals(6, binarySearch.findIndex(numArray, 6));
-    Assert.assertEquals(65535, binarySearch.findIndex(numArray, 65535));
+    assertEquals(6, binarySearch.findIndex(numArray, 6));
+    assertEquals(65535, binarySearch.findIndex(numArray, 65535));
   }
 }

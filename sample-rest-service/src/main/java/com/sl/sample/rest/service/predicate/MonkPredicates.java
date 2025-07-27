@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 public class MonkPredicates {
 
   MonkPredicates() {
-    /**
+    /*
      * This is a utility class.<br>
      */
   }
 
   public static Predicate<Monk> isSportsPerson() {
-    return p -> p.isSportsPerson();
+    return Monk::isSportsPerson;
   }
 
   public static Predicate<Monk> isAdultSportsPerson() {
