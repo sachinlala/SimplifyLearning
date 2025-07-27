@@ -10,7 +10,6 @@ allprojects {
     apply plugin: 'jacoco'
     repositories {
         mavenCentral()
-        jcenter()
     }
     configurations.all {
         resolutionStrategy {
@@ -34,8 +33,11 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'checkstyle'
     apply plugin: 'jacoco'
-    sourceCompatibility = JDKVersion
-    targetCompatibility = JDKVersion
+    
+    java {
+        sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+        targetCompatibility = JavaVersion.toVersion(JDKVersion)
+    }
     checkstyle {
         toolVersion = CheckStyleVersion
         configFile = file('../config/checkstyle/checkstyle.xml')

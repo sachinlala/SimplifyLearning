@@ -1,7 +1,10 @@
-sourceCompatibility = JDKVersion
-
 apply plugin: 'java-library'
 apply plugin: 'org.springframework.boot'
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+    targetCompatibility = JavaVersion.toVersion(JDKVersion)
+}
 
 dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${SpringBootGradlePluginVersion}")
@@ -19,7 +22,7 @@ jar {
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:' + SpringBootGradlePluginVersion)
