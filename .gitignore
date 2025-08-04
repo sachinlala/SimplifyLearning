@@ -28,3 +28,13 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+
+# Backup and temporary files
+*.backup
+*.bak
+*.orig
+*.tmp
+*.temp
+*~
+.#*
+#*#
