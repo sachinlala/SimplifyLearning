@@ -81,7 +81,7 @@ subprojects {
             csv.required = false
         }
         def filteredClassDirs = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/test/**', '**/*SampleREST*'])
+            fileTree(dir: it, exclude: ['**/test/**'])
         })
         classDirectories.setFrom(filteredClassDirs)
     }
@@ -94,7 +94,7 @@ task jacocoRootReport(type: JacocoReport) {
     dependsOn = subprojects.test
     def srcDirs = files(subprojects.collect { it.sourceSets.main.allSource.srcDirs }).files
     def classDirs = files(subprojects.collect {
-        fileTree(dir: it.sourceSets.main.output.classesDirs.asPath, exclude: ['**/test/**', '**/*SampleREST*'])
+        fileTree(dir: it.sourceSets.main.output.classesDirs.asPath, exclude: ['**/test/**'])
     })
     def execData = files(subprojects.collect { it.tasks.jacocoTestReport.executionData })
     sourceDirectories.setFrom(srcDirs)
