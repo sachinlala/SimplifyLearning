@@ -6,11 +6,13 @@ org/sachinlala/SimplifyLearning) -->
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
+[![Pages Status](https://img.shields.io/badge/pages-deployed-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/)
 <!-- [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.
 im/SimplifyLearning) -->
 
-An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java, built with Gradle goodness:
-* [List of Algorithms](algorithms/ALGORITHMS.md)
+An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java and JavaScript (cater to both minds!), built with Gradle goodness:
+[Java](algorithms-java/ALGORITHMS.md)
+[JavaScript](algorithms-js/index.html)
 * [Spring Boot 101](sample-rest-service/SERVICE.md)
 
 #### Stages of Learning

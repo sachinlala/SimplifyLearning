@@ -1,31 +1,53 @@
 package com.sl.algorithms.patterns;
 
 import static com.sl.algorithms.patterns.CountAndSay.compute;
+import static com.sl.algorithms.patterns.CountAndSay.generateMultipleRows;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class CountAndSayTest {
 
-  @Test
-  public void assertBaseCases() {
-    assertEquals("1", compute(1, 0));
-  }
-
-  @Test
-  public void assertNegativeCases() {
-    assertTrue(assertExceptionThrown(-1, 0));
-    assertTrue(assertExceptionThrown(0, 0));
-    assertTrue(assertExceptionThrown(1, -99999));
-    assertTrue(assertExceptionThrown(1, Integer.MAX_VALUE));
-  }
-
-  private boolean assertExceptionThrown(final int n, final int rowNumber) {
-    try {
-      compute(n, rowNumber);
-    } catch (final Exception e) {
-      return true;
+    @Test
+    public void testBaseCases() {
+        assertEquals("1", compute(1, 0));
+        assertEquals("7", compute(7, 0));
     }
-    return false;
-  }
+
+    @Test
+    public void testTypicalSequences() {
+        assertEquals("11", compute(1, 1));
+        assertEquals("21", compute(1, 2));
+        assertEquals("1211", compute(1, 3));
+
+        assertEquals("17", compute(7, 1));
+        assertEquals("1117", compute(7, 2));
+        assertEquals("3117", compute(7, 3));
+    }
+
+    @Test
+    public void testGenerateMultipleRows() {
+        String[] expected = {
+            "Row 0: 1",
+            "Row 1: 11",
+            "Row 2: 21",
+            "Row 3: 1211",
+            "Row 4: 111221"
+        };
+        assertArrayEquals(expected, generateMultipleRows(1, 5));
+    }
+
+    @Test
+    public void testExceptionHandling() {
+        assertThrows(IllegalArgumentException.class, () -> compute(-1, 0));
+        assertThrows(IllegalArgumentException.class, () -> compute(0, 0));
+        assertThrows(IllegalArgumentException.class, () -> compute(1, -1));
+        assertThrows(IllegalArgumentException.class, () -> compute(1, 41));
+    }
+
+    @Test
+    public void testEdgeCases() {
+        assertEquals("22", compute(2, 1));
+        assertEquals("12", compute(11, 1));
+    }
 
 }
