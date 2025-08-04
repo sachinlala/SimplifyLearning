@@ -268,11 +268,11 @@ const required = ['name', 'title', 'category', 'cssPath', 'jsPath', 'githubPath'
     generateScripts(config) {
         return `
     <script src="${config.componentsPath || '../../../assets/js/components.js'}"></script>
+    <script src="${config.unifiedThemeManagerPath || '../../../assets/js/unified-theme-manager.js'}"></script>
     <script src="${config.jsPath}"></script>
     <script>
         ${this.generateDemoFunction(config)}
         ${this.generateUtilityFunctions(config)}
-        ${this.generateThemeToggleScript()}
         ${this.generateInitializationScript(config)}
     </script>`;
     }
@@ -329,22 +329,6 @@ const required = ['name', 'title', 'category', 'cssPath', 'jsPath', 'githubPath'
         }`;
     }
 
-    /**
-     * Generate theme toggle script
-     */
-    generateThemeToggleScript() {
-        return `
-        // Dark/light mode toggle
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const themeButton = document.getElementById('theme-toggle');
-            if (document.body.classList.contains('dark-mode')) {
-                themeButton.textContent = '☀️ Light Mode';
-            } else {
-                themeButton.textContent = '🌙 Dark Mode';
-            }
-        });`;
-    }
 
     /**
      * Generate initialization script

@@ -79,6 +79,78 @@ function generateBarStyle(height, index = 0, isActive = false) {
     return `height: ${height}px; background-color: ${baseColor}; margin: 2px; display: inline-block; width: 30px; transition: all 0.3s ease;`;
 }
 
+// UI and rendering-related utilities
+
+/**
+ * Wrap long text with line breaks
+ */
+function wrapLongText(text, maxLength = 50) {
+    if (!text || text.length <= maxLength) return text;
+
+    const words = text.split(' ');
+    const lines = [];
+    let currentLine = '';
+
+    for (const word of words) {
+        if ((currentLine + word).length <= maxLength) {
+            currentLine += (currentLine ? ' ' : '') + word;
+        } else {
+            if (currentLine) lines.push(currentLine);
+            currentLine = word;
+        }
+    }
+
+    if (currentLine) lines.push(currentLine);
+    return lines.join('<br>');
+}
+
+/**
+ * Format numbers with proper separators
+ */
+function formatNumber(num) {
+    if (typeof num !== 'number') return num;
+    return num.toLocaleString();
+}
+
+/**
+ * Create a debounced version of a function
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Copy text to clipboard
+ */
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            return true;
+        } catch (fallbackErr) {
+            return false;
+        } finally {
+            document.body.removeChild(textArea);
+        }
+    }
+}
+
 // Export for Node.js if available
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -90,6 +162,10 @@ if (typeof module !== 'undefined' && module.exports) {
         getMax,
         getMin,
         calculateBarHeight,
-        generateBarStyle
+        generateBarStyle,
+        wrapLongText,
+        formatNumber,
+        debounce,
+        copyToClipboard
     };
 }
