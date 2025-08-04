@@ -1,1 +1,0 @@
-algorithms-js/CONTRIBUTING-JS.md
