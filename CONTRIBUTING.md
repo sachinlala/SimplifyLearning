@@ -8,7 +8,6 @@ This repository contains multiple tracks:
 
 - **algorithms-java/**: Java implementations with comprehensive tests and documentation
 - **algorithms-js/**: JavaScript implementations with interactive web demos
-- **sample-rest-service/**: Spring Boot REST API examples
 
 ## Component-Specific Guidelines
 

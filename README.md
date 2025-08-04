@@ -12,7 +12,6 @@ im/SimplifyLearning) -->
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java and JavaScript (cater to both minds!), built with Gradle goodness:
 [Java](algorithms-java/ALGORITHMS.md)
 [JavaScript](algorithms-js/index.html)
-* [Spring Boot 101](sample-rest-service/SERVICE.md)
 
 #### Stages of Learning
 |Stage|Visual|Description|
