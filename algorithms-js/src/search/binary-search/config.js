@@ -10,11 +10,34 @@ const config = {
     algorithmFunction: "binarySearchWithSteps",
     hasVisualization: true,
     
+    // Data type configuration for input toggle
+    inputDataTypes: {
+        default: "numeric",
+        options: [
+            {
+                value: "numeric",
+                label: "Numeric",
+                sampleData: {
+                    "sorted-array": "1, 3, 5, 7, 9, 10, 11, 12, 13, 15, 56, 99",
+                    "target-element": "12"
+                }
+            },
+            {
+                value: "alphanumeric",
+                label: "Alphanumeric",
+                sampleData: {
+                    "sorted-array": "apple, banana, cherry, grape, kiwi, lemon, mango, orange, peach",
+                    "target-element": "orange"
+                }
+            }
+        ]
+    },
+    
     inputs: [
         {
             id: "sorted-array",
             type: "text",
-            label: "Sorted Array (comma-separated, max 15 elements)",
+            label: "Sorted Array (max 15 elements)",
             defaultValue: "1, 3, 5, 7, 9, 10, 11, 12, 13, 15, 56, 99",
             width: "300px"
         },

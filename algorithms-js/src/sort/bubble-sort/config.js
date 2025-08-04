@@ -20,11 +20,32 @@ const config = {
     algorithmFunction: "bubbleSort",
     hasVisualization: true,
     
+    // Data type configuration for input toggle
+    inputDataTypes: {
+        default: "numeric",
+        options: [
+            {
+                value: "numeric",
+                label: "Numeric",
+                sampleData: {
+                    "array-input": "64, 34, 25, 12, 22, 11, 90"
+                }
+            },
+            {
+                value: "alphanumeric",
+                label: "Alphanumeric",
+                sampleData: {
+                    "array-input": "zebra, apple, banana, cherry, dog, elephant, cat"
+                }
+            }
+        ]
+    },
+    
     inputs: [
         {
             id: "array-input",
             type: "text",
-            label: "Array (comma-separated, numbers or strings)",
+            label: "Array (numbers or strings)",
             defaultValue: "64, 34, 25, 12, 22, 11, 90",
             width: "300px"
         },

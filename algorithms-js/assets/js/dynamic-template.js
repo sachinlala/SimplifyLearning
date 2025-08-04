@@ -142,18 +142,20 @@ class DynamicAlgorithmTemplate {
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
             </a>
+        </div>
+        <div class="header-center">
             <a href="${config.backPath || '../../../index.html'}" class="home-link">
                 <img src="../../../assets/images/sl-logo.svg" alt="SimplifyLearning" style="width: 32px; height: 32px;">
             </a>
         </div>
-        <nav class="nav-algorithms">
-            <a href="${config.backPath || '../../../index.html'}" class="back-to-home">
+        <div class="header-right">
+            <a href="${config.backPath || '../../../index.html'}" class="back-to-home desktop-only">
                 🏠 Home
             </a>
             <button id="global-theme-toggle" class="theme-toggle-btn">
-                🌙 Dark Mode
+                🌙
             </button>
-        </nav>
+        </div>
     </header>
     
     <!-- Hamburger Menu Sidebar -->
@@ -211,13 +213,13 @@ class DynamicAlgorithmTemplate {
      */
     generateInputSection(config) {
         const inputElements = config.inputs.map(input => this.generateInputElement(input)).join('\n                    ');
-        const dataTypeToggleHtml = config.inputDataTypes ? this.generateDataTypeToggle(config.inputDataTypes) : '';
+        const dataTypeToggleHtml = config.inputDataTypes ? this.generateDataTypeToggleInline(config.inputDataTypes) : '';
         
         return `
             <div class="input-section" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 <h3>Inputs</h3>
-                ${dataTypeToggleHtml}
                 <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: end;">
+                    ${dataTypeToggleHtml}
                     ${inputElements}
                     <div>
                         <button onclick="runDemo()" style="padding: 8px 16px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer;">Run Demo</button>
@@ -272,12 +274,12 @@ class DynamicAlgorithmTemplate {
      * Generate data type toggle if provided
      */
     generateDataTypeToggle(inputDataTypes) {
-        if (!inputDataTypes || inputDataTypes.length === 0) {
+        if (!inputDataTypes || !inputDataTypes.options || inputDataTypes.options.length === 0) {
             return '';
         }
         
-        const toggleOptions = inputDataTypes.map((type, index) => {
-            const isDefault = type.default || index === 0;
+        const toggleOptions = inputDataTypes.options.map((type) => {
+            const isDefault = type.value === inputDataTypes.default;
             return `<option value="${type.value}" ${isDefault ? 'selected' : ''}>${type.label}</option>`;
         }).join('');
         
@@ -289,6 +291,28 @@ class DynamicAlgorithmTemplate {
                     </select>
                     <small style="display: block; margin-top: 5px; color: #6c757d; font-size: 0.8em;">Toggle between different input data types for testing</small>
                 </div>`;
+    }
+
+    /**
+     * Generate inline data type toggle for flex layout
+     */
+    generateDataTypeToggleInline(inputDataTypes) {
+        if (!inputDataTypes || !inputDataTypes.options || inputDataTypes.options.length === 0) {
+            return '';
+        }
+        
+        const toggleOptions = inputDataTypes.options.map((type) => {
+            const isDefault = type.value === inputDataTypes.default;
+            return `<option value="${type.value}" ${isDefault ? 'selected' : ''}>${type.label}</option>`;
+        }).join('');
+        
+        return `
+                    <div>
+                        <label for="data-type-toggle" style="display: block; margin-bottom: 5px; font-weight: 500;">Input Data Type</label>
+                        <select id="data-type-toggle" onchange="handleDataTypeChange()" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 140px;">
+                            ${toggleOptions}
+                        </select>
+                    </div>`;
     }
 
     /**
@@ -436,11 +460,13 @@ class DynamicAlgorithmTemplate {
         return `
     <footer>
         <div class="footer-content">
-            <span>Built with ❤️</span><br/>
-            <span>© 2025 <a href="https://github.com/sachinlala" target="_blank">
+            <div class="footer-line">
                 <img src="https://avatars.githubusercontent.com/u/20021459?s=24&v=4" alt="Sachin Lala" class="footer-profile-img">
-                Sachin Lala
-            </a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></span>
+                Built with ❤️
+            </div>
+            <div class="footer-line">
+                © 2025 <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a>
+            </div>
         </div>
     </footer>`;
     }
@@ -509,14 +535,37 @@ class DynamicAlgorithmTemplate {
         return `
         function showError(message) {
             const errorContainer = document.getElementById('error-message');
-            errorContainer.innerHTML = \`⚠️ \${message}\`;
+            errorContainer.innerHTML = '⚠️ ' + message;
             errorContainer.style.display = 'block';
         }
         
         function wrapLongText(text) {
             // Insert spaces every 50 characters to allow wrapping
             return text.replace(/(.{50})/g, '$1 ');
-        }`;
+        }
+        
+        // Data type toggle handler
+        function handleDataTypeChange() {
+            const dataTypeSelect = document.getElementById('data-type-toggle');
+            if (!dataTypeSelect) return;
+            
+            const selectedType = dataTypeSelect.value;
+            const config = window.algorithmConfig;
+            
+            if (config && config.inputDataTypes && config.inputDataTypes.options) {
+                const typeConfig = config.inputDataTypes.options.find(type => type.value === selectedType);
+                if (typeConfig && typeConfig.sampleData) {
+                    // Update input fields with sample data
+                    Object.keys(typeConfig.sampleData).forEach(inputId => {
+                        const inputElement = document.getElementById(inputId);
+                        if (inputElement) {
+                            inputElement.value = typeConfig.sampleData[inputId];
+                        }
+                    });
+                }
+            }
+        }
+        `;
     }
 
     /**
@@ -557,29 +606,45 @@ class DynamicAlgorithmTemplate {
      * Generate initialization script
      */
     generateInitializationScript(config) {
-        return `
-        // Initialize demo
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize accordion after dynamic content load
-            const accordions = document.querySelectorAll('.accordion');
-            accordions.forEach(accordion => {
-                if (window.SimplifyLearning && window.SimplifyLearning.Accordion) {
-                    new window.SimplifyLearning.Accordion(accordion);
-                } else {
-                    // Fallback manual initialization
-                    const header = accordion.querySelector('.accordion-header');
-                    if (header) {
-                        header.addEventListener('click', () => {
-                            accordion.classList.toggle('active');
-                            const icon = accordion.querySelector('.accordion-icon');
-                            if (icon) {
-                                icon.textContent = accordion.classList.contains('active') ? '▲' : '▼';
-                            }
-                        });
-                    }
-                }
-            });
-        });`;
+        // Create a clean config object without functions for JSON serialization
+        const cleanConfig = {
+            name: config.name,
+            inputDataTypes: config.inputDataTypes,
+            inputs: config.inputs,
+            hasVisualization: config.hasVisualization
+        };
+        
+        // Safely embed JSON using string concatenation to avoid template literal issues
+        const configString = JSON.stringify(cleanConfig);
+        
+        return [
+            '        // Store config globally for data type functionality',
+            '        window.algorithmConfig = ' + configString + ';',
+            '        ',
+            '        // Initialize demo',
+            '        document.addEventListener(\'DOMContentLoaded\', () => {',
+            '            // Initialize accordion after dynamic content load',
+            '            const accordions = document.querySelectorAll(\'.accordion\');',
+            '            accordions.forEach(accordion => {',
+            '                if (window.SimplifyLearning && window.SimplifyLearning.Accordion) {',
+            '                    new window.SimplifyLearning.Accordion(accordion);',
+            '                } else {',
+            '                    // Fallback manual initialization',
+            '                    const header = accordion.querySelector(\'.accordion-header\');',
+            '                    if (header) {',
+            '                        header.addEventListener(\'click\', () => {',
+            '                            accordion.classList.toggle(\'active\');',
+            '                            const icon = accordion.querySelector(\'.accordion-icon\');',
+            '                            if (icon) {',
+            '                                icon.textContent = accordion.classList.contains(\'active\') ? \'\u25b2\' : \'\u25bc\';',
+            '                            }',
+            '                        });',
+            '                    }',
+            '                }',
+            '            });',
+            '        });',
+            '        '
+        ].join('\n');
     }
 
     /**
@@ -775,6 +840,41 @@ class DynamicAlgorithmTemplate {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+        }
+        
+        /* Header layout for desktop and mobile */
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Theme toggle button styling */
+        .theme-toggle-btn {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.2);
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
         
         /* Fix back to home hover in light mode */
@@ -984,6 +1084,36 @@ class DynamicAlgorithmTemplate {
 
         body.dark-mode .source-code-section p {
             color: #c1c1c1 !important;
+        }
+        
+        /* Footer line styling */
+        .footer-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+        }
+        
+        /* Dark mode data type toggle */
+        body.dark-mode div[style*="background: #f8f9fa"] {
+            background-color: #2a2a2b !important;
+            color: #d7dadc !important;
+            border-color: #444 !important;
+        }
+        
+        body.dark-mode select {
+            background-color: #1e1e1e !important;
+            color: #d7dadc !important;
+            border-color: #444 !important;
+        }
+        
+        body.dark-mode .theme-toggle-btn {
+            background: rgba(255,255,255,0.1) !important;
+            color: #d7dadc !important;
+        }
+        
+        body.dark-mode .theme-toggle-btn:hover {
+            background: rgba(255,255,255,0.2) !important;
         }
         
         ${config.hasVisualization ? this.generateVisualizationStyles() : ''}

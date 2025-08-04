@@ -104,3 +104,6 @@ class SimpleSearch {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = SimpleSearch;
 }
+
+// ES6 export
+export default SimpleSearch;

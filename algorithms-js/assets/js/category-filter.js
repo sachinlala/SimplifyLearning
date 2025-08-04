@@ -147,3 +147,6 @@ class CategoryFilter {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CategoryFilter;
 }
+
+// ES6 export
+export default CategoryFilter;

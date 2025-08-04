@@ -55,6 +55,30 @@ function generateRandomSortedArray(size, min = 1, max = 100) {
     return arr.sort((a, b) => a - b);
 }
 
+// Utility function to get maximum value from an array
+function getMax(arr) {
+    if (!arr || !arr.length) return undefined;
+    return Math.max(...arr);
+}
+
+// Utility function to get minimum value from an array
+function getMin(arr) {
+    if (!arr || !arr.length) return undefined;
+    return Math.min(...arr);
+}
+
+// Utility function to calculate the height of a bar given its value and max height
+function calculateBarHeight(value, maxValue, maxHeight = 200) {
+    if (maxValue === 0) return 0;
+    return (value / maxValue) * maxHeight;
+}
+
+// Utility function to generate style for a bar based on its height
+function generateBarStyle(height, index = 0, isActive = false) {
+    const baseColor = isActive ? '#ff6b6b' : '#4ecdc4';
+    return `height: ${height}px; background-color: ${baseColor}; margin: 2px; display: inline-block; width: 30px; transition: all 0.3s ease;`;
+}
+
 // Export for Node.js if available
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -62,6 +86,10 @@ if (typeof module !== 'undefined' && module.exports) {
         isSorted,
         measureTime,
         generateRandomArray,
-        generateRandomSortedArray
+        generateRandomSortedArray,
+        getMax,
+        getMin,
+        calculateBarHeight,
+        generateBarStyle
     };
 }
