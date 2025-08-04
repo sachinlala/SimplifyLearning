@@ -1,0 +1,4 @@
+*.DS_Store
+
+# Generated HTML files from template system
+generated-*.html

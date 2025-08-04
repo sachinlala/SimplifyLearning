@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Circular background -->
+  <circle cx="50" cy="50" r="50" fill="#2563eb"/>
+  
+  <!-- Text "SL" -->
+  <text x="50" y="65" 
+        font-family="Arial, sans-serif" 
+        font-size="36" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="white">SL</text>
+</svg>

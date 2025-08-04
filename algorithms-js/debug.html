@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug URLs</title>
+</head>
+<body>
+    <div id="test-container"></div>
+    
+    <script src="assets/js/components.js?v=1735954700"></script>
+    <script>
+        // Wait for components to load then test
+        setTimeout(() => {
+            console.log('Testing URL generation...');
+            const container = document.getElementById('test-container');
+            if (container && window.SimplifyLearning && window.SimplifyLearning.AlgorithmList) {
+                const algorithmList = new window.SimplifyLearning.AlgorithmList(container);
+                console.log('Algorithm list created');
+                
+                // Check the actual HTML generated
+                setTimeout(() => {
+                    const links = container.querySelectorAll('.demo-link');
+                    links.forEach((link, index) => {
+                        console.log(`Link ${index + 1}:`, {
+                            text: link.textContent,
+                            href: link.getAttribute('href'),
+                            fullURL: link.href
+                        });
+                    });
+                }, 100);
+            }
+        }, 500);
+    </script>
+</body>
+</html>

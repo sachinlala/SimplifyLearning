@@ -1,0 +1,24 @@
+{
+  "name": "simplifylearning-algorithms-js",
+  "version": "1.0.0",
+  "description": "Interactive JavaScript algorithm demonstrations",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "npm run start",
+    "serve": "python3 -m http.server 8080",
+    "serve:node": "npx serve -l 8080 --no-clean-urls",
+    "serve:http": "npx http-server -p 8080 --ext=",
+    "serve:live": "npx live-server --port=8080 --no-browser --no-css-inject",
+    "stop": "pkill -f 'serve.*8080' 2>/dev/null; pkill -f 'http-server.*8080' 2>/dev/null; pkill -f 'python.*http' 2>/dev/null || true",
+    "clean": "pkill -f 'serve.*8080' 2>/dev/null; pkill -f 'http-server.*8080' 2>/dev/null; pkill -f 'python.*http' 2>/dev/null || true",
+    "restart": "npm run stop && sleep 2 && npm run start"
+  },
+  "keywords": ["algorithms", "javascript", "education", "demo", "interactive"],
+  "author": "Sachin Lala",
+  "license": "MIT",
+  "dependencies": {
+    "minisearch": "^1.1.0",
+    "mathjs": "^10.0.0"
+  }
+}
