@@ -89,12 +89,6 @@ subprojects {
     check.dependsOn jacocoTestReport
 }
 
-task alljavadoc(type: Javadoc) {
-    dependsOn = subprojects.test
-    source subprojects.collect { subprojects.sourceSets.main.allJava }
-    classpath = files(subprojects.collect { subprojects.sourceSets.main.compileClasspath })
-    destinationDir = file("docs")
-}
 
 task jacocoRootReport(type: JacocoReport) {
     dependsOn = subprojects.test

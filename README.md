@@ -2,11 +2,10 @@
 <!-- [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.
 org/sachinlala/SimplifyLearning) -->
 [![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master) 
-[![JavaDocs](https://img.shields.io/badge/javadocs-latest-blue.svg)](https://sachinlala.github.io/SimplifyLearning/)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
-[![Pages Status](https://img.shields.io/badge/pages-deployed-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/)
+[![JavaScript UI](https://img.shields.io/badge/javascript%20ui-live-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 <!-- [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.
 im/SimplifyLearning) -->
 
@@ -32,7 +31,6 @@ An anthology of programs to simplify understanding of foundational algorithms an
 0. Build: `./gradlew clean build`
 1. Please import [Google style-guide](https://github.com/google/styleguide) into your IDE, to prevent code-style violations.
 2. To publish from localhost to coveralls cloud, set the COVERALLS_REPO_TOKEN environment variable.
-3. To update/refresh the javadocs, run `./gradlew alljavadoc` and re-commit the docs/ folder.
 
 #### How to contribute ?
 Please create a new branch from 'master' and raise a pull-request once ready for review.
