@@ -1,12 +1,9 @@
-# SimplifyLearning Algorithm Demos 🚀
-
-> An interactive collection of JavaScript algorithm demonstrations with visual explanations and hands-on examples.
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Mobile Friendly](https://img.shields.io/badge/Mobile-Friendly-blue.svg)]()
 
-## ✨ Features
+> An interactive collection of algorithms with visual explanations and hands-on examples written in plain JavaScript.
+
+### ✨ Features
 
 - 🎯 **Interactive Demos**: Run algorithms with custom inputs
 - 📱 **Mobile Responsive**: Works seamlessly on all devices
@@ -16,20 +13,24 @@
 - 📖 **Step-by-Step Explanations**: Understand how each algorithm works
 - 🎨 **Beautiful UI**: Water drop style category tags and smooth animations
 
-## 🧮 Current Algorithms
+### 🚀 Quick Start
 
-### 🔍 Search Algorithms
-- **Binary Search**: Efficient O(log n) search in sorted arrays
+#### Option 1: Using root build script (Recommended)
 
-### 🔢 Sorting Algorithms  
-- **Bubble Sort**: Simple comparison-based sorting algorithm
+```bash
+# Clone the repository
+git clone https://github.com/sachinlala/SimplifyLearning.git
+cd SimplifyLearning
 
-### 🎯 Pattern Algorithms
-- **Count and Say**: Generate look-and-say sequence patterns
+# Setup JavaScript module and dependencies
+./build.sh js
 
-## 🚀 Quick Start
+# Then start the development server
+cd algorithms-js
+npm start
+```
 
-### Option 1: Using npm scripts (Recommended)
+#### Option 2: Using npm scripts directly
 
 ```bash
 # Clone the repository
@@ -43,7 +44,7 @@ npm start
 npm run dev
 ```
 
-### Option 2: Manual server setup
+#### Option 3: Manual server setup
 
 ```bash
 # Using Python (recommended - no redirect issues)
@@ -57,7 +58,7 @@ npx live-server --port=8080 --no-browser
 
 Then open: **http://localhost:8080**
 
-## 📦 npm Scripts Reference
+### 📦 npm Scripts Reference
 
 | Command | Description |
 |---------|-------------|
@@ -70,7 +71,7 @@ Then open: **http://localhost:8080**
 | `npm run clean` | Kill all running servers on port 8080 |
 | `npm run restart` | Clean and restart the server |
 
-## 🏗️ Project Structure
+### 🏗️ Project Structure
 
 ```
 algorithms-js/
@@ -94,10 +95,27 @@ algorithms-js/
 │   │   └── binary-search/
 │   └── sort/
 │       └── bubble-sort/
+│   └── .../
 └── package.json
 ```
 
-## 🔧 Development
+### Pre-requisites
+```bash
+# Python 3+ (for development server)
+python3 --version
+
+# Node.js (optional, for tooling)
+node --version
+```
+
+### Development Server
+```bash
+# Start local server
+python -m http.server 8000
+
+# Alternative ports if 8000 is busy
+python -m http.server 3000
+```
 
 ### Adding a New Algorithm
 
@@ -141,6 +159,41 @@ algorithms-js/
 
 4. **Update components.js** to include your algorithm in the main list.
 
+### Universal Loader
+The universal loader automatically:
+- Discovers your algorithm
+- Registers it in the UI
+- Handles module loading
+- Provides interactive interface
+
+### Code Quality Guidelines
+- **ES6+**: Use modern JavaScript features
+- **JSDoc**: Document all public functions
+- **Validation**: Include input validation and error handling
+- **Naming**: Use meaningful variable names
+- **Indentation**: 2 spaces consistently
+
+### Testing
+```bash
+# Manual testing via browser console
+# Navigate to http://localhost:8000
+# Open browser DevTools console
+# Test your functions interactively
+
+# Automated testing: //TODO
+```
+
+### Browser Support
+- Modern browsers with ES6+ module support
+- Chrome, Firefox, Safari, Edge (recent versions)
+- No IE support (uses modern JavaScript features)
+
+### Troubleshooting
+- **Port in use**: Try `python -m http.server 3000`
+- **CORS errors**: Always use local server, not `file://` protocol
+- **Module loading**: Check browser console for syntax errors
+- **Function not found**: Ensure proper export/import syntax
+
 ### Server Issues & Solutions
 
 **Problem**: Node.js servers (serve, http-server) automatically redirect `.html` files:
@@ -178,27 +231,8 @@ npx http-server -p 8080
 - **Touch-friendly**: Large tap targets and smooth interactions
 - **Optimized typography**: Readable on all screen sizes
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/new-algorithm`
-3. Add your algorithm following the structure above
-4. Test your changes: `npm start`
-5. Commit your changes: `git commit -am 'Add new algorithm: Algorithm Name'`
-6. Push to the branch: `git push origin feature/new-algorithm`
-7. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Sachin Lala**
-- GitHub: [@sachinlala](https://github.com/sachinlala)
-- Project: [SimplifyLearning](https://github.com/sachinlala/SimplifyLearning)
-
 ---
 
-⭐ **Star this repo if you find it helpful!**
+⭐ Please star the repo if you find it helpful.
 
+---

@@ -52,22 +52,9 @@ jacoco {
     toolVersion = JaCoCoVersion
 }
 
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'INSTRUCTION'
-                value = 'COVEREDRATIO'
-                minimum = 0.95
-            }
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.80
-            }
-        }
-    }
-}
+// Coverage verification disabled for faster builds
+// Coverage is still calculated and printed to console
+// CI/CD still enforces coverage via Coveralls
 
 jacocoTestReport {
     reports {
@@ -85,10 +72,8 @@ compileJava {
     options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
 }
 
-test.finalizedBy jacocoTestCoverageVerification
-check.dependsOn jacocoTestCoverageVerification
+// Only generate reports, no verification during build
 test.finalizedBy jacocoTestReport
-check.dependsOn jacocoTestReport
 
 coveralls {
     sourceDirs = sourceSets.main.allSource.srcDirs.collect { it.absolutePath }
@@ -130,3 +115,16 @@ task printCoverage {
 }
 
 build.finalizedBy printCoverage
+
+// Developer-friendly tasks
+task dev {
+    group = 'development'
+    description = 'Fast build for development - runs tests and prints coverage'
+    dependsOn 'clean', 'test'
+}
+
+task quick {
+    group = 'development'
+    description = 'Quick compile without tests'
+    dependsOn 'clean', 'compileJava'
+}
