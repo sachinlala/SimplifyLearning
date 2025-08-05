@@ -1,8 +1,5 @@
 [![License](https://img.shields.io/badge/License-MIT-darkgreen.svg)](./LICENSE)
-[![Coverage](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
-[![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
-[![GitGuardian](https://img.shields.io/badge/GitGuardian-Protected-brightgreen.svg?logo=gitguardian)](https://www.gitguardian.com/)
-[![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
+[![GitGuardian](https://img.shields.io/badge/GitGuardian-Protected-darkgreen.svg?logo=gitguardian)](https://www.gitguardian.com/)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
 ## 📚 Simplify Learning
@@ -45,12 +42,12 @@
 > So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
 ### 💡 Cater to both minds !
-* [**☕ Java**](./algorithms-java/README.md) - object-oriented implementations
-* [**⚡ JavaScript**](./algorithms-js/README.md) - interactive visualizations
-* [📋 List of Algorithms](./algorithms-java/ALGORITHMS.md)
-* [🔧 Unified Build System](./IDE-Setup.md) → run `./build.sh` to verify all modules
+* ☕ [**Java**](./algorithms-java/README.md) - object-oriented implementations
+* ⚡ [**JavaScript**](./algorithms-js/README.md) - interactive visualizations
+* 📋 [List of Algorithms](./algorithms-java/ALGORITHMS.md)
+* 🔧 [Unified Build System](./IDE-Setup.md) → run `./build.sh` to verify all modules
 
-> ⭐ **If you find the project helpful, please give it a star!**
+### ⭐ **If you find the project helpful, please give it a star!**
 
 ### 🤝 [Contributing](./CONTRIBUTING.md)
 
