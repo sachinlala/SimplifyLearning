@@ -1,0 +1,63 @@
+name: Java CI with Coverage
+
+on:
+  push:
+    branches: [ master, main, hygiene ]
+    paths: 
+      - 'algorithms-java/**'
+      - '.github/workflows/java.yml'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - 'algorithms-java/**'
+      - '.github/workflows/java.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('algorithms-java/**/*.gradle*', 'algorithms-java/**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x algorithms-java/gradlew
+      
+    - name: Run tests with coverage
+      run: |
+        cd algorithms-java
+        ./gradlew clean test jacocoTestReport
+        
+    - name: Publish coverage to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: algorithms-java/build/reports/jacoco/test/jacocoTestReport.xml
+        format: jacoco
+        base-path: algorithms-java
+        flag-name: java
+        
+    - name: Upload coverage reports to Codecov (backup)
+      uses: codecov/codecov-action@v4
+      with:
+        file: algorithms-java/build/reports/jacoco/test/jacocoTestReport.xml
+        flags: java
+        name: java-coverage
+        fail_ci_if_error: false
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

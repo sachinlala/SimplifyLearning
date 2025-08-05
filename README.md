@@ -1,17 +1,14 @@
 ### Simplify Learning 
-<!-- [![Build](https://travis-ci.org/sachinlala/SimplifyLearning.svg)](https://travis-ci.
-org/sachinlala/SimplifyLearning) -->
-[![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master) 
-[![JavaDocs](https://img.shields.io/badge/javadocs-latest-blue.svg)](https://sachinlala.github.io/SimplifyLearning/)
+
+[![UI](https://img.shields.io/badge/javascript%20ui-live-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
-<!-- [![Gitter chat](https://badges.gitter.im/sachinlala/repo.png)](https://gitter.
-im/SimplifyLearning) -->
+[![Coverage](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
 
-An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java, built with Gradle goodness:
-* [List of Algorithms](algorithms/ALGORITHMS.md)
-* [Spring Boot 101](sample-rest-service/SERVICE.md)
+An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java and JavaScript (cater to both minds!):
+[Java](algorithms-java/ALGORITHMS.md)
+[JavaScript](algorithms-js/index.html)
 
 #### Stages of Learning
 |Stage|Visual|Description|
@@ -27,10 +24,9 @@ An anthology of programs to simplify understanding of foundational algorithms an
 > So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
 #### Dev Help
-0. Build: `./gradlew clean build`
-1. Please import [Google style-guide](https://github.com/google/styleguide) into your IDE, to prevent code-style violations.
-2. To publish from localhost to coveralls cloud, set the COVERALLS_REPO_TOKEN environment variable.
-3. To update/refresh the javadocs, run `./gradlew alljavadoc` and re-commit the docs/ folder.
+See language-specific instructions:
+- **Java**: [algorithms-java/DevHelp.md](algorithms-java/DevHelp.md)
+- **JavaScript**: [algorithms-js/DevHelp.md](algorithms-js/DevHelp.md)
 
 #### How to contribute ?
 Please create a new branch from 'master' and raise a pull-request once ready for review.

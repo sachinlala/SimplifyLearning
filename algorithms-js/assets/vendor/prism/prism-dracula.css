@@ -1,0 +1,130 @@
+/**
+ * Dracula theme for Prism.js
+ * Inspired by the Dracula color theme
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #f8f8f2;
+    background: none;
+    font-family: 'Fira Code', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    text-shadow: none;
+    background: #5a6371;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    text-shadow: none;
+    background: #5a6371;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 16px;
+    margin: 16px 0;
+    overflow: auto;
+    border-radius: 6px;
+    background: #282a36;
+    border: 1px solid #44475a;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: 2px 4px;
+    border-radius: 3px;
+    background: #282a36;
+    border: 1px solid #44475a;
+    white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #6272a4;
+}
+
+.token.punctuation {
+    color: #f8f8f2;
+}
+
+.namespace {
+    opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #bd93f9;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #50fa7b;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #ff79c6;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.language-javascript .token.operator {
+    color: #ff79c6;
+}
+
+.token.function,
+.token.class-name {
+    color: #f1fa8c;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #f8f8f2;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}

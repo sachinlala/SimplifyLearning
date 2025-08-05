@@ -1,0 +1,132 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.12.2'
+}
+
+group 'SimplifyLearning'
+version '0.9.1'
+
+repositories {
+    mavenCentral()
+}
+
+configurations.all {
+    resolutionStrategy {
+        // Force the use of guava and exclude google-collections to resolve conflict
+        force 'com.google.guava:guava:33.0.0-jre'
+    }
+    // Exclude the problematic google-collections dependency
+    exclude group: 'com.google.collections', module: 'google-collections'
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(JDKVersion)
+    targetCompatibility = JavaVersion.toVersion(JDKVersion)
+}
+
+checkstyle {
+    toolVersion = CheckStyleVersion
+    configFile = file('config/checkstyle/checkstyle.xml')
+    configProperties = [
+            'checkstyle.cache.file': "${buildDir}/checkstyle.cache",
+    ]
+    ignoreFailures = false
+    showViolations = true
+    maxWarnings = 0
+}
+
+dependencies {
+    testImplementation platform("org.junit:junit-bom:${JUnitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = JaCoCoVersion
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 0.95
+            }
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
+    def filteredClassDirs = files(classDirectories.files.collect {
+        fileTree(dir: it, exclude: ['**/test/**'])
+    })
+    classDirectories.setFrom(filteredClassDirs)
+}
+
+compileJava {
+    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+}
+
+test.finalizedBy jacocoTestCoverageVerification
+check.dependsOn jacocoTestCoverageVerification
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestReport
+
+coveralls {
+    sourceDirs = sourceSets.main.allSource.srcDirs.collect { it.absolutePath }
+    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+}
+
+tasks.coveralls {
+    dependsOn jacocoTestReport
+}
+
+task printCoverage {
+    dependsOn jacocoTestReport
+    doLast {
+        def reportFile = file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+        if (!reportFile.exists()) {
+            println ">>> Coverage report not found at: ${reportFile}"
+            return
+        }
+        def xmlContent = reportFile.getText("UTF-8")
+                .replaceFirst(/<!DOCTYPE[^>]*>/, "")
+        def xml = new XmlSlurper(false, false).parseText(xmlContent)
+        def showCoverage = { counterType ->
+            def counter = xml.counter.find { it.@type == counterType }
+            if (counter != null) {
+                def covered = counter.@covered.toInteger()
+                def missed = counter.@missed.toInteger()
+                def total = covered + missed
+                def percent = total > 0 ? (covered * 100.0 / total) : 0.0
+                println "${counterType} coverage: ${String.format('%.2f', percent)}%"
+            } else {
+                println "${counterType} coverage information not found."
+            }
+        }
+        println "========================================="
+        showCoverage("INSTRUCTION")
+        showCoverage("BRANCH")
+        println "========================================="
+    }
+}
+
+build.finalizedBy printCoverage
