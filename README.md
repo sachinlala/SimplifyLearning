@@ -4,7 +4,7 @@
 ![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
-## 📚 Simplify Learning
+## ![SL Logo](https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg) Simplify Learning
 
 **An anthology of foundational algorithms and data structures.**
 
