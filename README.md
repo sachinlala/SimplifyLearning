@@ -1,5 +1,7 @@
 [![License](https://img.shields.io/badge/License-MIT-darkgreen.svg)](./LICENSE)
 [![GitGuardian](https://img.shields.io/badge/GitGuardian-Protected-darkgreen.svg?logo=gitguardian)](https://www.gitguardian.com/)
+[![Coverage](https://img.shields.io/badge/Coverage-95%25-darkgreen.svg)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
+![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
 ## 📚 Simplify Learning
