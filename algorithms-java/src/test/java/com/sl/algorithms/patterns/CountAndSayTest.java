@@ -46,8 +46,8 @@ public class CountAndSayTest {
 
     @Test
     public void testEdgeCases() {
-        assertEquals("22", compute(2, 1));
-        assertEquals("12", compute(11, 1));
+        assertEquals("12", compute(2, 1));  // "2" -> "one 2" -> "12"
+        assertEquals("21", compute(11, 1)); // "11" -> "two 1s" -> "21"
     }
 
 }

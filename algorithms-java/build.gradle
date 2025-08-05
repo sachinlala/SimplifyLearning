@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.12.2'
 }
 
 group 'SimplifyLearning'
@@ -90,14 +89,6 @@ check.dependsOn jacocoTestCoverageVerification
 test.finalizedBy jacocoTestReport
 check.dependsOn jacocoTestReport
 
-coveralls {
-    sourceDirs = sourceSets.main.allSource.srcDirs.collect { it.absolutePath }
-    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-}
-
-tasks.coveralls {
-    dependsOn jacocoTestReport
-}
 
 task printCoverage {
     dependsOn jacocoTestReport
