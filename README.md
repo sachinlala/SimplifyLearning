@@ -1,11 +1,10 @@
 ### Simplify Learning 
 
-[![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
-[![Java CI](https://github.com/sachinlala/SimplifyLearning/actions/workflows/java.yml/badge.svg)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/java.yml)
+[![UI](https://img.shields.io/badge/javascript%20ui-live-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)
-[![JavaScript UI](https://img.shields.io/badge/javascript%20ui-live-brightgreen.svg)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
+[![Coverage](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
 
 An anthology of programs to simplify understanding of foundational algorithms and basic frameworks. Written in Java and JavaScript (cater to both minds!):
 [Java](algorithms-java/ALGORITHMS.md)
