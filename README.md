@@ -2,6 +2,7 @@
 [![GitGuardian](https://img.shields.io/badge/GitGuardian-Protected-darkgreen.svg?logo=gitguardian)](https://www.gitguardian.com/)
 [![Coverage](https://img.shields.io/badge/Coverage-95%25-darkgreen.svg)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
 ![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
+[![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg?color=darkgreen)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
 ## <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
@@ -10,7 +11,7 @@
 
 ✨ Featuring interactive visualizations, intuitive explanations, and practical code examples designed to minimize cognitive load and maximize learning.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-brightgreen.svg?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiIGZpbGw9IiMyNTYzZWIiLz4KICA8dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzNiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj5TTDwvdGV4dD4KPC9zdmc+&logoSize=auto)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 
 ### 🌱 Stages of Learning 🌿
 
