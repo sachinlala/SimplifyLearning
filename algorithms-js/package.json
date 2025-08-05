@@ -6,6 +6,7 @@
   "scripts": {
     "start": "python3 -m http.server 8080",
     "dev": "npm run start",
+    "build": "echo 'No build step required - static site' && exit 0",
     "serve": "python3 -m http.server 8080",
     "serve:node": "npx serve -l 8080 --no-clean-urls",
     "serve:http": "npx http-server -p 8080 --ext=",

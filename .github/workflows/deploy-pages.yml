@@ -2,9 +2,9 @@ name: Build and Deploy Algorithm Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, hygiene ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, hygiene ]
 
 jobs:
   build-and-deploy:

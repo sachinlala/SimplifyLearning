@@ -72,10 +72,10 @@ This is a multi-language mono-repo where you can choose your language of choice:
 
 -------
 
-📢 **Keywords**: algorithms, data structures, interactive visualizations, Java, Gradle, JavaScript, 
+📢 **Keywords**: `algorithms, data structures, interactive visualizations, Java, Gradle, JavaScript, 
 mono-repo, CS fundamentals, coding practice, simplify learning, sorting algorithms, searching 
 algorithms, dynamic programming, graph theory, backtracking, greedy algorithms, count and say, 
 template engine, queue, stack, deque, hash table, hash map, linked list, tree, trie, heap, css3, 
-vanillaJS, html, html5, accordian, animation
+vanillaJS, html, html5, accordian, animation`
 
 -------
