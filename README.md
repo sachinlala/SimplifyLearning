@@ -28,7 +28,7 @@
 </tr>
 <tr>
 <td><a href="https://en.wikipedia.org/wiki/Kata">Kata</a></td>
-<td><img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/images/kata-white-bg.jpg" alt="Kata" width="150" style="border-radius: 8px; padding: 4px;"></td>
+<td><img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/images/kata.gif" alt="Kata" width="150" style="background-color: white; border-radius: 8px; padding: 4px;"></td>
 <td>Assert the learnings with rigorous practice and achieve 1+ level of proficiency.</td>
 </tr>
 <tr>
