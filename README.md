@@ -4,7 +4,7 @@
 ![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
-## <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="24" height="24" alt="SL Logo" style="vertical-align: baseline; margin-right: 6px; margin-bottom: 2px;"> Simplify Learning
+## <div style="display: inline-flex; align-items: center; gap: 8px;"><img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="28" height="28" alt="SL Logo">Simplify Learning</div>
 
 **An anthology of foundational algorithms and data structures.**
 
