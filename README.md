@@ -1,5 +1,7 @@
 ### Simplify Learning 
 
+[![Coverage Status](https://coveralls.io/repos/github/sachinlala/SimplifyLearning/badge.svg?branch=master)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
+[![Java CI](https://github.com/sachinlala/SimplifyLearning/actions/workflows/java.yml/badge.svg)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/java.yml)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 [![Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/issues)

@@ -57,11 +57,13 @@ algorithms-java/
 - **Style**: Google Java Style Guide via checkstyle
 - **Testing**: JUnit 5 with comprehensive test cases
 - **Documentation**: Javadoc with complexity analysis
+- **CI/CD**: Coverage published to Coveralls via GitHub Actions
 
 ## Reports and Coverage
 - **Test reports**: `build/reports/tests/test/index.html`
 - **Coverage report**: `build/reports/jacoco/test/html/index.html`
 - **Checkstyle report**: `build/reports/checkstyle/main.html`
+- **Coverage badge**: Published to [Coveralls](https://coveralls.io/github/sachinlala/SimplifyLearning)
 
 ## Troubleshooting
 - **Permission denied**: `chmod +x gradlew`
