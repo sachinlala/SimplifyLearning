@@ -29,6 +29,21 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# Build artifacts and reports (reduce search clutter)
+**/build/
+**/target/
+**/out/
+**/*.class
+**/*.html
+**/reports/
+**/jacoco/
+**/checkstyle/
+**/test-results/
+**/TEST-*.xml
+**/TEST-*.html
+**/*Test.html
+**/*.java.html
+
 # Backup and temporary files
 *.backup
 *.bak

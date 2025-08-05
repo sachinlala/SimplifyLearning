@@ -1,6 +1,6 @@
 #### [Core Interfaces](src/main/java/com/sl/algorithms/core/interfaces)
 
-|Algorithm Group|Content|
+| Group|Content|
 |---------------|-------|
 |[Arrays](src/main/java/com/sl/algorithms/core/array)|Counters, Rotation, Sub-Arrays|
 |[Array Rotation](src/main/java/com/sl/algorithms/core/array/rotation)|Doug Mcllroy, Jon Bentley, Gries-Mills|
