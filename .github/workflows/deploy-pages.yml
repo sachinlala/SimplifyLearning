@@ -1,9 +1,15 @@
-name: Build and Deploy Algorithm Pages
+name: JS Pages: Build (PR) / Deploy (master)
 
 on:
+  pull_request:
+    paths:
+      - 'algorithms-js/**'
+      - '.github/workflows/deploy-pages.yml'
   push:
-    # Run on pushes to any branch
-  # pull_request trigger is not needed for deployment; builds will happen on push
+    branches: [ master ]
+    paths:
+      - 'algorithms-js/**'
+      - '.github/workflows/deploy-pages.yml'
 
 jobs:
   build:
@@ -30,7 +36,6 @@ jobs:
         npm run build
 
     - name: Upload artifact
-    
       uses: actions/upload-pages-artifact@v3
       with:
         path: algorithms-js
