@@ -10,6 +10,8 @@
 
 # Java packages and archives
 *.jar
+# Allow committing Gradle Wrapper jar
+!algorithms-java/gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
