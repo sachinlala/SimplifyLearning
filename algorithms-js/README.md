@@ -15,6 +15,15 @@
 
 ### 🚀 Quick Start
 
+#### Option 0: Root-level dev helper
+
+```bash
+# From repo root
+./dev.sh start    # start http://localhost:8080
+./dev.sh status   # check status
+./dev.sh stop     # stop server
+```
+
 #### Option 1: Using root build script (Recommended)
 
 ```bash
@@ -57,6 +66,26 @@ npx live-server --port=8080 --no-browser
 ```
 
 Then open: **http://localhost:8080**
+
+#### Option 4: Using the helper script (with dependency checks)
+
+```bash
+# From repo root
+cd algorithms-js
+./start-server.sh
+```
+
+What it does:
+- check_dependencies step: Verifies presence of required tools.
+  - Preferred: Node.js + npm (provides npx)
+  - Fallbacks: python3 or python
+- If something is missing, it will:
+  - List missing tools
+  - Show suggested install commands for macOS (Homebrew) and Debian/Ubuntu
+  - Prompt: "Some dependencies are missing. Continue anyway? [y/N]"
+- Starts on port 8000 using:
+  - npx serve (preferred)
+  - python3 -m http.server 8000, or python -m http.server 8000 if Python 3 is unavailable
 
 ### 📦 npm Scripts Reference
 
