@@ -1,10 +1,7 @@
-name: build
+name: JavaScript CI
 
 on:
   pull_request:
-    paths:
-      - 'algorithms-js/**'
-      - '.github/workflows/deploy-pages.yml'
   push:
     branches: [ master ]
     paths:
@@ -13,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: JavaScript Pages (PR)
+    name: Build pages
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -42,7 +39,7 @@ jobs:
         path: algorithms-js
 
   deploy:
-    name: Deploy to Pages (master)
+    name: Deploy to GitHub Pages (master)
     needs: build
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
