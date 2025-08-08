@@ -26,6 +26,13 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         
+    - name: Set up Gradle (no wrapper)
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.9'
+        cache-read-only: false
+        cache-disabled: false
+    
     - name: Cache Gradle packages
       uses: actions/cache@v4
       with:
@@ -36,13 +43,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     
-    - name: Grant execute permission for gradlew
-      run: chmod +x algorithms-java/gradlew
-      
     - name: Run tests with coverage
       run: |
         cd algorithms-java
-        ./gradlew clean test jacocoTestReport
+        gradle clean test jacocoTestReport
         
     - name: Publish coverage to Coveralls
       if: github.ref == 'refs/heads/master'
