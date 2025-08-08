@@ -1,4 +1,4 @@
-name: JavaScript CI
+name: JavaScript CI with Pages
 
 on:
   pull_request:
