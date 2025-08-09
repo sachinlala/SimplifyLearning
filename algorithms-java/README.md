@@ -1,5 +1,6 @@
 [![Java](https://img.shields.io/badge/Java-21-darkgreen.svg)](https://openjdk.org/)
 [![Coverage](https://img.shields.io/badge/Coverage-95%25-darkgreen.svg)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
+[![Java CI with Coverage](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml)
 
 > Comprehensive Java implementations of algorithms with rigorous testing and high code coverage.
 

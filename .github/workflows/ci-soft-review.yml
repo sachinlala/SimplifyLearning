@@ -35,6 +35,10 @@ jobs:
 
             for (const f of files) {
               const filename = f.filename;
+              // Skip workflow files to avoid reviewing our own CI YAML
+              if (filename.startsWith('.github/workflows/')) {
+                continue;
+              }
               const additions = f.additions;
               const changes = f.changes;
               const patch = f.patch || '';
