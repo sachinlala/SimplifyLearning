@@ -13,7 +13,7 @@
 
 ✨ Featuring interactive visualizations and examples to minimize cognitive load and maximize learning.
 
-<a href="https://sachinlala.github.io/SimplifyLearning/algorithms-js/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge" alt="Live Demo"/></a>
+<a href="https://sachinlala.github.io/SimplifyLearning/algorithms/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge" alt="Live Demo"/></a>
 
 ### 🌱 Stages of Learning 🌿
 
@@ -71,7 +71,7 @@ This is a multi-language mono-repo where you can choose your language of choice:
 
 -------
 
-<a href="https://sachinlala.github.io/SimplifyLearning/algorithms-js/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=for-the-badge&logo=github" alt="GitHub Pages"/></a>
+<a href="https://sachinlala.github.io/SimplifyLearning/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=for-the-badge&logo=github" alt="GitHub Pages"/></a>
 
 -------
 

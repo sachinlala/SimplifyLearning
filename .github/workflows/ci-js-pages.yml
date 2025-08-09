@@ -40,11 +40,44 @@ jobs:
         cd algorithms-js
         npm run build
 
+    - name: Prepare Pages artifact (root index + algorithms under /algorithms)
+      run: |
+        set -euo pipefail
+        mkdir -p public/algorithms
+        # Copy algorithms-js static site into /algorithms
+        rsync -a --delete --exclude node_modules --exclude .git algorithms-js/ public/algorithms/
+        # Create a simple index at site root listing available pages
+        cat > public/index.html << 'EOF'
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>SimplifyLearning – Pages</title>
+          <style>
+            body { font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; margin: 2rem; line-height: 1.6; }
+            h1 { margin-bottom: 0.5rem; }
+            ul { margin-top: 1rem; }
+            a { color: #0969da; text-decoration: none; }
+            a:hover { text-decoration: underline; }
+            .note { color: #57606a; font-size: 0.95rem; }
+          </style>
+        </head>
+        <body>
+          <h1>SimplifyLearning – GitHub Pages</h1>
+          <p class="note">Select a site below:</p>
+          <ul>
+            <li><a href="./algorithms/" rel="noopener">Algorithms (JavaScript UI)</a></li>
+          </ul>
+        </body>
+        </html>
+        EOF
+
     - name: Upload artifact
       if: env.IS_MASTER == 'true'
       uses: actions/upload-pages-artifact@v3
       with:
-        path: algorithms-js
+        path: public
 
   deploy:
     name: Deploy to GitHub Pages (master)
