@@ -5,12 +5,12 @@ on:
     branches: [ master ]
     paths:
       - 'algorithms-java/**'
-      - '.github/workflows/java.yml'
+      - '.github/workflows/ci-java.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'algorithms-java/**'
-      - '.github/workflows/java.yml'
+      - '.github/workflows/ci-java.yml'
 
 jobs:
   test:

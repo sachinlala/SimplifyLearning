@@ -5,12 +5,12 @@ on:
     branches: [ master ]
     paths:
       - 'algorithms-js/**'
-      - '.github/workflows/deploy-pages.yml'
+      - '.github/workflows/ci-js-pages.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'algorithms-js/**'
-      - '.github/workflows/deploy-pages.yml'
+      - '.github/workflows/ci-js-pages.yml'
 
 env:
   IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
