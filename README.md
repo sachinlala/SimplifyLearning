@@ -6,6 +6,7 @@
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 <a href="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml/badge.svg?branch=master" alt="Java CI with Coverage"/></a>
 <a href="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master" alt="JavaScript CI with Pages"/></a>
+<a href="https://sachinlala.goatcounter.com" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Analytics-Enabled-4A90E2?style=flat" alt="Analytics Enabled"/></a>
 
 ### <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
 
