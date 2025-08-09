@@ -4,12 +4,14 @@
 ![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg?color=darkgreen)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
+[![Java CI with Coverage](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml)
+[![JavaScript CI with Pages](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml)
 
 ### <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
 
-> **An anthology of foundational algorithms and data structures.**
+**An anthology of foundational algorithms and data structures.**
 
-> ✨ Featuring interactive visualizations and examples to minimize cognitive load and maximize learning.
+✨ Featuring interactive visualizations and examples to minimize cognitive load and maximize learning.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 

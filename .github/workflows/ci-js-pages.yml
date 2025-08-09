@@ -1,12 +1,19 @@
 name: JavaScript CI with Pages
 
 on:
-  pull_request:
   push:
     branches: [ master ]
     paths:
       - 'algorithms-js/**'
-      - '.github/workflows/deploy-pages.yml'
+      - '.github/workflows/ci-js-pages.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'algorithms-js/**'
+      - '.github/workflows/ci-js-pages.yml'
+
+env:
+  IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
 
 jobs:
   build:
@@ -34,6 +41,7 @@ jobs:
         npm run build
 
     - name: Upload artifact
+      if: env.IS_MASTER == 'true'
       uses: actions/upload-pages-artifact@v3
       with:
         path: algorithms-js
@@ -43,6 +51,8 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    env:
+      IS_MASTER: ${{ github.ref == 'refs/heads/master' }}
     permissions:
       contents: read
       pages: write
@@ -52,7 +62,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Setup Pages
+      if: env.IS_MASTER == 'true'
       uses: actions/configure-pages@v4
     - name: Deploy to GitHub Pages
+      if: env.IS_MASTER == 'true'
       id: deployment
       uses: actions/deploy-pages@v4
