@@ -4,8 +4,8 @@
 ![Open Issues](https://img.shields.io/github/issues/sachinlala/SimplifyLearning?label=Issues&color=006400&style=flat)
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg?color=darkgreen)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
-[![Java CI with Coverage](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml)
-[![JavaScript CI with Pages](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml)
+<a href="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-java.yml/badge.svg?branch=master" alt="Java CI with Coverage"/></a>
+<a href="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master" alt="JavaScript CI with Pages"/></a>
 
 ### <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
 
@@ -13,7 +13,7 @@
 
 ✨ Featuring interactive visualizations and examples to minimize cognitive load and maximize learning.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
+<a href="https://sachinlala.github.io/SimplifyLearning/algorithms/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge" alt="Live Demo"/></a>
 
 ### 🌱 Stages of Learning 🌿
 
@@ -71,7 +71,7 @@ This is a multi-language mono-repo where you can choose your language of choice:
 
 -------
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=for-the-badge&logo=github)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
+<a href="https://sachinlala.github.io/SimplifyLearning/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=for-the-badge&logo=github" alt="GitHub Pages"/></a>
 
 -------
 

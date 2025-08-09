@@ -40,11 +40,185 @@ jobs:
         cd algorithms-js
         npm run build
 
+    - name: Prepare Pages artifact (root index + algorithms under /algorithms)
+      run: |
+        set -euo pipefail
+        mkdir -p public/algorithms
+        # Copy algorithms-js static site into /algorithms
+        rsync -a --delete --exclude node_modules --exclude .git algorithms-js/ public/algorithms/
+        # Create a styled landing page at site root listing available pages
+        cat > public/index.html << 'EOF'
+        <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>SimplifyLearning – Pages</title>
+          <meta name="color-scheme" content="light dark" />
+          <style>
+            :root {
+              --bg: #0d1117;
+              --panel: #161b22;
+              --text: #c9d1d9;
+              --muted: #8b949e;
+              --link: #58a6ff;
+              --accent: #2ea043;
+              --border: #30363d;
+              --shadow: rgba(0, 0, 0, 0.3);
+              --badge: #8957e5;
+            }
+            @media (prefers-color-scheme: light) {
+              :root {
+                --bg: #f6f8fa;
+                --panel: #ffffff;
+                --text: #24292f;
+                --muted: #57606a;
+                --link: #0969da;
+                --accent: #2ea043;
+                --border: #d0d7de;
+                --shadow: rgba(0, 0, 0, 0.08);
+                --badge: #8250df;
+              }
+            }
+            * { box-sizing: border-box; }
+            body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
+            .container { max-width: 980px; margin: 0 auto; padding: 32px 16px 56px; }
+            header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+            .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+            .brand img { width: 28px; height: 28px; }
+            .title { font-size: 20px; font-weight: 600; letter-spacing: .2px; }
+            .mute { color: var(--muted); font-size: 14px; }
+            .toolbar { display: flex; gap: 8px; align-items: center; margin: 12px 0 8px; flex-wrap: wrap; }
+            .search { flex: 1 1 260px; min-width: 240px; }
+            input[type="search"] { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--text); }
+            .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+            .chip { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); color: var(--text); cursor: pointer; font-size: 13px; }
+            .chip.active { background: var(--badge); color: #fff; border-color: transparent; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+            .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: 0 4px 16px var(--shadow); display: flex; flex-direction: column; gap: 10px; position: relative; }
+            .card h3 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+            .icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--badge); color: #fff; font-weight: 700; font-size: 14px; }
+            .card p { margin: 0; color: var(--muted); font-size: 14px; }
+            .actions { margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; }
+            .btn { display: inline-block; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; color: var(--text); background: var(--panel); }
+            .btn.primary { border-color: var(--accent); background: var(--accent); color: white; }
+            .btn.disabled { opacity: .65; pointer-events: none; }
+            .badge { position: absolute; top: 12px; right: 12px; font-size: 11px; padding: 4px 8px; border-radius: 999px; background: var(--badge); color: #fff; }
+            footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+            a { color: var(--link); }
+            .hidden { display: none !important; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <header>
+              <a class="brand" href="https://github.com/sachinlala/SimplifyLearning" target="_blank" rel="noopener noreferrer">
+                <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" alt="SL" />
+                <span class="title">SimplifyLearning – Pages</span>
+              </a>
+              <span class="mute">Explore the sub-sites in this repository</span>
+            </header>
+
+            <div class="toolbar">
+              <div class="search"><input id="search" type="search" placeholder="Search sites... (e.g., algorithms, dynamic)" /></div>
+              <div class="chips" id="chips">
+                <span class="chip active" data-tag="all">All</span>
+                <span class="chip" data-tag="algorithms">Algorithms</span>
+                <span class="chip" data-tag="data-structures">Data Structures</span>
+                <span class="chip" data-tag="dynamic-programming">Dynamic Programming</span>
+                <span class="chip" data-tag="board-games">Board Games</span>
+              </div>
+            </div>
+
+            <section>
+              <div class="grid" id="grid">
+                <div class="card" data-title="Algorithms (JavaScript UI)" data-tags="algorithms live">
+                  <span class="badge">Live</span>
+                  <h3><span class="icon">A</span> Algorithms (JavaScript UI)</h3>
+                  <p>Interactive visualizations for foundational algorithms and data structures.</p>
+                  <div class="actions">
+                    <a class="btn primary" href="./algorithms/" rel="noopener">Open</a>
+                    <a class="btn" href="https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-js" target="_blank" rel="noopener noreferrer">Source</a>
+                  </div>
+                </div>
+
+                <div class="card" data-title="Data Structures" data-tags="data-structures coming-soon">
+                  <span class="badge">Coming Soon</span>
+                  <h3><span class="icon">DS</span> Data Structures</h3>
+                  <p>Explore stacks, queues, trees, heaps, tries, graphs and more with interactive demos.</p>
+                  <div class="actions">
+                    <a class="btn disabled" href="#" aria-disabled="true">Open</a>
+                    <a class="btn" href="https://github.com/sachinlala/SimplifyLearning" target="_blank" rel="noopener noreferrer">Roadmap</a>
+                  </div>
+                </div>
+
+                <div class="card" data-title="Dynamic Programming" data-tags="dynamic-programming coming-soon">
+                  <span class="badge">Coming Soon</span>
+                  <h3><span class="icon">DP</span> Dynamic Programming</h3>
+                  <p>Classic DP problems, visualized – from knapsack to LIS and matrix chain multiplication.</p>
+                  <div class="actions">
+                    <a class="btn disabled" href="#" aria-disabled="true">Open</a>
+                    <a class="btn" href="https://github.com/sachinlala/SimplifyLearning" target="_blank" rel="noopener noreferrer">Roadmap</a>
+                  </div>
+                </div>
+
+                <div class="card" data-title="Board Games" data-tags="board-games coming-soon">
+                  <span class="badge">Coming Soon</span>
+                  <h3><span class="icon">BG</span> Board Games</h3>
+                  <p>Algorithms behind board games: minimax, alpha-beta pruning, heuristics and strategy.</p>
+                  <div class="actions">
+                    <a class="btn disabled" href="#" aria-disabled="true">Open</a>
+                    <a class="btn" href="https://github.com/sachinlala/SimplifyLearning" target="_blank" rel="noopener noreferrer">Roadmap</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <footer>
+              Built with ❤️ • © 2025 Sachin Lala • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+            </footer>
+          </div>
+
+          <script>
+            (function(){
+              const search = document.getElementById('search');
+              const chips = document.getElementById('chips');
+              const cards = Array.from(document.querySelectorAll('#grid .card'));
+              let activeTag = 'all';
+
+              function applyFilter() {
+                const q = (search.value || '').trim().toLowerCase();
+                cards.forEach(card => {
+                  const title = (card.getAttribute('data-title') || '').toLowerCase();
+                  const tags = (card.getAttribute('data-tags') || '').toLowerCase().split(/\s+/);
+                  const matchText = !q || title.includes(q);
+                  const matchTag = activeTag === 'all' || tags.includes(activeTag);
+                  card.classList.toggle('hidden', !(matchText && matchTag));
+                });
+              }
+
+              search.addEventListener('input', applyFilter);
+              chips.addEventListener('click', (e) => {
+                const el = e.target.closest('.chip');
+                if (!el) return;
+                chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
+                activeTag = el.getAttribute('data-tag');
+                applyFilter();
+              });
+
+              applyFilter();
+            })();
+          </script>
+        </body>
+        </html>
+        EOF
+
     - name: Upload artifact
       if: env.IS_MASTER == 'true'
       uses: actions/upload-pages-artifact@v3
       with:
-        path: algorithms-js
+        path: public
 
   deploy:
     name: Deploy to GitHub Pages (master)

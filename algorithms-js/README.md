@@ -1,6 +1,6 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Mobile Friendly](https://img.shields.io/badge/Mobile-Friendly-blue.svg)]()
-[![JavaScript CI with Pages](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master)](https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml)
+<a href="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml" target="_blank" rel="noopener noreferrer"><img src="https://github.com/sachinlala/SimplifyLearning/actions/workflows/ci-js-pages.yml/badge.svg?branch=master" alt="JavaScript CI with Pages"/></a>
 
 > An interactive collection of algorithms with visual explanations and hands-on examples written in plain JavaScript.
 
