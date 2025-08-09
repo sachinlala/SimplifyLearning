@@ -110,5 +110,23 @@
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/js/components.js?v=1735954700"></script>
     <script type="module" src="assets/js/ui.js"></script>
+    
+    <!-- Optional GoatCounter analytics (if configured at repo level) -->
+    <script>
+      (function(){
+        var GC = (typeof window !== 'undefined') ? (window.GC_DOMAIN || '') : '';
+        // Allow override via query param for local testing: ?gc=somedomain.goatcounter.com
+        try { var p = new URLSearchParams(window.location.search); if (p.get('gc')) GC = p.get('gc'); } catch(e){}
+        // If CI injects GC_DOMAIN at deploy time, also pick it up via a meta tag or global
+        var meta = document.querySelector('meta[name="gc-domain"]');
+        if (!GC && meta) GC = meta.getAttribute('content') || '';
+        if (GC) {
+          var s = document.createElement('script');
+          s.async = true; s.defer = true; s.src = 'https://gc.zgo.at/count.js';
+          s.setAttribute('data-goatcounter', 'https://' + GC + '/count');
+          document.body.appendChild(s);
+        }
+      })();
+    </script>
 </body>
 </html>
