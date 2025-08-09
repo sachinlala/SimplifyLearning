@@ -73,6 +73,11 @@ This is a multi-language mono-repo where you can choose your language of choice:
 
 <a href="https://sachinlala.github.io/SimplifyLearning/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=for-the-badge&logo=github" alt="GitHub Pages"/></a>
 
+### Analytics
+- Click analytics powered by GoatCounter (privacy-friendly, free for OSS)
+- Dashboard (if configured): https://YOUR_SUBDOMAIN.goatcounter.com
+- Enable by adding a repository variable GC_DOMAIN set to your GoatCounter domain (e.g., mysite.goatcounter.com)
+
 -------
 
 📢 **Keywords**: `algorithms, data structures, interactive visualizations, Java, Gradle, JavaScript, 
