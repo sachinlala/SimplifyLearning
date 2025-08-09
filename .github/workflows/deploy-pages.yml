@@ -4,9 +4,6 @@ on:
   pull_request:
   push:
     branches: [ master ]
-    paths:
-      - 'algorithms-js/**'
-      - '.github/workflows/deploy-pages.yml'
 
 jobs:
   build:

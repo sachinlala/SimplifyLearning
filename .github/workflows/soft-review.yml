@@ -1,0 +1,85 @@
+name: Soft Review
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  soft-review:
+    name: Soft Review Feedback
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate soft review and comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const number = pr.number;
+
+            // Fetch changed files in the PR
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner,
+              repo,
+              pull_number: number,
+              per_page: 100
+            });
+
+            let todoFindings = [];
+            let largeFiles = [];
+            let summaryLines = [];
+
+            for (const f of files) {
+              const filename = f.filename;
+              const additions = f.additions;
+              const changes = f.changes;
+              const patch = f.patch || '';
+
+              // Detect TODO/FIXME in added lines only
+              const addedLines = patch.split('\n').filter(l => l.startsWith('+'));
+              const hasTodo = addedLines.some(l => /\b(TODO|FIXME|HACK|XXX)\b/i.test(l));
+              if (hasTodo) {
+                todoFindings.push(`- ${filename}`);
+              }
+
+              // Flag large file changes (heuristic: > 500 additions or > 1500 total changes)
+              if (additions > 500 || changes > 1500) {
+                largeFiles.push(`- ${filename} (additions: ${additions}, changes: ${changes})`);
+              }
+            }
+
+            summaryLines.push(`PR Title: ${pr.title}`);
+            summaryLines.push(`Author: @${pr.user.login}`);
+            summaryLines.push('');
+
+            if (todoFindings.length > 0) {
+              summaryLines.push('Noticed TODO/FIXME markers in:');
+              summaryLines.push(...todoFindings);
+              summaryLines.push('');
+            }
+
+            if (largeFiles.length > 0) {
+              summaryLines.push('Large file changes detected:');
+              summaryLines.push(...largeFiles);
+              summaryLines.push('');
+            }
+
+            if (todoFindings.length === 0 && largeFiles.length === 0) {
+              summaryLines.push('No TODO/FIXME markers or large changes detected.');
+            }
+
+            summaryLines.push('');
+            summaryLines.push('This is an automated soft review (no blocking).');
+
+            const body = summaryLines.join('\n');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: number,
+              body
+            });
