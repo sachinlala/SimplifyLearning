@@ -46,7 +46,7 @@ jobs:
         mkdir -p public/algorithms
         # Copy algorithms-js static site into /algorithms
         rsync -a --delete --exclude node_modules --exclude .git algorithms-js/ public/algorithms/
-        # Create a simple index at site root listing available pages
+        # Create a styled landing page at site root listing available pages
         cat > public/index.html << 'EOF'
         <!doctype html>
         <html lang="en">
@@ -54,21 +54,77 @@ jobs:
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <title>SimplifyLearning – Pages</title>
+          <meta name="color-scheme" content="light dark" />
           <style>
-            body { font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; margin: 2rem; line-height: 1.6; }
-            h1 { margin-bottom: 0.5rem; }
-            ul { margin-top: 1rem; }
-            a { color: #0969da; text-decoration: none; }
-            a:hover { text-decoration: underline; }
-            .note { color: #57606a; font-size: 0.95rem; }
+            :root {
+              --bg: #0d1117;
+              --panel: #161b22;
+              --text: #c9d1d9;
+              --muted: #8b949e;
+              --link: #58a6ff;
+              --accent: #2ea043;
+              --border: #30363d;
+              --shadow: rgba(0, 0, 0, 0.3);
+            }
+            @media (prefers-color-scheme: light) {
+              :root {
+                --bg: #f6f8fa;
+                --panel: #ffffff;
+                --text: #24292f;
+                --muted: #57606a;
+                --link: #0969da;
+                --accent: #2ea043;
+                --border: #d0d7de;
+                --shadow: rgba(0, 0, 0, 0.08);
+              }
+            }
+            * { box-sizing: border-box; }
+            body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
+            .container { max-width: 980px; margin: 0 auto; padding: 32px 16px 56px; }
+            header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+            .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+            .brand img { width: 28px; height: 28px; }
+            .title { font-size: 20px; font-weight: 600; letter-spacing: .2px; }
+            .mute { color: var(--muted); font-size: 14px; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+            .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: 0 4px 16px var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+            .card h3 { margin: 0; font-size: 18px; }
+            .card p { margin: 0; color: var(--muted); font-size: 14px; }
+            .actions { margin-top: 10px; display: flex; gap: 8px; }
+            .btn { display: inline-block; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; color: var(--text); background: var(--panel); }
+            .btn.primary { border-color: var(--accent); background: var(--accent); color: white; }
+            .btn:hover { filter: brightness(1.05); }
+            footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+            a { color: var(--link); }
           </style>
         </head>
         <body>
-          <h1>SimplifyLearning – GitHub Pages</h1>
-          <p class="note">Select a site below:</p>
-          <ul>
-            <li><a href="./algorithms/" rel="noopener">Algorithms (JavaScript UI)</a></li>
-          </ul>
+          <div class="container">
+            <header>
+              <a class="brand" href="https://github.com/sachinlala/SimplifyLearning" target="_blank" rel="noopener noreferrer">
+                <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" alt="SL" />
+                <span class="title">SimplifyLearning – Pages</span>
+              </a>
+              <span class="mute">Explore the sub-sites in this repository</span>
+            </header>
+
+            <section>
+              <div class="grid">
+                <div class="card">
+                  <h3>Algorithms (JavaScript UI)</h3>
+                  <p>Interactive visualizations for foundational algorithms and data structures.</p>
+                  <div class="actions">
+                    <a class="btn primary" href="./algorithms/" rel="noopener">Open</a>
+                    <a class="btn" href="https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-js" target="_blank" rel="noopener noreferrer">Source</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <footer>
+              Built with ❤️ • © 2025 Sachin Lala • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+            </footer>
+          </div>
         </body>
         </html>
         EOF
