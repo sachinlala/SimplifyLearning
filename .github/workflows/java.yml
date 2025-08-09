@@ -2,12 +2,13 @@ name: Java CI with Coverage
 
 on:
   push:
-    branches: [ master, main, hygiene ]
+    # Run on pushes to any branch, but only when relevant paths change
     paths: 
       - 'algorithms-java/**'
       - '.github/workflows/java.yml'
   pull_request:
-    branches: [ master, main ]
+    # Only run for PRs targeting master
+    branches: [ master ]
     paths:
       - 'algorithms-java/**'
       - '.github/workflows/java.yml'
@@ -34,16 +35,17 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('algorithms-java/**/*.gradle*', 'algorithms-java/**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    
+
     - name: Grant execute permission for gradlew
       run: chmod +x algorithms-java/gradlew
-      
+
     - name: Run tests with coverage
       run: |
         cd algorithms-java
         ./gradlew clean test jacocoTestReport
         
     - name: Publish coverage to Coveralls
+      if: github.ref == 'refs/heads/master'
       uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -53,6 +55,7 @@ jobs:
         flag-name: java
         
     - name: Upload coverage reports to Codecov (backup)
+      if: github.ref == 'refs/heads/master'
       uses: codecov/codecov-action@v4
       with:
         file: algorithms-java/build/reports/jacoco/test/jacocoTestReport.xml

@@ -93,15 +93,36 @@ task printCoverage {
             return
         }
         def xmlContent = reportFile.getText("UTF-8")
-                .replaceFirst(/<!DOCTYPE[^>]*>/, "")
-        def xml = new XmlSlurper(false, false).parseText(xmlContent)
+                .replaceFirst(/\<!DOCTYPE[^\>]*\>/, "")
+
         def showCoverage = { counterType ->
-            def counter = xml.counter.find { it.@type == counterType }
-            if (counter != null) {
-                def covered = counter.@covered.toInteger()
-                def missed = counter.@missed.toInteger()
-                def total = covered + missed
-                def percent = total > 0 ? (covered * 100.0 / total) : 0.0
+            def dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+            try {
+                // Harden XML parsing
+                dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
+                dbf.setFeature("http://xml.org/sax/features/external-general-entities", false)
+                dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false)
+                dbf.setExpandEntityReferences(false)
+            } catch (Throwable ignore) {}
+            def db = dbf.newDocumentBuilder()
+            def is = new java.io.ByteArrayInputStream(xmlContent.getBytes("UTF-8"))
+            def doc = db.parse(is)
+            doc.getDocumentElement().normalize()
+            def counters = doc.getElementsByTagName("counter")
+            def found = null
+            for (int i = 0; i < counters.getLength(); i++) {
+                def node = counters.item(i)
+                def attrs = node.getAttributes()
+                if (attrs.getNamedItem("type")?.getNodeValue() == counterType) {
+                    def covered = Integer.parseInt(attrs.getNamedItem("covered").getNodeValue())
+                    def missed = Integer.parseInt(attrs.getNamedItem("missed").getNodeValue())
+                    found = [covered: covered, missed: missed]
+                    break
+                }
+            }
+            if (found != null) {
+                def total = found.covered + found.missed
+                def percent = total > 0 ? (found.covered * 100.0 / total) : 0.0
                 println "${counterType} coverage: ${String.format('%.2f', percent)}%"
             } else {
                 println "${counterType} coverage information not found."

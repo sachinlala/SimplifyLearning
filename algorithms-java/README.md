@@ -1,4 +1,4 @@
-[![Java](https://img.shields.io/badge/Java-11+-darkgreen.svg)](https://openjdk.java.net/)
+[![Java](https://img.shields.io/badge/Java-21-darkgreen.svg)](https://openjdk.org/)
 [![Coverage](https://img.shields.io/badge/Coverage-95%25-darkgreen.svg)](https://coveralls.io/github/sachinlala/SimplifyLearning?branch=master)
 
 > Comprehensive Java implementations of algorithms with rigorous testing and high code coverage.
@@ -7,7 +7,7 @@
 
 ### Pre-requisites
 ```bash
-# Java 11+
+# Java 21 (same as CI)
 java -version
 ```
 

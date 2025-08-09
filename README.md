@@ -5,11 +5,11 @@
 [![Forks](https://img.shields.io/github/forks/sachinlala/SimplifyLearning.svg?color=darkgreen)](https://github.com/sachinlala/SimplifyLearning/network/members)
 [![Stars](https://img.shields.io/github/stars/sachinlala/SimplifyLearning.svg)](https://github.com/sachinlala/SimplifyLearning/stargazers)
 
-## <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
+### <img src="https://raw.githubusercontent.com/sachinlala/SimplifyLearning/master/algorithms-js/assets/images/sl-logo.svg" width="20" height="20" alt="SL" style="vertical-align: sub; margin-right: 6px;"> Simplify Learning
 
-**An anthology of foundational algorithms and data structures.**
+> **An anthology of foundational algorithms and data structures.**
 
-✨ Featuring interactive visualizations, intuitive explanations, and practical code examples designed to minimize cognitive load and maximize learning.
+> ✨ Featuring interactive visualizations and examples to minimize cognitive load and maximize learning.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-4A90E2?style=for-the-badge)](https://sachinlala.github.io/SimplifyLearning/algorithms-js/)
 
@@ -45,10 +45,11 @@
 > So it should be with kata. You can learn and get a rough idea of the entire kata in movements, and then begin to tweak and perfect each movement, revealing the art that lies within the kata.
 
 ### 💡 Cater to both minds !
-* ☕ [**Java**](./algorithms-java/README.md) - object-oriented implementations
-* ⚡ [**JavaScript**](./algorithms-js/README.md) - interactive visualizations
+* ☕ [Java](./algorithms-java/README.md) - object-oriented implementations
+* ⚡ [JavaScript](./algorithms-js/README.md) - interactive visualizations
 * 📋 [List of Algorithms](./algorithms-java/ALGORITHMS.md)
 * 🔧 [Unified Build System](./IDE-Setup.md) → run `./build.sh` to verify all modules
+* ▶️ Root dev helper: `./dev.sh start|stop|status` (starts/stops JS dev server at http://localhost:8080)
 
 ### ⭐ **If you find the project helpful, please give it a star!**
 
@@ -72,10 +73,10 @@ This is a multi-language mono-repo where you can choose your language of choice:
 
 -------
 
-📢 **Keywords**: algorithms, data structures, interactive visualizations, Java, Gradle, JavaScript, 
+📢 **Keywords**: `algorithms, data structures, interactive visualizations, Java, Gradle, JavaScript, 
 mono-repo, CS fundamentals, coding practice, simplify learning, sorting algorithms, searching 
 algorithms, dynamic programming, graph theory, backtracking, greedy algorithms, count and say, 
 template engine, queue, stack, deque, hash table, hash map, linked list, tree, trie, heap, css3, 
-vanillaJS, html, html5, accordian, animation
+vanillaJS, html, html5, accordian, animation`
 
 -------

@@ -1,24 +1,17 @@
-name: Build and Deploy Algorithm Pages
+name: JavaScript CI with Pages
 
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+  push:
+    branches: [ master ]
+    paths:
+      - 'algorithms-js/**'
+      - '.github/workflows/deploy-pages.yml'
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build pages
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -40,14 +33,26 @@ jobs:
         cd algorithms-js
         npm run build
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
         path: algorithms-js
 
+  deploy:
+    name: Deploy to GitHub Pages (master)
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
