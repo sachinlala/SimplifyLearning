@@ -67,16 +67,26 @@ function getMin(arr) {
     return Math.min(...arr);
 }
 
+// Utility function to get maximum value (wrapper for Math.max)
+function getMaxValue(...args) {
+    return Math.max(...args);
+}
+
+// Utility function to round a number (wrapper for Math.round)
+function roundNumber(num) {
+    return Math.round(num);
+}
+
 // Utility function to calculate the height of a bar given its value and max height
-function calculateBarHeight(value, maxValue, maxHeight = 200) {
-    if (maxValue === 0) return 0;
-    return (value / maxValue) * maxHeight;
+function calculateBarHeight(value, minValue, maxValue, minHeight = 40, maxHeight = 200) {
+    if (maxValue === minValue) return minHeight;
+    const normalizedValue = (value - minValue) / (maxValue - minValue);
+    return minHeight + (normalizedValue * (maxHeight - minHeight));
 }
 
 // Utility function to generate style for a bar based on its height
-function generateBarStyle(height, index = 0, isActive = false) {
-    const baseColor = isActive ? '#ff6b6b' : '#4ecdc4';
-    return `height: ${height}px; background-color: ${baseColor}; margin: 2px; display: inline-block; width: 30px; transition: all 0.3s ease;`;
+function generateBarStyle(height, color = '#4ecdc4', width = 30) {
+    return `height: ${height}px; background-color: ${color}; margin: 2px; display: inline-block; width: ${width}px; transition: all 0.3s ease; text-align: center; line-height: ${height}px; color: white; font-weight: bold; border-radius: 4px;`;
 }
 
 // UI and rendering-related utilities
@@ -161,6 +171,8 @@ if (typeof module !== 'undefined' && module.exports) {
         generateRandomSortedArray,
         getMax,
         getMin,
+        getMaxValue,
+        roundNumber,
         calculateBarHeight,
         generateBarStyle,
         wrapLongText,

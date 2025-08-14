@@ -307,6 +307,13 @@ class UniversalAlgorithmLoader {
             const templatePath = this.basePath ? `${this.basePath}/assets/js/dynamic-template.js` : `assets/js/dynamic-template.js`;
             await this.loadScript(templatePath);
             
+            // Load utils.js immediately after dynamic template to ensure utilities are available
+            const utilsPath = this.basePath ? `${this.basePath}/assets/js/utils.js` : `assets/js/utils.js`;
+            await this.loadScript(utilsPath);
+            
+            // Verify utility functions are available in global scope
+            await this.verifyDependencies();
+            
             // Load algorithm configuration
             const config = await this.loadConfig();
             
@@ -339,16 +346,63 @@ class UniversalAlgorithmLoader {
     }
 
     /**
-     * Load external script
+     * Load external script with enhanced error reporting
      */
     loadScript(src) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
-            script.onload = resolve;
-            script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+            script.onload = () => {
+                console.log(`✅ Successfully loaded: ${src}`);
+                resolve();
+            };
+            script.onerror = () => {
+                const error = new Error(`Failed to load script: ${src}`);
+                console.error(`❌ ${error.message}`);
+                reject(error);
+            };
             document.head.appendChild(script);
         });
+    }
+    
+    /**
+     * Verify that all required utility functions are available in global scope
+     */
+    async verifyDependencies() {
+        const requiredUtilities = [
+            'parseArray',
+            'isSorted', 
+            'measureTime',
+            'generateRandomArray',
+            'generateRandomSortedArray',
+            'getMax',
+            'getMin',
+            'calculateBarHeight',
+            'generateBarStyle',
+            'wrapLongText',
+            'formatNumber',
+            'debounce',
+            'copyToClipboard'
+        ];
+        
+        const missingUtilities = [];
+        
+        for (const utilName of requiredUtilities) {
+            if (typeof window[utilName] !== 'function') {
+                missingUtilities.push(utilName);
+            }
+        }
+        
+        if (missingUtilities.length > 0) {
+            const error = new Error(
+                `Missing required utility functions: ${missingUtilities.join(', ')}. ` +
+                'Please ensure utils.js is properly loaded and all functions are exported to the global scope.'
+            );
+            console.error('❌ Dependency verification failed:', error.message);
+            throw error;
+        }
+        
+        console.log('✅ All utility functions are available in global scope');
     }
 }
 

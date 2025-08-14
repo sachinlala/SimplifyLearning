@@ -198,7 +198,7 @@ const config = {
             let animationInterval;
             
             // Calculate delay based on speed (1-100 scale, inverted)
-            const getDelay = () => getMaxValue(100, 2000 - (speed * 18));
+            const getDelay = () => Math.max(100, 2000 - (speed * 18));
             
             function updateVisualization(step) {
                 const bars = arrayDiv.querySelectorAll('div');
@@ -244,7 +244,7 @@ const config = {
                             
                             // Calculate and update proportional height using utility function
                             const barHeight = calculateBarHeight(value, currentMinValue, currentMaxValue, minBarHeight, maxBarHeight);
-                            bars[index].style.height = parseInt(barHeight) + 'px';
+                            bars[index].style.height = Math.round(barHeight) + 'px';
                         }
                     });
                 }
@@ -323,7 +323,7 @@ const config = {
                         
                         // Calculate and restore original proportional height using utility function
                         const barHeight = calculateBarHeight(value, originalMinValue, originalMaxValue, minBarHeight, maxBarHeight);
-                        bars[index].style.height = roundNumber(barHeight) + 'px';
+                        bars[index].style.height = Math.round(barHeight) + 'px';
                     }
                 });
                 
