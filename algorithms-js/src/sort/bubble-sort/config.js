@@ -8,12 +8,12 @@ const config = {
     problem: "Sort an array of elements by repeatedly comparing adjacent elements and swapping them if they are in the wrong order.",
     cssPath: "../../../assets/css/styles.css",
     jsPath: "bubble-sort.js",
-    githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/main/algorithms-js/src/sort/bubble-sort/bubble-sort.js",
+    githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/bubble-sort/bubble-sort.js",
     
     // Multi-language source code paths
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/main/algorithms-js/src/sort/bubble-sort/bubble-sort.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/blob/main/algorithms-java/src/main/java/com/algorithms/sort/BubbleSort.java",
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/bubble-sort/bubble-sort.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/algorithms/sort/BubbleSort.java",
         python: "", // Coming soon
         go: "" // Coming soon
     },

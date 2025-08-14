@@ -67,7 +67,7 @@ npm run serve
        category: "category",
        cssPath: "../../../assets/css/styles.css",
        jsPath: "algorithm-name.js",
-       githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/main/algorithms-js/src/category/algorithm-name/algorithm-name.js",
+       githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/category/algorithm-name/algorithm-name.js",
        algorithmFunction: "mainAlgorithmFunction",
        
        inputs: [

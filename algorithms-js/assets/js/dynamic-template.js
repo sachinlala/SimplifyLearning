@@ -45,7 +45,7 @@ class DynamicAlgorithmTemplate {
         const fileName = config.jsPath || `${config.name.toLowerCase().replace(/\s+/g, '-')}.js`;
         // Use the first category for the GitHub path
         const primaryCategory = Array.isArray(config.category) ? config.category[0] : config.category;
-        return `https://github.com/sachinlala/SimplifyLearning/blob/main/algorithms-js/src/${primaryCategory}/${config.name.toLowerCase().replace(/\s+/g, '-')}/${fileName}`;
+        return `https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/${primaryCategory}/${config.name.toLowerCase().replace(/\s+/g, '-')}/${fileName}`;
     }
 
     /**
