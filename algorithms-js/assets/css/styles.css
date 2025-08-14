@@ -103,6 +103,21 @@ header {
     flex: 1;
 }
 
+/* Mobile-only center positioning */
+.mobile-only {
+    display: none;
+}
+
+/* Desktop adjacent positioning for SL logo */
+.desktop-adjacent {
+    display: flex;
+}
+
+/* Mobile first positioning for hamburger */
+.mobile-first {
+    order: 1;
+}
+
 /* GitHub Link */
 .github-link {
     color: var(--text-body);
@@ -613,49 +628,73 @@ footer {
 .accordion {
     background-color: var(--surface);
     border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.accordion:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .accordion-header {
-    background-color: #f8f9fa;
-    padding: 15px;
+    background-color: var(--surface);
+    padding: 16px 20px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid transparent;
     user-select: none;
+    transition: all 0.3s ease;
+    border-radius: 8px 8px 0 0;
 }
 
 .accordion-header:hover {
-    background-color: #e9ecef;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.accordion.active .accordion-header {
+    border-bottom-color: #ddd;
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 .accordion-title {
     margin: 0;
     font-size: 1.1rem;
     color: var(--text-body);
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .accordion-icon {
-    transition: transform 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-muted);
+    transform: rotate(0deg);
 }
 
 .accordion.active .accordion-icon {
     transform: rotate(180deg);
+    color: var(--accent);
 }
 
 .accordion-content {
-    padding: 0 15px;
+    padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    background-color: var(--surface);
+    border-radius: 0 0 8px 8px;
+    display: none;
 }
 
 .accordion.active .accordion-content {
-    max-height: 1000px;
-    padding: 15px;
+    max-height: 2000px;
+    padding: 20px;
+    display: block;
 }
 
 /* Enhanced Code Viewer - Compatible with Prism.js */
@@ -1083,6 +1122,48 @@ body.dark-mode .count-badge {
     color: var(--bg) !important;
 }
 
+/* Dark Mode Accordion Styles */
+body.dark-mode .accordion {
+    background-color: var(--surface);
+    border-color: #404040;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .accordion:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .accordion-header {
+    background-color: var(--surface);
+    color: var(--text-body);
+}
+
+body.dark-mode .accordion-header:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+body.dark-mode .accordion.active .accordion-header {
+    border-bottom-color: #404040;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+body.dark-mode .accordion-title {
+    color: var(--text-body);
+}
+
+body.dark-mode .accordion-icon {
+    color: var(--text-muted);
+}
+
+body.dark-mode .accordion.active .accordion-icon {
+    color: var(--accent);
+}
+
+body.dark-mode .accordion-content {
+    background-color: var(--surface);
+    color: var(--text-body);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     header {
@@ -1091,10 +1172,26 @@ body.dark-mode .count-badge {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
     }
 
+    /* Show mobile center, hide desktop center */
     .header-center {
+        display: none;
+    }
+    
+    .mobile-only {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        align-items: center;
         justify-content: center;
+    }
+    
+    /* Hide desktop adjacent SL logo */
+    .desktop-adjacent {
+        display: none;
     }
     
     .header-left {
@@ -1104,9 +1201,31 @@ body.dark-mode .count-badge {
         position: static;
     }
     
+    /* Hamburger menu first in mobile */
+    .mobile-first {
+        order: 1;
+    }
+    
+    .github-link {
+        order: 2;
+    }
+    
     .hamburger-btn {
         position: static;
-        order: 3;
+        order: 1;
+    }
+    
+    /* Theme toggle in top right for mobile */
+    .theme-toggle-btn {
+        position: relative;
+        z-index: 10;
+        padding: 8px;
+        font-size: 1.2em;
+        width: auto;
+        height: auto;
+        border-radius: 4px;
+        background: rgba(255,255,255,0.2);
+        border: none;
     }
     
     .nav-algorithms {

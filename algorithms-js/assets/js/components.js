@@ -17,12 +17,16 @@ class Accordion {
     }
     
     init() {
-        this.header.addEventListener('click', () => this.toggle());
+        // Ensure accordion starts in collapsed state
+        this.element.classList.remove('active');
         
-        // Set initial icon
-        if (!this.icon.textContent) {
+        // Set initial collapsed icon
+        if (this.icon) {
             this.icon.textContent = '▼';
         }
+        
+        // Add click event listener
+        this.header.addEventListener('click', () => this.toggle());
     }
     
     toggle() {
