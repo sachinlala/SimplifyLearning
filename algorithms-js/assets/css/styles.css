@@ -981,7 +981,7 @@ body.dark-mode .code-viewer {
     justify-content: space-between;
     width: 60px;
     height: 30px;
-    background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+    background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
     border-radius: 15px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
