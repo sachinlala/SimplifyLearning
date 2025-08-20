@@ -235,8 +235,18 @@ const required = ['name', 'title', 'category', 'cssPath', 'jsPath', 'githubPath'
     generateFooter() {
         return `
     <footer>
-        <p>Built with ❤️, to simplify learning • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></p>
-        <p>© 2025 <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a></p>
+        <div class="footer-content">
+            <div class="footer-line">Built with ❤️</div>
+            <div class="footer-line">© <span id="footer-year">2025</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const yearElement = document.getElementById('footer-year');
+                if (yearElement) {
+                    yearElement.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
     </footer>`;
     }
 

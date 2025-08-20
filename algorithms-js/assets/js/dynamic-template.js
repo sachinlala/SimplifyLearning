@@ -147,7 +147,7 @@ class DynamicAlgorithmTemplate {
             </a>
         </div>
         <div class="header-center mobile-only">
-            <a href="${config.backPath || '../../../index.html'}" class="home-link mobile-center">
+            <a href="${config.backPath || '../../../index.html'}" class="home-link">
                 <img src="../../../assets/images/sl-logo.svg" alt="SimplifyLearning" style="width: 32px; height: 32px;">
             </a>
         </div>
@@ -463,14 +463,17 @@ class DynamicAlgorithmTemplate {
         return `
     <footer>
         <div class="footer-content">
-            <div class="footer-line">
-                <img src="https://avatars.githubusercontent.com/u/20021459?s=24&v=4" alt="Sachin Lala" class="footer-profile-img">
-                Built with ❤️
-            </div>
-            <div class="footer-line">
-                © 2025 <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a>
-            </div>
+            <div class="footer-line">Built with ❤️</div>
+            <div class="footer-line">© <span id="footer-year">2025</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const yearElement = document.getElementById('footer-year');
+                if (yearElement) {
+                    yearElement.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
     </footer>`;
     }
 
