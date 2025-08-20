@@ -86,10 +86,15 @@ class UnifiedThemeManager {
      * Setup toggle button event listeners
      */
     setupToggleButtons() {
-        // Home page global toggle
+        // Home page global toggle (checkbox slider)
         const globalToggle = document.getElementById('global-theme-toggle');
         if (globalToggle) {
-            globalToggle.addEventListener('click', () => this.toggle());
+            // Check if it's a checkbox (new slider design) or button (legacy)
+            if (globalToggle.type === 'checkbox') {
+                globalToggle.addEventListener('change', () => this.toggle());
+            } else {
+                globalToggle.addEventListener('click', () => this.toggle());
+            }
         }
 
         // Algorithm page toggles
@@ -106,11 +111,17 @@ class UnifiedThemeManager {
         const isDark = this.currentTheme === 'dark';
         const buttonText = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
         
-        // Update global toggle button
+        // Update global toggle (checkbox slider or button)
         const globalToggle = document.getElementById('global-theme-toggle');
         if (globalToggle) {
-            globalToggle.textContent = buttonText;
-            this.updateButtonStyling(globalToggle, isDark);
+            if (globalToggle.type === 'checkbox') {
+                // Update checkbox state for slider component
+                globalToggle.checked = isDark;
+            } else {
+                // Legacy button support
+                globalToggle.textContent = buttonText;
+                this.updateButtonStyling(globalToggle, isDark);
+            }
         }
         
         // Update algorithm page toggle button
