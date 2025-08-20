@@ -28,16 +28,25 @@ class UniversalAlgorithmLoader {
             return pathParts.slice(0, algorithmsIndex + 1).join('/');
         }
         
-        // Check if we're serving from the algorithms-js root directory
-        // by testing if common algorithm structure exists
-        const testPaths = [
-            '/src/sort/bubble-sort/bubble-sort.js',
-            '/src/search/binary-search/binary-search.js',
-            '/assets/js/dynamic-template.js'
-        ];
+        // Check for production deployment patterns
+        // Pattern 1: /algorithms/demo.html (like designforlife.co.in/algorithms/demo.html)
+        const algorithmsLegacyIndex = pathParts.findIndex(part => part === 'algorithms');
+        if (algorithmsLegacyIndex !== -1) {
+            // We're in a production deployment where 'algorithms' folder contains the algorithms-js content
+            return pathParts.slice(0, algorithmsLegacyIndex + 1).join('/');
+        }
         
-        // If any of these paths exist, we're at the root
-        // For local development, assume we're at the root if no algorithms-js in path
+        // Pattern 2: Check if we're at domain root serving algorithms-js content
+        // Look for demo.html in current path
+        if (this.currentPath.includes('demo.html')) {
+            // Extract the directory containing demo.html
+            const demoIndex = pathParts.findIndex(part => part === 'demo.html');
+            if (demoIndex > 0) {
+                return pathParts.slice(0, demoIndex).join('/');
+            }
+        }
+        
+        // Local development fallback - assume we're at the root
         return '';
     }
 
@@ -255,14 +264,17 @@ class UniversalAlgorithmLoader {
     
     <footer>
         <div class="footer-content">
-            <div class="footer-line">
-                <img src="https://avatars.githubusercontent.com/u/20021459?s=24&v=4" alt="Sachin Lala" class="footer-profile-img">
-                Built with ❤️
-            </div>
-            <div class="footer-line">
-                © 2025 <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a>
-            </div>
+            <div class="footer-line">Built with ❤️</div>
+            <div class="footer-line">© <span id="footer-year">2025</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const yearElement = document.getElementById('footer-year');
+                if (yearElement) {
+                    yearElement.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
     </footer>
     
     <script src="${this.basePath || '../../../'}/assets/js/theme-toggle.js"></script>
@@ -323,6 +335,10 @@ class UniversalAlgorithmLoader {
             
             // Create template generator and generate HTML
             const template = new DynamicAlgorithmTemplate();
+            
+            // Pass base path information to config
+            config.basePath = this.basePath;
+            
             const html = template.generateHTML(config);
             
             // Replace document with generated HTML
