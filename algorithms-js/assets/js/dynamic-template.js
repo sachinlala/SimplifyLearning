@@ -49,6 +49,16 @@ class DynamicAlgorithmTemplate {
     }
 
     /**
+     * Generate Java source path based on algorithm info
+     */
+    generateJavaPath(config) {
+        // Use the first category for the Java path
+        const primaryCategory = Array.isArray(config.category) ? config.category[0] : config.category;
+        const algorithmName = config.name.toLowerCase().replace(/\s+/g, '');
+        return `https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/${primaryCategory}/${algorithmName}`;
+    }
+
+    /**
      * Generate complete HTML page
      */
     generateHTML(algorithmConfig) {
@@ -356,10 +366,10 @@ class DynamicAlgorithmTemplate {
      * Generate source code section
      */
     generateSourceCodeSection(config) {
-        // Use sourceCode paths if available, otherwise fallback to githubPath
+        // Use sourceCode paths if available, otherwise generate proper paths
         const sourceCode = config.sourceCode || {
             javascript: config.githubPath,
-            java: "https://github.com/sachinlala/SimplifyLearning/tree/main/algorithms-java/src/main/java/com/algorithms",
+            java: this.generateJavaPath(config),
             python: "",
             go: ""
         };
