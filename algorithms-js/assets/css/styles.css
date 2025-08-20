@@ -954,7 +954,103 @@ body.dark-mode .code-viewer {
     transform: scale(1);
 }
 
-/* Theme Toggle Button */
+/* Theme Slider Toggle Component */
+.theme-slider-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-slider {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.theme-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
+    height: 30px;
+    background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+}
+
+.slider-icon {
+    position: absolute;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.slider-icon.sun {
+    left: 8px;
+    opacity: 1;
+}
+
+.slider-icon.moon {
+    right: 8px;
+    opacity: 0.5;
+}
+
+.slider-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked state (dark mode) */
+.theme-toggle-input:checked + .slider {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-color: rgba(135, 206, 235, 0.3);
+}
+
+.theme-toggle-input:checked + .slider .slider-thumb {
+    transform: translateX(30px);
+    background: #f8f9fa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle-input:checked + .slider .slider-icon.sun {
+    opacity: 0.5;
+}
+
+.theme-toggle-input:checked + .slider .slider-icon.moon {
+    opacity: 1;
+}
+
+/* Hover effects */
+.theme-slider:hover .slider {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-slider:hover .theme-toggle-input:checked + .slider {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Legacy theme toggle button (for backwards compatibility) */
 .theme-toggle-btn {
     background: rgba(255, 255, 255, 0.2);
     color: #333;
@@ -1243,6 +1339,40 @@ body.dark-mode .accordion-content {
         border-radius: 4px;
         background: rgba(255,255,255,0.2);
         border: none;
+    }
+    
+    /* Mobile theme slider adjustments */
+    .theme-slider-container {
+        position: relative;
+        z-index: 10;
+    }
+    
+    .theme-slider .slider {
+        width: 50px;
+        height: 26px;
+        border-radius: 13px;
+    }
+    
+    .theme-slider .slider-thumb {
+        width: 22px;
+        height: 22px;
+        top: 2px;
+    }
+    
+    .theme-slider .slider-icon {
+        font-size: 12px;
+    }
+    
+    .theme-slider .slider-icon.sun {
+        left: 6px;
+    }
+    
+    .theme-slider .slider-icon.moon {
+        right: 6px;
+    }
+    
+    .theme-toggle-input:checked + .slider .slider-thumb {
+        transform: translateX(24px);
     }
     
     .nav-algorithms {
