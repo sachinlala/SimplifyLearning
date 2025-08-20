@@ -49,6 +49,16 @@ class DynamicAlgorithmTemplate {
     }
 
     /**
+     * Generate Java source path based on algorithm info
+     */
+    generateJavaPath(config) {
+        // Use the first category for the Java path
+        const primaryCategory = Array.isArray(config.category) ? config.category[0] : config.category;
+        const algorithmName = config.name.toLowerCase().replace(/\s+/g, '');
+        return `https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/${primaryCategory}/${algorithmName}`;
+    }
+
+    /**
      * Generate complete HTML page
      */
     generateHTML(algorithmConfig) {
@@ -147,7 +157,7 @@ class DynamicAlgorithmTemplate {
             </a>
         </div>
         <div class="header-center mobile-only">
-            <a href="${config.backPath || '../../../index.html'}" class="home-link mobile-center">
+            <a href="${config.backPath || '../../../index.html'}" class="home-link">
                 <img src="../../../assets/images/sl-logo.svg" alt="SimplifyLearning" style="width: 32px; height: 32px;">
             </a>
         </div>
@@ -356,10 +366,10 @@ class DynamicAlgorithmTemplate {
      * Generate source code section
      */
     generateSourceCodeSection(config) {
-        // Use sourceCode paths if available, otherwise fallback to githubPath
+        // Use sourceCode paths if available, otherwise generate proper paths
         const sourceCode = config.sourceCode || {
             javascript: config.githubPath,
-            java: "https://github.com/sachinlala/SimplifyLearning/tree/main/algorithms-java/src/main/java/com/algorithms",
+            java: this.generateJavaPath(config),
             python: "",
             go: ""
         };
@@ -463,14 +473,17 @@ class DynamicAlgorithmTemplate {
         return `
     <footer>
         <div class="footer-content">
-            <div class="footer-line">
-                <img src="https://avatars.githubusercontent.com/u/20021459?s=24&v=4" alt="Sachin Lala" class="footer-profile-img">
-                Built with ❤️
-            </div>
-            <div class="footer-line">
-                © 2025 <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a>
-            </div>
+            <div class="footer-line">Built with ❤️</div>
+            <div class="footer-line">© <span id="footer-year">2025</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const yearElement = document.getElementById('footer-year');
+                if (yearElement) {
+                    yearElement.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
     </footer>`;
     }
 

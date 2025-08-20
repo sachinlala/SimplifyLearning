@@ -103,12 +103,21 @@ header {
     flex: 1;
 }
 
-/* Mobile-only center positioning */
+.header-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* Utility classes for responsive design */
 .mobile-only {
     display: none;
 }
 
-/* Desktop adjacent positioning for SL logo */
+.desktop-only {
+    display: flex;
+}
+
 .desktop-adjacent {
     display: flex;
 }
@@ -529,12 +538,16 @@ footer {
 }
 
 .footer-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: block;
+    text-align: center;
 }
 
+.footer-line {
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+/* Deprecated - keeping for backward compatibility */
 .footer-avatar {
     width: 24px;
     height: 24px;
@@ -1189,8 +1202,12 @@ body.dark-mode .accordion-content {
         justify-content: center;
     }
     
-    /* Hide desktop adjacent SL logo */
+    /* Hide desktop adjacent SL logo and desktop-only elements */
     .desktop-adjacent {
+        display: none;
+    }
+    
+    .desktop-only {
         display: none;
     }
     
