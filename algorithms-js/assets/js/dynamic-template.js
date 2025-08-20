@@ -555,7 +555,11 @@ class DynamicAlgorithmTemplate {
         ${this.generateDemoFunction(config)}
         ${this.generateUtilityFunctions(config)}
         ${this.generateInitializationScript(config)}
-    </script>`;
+    </script>
+    
+    <!-- GoatCounter analytics -->
+    <script data-goatcounter="https://sachinlala.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>`;
     }
 
     /**
