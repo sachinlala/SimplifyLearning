@@ -14,7 +14,6 @@
 function runHeapSortDemo() {
     const arrayInput = document.getElementById('unsorted-array');
     const heapTypeInput = document.getElementById('heap-type');
-    const showStepsInput = document.getElementById('show-steps');
     const resultContainer = document.getElementById('result');
     const errorContainer = document.getElementById('error-message');
     const visualizationSection = document.getElementById('visualization-section');
@@ -35,7 +34,6 @@ function runHeapSortDemo() {
     
     const arrayInputStr = arrayInput.value;
     const heapType = heapTypeInput ? heapTypeInput.value : 'max';
-    const showSteps = showStepsInput ? showStepsInput.checked : true;
 
     // Clear previous error and result
     errorContainer.innerHTML = '';
@@ -68,12 +66,8 @@ function runHeapSortDemo() {
     try {
         const startTime = performance.now();
         
-        let result;
-        if (showSteps) {
-            result = heapSortWithSteps(parsedArray, heapType);
-        } else {
-            result = heapSort(parsedArray, heapType);
-        }
+        // Always use steps for visualization
+        const result = heapSortWithSteps(parsedArray, heapType);
         
         const endTime = performance.now();
         const executionTime = (endTime - startTime).toFixed(4);
@@ -138,7 +132,7 @@ function showHeapSortVisualization(originalArray, steps, heapType) {
         <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
         <button id="reset-sort-animation" class="viz-button reset">Reset</button>
         <div class="viz-legend">
-            🔴 Root/Parent | 🟡 Current Node | 🔵 Child Nodes | 🟢 Sorted Elements | ⚡ Heap Region
+            🟡 Comparing | 🟢 Sorted
         </div>
     `;
     arrayViz.appendChild(controlsDiv);

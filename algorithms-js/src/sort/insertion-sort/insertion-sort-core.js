@@ -127,8 +127,14 @@ function insertionSortSimple(arr) {
     return result.sortedArray;
 }
 
-// Browser compatibility - export core functions to global scope
-if (typeof window !== 'undefined') {
+// Export for both Node.js and browser environments
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        insertionSort,
+        binaryInsertionSort,
+        insertionSortSimple
+    };
+} else if (typeof window !== 'undefined') {
     window.InsertionSortCore = {
         insertionSort,
         binaryInsertionSort,

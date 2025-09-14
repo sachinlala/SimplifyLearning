@@ -224,8 +224,14 @@ function bubbleSortSimple(arr) {
     return result.sortedArray;
 }
 
-// Browser compatibility
-if (typeof window !== 'undefined') {
+// Export for both Node.js and browser environments
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        bubbleSort,
+        bubbleSortWithSteps,
+        bubbleSortSimple
+    };
+} else if (typeof window !== 'undefined') {
     window.BubbleSortCore = {
         bubbleSort,
         bubbleSortWithSteps,

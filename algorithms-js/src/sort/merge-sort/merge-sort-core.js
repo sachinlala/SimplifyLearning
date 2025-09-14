@@ -34,7 +34,7 @@ function mergeSortWithSteps(arr) {
     steps.push({
         type: 'start',
         array: [...workingArray],
-        message: `Starting merge sort with array of ${arr.length} elements`,
+        message: `Let's start sorting! We'll split the array into smaller pieces.`,
         subArrays: [],
         depth: 0,
         metrics: { ...metrics }
@@ -46,7 +46,7 @@ function mergeSortWithSteps(arr) {
     steps.push({
         type: 'complete',
         array: [...workingArray],
-        message: `Merge sort completed! Total comparisons: ${metrics.comparisons}, Total merges: ${metrics.merges}`,
+        message: `All done! The entire array is now perfectly sorted! 🎉`,
         subArrays: [],
         depth: 0,
         metrics: { ...metrics }
@@ -81,7 +81,7 @@ function topDownMergeSort(arr, start, end, aux, steps, metrics, depth) {
     steps.push({
         type: 'divide',
         array: [...arr],
-        message: `Dividing array[${start}...${end-1}] into left[${start}...${mid-1}] and right[${mid}...${end-1}]`,
+        message: `Splitting into two smaller groups to sort them separately`,
         subArrays: [
             { start, end: mid, type: 'left', color: 'blue' },
             { start: mid, end, type: 'right', color: 'green' }
@@ -123,7 +123,7 @@ function merge(arr, start, mid, end, aux, steps, metrics, depth) {
     steps.push({
         type: 'merge-start',
         array: [...arr],
-        message: `Merging left[${start}...${mid-1}] and right[${mid}...${end-1}]`,
+        message: `Now merging the sorted pieces back together`,
         subArrays: [
             { start, end: mid, type: 'left', color: 'blue' },
             { start: mid, end, type: 'right', color: 'green' }
@@ -143,7 +143,7 @@ function merge(arr, start, mid, end, aux, steps, metrics, depth) {
             steps.push({
                 type: 'merge-step',
                 array: [...arr],
-                message: `Comparing ${aux[i]} (left) ≤ ${j >= end ? 'end' : aux[j]} (right): taking ${aux[i]}`,
+                message: `Choosing ${aux[i]} (smaller value) for the next position`,
                 subArrays: [
                     { start, end: mid, type: 'left', color: 'blue' },
                     { start: mid, end, type: 'right', color: 'green' }
@@ -165,7 +165,7 @@ function merge(arr, start, mid, end, aux, steps, metrics, depth) {
             steps.push({
                 type: 'merge-step',
                 array: [...arr],
-                message: `Comparing ${i >= mid ? 'end' : aux[i]} (left) > ${aux[j]} (right): taking ${aux[j]}`,
+                message: `Choosing ${aux[j]} (smaller value) for the next position`,
                 subArrays: [
                     { start, end: mid, type: 'left', color: 'blue' },
                     { start: mid, end, type: 'right', color: 'green' }
@@ -193,7 +193,7 @@ function merge(arr, start, mid, end, aux, steps, metrics, depth) {
     steps.push({
         type: 'merge-complete',
         array: [...arr],
-        message: `Merge complete for range[${start}...${end-1}]. Result: [${arr.slice(start, end).join(', ')}]`,
+        message: `Great! This section is now sorted: [${arr.slice(start, end).join(', ')}]`,
         subArrays: [
             { start, end, type: 'merged', color: 'purple' }
         ],
