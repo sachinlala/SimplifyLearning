@@ -214,6 +214,20 @@ class AlgorithmList {
                 url: 'demo.html?algo=sort/quick-sort',
                 category: 'sort',
                 subcategory: 'divide-and-conquer'
+            },
+            {
+                name: 'Merge Sort',
+                description: 'Stable divide-and-conquer algorithm with guaranteed O(n log n) time complexity',
+                url: 'demo.html?algo=sort/merge-sort',
+                category: 'sort',
+                subcategory: 'divide-and-conquer'
+            },
+            {
+                name: 'Heap Sort',
+                description: 'In-place sorting algorithm using binary heap with O(n log n) guaranteed performance',
+                url: 'demo.html?algo=sort/heap-sort',
+                category: 'sort',
+                subcategory: 'heap-based'
             }
             // More algorithms can be added here
         ];

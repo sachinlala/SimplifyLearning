@@ -12,8 +12,8 @@ const config = {
     
     // Multi-language source code paths  
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/quick-sort/quick-sort.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/quicksort"
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/quick-sort/quick-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/QuickSort.java"
     },
     
     inputs: [

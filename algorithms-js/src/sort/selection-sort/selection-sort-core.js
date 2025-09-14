@@ -22,7 +22,7 @@
  * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-export function selectionSort(arr, options = {}) {
+function selectionSort(arr, options = {}) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -66,13 +66,18 @@ export function selectionSort(arr, options = {}) {
  * @param {number[]} arr - Array to sort
  * @returns {number[]} Sorted array
  */
-export function selectionSortSimple(arr) {
+function selectionSortSimple(arr) {
     const result = selectionSort(arr);
     return result.sortedArray;
 }
 
-// Browser compatibility - export core functions to global scope
-if (typeof window !== 'undefined') {
+// Export for both Node.js and browser environments
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        selectionSort,
+        selectionSortSimple
+    };
+} else if (typeof window !== 'undefined') {
     window.SelectionSortCore = {
         selectionSort,
         selectionSortSimple

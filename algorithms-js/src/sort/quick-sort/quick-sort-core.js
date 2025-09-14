@@ -94,7 +94,7 @@ function partition(arr, low, high, metrics, strategy = 'last') {
  * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-export function quickSort(arr, options = {}) {
+function quickSort(arr, options = {}) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -132,7 +132,7 @@ export function quickSort(arr, options = {}) {
  * @param {number[]} arr - Array to be sorted
  * @returns {Object} Sorted array and metrics
  */
-export function quickSortIterative(arr) {
+function quickSortIterative(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -213,13 +213,19 @@ function partitionSimple(array, low, high, metrics) {
  * @param {number[]} arr - Array to sort
  * @returns {number[]} Sorted array
  */
-export function quickSortSimple(arr) {
+function quickSortSimple(arr) {
     const result = quickSort(arr);
     return result.sortedArray;
 }
 
-// Browser compatibility - export core functions to global scope
-if (typeof window !== 'undefined') {
+// Export for both Node.js and browser environments
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        quickSort,
+        quickSortIterative,
+        quickSortSimple
+    };
+} else if (typeof window !== 'undefined') {
     window.QuickSortCore = {
         quickSort,
         quickSortIterative,
