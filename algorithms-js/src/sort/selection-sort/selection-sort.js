@@ -23,7 +23,7 @@ if (typeof window !== 'undefined' && window.SelectionSortCore) {
  * @param {number[]} arr - Array to be sorted
  * @returns {Object} Result with sorted array, steps, and metrics
  */
-export function selectionSortWithSteps(arr) {
+function selectionSortWithSteps(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],

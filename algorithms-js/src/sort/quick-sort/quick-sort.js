@@ -24,7 +24,7 @@ if (typeof window !== 'undefined' && window.QuickSortCore) {
  * @param {Object} options - Options including pivot strategy
  * @returns {Object} Result with sorted array, steps, and metrics
  */
-export function quickSortWithSteps(arr, options = {}) {
+function quickSortWithSteps(arr, options = {}) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
