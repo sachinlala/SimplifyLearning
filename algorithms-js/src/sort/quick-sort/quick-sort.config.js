@@ -51,14 +51,28 @@ const config = {
     ],
     
     explanation: {
-        description: "Quick Sort is a highly efficient divide-and-conquer algorithm that works by selecting a 'pivot' element and partitioning the array around it. Elements smaller than the pivot go to the left, larger elements go to the right, then both sides are recursively sorted.",
+        description: "Quick Sort is a highly efficient divide-and-conquer algorithm that works by selecting a 'pivot' element and partitioning the array around it. Elements smaller than the pivot go to the left, larger elements go to the right, then both sides are recursively sorted. This demo supports both recursive and iterative implementations.",
         steps: [
             "Choose a pivot element from the array using a selection strategy",
             "Partition the array so all elements < pivot are on the left, all elements > pivot are on the right",
             "The pivot is now in its final sorted position",
             "Recursively apply the same process to the left and right sub-arrays",
             "Continue until all sub-arrays have been sorted"
-        ]
+        ],
+        implementations: {
+            recursive: {
+                description: "Standard recursive implementation using the call stack",
+                details: "Uses function recursion to sort sub-arrays. Clean and intuitive but limited by stack size.",
+                advantages: ["Simple to understand", "Clean code structure", "Automatic stack management"],
+                disadvantages: ["Stack overflow risk on large datasets", "Function call overhead"]
+            },
+            iterative: {
+                description: "Stack-based implementation that avoids recursion", 
+                details: "Uses an explicit stack instead of recursion to avoid stack overflow on large datasets. Maintains the same partitioning logic but manages sub-array ranges manually.",
+                advantages: ["No recursion stack limit", "Suitable for very large arrays", "Explicit memory control"],
+                disadvantages: ["More complex implementation", "Manual stack management required"]
+            }
+        }
     },
     
     complexityAnalysis: {
@@ -182,17 +196,6 @@ const config = {
                 if (result.steps && result.steps.length > 0 && implementation === 'recursive') {
                     showQuickSortVisualization(arrayInput, result.steps, pivotStrategy);
                     visualizationSection.style.display = 'block';
-                } else if (implementation === 'iterative') {
-                    // For iterative quicksort, show summary without step-by-step animation
-                    const summaryDiv = document.createElement('div');
-                    summaryDiv.className = 'viz-summary';
-                    summaryDiv.innerHTML = \`
-                        <strong>Iterative QuickSort Summary:</strong><br>
-                        Uses an explicit stack instead of recursion to avoid stack overflow on large datasets.<br>
-                        Maintains the same partitioning logic but manages sub-array ranges manually.<br>
-                        <strong>Advantage:</strong> No recursion stack limit, suitable for very large arrays.
-                    \`;
-                    resultContainer.appendChild(summaryDiv);
                 }
                 
             } catch (error) {
@@ -401,6 +404,129 @@ const config = {
                 updateVisualization(steps[0]);
             }
         }`
+},
+
+// CSS styles for QuickSort visualization
+customStyles: `
+    .viz-cell {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ddd;
+        background: #f8f9fa;
+        font-weight: bold;
+        border-radius: 4px;
+        margin: 2px;
+        transition: all 0.6s ease;
+        font-size: 14px;
+    }
+    
+    .viz-cell.current-range {
+        background: #e3f2fd !important;
+        border-color: #2196f3 !important;
+        box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+    }
+    
+    .viz-cell.pivot {
+        background: #ffecb3 !important;
+        border-color: #f57f17 !important;
+        transform: scale(1.2);
+        box-shadow: 0 4px 8px rgba(245, 127, 23, 0.5);
+        z-index: 10;
+    }
+    
+    .viz-cell.comparing {
+        background: #fff3e0 !important;
+        border-color: #ff9800 !important;
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(255, 152, 0, 0.4);
+    }
+    
+    .viz-cell.swapping {
+        background: #ffcdd2 !important;
+        border-color: #f44336 !important;
+        transform: scale(1.15);
+        animation: shake 0.5s;
+        box-shadow: 0 3px 6px rgba(244, 67, 54, 0.5);
+    }
+    
+    .viz-cell.left-partition {
+        background: #e8f5e8 !important;
+        border-color: #4caf50 !important;
+        box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+    }
+    
+    .viz-cell.right-partition {
+        background: #f3e5f5 !important;
+        border-color: #9c27b0 !important;
+        box-shadow: 0 2px 4px rgba(156, 39, 176, 0.3);
+    }
+    
+    .viz-status {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.1em;
+        font-weight: bold;
+        min-height: 25px;
+        padding: 10px;
+        background: #f0f8ff;
+        border-radius: 6px;
+        border: 1px solid #b3d9ff;
+    }
+    
+    .viz-step-info {
+        background: #f8f9fa;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        font-size: 0.9em;
+        border-left: 4px solid #007acc;
+    }
+    
+    .viz-step-info.complete {
+        border-left-color: #28a745;
+        background: #d4edda;
+    }
+    
+    .viz-summary {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 15px;
+        border-left: 4px solid #007acc;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0) scale(1.15); }
+        25% { transform: translateX(-2px) scale(1.15); }
+        75% { transform: translateX(2px) scale(1.15); }
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode .viz-cell {
+        background: #343a40 !important;
+        border-color: #495057 !important;
+        color: #fff;
+    }
+    
+    body.dark-mode .viz-status {
+        background: #343a40;
+        border-color: #495057;
+        color: #fff;
+    }
+    
+    body.dark-mode .viz-step-info {
+        background: #343a40;
+        color: #fff;
+    }
+    
+    body.dark-mode .viz-summary {
+        background: #343a40;
+        color: #fff;
+    }
+`
 };
 
 // Export for both Node.js and browser environments

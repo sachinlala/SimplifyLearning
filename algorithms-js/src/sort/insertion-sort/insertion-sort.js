@@ -198,11 +198,235 @@ function insertionSortWithSteps(arr) {
     };
 }
 
+/**
+ * Binary insertion sort with step-by-step tracking for visualization
+ * @param {number[]} arr - Array to be sorted
+ * @returns {Object} Result with sorted array, steps, and metrics
+ */
+function binaryInsertionSortWithSteps(arr) {
+    if (!arr || arr.length <= 1) {
+        return {
+            sortedArray: arr || [],
+            steps: [],
+            metrics: { comparisons: 0, shifts: 0, passes: 0 }
+        };
+    }
+
+    const sortedArray = [...arr];
+    const n = sortedArray.length;
+    const steps = [];
+    let comparisons = 0;
+    let shifts = 0;
+
+    // Initial state
+    steps.push({
+        type: 'start',
+        array: [...sortedArray],
+        message: 'Starting Binary Insertion Sort - using binary search to find insertion positions',
+        currentIndex: 1,
+        sortedUpTo: 1,
+        comparisons,
+        shifts,
+        highlightIndices: [0]
+    });
+
+    // Binary insertion sort with step tracking
+    for (let i = 1; i < n; i++) {
+        const key = sortedArray[i];
+        
+        steps.push({
+            type: 'pick-element',
+            array: [...sortedArray],
+            message: `Pass ${i}: Picking element ${key} at position ${i} for binary search insertion`,
+            currentIndex: i,
+            key: key,
+            sortedUpTo: i,
+            comparisons,
+            shifts,
+            highlightIndices: [i],
+            sortedPortion: [0, i - 1]
+        });
+        
+        // Binary search for insertion position
+        let left = 0;
+        let right = i;
+        let searchRange = [left, right - 1];
+        
+        steps.push({
+            type: 'binary-search-start',
+            array: [...sortedArray],
+            message: `Binary search for ${key} in sorted portion [0...${i-1}], search range: [${left}, ${right-1}]`,
+            currentIndex: i,
+            key: key,
+            searchRange: searchRange,
+            sortedUpTo: i,
+            comparisons,
+            shifts,
+            highlightIndices: [i],
+            sortedPortion: [0, i - 1]
+        });
+        
+        while (left < right) {
+            const mid = Math.floor((left + right) / 2);
+            comparisons++;
+            
+            steps.push({
+                type: 'binary-search-compare',
+                array: [...sortedArray],
+                message: `Comparing ${key} with ${sortedArray[mid]} at middle position ${mid}`,
+                currentIndex: i,
+                key: key,
+                mid: mid,
+                searchRange: [left, right - 1],
+                sortedUpTo: i,
+                comparisons,
+                shifts,
+                highlightIndices: [i, mid],
+                sortedPortion: [0, i - 1]
+            });
+            
+            if (sortedArray[mid] > key) {
+                right = mid;
+                steps.push({
+                    type: 'binary-search-left',
+                    array: [...sortedArray],
+                    message: `${sortedArray[mid]} > ${key}, searching left half: [${left}, ${mid-1}]`,
+                    currentIndex: i,
+                    key: key,
+                    mid: mid,
+                    searchRange: [left, right - 1],
+                    sortedUpTo: i,
+                    comparisons,
+                    shifts,
+                    highlightIndices: [i],
+                    sortedPortion: [0, i - 1]
+                });
+            } else {
+                left = mid + 1;
+                steps.push({
+                    type: 'binary-search-right',
+                    array: [...sortedArray],
+                    message: `${sortedArray[mid]} ≤ ${key}, searching right half: [${left}, ${right-1}]`,
+                    currentIndex: i,
+                    key: key,
+                    mid: mid,
+                    searchRange: [left, right - 1],
+                    sortedUpTo: i,
+                    comparisons,
+                    shifts,
+                    highlightIndices: [i],
+                    sortedPortion: [0, i - 1]
+                });
+            }
+        }
+        
+        steps.push({
+            type: 'position-found',
+            array: [...sortedArray],
+            message: `Binary search complete. Insertion position found: ${left}`,
+            currentIndex: i,
+            key: key,
+            insertPosition: left,
+            sortedUpTo: i,
+            comparisons,
+            shifts,
+            highlightIndices: [left, i],
+            sortedPortion: [0, i - 1]
+        });
+        
+        // Shift elements to make space
+        if (left < i) {
+            steps.push({
+                type: 'shift-start',
+                array: [...sortedArray],
+                message: `Shifting elements [${left}...${i-1}] one position right to make space`,
+                currentIndex: i,
+                key: key,
+                insertPosition: left,
+                shiftRange: [left, i - 1],
+                sortedUpTo: i,
+                comparisons,
+                shifts,
+                highlightIndices: [left, i],
+                sortedPortion: [0, i - 1]
+            });
+            
+            for (let j = i; j > left; j--) {
+                sortedArray[j] = sortedArray[j - 1];
+                shifts++;
+            }
+            
+            steps.push({
+                type: 'shift-complete',
+                array: [...sortedArray],
+                message: `Elements shifted, ${shifts} total shifts so far`,
+                currentIndex: i,
+                key: key,
+                insertPosition: left,
+                sortedUpTo: i,
+                comparisons,
+                shifts,
+                highlightIndices: [left],
+                sortedPortion: [0, i - 1]
+            });
+        }
+        
+        // Insert key at correct position
+        sortedArray[left] = key;
+        
+        steps.push({
+            type: 'insert',
+            array: [...sortedArray],
+            message: `Inserted ${key} at position ${left}. Sorted portion now: [${sortedArray.slice(0, i + 1).join(', ')}]`,
+            currentIndex: i,
+            key: key,
+            insertPosition: left,
+            sortedUpTo: i + 1,
+            comparisons,
+            shifts,
+            highlightIndices: [left],
+            sortedPortion: [0, i]
+        });
+
+        steps.push({
+            type: 'pass-end',
+            array: [...sortedArray],
+            message: `Pass ${i} complete. Used binary search to find position in O(log n) comparisons.`,
+            currentPass: i,
+            sortedUpTo: i + 1,
+            comparisons,
+            shifts,
+            highlightIndices: [],
+            sortedPortion: [0, i]
+        });
+    }
+
+    // Final step
+    steps.push({
+        type: 'complete',
+        array: [...sortedArray],
+        message: `Binary Insertion Sort complete! Made ${comparisons} comparisons and ${shifts} shifts in ${n - 1} passes.`,
+        comparisons,
+        shifts,
+        passes: n - 1,
+        sortedUpTo: n,
+        highlightIndices: []
+    });
+
+    return {
+        sortedArray,
+        steps,
+        metrics: { comparisons, shifts, passes: n - 1 }
+    };
+}
+
 // Browser compatibility - expose visualization functions to global scope
 if (typeof window !== 'undefined') {
     window.InsertionSortVisualization = {
-        insertionSortWithSteps
+        insertionSortWithSteps,
+        binaryInsertionSortWithSteps
     };
     // Expose commonly used functions in global scope for demo configs
     window.insertionSortWithSteps = insertionSortWithSteps;
+    window.binaryInsertionSortWithSteps = binaryInsertionSortWithSteps;
 }

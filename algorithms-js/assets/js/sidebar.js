@@ -116,28 +116,81 @@ class SidebarManager {
     }
     
     getAlgorithms() {
-        // Default algorithms - this should match the ones in components.js
+        // All algorithms - matches the ones in components.js plus summary pages
         return [
+            // Special summary pages
+            {
+                name: 'Sorting Algorithms',
+                description: 'Comprehensive overview of all sorting algorithms with complexity analysis',
+                url: 'src/sort/sorting-algorithms-summary.html',
+                category: 'summary',
+                subcategory: 'overview',
+                icon: '🔀'
+            },
+            // Individual algorithms
             {
                 name: 'Count and Say',
                 description: 'Generate sequences where each term describes the previous term',
                 url: 'demo.html?algo=patterns/count-and-say',
                 category: 'sequences',
-                subcategory: 'sequences'
+                subcategory: 'sequences',
+                icon: '🔢'
             },
             {
                 name: 'Binary Search',
                 description: 'Efficient search algorithm for sorted arrays with O(log n) complexity',
                 url: 'demo.html?algo=search/binary-search',
                 category: 'search',
-                subcategory: 'arrays'
+                subcategory: 'arrays',
+                icon: '🔍'
             },
             {
                 name: 'Bubble Sort',
                 description: 'Simple sorting algorithm that repeatedly compares adjacent elements',
                 url: 'demo.html?algo=sort/bubble-sort',
                 category: 'sort',
-                subcategory: 'comparison'
+                subcategory: 'comparison',
+                icon: '🫧'
+            },
+            {
+                name: 'Selection Sort',
+                description: 'In-place sorting algorithm that finds minimum elements one by one',
+                url: 'demo.html?algo=sort/selection-sort',
+                category: 'sort',
+                subcategory: 'comparison',
+                icon: '👆'
+            },
+            {
+                name: 'Insertion Sort',
+                description: 'Adaptive sorting algorithm that builds sorted array incrementally',
+                url: 'demo.html?algo=sort/insertion-sort',
+                category: 'sort',
+                subcategory: 'comparison',
+                icon: '⬅️'
+            },
+            {
+                name: 'Quick Sort',
+                description: 'Efficient divide-and-conquer algorithm with O(n log n) average performance',
+                url: 'demo.html?algo=sort/quick-sort',
+                category: 'sort',
+                subcategory: 'divide-and-conquer',
+                icon: '⚡'
+            },
+            {
+                name: 'Merge Sort',
+                description: 'Stable divide-and-conquer algorithm with guaranteed O(n log n) time complexity',
+                url: 'demo.html?algo=sort/merge-sort',
+                category: 'sort',
+                subcategory: 'divide-and-conquer',
+                icon: '🔗'
+            },
+            {
+                name: 'Heap Sort',
+                description: 'In-place sorting algorithm using binary heap with O(n log n) guaranteed performance',
+                url: 'demo.html?algo=sort/heap-sort',
+                category: 'sort',
+                subcategory: 'heap-based',
+                icon: '⛰️'
             }
         ];
     }
@@ -159,10 +212,79 @@ class SidebarManager {
         item.href = algorithm.url;
         item.className = 'sidebar-algorithm-item';
         
+        const icon = algorithm.icon || '🔄';
+        
         item.innerHTML = `
-            <span class="algorithm-name">${algorithm.name}</span>
-            <span class="algorithm-category">${algorithm.category}</span>
+            <div class="algorithm-icon">${icon}</div>
+            <div class="algorithm-info">
+                <span class="algorithm-name">${algorithm.name}</span>
+                <span class="algorithm-category">${algorithm.category}</span>
+            </div>
         `;
+        
+        item.style.cssText = `
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+            gap: 12px;
+        `;
+        
+        // Style the icon and info sections
+        const algorithmIcon = item.querySelector('.algorithm-icon');
+        const algorithmInfo = item.querySelector('.algorithm-info');
+        const algorithmName = item.querySelector('.algorithm-name');
+        const algorithmCategory = item.querySelector('.algorithm-category');
+        
+        if (algorithmIcon) {
+            algorithmIcon.style.cssText = `
+                font-size: 18px;
+                width: 24px;
+                text-align: center;
+            `;
+        }
+        
+        if (algorithmInfo) {
+            algorithmInfo.style.cssText = `
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            `;
+        }
+        
+        if (algorithmName) {
+            algorithmName.style.cssText = `
+                font-weight: 500;
+                font-size: 0.9rem;
+                color: #333;
+            `;
+        }
+        
+        if (algorithmCategory) {
+            algorithmCategory.style.cssText = `
+                font-size: 0.75rem;
+                color: #666;
+                text-transform: capitalize;
+                background: #f0f0f0;
+                padding: 2px 6px;
+                border-radius: 8px;
+                align-self: flex-start;
+                font-weight: 400;
+            `;
+        }
+        
+        // Hover effects
+        item.addEventListener('mouseenter', () => {
+            item.style.backgroundColor = '#f8f9fa';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            item.style.backgroundColor = '';
+        });
         
         // Close sidebar when item is clicked
         item.addEventListener('click', () => {
