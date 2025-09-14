@@ -537,19 +537,15 @@ class DynamicAlgorithmTemplate {
         // Only load utils.js if not already loaded by universal loader
         const utilsScriptTag = isUniversalLoader ? '' : `<script src="../../../assets/js/utils.js"></script>`;
         
-        const themeTogglePath = config.basePath ? `${config.basePath}/assets/js/theme-toggle.js` : "../../../assets/js/theme-toggle.js";
+        const unifiedThemeManagerPath = config.basePath ? `${config.basePath}/assets/js/unified-theme-manager.js` : "../../../assets/js/unified-theme-manager.js";
         const sidebarPath = config.basePath ? `${config.basePath}/assets/js/sidebar.js` : "../../../assets/js/sidebar.js";
         const componentsPath = config.basePath ? `${config.basePath}/assets/js/components.js` : (config.componentsPath || '../../../assets/js/components.js');
-        const syntaxThemePath = config.basePath ? `${config.basePath}/assets/js/syntax-theme-toggle.js` : "../../../assets/js/syntax-theme-toggle.js";
         
         return `
     ${utilsScriptTag}
-    <script src="${themeTogglePath}"></script>
+    <script src="${unifiedThemeManagerPath}"></script>
     <script src="${sidebarPath}"></script>
     <script src="${componentsPath}"></script>
-    
-    <!-- Syntax highlighting theme toggle -->
-    <script src="${syntaxThemePath}"></script>
     ${algorithmScriptTag}
     <script>
         ${this.generateDemoFunction(config)}
