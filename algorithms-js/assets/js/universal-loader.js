@@ -107,7 +107,7 @@ class UniversalAlgorithmLoader {
             category: parts[1],
             algorithmName: parts[2],
             fullPath: this.algorithmPath,
-            configPath: `config.js`,
+            configPath: `${parts[2]}.config.js`,
             jsPath: `${parts[2]}.js`
         };
     }
@@ -119,9 +119,9 @@ class UniversalAlgorithmLoader {
         const algorithmInfo = this.getAlgorithmInfo();
         
         try {
-            // Create a script element to load config.js from the algorithm directory
+            // Create a script element to load config file from the algorithm directory
             const script = document.createElement('script');
-            const configPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/config.js` : `${algorithmInfo.fullPath}/config.js`;
+            const configPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${algorithmInfo.configPath}` : `${algorithmInfo.fullPath}/${algorithmInfo.configPath}`;
             script.src = configPath;
             
             return new Promise((resolve, reject) => {
@@ -158,12 +158,12 @@ class UniversalAlgorithmLoader {
                     if (config) {
                         resolve(config);
                     } else {
-                        reject(new Error('Could not find configuration object in config.js'));
+                        reject(new Error(`Could not find configuration object in ${algorithmInfo.configPath}`));
                     }
                 };
                 
                 script.onerror = () => {
-                    reject(new Error('Failed to load config.js'));
+                    reject(new Error(`Failed to load ${algorithmInfo.configPath}`));
                 };
                 
                 document.head.appendChild(script);
