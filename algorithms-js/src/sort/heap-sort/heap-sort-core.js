@@ -32,7 +32,7 @@ function heapSortWithSteps(arr, heapType = 'max') {
     steps.push({
         type: 'start',
         array: [...workingArray],
-        message: `Starting heap sort with ${heapType}-heap. Array size: ${arr.length}`,
+        message: `Let's start sorting! First, we'll organize the data into a special structure.`,
         heapSize: heapSize,
         phase: 'build-heap',
         metrics: { ...metrics }
@@ -45,7 +45,7 @@ function heapSortWithSteps(arr, heapType = 'max') {
     for (let i = arr.length - 1; i > 0; i--) {
         // Move current root to end
         swap(workingArray, 0, i, steps, metrics, 'extract-max', 
-             `Moving heap root ${workingArray[0]} to sorted position ${i}`);
+             `Moving ${workingArray[0]} to its final sorted position`);
         
         heapSize--;
         
@@ -53,7 +53,7 @@ function heapSortWithSteps(arr, heapType = 'max') {
         steps.push({
             type: 'extract',
             array: [...workingArray],
-            message: `Extracted ${workingArray[i]} from heap. Heap size reduced to ${heapSize}`,
+            message: `${workingArray[i]} is now in its correct position! `,
             heapSize: heapSize,
             extractedIndex: i,
             extractedValue: workingArray[i],
@@ -69,7 +69,7 @@ function heapSortWithSteps(arr, heapType = 'max') {
     steps.push({
         type: 'complete',
         array: [...workingArray],
-        message: `Heap sort completed! Total comparisons: ${metrics.comparisons}, Total swaps: ${metrics.swaps}`,
+        message: `Perfect! All elements are now sorted! 🎉`,
         heapSize: 0,
         phase: 'complete',
         metrics: { ...metrics }
@@ -91,7 +91,7 @@ function buildHeap(arr, heapSize, heapType, steps, metrics) {
         steps.push({
             type: 'build-heap-step',
             array: [...arr],
-            message: `Building heap: Heapifying subtree rooted at index ${i}`,
+            message: `Organizing elements to find the largest value`,
             heapSize: heapSize,
             currentNode: i,
             phase: 'build-heap',
@@ -104,7 +104,7 @@ function buildHeap(arr, heapSize, heapType, steps, metrics) {
     steps.push({
         type: 'heap-built',
         array: [...arr],
-        message: `${heapType}-heap construction complete! Root contains ${heapType === 'max' ? 'maximum' : 'minimum'} element: ${arr[0]}`,
+        message: `Great! Now ${arr[0]} is at the top - it's the ${heapType === 'max' ? 'largest' : 'smallest'} value.`,
         heapSize: heapSize,
         phase: 'heap-built',
         metrics: { ...metrics }
@@ -154,7 +154,7 @@ function heapify(arr, heapSize, i, heapType, steps, metrics, phase) {
     steps.push({
         type: 'heapify',
         array: [...arr],
-        message: `Heapifying at index ${i}. Comparing with children: left=${left < heapSize ? arr[left] : 'none'}, right=${right < heapSize ? arr[right] : 'none'}`,
+        message: `Comparing values to maintain the sorted structure`,
         heapSize: heapSize,
         currentNode: i,
         leftChild: left < heapSize ? left : null,
@@ -167,7 +167,7 @@ function heapify(arr, heapSize, i, heapType, steps, metrics, phase) {
     // If target is not the original root, swap and continue heapifying
     if (target !== i) {
         swap(arr, i, target, steps, metrics, 'heapify-swap', 
-             `Swapping ${arr[i]} at index ${i} with ${arr[target]} at index ${target} to maintain heap property`);
+             `Swapping ${arr[i]} and ${arr[target]} to keep everything organized`);
         
         // Recursively heapify the affected subtree
         heapify(arr, heapSize, target, heapType, steps, metrics, phase);

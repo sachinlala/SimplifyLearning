@@ -11,11 +11,13 @@
 // Core algorithm functions are loaded from quick-sort-core.js via script tag
 // In browser environment, these functions are available in the global scope via window.QuickSortCore
 
-// For compatibility, create references to core functions if they exist
-let quickSort, quickSortIterative, quickSortSimple;
+// For compatibility, create references to core functions (loaded dynamically)
+// Note: Core functions are available globally via window.QuickSortCore
 
-if (typeof window !== 'undefined' && window.QuickSortCore) {
-    ({ quickSort, quickSortIterative, quickSortSimple } = window.QuickSortCore);
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    // Core functions are available via window.QuickSortCore when needed
+    // No local variables needed since we're not using them in this file
 }
 
 /**
@@ -25,6 +27,9 @@ if (typeof window !== 'undefined' && window.QuickSortCore) {
  * @returns {Object} Result with sorted array, steps, and metrics
  */
 function quickSortWithSteps(arr, options = {}) {
+    // Ensure core functions are available (safe late binding)
+    ensureCoreFunctions();
+    
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],

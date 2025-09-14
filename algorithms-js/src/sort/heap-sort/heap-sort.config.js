@@ -34,13 +34,6 @@ const config = {
             ],
             defaultValue: "max",
             width: "200px"
-        },
-        {
-            id: "show-steps",
-            type: "checkbox",
-            label: "Show Step-by-Step Visualization",
-            defaultValue: true,
-            width: "auto"
         }
     ],
     

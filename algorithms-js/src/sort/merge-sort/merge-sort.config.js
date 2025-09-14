@@ -23,13 +23,6 @@ const config = {
             label: "Unsorted Array (max 16 elements for visualization)",
             defaultValue: "38, 27, 43, 3, 9, 82, 10, 1",
             width: "320px"
-        },
-        {
-            id: "show-steps",
-            type: "checkbox",
-            label: "Show Step-by-Step Visualization",
-            defaultValue: true,
-            width: "auto"
         }
     ],
     

@@ -13,7 +13,6 @@
  */
 function runMergeSortDemo() {
     const arrayInputStr = document.getElementById('unsorted-array').value;
-    const showSteps = document.getElementById('show-steps').checked;
     const resultContainer = document.getElementById('result');
     const errorContainer = document.getElementById('error-message');
     const visualizationSection = document.getElementById('visualization-section');
@@ -47,12 +46,8 @@ function runMergeSortDemo() {
     try {
         const startTime = performance.now();
         
-        let result;
-        if (showSteps) {
-            result = mergeSortWithSteps(arrayInput);
-        } else {
-            result = mergeSort(arrayInput);
-        }
+        // Always use steps for visualization
+        const result = mergeSortWithSteps(arrayInput);
         
         const endTime = performance.now();
         const executionTime = (endTime - startTime).toFixed(4);
@@ -70,7 +65,7 @@ function runMergeSortDemo() {
         
         resultContainer.innerHTML = resultHTML;
 
-        // Show visualization if steps are available
+        // Always show visualization
         if (result.steps && result.steps.length > 0) {
             showMergeSortVisualization(arrayInput, result.steps);
             visualizationSection.style.display = 'block';
@@ -117,7 +112,7 @@ function showMergeSortVisualization(originalArray, steps) {
         <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
         <button id="reset-sort-animation" class="viz-button reset">Reset</button>
         <div class="viz-legend">
-            🔵 Left Sub-array | 🟢 Right Sub-array | 🟣 Merged | 🟡 Current Element | ⚡ Active Range
+            🔵 Left Partition | 🟢 Right Partition | 🟡 Current | 🟢 Sorted
         </div>
     `;
     arrayViz.appendChild(controlsDiv);

@@ -98,6 +98,10 @@ class DynamicAlgorithmTemplate {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${config.title} - SimplifyLearning</title>
+    <link rel="icon" type="image/x-icon" href="${config.basePath ? `${config.basePath}/assets/favicon/favicon.ico` : '../../../assets/favicon/favicon.ico'}">
+    <link rel="icon" type="image/png" sizes="16x16" href="${config.basePath ? `${config.basePath}/assets/favicon/favicon-16x16.png` : '../../../assets/favicon/favicon-16x16.png'}">
+    <link rel="icon" type="image/png" sizes="32x32" href="${config.basePath ? `${config.basePath}/assets/favicon/favicon-32x32.png` : '../../../assets/favicon/favicon-32x32.png'}">
+    <link rel="icon" type="image/png" sizes="48x48" href="${config.basePath ? `${config.basePath}/assets/favicon/favicon-48x48.png` : '../../../assets/favicon/favicon-48x48.png'}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -587,7 +591,7 @@ class DynamicAlgorithmTemplate {
     <footer>
         <div class="footer-content">
             <div class="footer-line">Built with ❤️</div>
-            <div class="footer-line">© <span id="footer-year">2025</span> <span style="margin: 0 0.5em;">•</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> <span style="margin: 0 0.5em;">•</span> <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
+            <div class="footer-line">© <span id="footer-year">2025</span>&nbsp;•&nbsp;<a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a>&nbsp;•&nbsp;<a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
