@@ -422,9 +422,14 @@ body.dark-mode .sidebar {
 }
 
 body.dark-mode .sidebar-header {
-    background-color: var(--surface);
-    color: var(--text-body);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+    color: var(--text-body) !important;
     border-bottom-color: #404040;
+}
+
+body.dark-mode .sidebar-header h3 {
+    color: var(--text-body) !important;
+    font-weight: 600;
 }
 
 body.dark-mode .close-btn {
@@ -545,6 +550,25 @@ footer {
 .footer-line {
     margin: 4px 0;
     line-height: 1.4;
+    word-spacing: 0.2em;
+}
+
+/* Ensure proper spacing for footer links on mobile */
+@media (max-width: 768px) {
+    .footer-line {
+        word-spacing: 0.15em;
+        letter-spacing: 0.02em;
+        font-size: 0.9rem;
+    }
+    
+    footer {
+        padding: 12px 10px;
+    }
+    
+    .footer-content {
+        max-width: 100%;
+        padding: 0 5px;
+    }
 }
 
 /* Deprecated - keeping for backward compatibility */
