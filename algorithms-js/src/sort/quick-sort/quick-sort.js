@@ -1,144 +1,21 @@
 /**
- * Quick Sort - Core Algorithm Implementation
+ * Quick Sort - Visualization and Step-by-Step Implementation
  * 
- * Quick Sort is a highly efficient divide-and-conquer sorting algorithm that works by 
- * selecting a 'pivot' element and partitioning the array around it, then recursively 
- * sorting the sub-arrays.
- * 
- * Algorithm: Choose a pivot, partition array so elements < pivot are on left, 
- * elements > pivot are on right, then recursively sort both sides.
- * 
- * Time Complexity: O(n log n) average, O(n²) worst case
- * Space Complexity: O(log n) average (recursion stack), O(n) worst case
- * 
- * Properties: In-place, not stable, divide-and-conquer
- * Inventor: Tony Hoare (1960)
+ * This file contains the visualization functions for Quick Sort algorithm.
+ * The core algorithm logic is in quick-sort-core.js.
  * 
  * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-/**
- * Core quick sort algorithm with configurable pivot selection
- * @param {number[]} arr - Array to be sorted
- * @param {Object} options - Options for sorting behavior
- * @returns {Object} Sorted array and metrics
- */
-export function quickSort(arr, options = {}) {
-    if (!arr || arr.length <= 1) {
-        return {
-            sortedArray: arr || [],
-            metrics: { comparisons: 0, swaps: 0, recursiveDepth: 0, partitions: 0 }
-        };
-    }
+// Core algorithm functions are loaded from quick-sort-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.QuickSortCore
 
-    // Create a copy to avoid modifying the original array
-    const sortedArray = [...arr];
-    const metrics = { comparisons: 0, swaps: 0, recursiveDepth: 0, partitions: 0 };
-    const pivotStrategy = options.pivotStrategy || 'median-of-three';
+// For compatibility, create references to core functions if they exist
+let quickSort, quickSortIterative, quickSortSimple;
 
-    /**
-     * Partition function - core of QuickSort
-     * Places pivot in correct position and returns its index
-     */
-    function partition(array, low, high) {
-        metrics.partitions++;
-        
-        // Choose pivot based on strategy
-        let pivotIndex;
-        switch (pivotStrategy) {
-            case 'first':
-                pivotIndex = low;
-                break;
-            case 'last':
-                pivotIndex = high;
-                break;
-            case 'random':
-                pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
-                break;
-            case 'median-of-three':
-            default:
-                pivotIndex = medianOfThree(array, low, high);
-                break;
-        }
-        
-        // Move pivot to end for partitioning
-        if (pivotIndex !== high) {
-            [array[pivotIndex], array[high]] = [array[high], array[pivotIndex]];
-            metrics.swaps++;
-        }
-        
-        const pivot = array[high];
-        let i = low - 1; // Index of smaller element
-        
-        for (let j = low; j < high; j++) {
-            metrics.comparisons++;
-            
-            if (array[j] <= pivot) {
-                i++;
-                if (i !== j) {
-                    [array[i], array[j]] = [array[j], array[i]];
-                    metrics.swaps++;
-                }
-            }
-        }
-        
-        // Place pivot in correct position
-        if (i + 1 !== high) {
-            [array[i + 1], array[high]] = [array[high], array[i + 1]];
-            metrics.swaps++;
-        }
-        
-        return i + 1;
-    }
-    
-    /**
-     * Median-of-three pivot selection
-     */
-    function medianOfThree(array, low, high) {
-        const mid = Math.floor((low + high) / 2);
-        
-        metrics.comparisons += 3;
-        
-        if (array[mid] < array[low]) {
-            [array[low], array[mid]] = [array[mid], array[low]];
-            metrics.swaps++;
-        }
-        if (array[high] < array[low]) {
-            [array[low], array[high]] = [array[high], array[low]];
-            metrics.swaps++;
-        }
-        if (array[high] < array[mid]) {
-            [array[mid], array[high]] = [array[high], array[mid]];
-            metrics.swaps++;
-        }
-        
-        return mid;
-    }
-    
-    /**
-     * Recursive QuickSort function
-     */
-    function quickSortRecursive(array, low, high, depth = 0) {
-        metrics.recursiveDepth = Math.max(metrics.recursiveDepth, depth);
-        
-        if (low < high) {
-            const pivotIndex = partition(array, low, high);
-            
-            // Recursively sort elements before and after partition
-            quickSortRecursive(array, low, pivotIndex - 1, depth + 1);
-            quickSortRecursive(array, pivotIndex + 1, high, depth + 1);
-        }
-    }
-    
-    // Start the recursive sorting
-    quickSortRecursive(sortedArray, 0, sortedArray.length - 1);
-    
-    return {
-        sortedArray,
-        metrics,
-        pivotStrategy
-    };
+if (typeof window !== 'undefined' && window.QuickSortCore) {
+    ({ quickSort, quickSortIterative, quickSortSimple } = window.QuickSortCore);
 }
 
 /**
@@ -403,108 +280,11 @@ export function quickSortWithSteps(arr, options = {}) {
     };
 }
 
-/**
- * Iterative QuickSort implementation (avoids recursion stack overflow)
- * @param {number[]} arr - Array to be sorted
- * @returns {Object} Sorted array and metrics
- */
-export function quickSortIterative(arr) {
-    if (!arr || arr.length <= 1) {
-        return {
-            sortedArray: arr || [],
-            metrics: { comparisons: 0, swaps: 0, stackSize: 0, partitions: 0 }
-        };
-    }
-
-    const sortedArray = [...arr];
-    const metrics = { comparisons: 0, swaps: 0, stackSize: 0, partitions: 0 };
-    const stack = [];
-    
-    // Push initial range
-    stack.push({ low: 0, high: sortedArray.length - 1 });
-    metrics.stackSize = Math.max(metrics.stackSize, stack.length);
-    
-    while (stack.length > 0) {
-        const { low, high } = stack.pop();
-        
-        if (low < high) {
-            const pivotIndex = partitionSimple(sortedArray, low, high, metrics);
-            
-            // Push sub-arrays to stack (smaller first for better performance)
-            if (pivotIndex - 1 - low < high - (pivotIndex + 1)) {
-                if (pivotIndex + 1 < high) {
-                    stack.push({ low: pivotIndex + 1, high });
-                }
-                if (low < pivotIndex - 1) {
-                    stack.push({ low, high: pivotIndex - 1 });
-                }
-            } else {
-                if (low < pivotIndex - 1) {
-                    stack.push({ low, high: pivotIndex - 1 });
-                }
-                if (pivotIndex + 1 < high) {
-                    stack.push({ low: pivotIndex + 1, high });
-                }
-            }
-            
-            metrics.stackSize = Math.max(metrics.stackSize, stack.length);
-        }
-    }
-    
-    return {
-        sortedArray,
-        metrics
-    };
-}
-
-/**
- * Simple partition function for iterative version
- */
-function partitionSimple(array, low, high, metrics) {
-    metrics.partitions++;
-    const pivot = array[high];
-    let i = low - 1;
-    
-    for (let j = low; j < high; j++) {
-        metrics.comparisons++;
-        if (array[j] <= pivot) {
-            i++;
-            if (i !== j) {
-                [array[i], array[j]] = [array[j], array[i]];
-                metrics.swaps++;
-            }
-        }
-    }
-    
-    if (i + 1 !== high) {
-        [array[i + 1], array[high]] = [array[high], array[i + 1]];
-        metrics.swaps++;
-    }
-    
-    return i + 1;
-}
-
-/**
- * Simple quick sort function (backward compatibility)
- * @param {number[]} arr - Array to sort
- * @returns {number[]} Sorted array
- */
-export function quickSortSimple(arr) {
-    const result = quickSort(arr);
-    return result.sortedArray;
-}
-
-// Browser compatibility
+// Browser compatibility - expose visualization functions to global scope
 if (typeof window !== 'undefined') {
-    window.QuickSortCore = {
-        quickSort,
-        quickSortWithSteps,
-        quickSortIterative,
-        quickSortSimple
+    window.QuickSortVisualization = {
+        quickSortWithSteps
     };
     // Expose commonly used functions in global scope for demo configs
     window.quickSortWithSteps = quickSortWithSteps;
-    window.quickSortIterative = quickSortIterative;
-    // Global function for backward compatibility
-    window.quickSort = quickSortSimple;
 }

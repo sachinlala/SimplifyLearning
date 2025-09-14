@@ -8,12 +8,15 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import core algorithm functions
-// Note: In browser environment, these will be available via script tag loading
-import { insertionSort, binaryInsertionSort, insertionSortSimple } from './insertion-sort-core.js';
+// Core algorithm functions are loaded from insertion-sort-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.InsertionSortCore
 
-// Re-export core functions for compatibility
-export { insertionSort, binaryInsertionSort, insertionSortSimple };
+// For compatibility, create references to core functions if they exist
+let insertionSort, binaryInsertionSort, insertionSortSimple;
+
+if (typeof window !== 'undefined' && window.InsertionSortCore) {
+    ({ insertionSort, binaryInsertionSort, insertionSortSimple } = window.InsertionSortCore);
+}
 
 /**
  * Insertion sort with step-by-step tracking for visualization

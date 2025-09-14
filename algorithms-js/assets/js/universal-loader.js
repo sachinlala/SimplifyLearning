@@ -329,7 +329,18 @@ class UniversalAlgorithmLoader {
             // Load algorithm configuration
             const config = await this.loadConfig();
             
-            // Load algorithm JavaScript file
+            // Load core algorithm file first (if it exists)
+            const coreJsPath = algorithmInfo.jsPath.replace('.js', '-core.js');
+            const fullCoreJsPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${coreJsPath}` : `${algorithmInfo.fullPath}/${coreJsPath}`;
+            
+            try {
+                await this.loadScript(fullCoreJsPath);
+                console.log(`✅ Core algorithm loaded: ${coreJsPath}`);
+            } catch (error) {
+                console.log(`ℹ️  No core file found: ${coreJsPath} (this is optional)`);
+            }
+            
+            // Load main algorithm JavaScript file
             const jsPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${algorithmInfo.jsPath}` : `${algorithmInfo.fullPath}/${algorithmInfo.jsPath}`;
             await this.loadScript(jsPath);
             

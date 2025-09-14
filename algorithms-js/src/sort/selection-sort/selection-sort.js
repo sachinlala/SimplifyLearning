@@ -8,12 +8,15 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import core algorithm functions
-// Note: In browser environment, these will be available via script tag loading
-import { selectionSort, selectionSortSimple } from './selection-sort-core.js';
+// Core algorithm functions are loaded from selection-sort-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.SelectionSortCore
 
-// Re-export core functions for compatibility
-export { selectionSort, selectionSortSimple };
+// For compatibility, create references to core functions if they exist
+let selectionSort, selectionSortSimple;
+
+if (typeof window !== 'undefined' && window.SelectionSortCore) {
+    ({ selectionSort, selectionSortSimple } = window.SelectionSortCore);
+}
 
 /**
  * Selection sort with step-by-step tracking for visualization
