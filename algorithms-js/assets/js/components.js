@@ -193,6 +193,27 @@ class AlgorithmList {
                 url: 'demo.html?algo=sort/bubble-sort',
                 category: 'sort',
                 subcategory: 'comparison'
+            },
+            {
+                name: 'Selection Sort',
+                description: 'In-place sorting algorithm that finds minimum elements one by one',
+                url: 'demo.html?algo=sort/selection-sort',
+                category: 'sort',
+                subcategory: 'comparison'
+            },
+            {
+                name: 'Insertion Sort',
+                description: 'Adaptive sorting algorithm that builds sorted array incrementally',
+                url: 'demo.html?algo=sort/insertion-sort',
+                category: 'sort',
+                subcategory: 'comparison'
+            },
+            {
+                name: 'Quick Sort',
+                description: 'Efficient divide-and-conquer algorithm with O(n log n) average performance',
+                url: 'demo.html?algo=sort/quick-sort',
+                category: 'sort',
+                subcategory: 'divide-and-conquer'
             }
             // More algorithms can be added here
         ];

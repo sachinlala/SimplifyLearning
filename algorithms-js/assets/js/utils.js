@@ -181,3 +181,23 @@ if (typeof module !== 'undefined' && module.exports) {
         copyToClipboard
     };
 }
+
+// Export to global window object for browser compatibility
+if (typeof window !== 'undefined') {
+    // Attach all utility functions to the global window object
+    window.parseArray = parseArray;
+    window.isSorted = isSorted;
+    window.measureTime = measureTime;
+    window.generateRandomArray = generateRandomArray;
+    window.generateRandomSortedArray = generateRandomSortedArray;
+    window.getMax = getMax;
+    window.getMin = getMin;
+    window.getMaxValue = getMaxValue;
+    window.roundNumber = roundNumber;
+    window.calculateBarHeight = calculateBarHeight;
+    window.generateBarStyle = generateBarStyle;
+    window.wrapLongText = wrapLongText;
+    window.formatNumber = formatNumber;
+    window.debounce = debounce;
+    window.copyToClipboard = copyToClipboard;
+}
