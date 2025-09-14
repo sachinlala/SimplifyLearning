@@ -310,6 +310,9 @@ if (typeof window !== 'undefined') {
         binaryInsertionSort,
         insertionSortSimple
     };
+    // Expose commonly used functions in global scope for demo configs
+    window.insertionSortWithSteps = insertionSortWithSteps;
+    window.binaryInsertionSort = binaryInsertionSort;
     // Global function for backward compatibility
     window.insertionSort = insertionSortSimple;
 }

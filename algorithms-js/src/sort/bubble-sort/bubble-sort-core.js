@@ -231,6 +231,8 @@ if (typeof window !== 'undefined') {
         bubbleSortWithSteps,
         bubbleSortSimple
     };
+    // Expose commonly used functions in global scope for demo configs
+    window.bubbleSortWithSteps = bubbleSortWithSteps;
     // Backward compatibility
     window.bubbleSort = bubbleSortSimple;
 }

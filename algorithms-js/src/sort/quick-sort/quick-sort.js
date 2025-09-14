@@ -502,6 +502,9 @@ if (typeof window !== 'undefined') {
         quickSortIterative,
         quickSortSimple
     };
+    // Expose commonly used functions in global scope for demo configs
+    window.quickSortWithSteps = quickSortWithSteps;
+    window.quickSortIterative = quickSortIterative;
     // Global function for backward compatibility
     window.quickSort = quickSortSimple;
 }

@@ -241,6 +241,8 @@ if (typeof window !== 'undefined') {
         selectionSortWithSteps,
         selectionSortSimple
     };
+    // Expose commonly used functions in global scope for demo configs
+    window.selectionSortWithSteps = selectionSortWithSteps;
     // Global function for backward compatibility
     window.selectionSort = selectionSortSimple;
 }
