@@ -12,8 +12,8 @@ const config = {
     
     // Multi-language source code paths
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/bubble-sort/bubble-sort.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/bubblesort",
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/bubble-sort/bubble-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/BubbleSort.java",
         python: "", // Coming soon
         go: "" // Coming soon
     },

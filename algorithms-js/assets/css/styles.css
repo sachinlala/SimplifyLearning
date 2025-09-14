@@ -551,14 +551,32 @@ footer {
     margin: 4px 0;
     line-height: 1.4;
     word-spacing: 0.2em;
+    white-space: normal;
+}
+
+/* Ensure spacing between year and author name */
+.footer-line #footer-year {
+    margin-right: 0.5em;
 }
 
 /* Ensure proper spacing for footer links on mobile */
 @media (max-width: 768px) {
     .footer-line {
-        word-spacing: 0.15em;
-        letter-spacing: 0.02em;
+        word-spacing: 0.3em;
+        letter-spacing: 0.03em;
         font-size: 0.9rem;
+        white-space: normal;
+        line-height: 1.6;
+    }
+    
+    /* Specific spacing for links and bullets */
+    .footer-line a {
+        margin: 0 0.2em;
+    }
+    
+    /* Add spacing around bullet points */
+    .footer-line:last-child {
+        word-spacing: 0.35em;
     }
     
     footer {
@@ -568,6 +586,25 @@ footer {
     .footer-content {
         max-width: 100%;
         padding: 0 5px;
+    }
+}
+
+/* Enhanced spacing for very small mobile screens */
+@media (max-width: 480px) {
+    .footer-line {
+        word-spacing: 0.4em;
+        letter-spacing: 0.04em;
+        font-size: 0.85rem;
+    }
+    
+    .footer-line a {
+        margin: 0 0.3em;
+        display: inline-block;
+    }
+    
+    /* Ensure bullet has proper spacing on small screens */
+    .footer-line span[style*="margin"] {
+        margin: 0 0.6em !important;
     }
 }
 

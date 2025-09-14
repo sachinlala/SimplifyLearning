@@ -18,7 +18,7 @@
  * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-export function bubbleSort(arr, options = {}) {
+function bubbleSort(arr, options = {}) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -66,7 +66,7 @@ export function bubbleSort(arr, options = {}) {
  * @param {number[]} arr - Array to be sorted
  * @returns {Object} Result with sorted array, steps, and metrics
  */
-export function bubbleSortWithSteps(arr) {
+function bubbleSortWithSteps(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -219,7 +219,7 @@ function getOrdinal(num) {
  * @param {number[]} arr - Array to sort
  * @returns {number[]} Sorted array
  */
-export function bubbleSortSimple(arr) {
+function bubbleSortSimple(arr) {
     const result = bubbleSort(arr);
     return result.sortedArray;
 }

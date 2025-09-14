@@ -315,6 +315,15 @@ class DynamicAlgorithmTemplate {
                             ${options}
                         </select>
                     </div>`;
+            case 'checkbox':
+                const checked = input.defaultValue === true ? 'checked' : '';
+                return `
+                    <div>
+                        <label for="${input.id}" style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px; cursor: pointer;">
+                            <input type="checkbox" id="${input.id}" ${checked} style="margin: 0;">
+                            ${input.label}
+                        </label>
+                    </div>`;
             default:
                 return `<!-- Unsupported input type: ${input.type} -->`
         }
@@ -480,6 +489,72 @@ class DynamicAlgorithmTemplate {
     }
 
     /**
+     * Generate data size recommendations section
+     */
+    generateDataSizeSection(config) {
+        const recommendations = config.dataSizeRecommendations;
+        if (!recommendations) return '';
+        
+        const categories = ['excellent', 'good', 'fair', 'poor'];
+        const categoryLabels = {
+            excellent: '🏆 Excellent',
+            good: '✅ Good', 
+            fair: '⚠️ Fair',
+            poor: '❌ Poor'
+        };
+        const categoryColors = {
+            excellent: '#28a745',
+            good: '#17a2b8',
+            fair: '#ffc107', 
+            poor: '#dc3545'
+        };
+        
+        const recommendationCards = categories
+            .filter(cat => recommendations[cat])
+            .map(category => {
+                const rec = recommendations[category];
+                const alternatives = rec.alternatives ? 
+                    `<p><strong>Alternatives:</strong> ${rec.alternatives.join(', ')}</p>` : '';
+                const reasons = rec.reasons.map(reason => `<li>${reason}</li>`).join('');
+                
+                const bgColor = category === 'excellent' ? '40, 167, 69' : 
+                               category === 'good' ? '23, 162, 184' :
+                               category === 'fair' ? '255, 193, 7' : '220, 53, 69';
+                
+                return `
+                    <div class="data-size-card" style="
+                        border: 2px solid ${categoryColors[category]};
+                        border-radius: 8px;
+                        padding: 15px;
+                        margin: 10px 0;
+                        background: rgba(${bgColor}, 0.05);
+                    ">
+                        <h4 style="color: ${categoryColors[category]}; margin: 0 0 10px 0;">
+                            ${categoryLabels[category]} - ${rec.range}
+                        </h4>
+                        <p style="margin: 8px 0;">${rec.description}</p>
+                        <ul style="margin: 8px 0; padding-left: 20px;">${reasons}</ul>
+                        ${alternatives}
+                    </div>
+                `;
+            }).join('');
+        
+        return `
+            <div class="data-size-section" style="max-width: 800px; margin: 0 auto 20px auto;">
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3 class="accordion-title">📊 Data Size Recommendations</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p style="margin-bottom: 15px;"><strong>When should you use this algorithm?</strong> Here's guidance based on your data size:</p>
+                        ${recommendationCards}
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    /**
      * Generate explanation accordion section
      */
     generateExplanationSection(config) {
@@ -500,7 +575,8 @@ class DynamicAlgorithmTemplate {
                         ${steps ? `<ol class="step-list">\n                        ${steps}\n                    </ol>` : ''}
                     </div>
                 </div>
-            </div>`;
+            </div>
+            ${config.dataSizeRecommendations ? this.generateDataSizeSection(config) : ''}`;
     }
 
     /**
@@ -511,7 +587,7 @@ class DynamicAlgorithmTemplate {
     <footer>
         <div class="footer-content">
             <div class="footer-line">Built with ❤️</div>
-            <div class="footer-line">© <span id="footer-year">2025</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> • <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
+            <div class="footer-line">© <span id="footer-year">2025</span> <span style="margin: 0 0.5em;">•</span> <a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a> <span style="margin: 0 0.5em;">•</span> <a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {

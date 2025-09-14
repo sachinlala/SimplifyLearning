@@ -24,7 +24,7 @@
  * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-export function insertionSort(arr, options = {}) {
+function insertionSort(arr, options = {}) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -71,7 +71,7 @@ export function insertionSort(arr, options = {}) {
  * @param {number[]} arr - Array to be sorted
  * @returns {Object} Sorted array and metrics
  */
-export function binaryInsertionSort(arr) {
+function binaryInsertionSort(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -122,7 +122,7 @@ export function binaryInsertionSort(arr) {
  * @param {number[]} arr - Array to sort
  * @returns {number[]} Sorted array
  */
-export function insertionSortSimple(arr) {
+function insertionSortSimple(arr) {
     const result = insertionSort(arr);
     return result.sortedArray;
 }
