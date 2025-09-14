@@ -193,6 +193,13 @@ class AlgorithmList {
                 url: 'demo.html?algo=sort/bubble-sort',
                 category: 'sort',
                 subcategory: 'comparison'
+            },
+            {
+                name: 'Selection Sort',
+                description: 'In-place sorting algorithm that finds minimum elements one by one',
+                url: 'demo.html?algo=sort/selection-sort',
+                category: 'sort',
+                subcategory: 'comparison'
             }
             // More algorithms can be added here
         ];
