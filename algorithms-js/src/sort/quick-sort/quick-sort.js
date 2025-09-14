@@ -12,13 +12,12 @@
 // In browser environment, these functions are available in the global scope via window.QuickSortCore
 
 // For compatibility, create references to core functions (loaded dynamically)
-let quickSort, quickSortIterative, quickSortSimple;
+// Note: Core functions are available globally via window.QuickSortCore
 
 // Safe dependency loading - check for core functions when needed
 function ensureCoreFunctions() {
-    if (typeof window !== 'undefined' && window.QuickSortCore && !quickSort) {
-        ({ quickSort, quickSortIterative, quickSortSimple } = window.QuickSortCore);
-    }
+    // Core functions are available via window.QuickSortCore when needed
+    // No local variables needed since we're not using them in this file
 }
 
 /**

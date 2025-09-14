@@ -12,13 +12,12 @@
 // In browser environment, these functions are available in the global scope via window.InsertionSortCore
 
 // For compatibility, create references to core functions (loaded dynamically)
-let insertionSort, binaryInsertionSort, insertionSortSimple;
+// Note: Core functions are available globally via window.InsertionSortCore
 
 // Safe dependency loading - check for core functions when needed
 function ensureCoreFunctions() {
-    if (typeof window !== 'undefined' && window.InsertionSortCore && !insertionSort) {
-        ({ insertionSort, binaryInsertionSort, insertionSortSimple } = window.InsertionSortCore);
-    }
+    // Core functions are available via window.InsertionSortCore when needed
+    // No local variables needed since we're not using them in this file
 }
 
 /**
