@@ -112,7 +112,7 @@ function showMergeSortVisualization(originalArray, steps) {
         <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
         <button id="reset-sort-animation" class="viz-button reset">Reset</button>
         <div class="viz-legend">
-            🔵 Comparing | 🟢 Sorted
+            🔵 Left Partition | 🟢 Right Partition | 🟡 Current | 🟢 Sorted
         </div>
     `;
     arrayViz.appendChild(controlsDiv);

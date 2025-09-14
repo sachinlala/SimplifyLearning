@@ -11,11 +11,14 @@
 // Core algorithm functions are loaded from insertion-sort-core.js via script tag
 // In browser environment, these functions are available in the global scope via window.InsertionSortCore
 
-// For compatibility, create references to core functions if they exist
+// For compatibility, create references to core functions (loaded dynamically)
 let insertionSort, binaryInsertionSort, insertionSortSimple;
 
-if (typeof window !== 'undefined' && window.InsertionSortCore) {
-    ({ insertionSort, binaryInsertionSort, insertionSortSimple } = window.InsertionSortCore);
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    if (typeof window !== 'undefined' && window.InsertionSortCore && !insertionSort) {
+        ({ insertionSort, binaryInsertionSort, insertionSortSimple } = window.InsertionSortCore);
+    }
 }
 
 /**
@@ -24,6 +27,9 @@ if (typeof window !== 'undefined' && window.InsertionSortCore) {
  * @returns {Object} Result with sorted array, steps, and metrics
  */
 function insertionSortWithSteps(arr) {
+    // Ensure core functions are available (safe late binding)
+    ensureCoreFunctions();
+    
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],

@@ -12,7 +12,7 @@ const config = {
     
     // Multi-language source code paths  
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/insertion-sort/insertion-sort.js",
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/insertion-sort/insertion-sort-core.js",
         java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/insertionsort"
     },
     

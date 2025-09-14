@@ -11,11 +11,14 @@
 // Core algorithm functions are loaded from selection-sort-core.js via script tag
 // In browser environment, these functions are available in the global scope via window.SelectionSortCore
 
-// For compatibility, create references to core functions if they exist
+// For compatibility, create references to core functions (loaded dynamically)
 let selectionSort, selectionSortSimple;
 
-if (typeof window !== 'undefined' && window.SelectionSortCore) {
-    ({ selectionSort, selectionSortSimple } = window.SelectionSortCore);
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    if (typeof window !== 'undefined' && window.SelectionSortCore && !selectionSort) {
+        ({ selectionSort, selectionSortSimple } = window.SelectionSortCore);
+    }
 }
 
 /**
@@ -24,6 +27,9 @@ if (typeof window !== 'undefined' && window.SelectionSortCore) {
  * @returns {Object} Result with sorted array, steps, and metrics
  */
 function selectionSortWithSteps(arr) {
+    // Ensure core functions are available (safe late binding)
+    ensureCoreFunctions();
+    
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
