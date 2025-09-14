@@ -403,11 +403,10 @@ const config = {
             if (steps.length > 0) {
                 updateVisualization(steps[0]);
             }
-        }`
-},
-
-// CSS styles for QuickSort visualization
-customStyles: `
+        }`,
+        
+    // CSS styles for QuickSort visualization
+    customStyles: `
     .viz-cell {
         width: 50px;
         height: 50px;

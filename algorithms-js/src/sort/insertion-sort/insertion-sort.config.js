@@ -576,7 +576,7 @@ const config = {
             if (steps.length > 0) {
                 updateBinaryVisualization(steps[0]);
             }
-        }
+        }`
 };
 
 // Export for both Node.js and browser environments
