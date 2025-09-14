@@ -163,18 +163,18 @@ const config = {
                 const executionTime = (endTime - startTime).toFixed(4);
                 
                 // Show result
-                let resultHTML = \\`
-                    <strong>Algorithm:</strong> \\${result.variant}<br>
-                    <strong>Pivot Strategy:</strong> \\${pivotStrategy.replace('-', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}<br>
-                    <strong>Original Array:</strong> [\\${arrayInput.join(', ')}]<br>
-                    <strong>Sorted Array:</strong> [\\${result.sortedArray.join(', ')}]<br>
-                    <strong>Total Comparisons:</strong> \\${result.metrics.comparisons}<br>
-                    <strong>Total Swaps:</strong> \\${result.metrics.swaps}<br>
-                    <strong>Partitions Created:</strong> \\${result.metrics.partitions}<br>
-                    \\${result.metrics.recursiveDepth ? \\`<strong>Max Recursion Depth:</strong> \\${result.metrics.recursiveDepth}<br>\\` : ''}
-                    \\${result.metrics.stackSize ? \\`<strong>Max Stack Size:</strong> \\${result.metrics.stackSize}<br>\\` : ''}
-                    <strong>Execution Time:</strong> \\${executionTime} ms
-                \\`;
+                let resultHTML = \`
+                    <strong>Algorithm:</strong> \${result.variant}<br>
+                    <strong>Pivot Strategy:</strong> \${pivotStrategy.replace('-', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}<br>
+                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Total Comparisons:</strong> \${result.metrics.comparisons}<br>
+                    <strong>Total Swaps:</strong> \${result.metrics.swaps}<br>
+                    <strong>Partitions Created:</strong> \${result.metrics.partitions}<br>
+                    \${result.metrics.recursiveDepth ? \`<strong>Max Recursion Depth:</strong> \${result.metrics.recursiveDepth}<br>\` : ''}
+                    \${result.metrics.stackSize ? \`<strong>Max Stack Size:</strong> \${result.metrics.stackSize}<br>\` : ''}
+                    <strong>Execution Time:</strong> \${executionTime} ms
+                \`;
                 
                 resultContainer.innerHTML = resultHTML;
 
@@ -185,13 +185,13 @@ const config = {
                 } else if (implementation === 'iterative') {
                     // For iterative quicksort, show summary without step-by-step animation
                     const summaryDiv = document.createElement('div');
-                    summaryDiv.style.cssText = 'background: #f8f9fa; padding: 15px; border-radius: 4px; margin-top: 15px;';
-                    summaryDiv.innerHTML = \\`
+                    summaryDiv.className = 'viz-summary';
+                    summaryDiv.innerHTML = \`
                         <strong>Iterative QuickSort Summary:</strong><br>
                         Uses an explicit stack instead of recursion to avoid stack overflow on large datasets.<br>
                         Maintains the same partitioning logic but manages sub-array ranges manually.<br>
                         <strong>Advantage:</strong> No recursion stack limit, suitable for very large arrays.
-                    \\`;
+                    \`;
                     resultContainer.appendChild(summaryDiv);
                 }
                 
@@ -210,18 +210,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \\`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.7s ease;
-                    font-size: 14px; position: relative;
-                \\`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -231,22 +226,22 @@ const config = {
             
             // Add controls
             const controlsDiv = document.createElement('div');
-            controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
-            controlsDiv.innerHTML = \\`
-                <div style="margin-bottom: 15px;"><strong>QuickSort Visualization (\\${pivotStrategy.replace('-', ' ')})</strong></div>
-                <button id="start-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
-                <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = \`
+                <h4>QuickSort Visualization (\${pivotStrategy.replace('-', ' ')})</h4>
+                <button id="start-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend">
                     🔴 Pivot | 🟡 Comparing | 🔵 Left Partition | 🟢 Right Partition | ⚪ Current Range
                 </div>
-            \\`;
+            \`;
             arrayViz.appendChild(controlsDiv);
             
             // Status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'sort-status';
-            statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold; min-height: 25px;';
+            statusDiv.className = 'viz-status';
             statusDiv.textContent = 'Ready to start quicksort animation...';
             arrayViz.appendChild(statusDiv);
             
@@ -261,11 +256,7 @@ const config = {
                 
                 // Reset all cell colors
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
-                    cell.style.zIndex = '1';
-                    cell.style.boxShadow = 'none';
+                    cell.className = 'viz-cell'; // Reset to base class
                 });
                 
                 // Update array values
@@ -279,28 +270,21 @@ const config = {
                 if (step.range) {
                     for (let i = step.range[0]; i <= step.range[1]; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#e8f4fd';
-                            cells[i].style.borderColor = '#81c4e8';
+                            cells[i].className = 'viz-cell current-range';
                         }
                     }
                 }
                 
                 // Highlight pivot element
                 if (step.pivotIndex !== undefined && cells[step.pivotIndex]) {
-                    cells[step.pivotIndex].style.background = '#ffebee';
-                    cells[step.pivotIndex].style.borderColor = '#f44336';
-                    cells[step.pivotIndex].style.transform = 'scale(1.15)';
-                    cells[step.pivotIndex].style.boxShadow = '0 0 10px rgba(244, 67, 54, 0.5)';
-                    cells[step.pivotIndex].style.zIndex = '10';
+                    cells[step.pivotIndex].className = 'viz-cell pivot';
                 }
                 
                 // Highlight elements being compared
                 if (step.compareIndices) {
                     step.compareIndices.forEach(index => {
                         if (cells[index] && index !== step.pivotIndex) {
-                            cells[index].style.background = '#fff3e0';
-                            cells[index].style.borderColor = '#ff9800';
-                            cells[index].style.transform = 'scale(1.1)';
+                            cells[index].className = 'viz-cell comparing';
                         }
                     });
                 }
@@ -309,10 +293,7 @@ const config = {
                 if (step.swapIndices) {
                     step.swapIndices.forEach(index => {
                         if (cells[index]) {
-                            cells[index].style.background = '#f3e5f5';
-                            cells[index].style.borderColor = '#9c27b0';
-                            cells[index].style.transform = 'scale(1.1)';
-                            cells[index].style.boxShadow = '0 0 8px rgba(156, 39, 176, 0.4)';
+                            cells[index].className = 'viz-cell swapping';
                         }
                     });
                 }
@@ -322,15 +303,13 @@ const config = {
                     // Left partition (blue)
                     for (let i = step.leftPartition[0]; i <= step.leftPartition[1]; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#e3f2fd';
-                            cells[i].style.borderColor = '#2196f3';
+                            cells[i].className = 'viz-cell left-partition';
                         }
                     }
                     // Right partition (green)  
                     for (let i = step.rightPartition[0]; i <= step.rightPartition[1]; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#e8f5e8';
-                            cells[i].style.borderColor = '#4caf50';
+                            cells[i].className = 'viz-cell right-partition';
                         }
                     }
                 }
@@ -340,7 +319,7 @@ const config = {
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
+                stepInfo.className = 'viz-step-info';
                 
                 let stepTypeColor = '#007acc';
                 if (step.type === 'complete') stepTypeColor = '#28a745';
@@ -350,17 +329,17 @@ const config = {
                 
                 stepInfo.style.borderLeftColor = stepTypeColor;
                 
-                stepInfo.innerHTML = \\`
-                    <strong>Step \\${currentStepIndex + 1}:</strong> \\${step.message}<br>
+                stepInfo.innerHTML = \`
+                    <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
                     <small style="color: #666;">
-                        Depth: \\${step.depth || 0} | 
-                        Comparisons: \\${step.metrics?.comparisons || 0} | 
-                        Swaps: \\${step.metrics?.swaps || 0}
+                        Depth: \${step.depth || 0} | 
+                        Comparisons: \${step.metrics?.comparisons || 0} | 
+                        Swaps: \${step.metrics?.swaps || 0}
                     </small>
-                \\`;
+                \`;
                 
                 if (step.type === 'complete') {
-                    stepInfo.style.background = '#d4edda';
+                    stepInfo.className = 'viz-step-info complete';
                 }
                 
                 if (stepsContainer.children.length > 8) {

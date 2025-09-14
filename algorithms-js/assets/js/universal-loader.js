@@ -277,7 +277,7 @@ class UniversalAlgorithmLoader {
         </script>
     </footer>
     
-    <script src="${this.basePath || '../../../'}/assets/js/theme-toggle.js"></script>
+    <script src="${this.basePath || '../../../'}/assets/js/unified-theme-manager.js"></script>
     <script src="${this.basePath || '../../../'}/assets/js/sidebar.js"></script>
 </body>
 </html>`;

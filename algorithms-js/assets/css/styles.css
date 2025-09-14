@@ -1519,3 +1519,351 @@ body.dark-mode .accordion-content {
     }
 }
 
+/* ===== ALGORITHM VISUALIZATION STYLES ===== */
+/* Centralized theme-aware styles for all algorithm visualizations */
+
+/* Base visualization cell */
+.viz-cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--text-muted, #ddd);
+    background: var(--surface, #f8f9fa);
+    color: var(--text-primary, #333);
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 2px;
+    transition: all 0.7s ease;
+    font-size: 14px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Cell state variations */
+.viz-cell.current-range {
+    background: rgba(33, 150, 243, 0.15);
+    border-color: var(--accent, #2196f3);
+    color: var(--text-primary, #333);
+}
+
+.viz-cell.pivot {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: #f44336;
+    color: var(--text-primary, #333);
+    transform: scale(1.15);
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+    z-index: 10;
+}
+
+.viz-cell.comparing {
+    background: rgba(255, 152, 0, 0.2);
+    border-color: #ff9800;
+    color: var(--text-primary, #333);
+    transform: scale(1.1);
+}
+
+.viz-cell.swapping {
+    background: rgba(156, 39, 176, 0.2);
+    border-color: #9c27b0;
+    color: var(--text-primary, #333);
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(156, 39, 176, 0.4);
+}
+
+.viz-cell.left-partition {
+    background: rgba(33, 150, 243, 0.2);
+    border-color: #2196f3;
+    color: var(--text-primary, #333);
+}
+
+.viz-cell.right-partition {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4caf50;
+    color: var(--text-primary, #333);
+}
+
+.viz-cell.sorted {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: #4caf50;
+    color: var(--text-primary, #333);
+}
+
+.viz-cell.current {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: #ffc107;
+    color: var(--text-primary, #333);
+    transform: scale(1.1);
+}
+
+.viz-cell.minimum {
+    background: rgba(103, 58, 183, 0.2);
+    border-color: #673ab7;
+    color: var(--text-primary, #333);
+    transform: scale(1.1);
+}
+
+/* Array visualization container */
+.array-visualization {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+/* Controls container */
+.viz-controls {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--surface, #f8f9fa);
+    border-radius: 8px;
+    border: 1px solid var(--text-muted, #ddd);
+}
+
+.viz-controls h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary, #333);
+}
+
+.viz-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.viz-button.start {
+    background: #28a745;
+    color: white;
+}
+
+.viz-button.start:hover {
+    background: #218838;
+}
+
+.viz-button.pause {
+    background: #ffc107;
+    color: #212529;
+}
+
+.viz-button.pause:hover {
+    background: #e0a800;
+}
+
+.viz-button.reset {
+    background: #dc3545;
+    color: white;
+}
+
+.viz-button.reset:hover {
+    background: #c82333;
+}
+
+.viz-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Status display */
+.viz-status {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    min-height: 25px;
+    color: var(--text-primary, #333);
+    padding: 10px;
+    background: var(--surface, #f8f9fa);
+    border-radius: 4px;
+    border: 1px solid var(--text-muted, #ddd);
+}
+
+/* Legend */
+.viz-legend {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-muted, #666);
+    text-align: center;
+    padding: 8px;
+    background: var(--surface, #f8f9fa);
+    border-radius: 4px;
+    border: 1px solid var(--text-muted, #ddd);
+}
+
+/* Step information */
+.viz-step-info {
+    background: var(--surface, #f8f9fa);
+    color: var(--text-body, #333);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 4px solid #007acc;
+    border: 1px solid var(--text-muted, #ddd);
+}
+
+.viz-step-info.complete {
+    background: rgba(40, 167, 69, 0.2);
+    border-left-color: #28a745;
+}
+
+.viz-step-info small {
+    color: var(--text-muted, #666);
+}
+
+/* Summary sections */
+.viz-summary {
+    background: var(--surface, #f8f9fa);
+    color: var(--text-body, #333);
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border: 1px solid var(--text-muted, #ddd);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .viz-cell {
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+        margin: 1px;
+    }
+    
+    .array-visualization {
+        gap: 2px;
+        padding: 5px;
+    }
+    
+    .viz-button {
+        padding: 6px 12px;
+        font-size: 12px;
+        margin: 2px;
+    }
+    
+    .viz-controls {
+        padding: 10px;
+    }
+}
+
+/* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
+/* These rules override inline styles in existing algorithm configs to ensure dark mode compatibility */
+
+/* Override cells in array visualization containers */
+#array-visualization div[style*="width: 50px"],
+#sort-array-display div[style*="width: 50px"],
+.array-viz div[style*="width: 50px"] {
+    color: var(--text-primary, #333) !important;
+    background: var(--surface, #f8f9fa) !important;
+    border-color: var(--text-muted, #ddd) !important;
+}
+
+/* Override common background colors used in algorithm visualizations */
+[style*="background: #f8f9fa"],
+[style*="background:#f8f9fa"] {
+    background: var(--surface, #f8f9fa) !important;
+    color: var(--text-primary, #333) !important;
+}
+
+[style*="background: #ddd"],
+[style*="border: 2px solid #ddd"],
+[style*="border-color: #ddd"] {
+    border-color: var(--text-muted, #ddd) !important;
+}
+
+/* Override sorted/completed element styling */
+[style*="background: #c8e6c9"],
+[style*="background: #d4edda"],
+[style*="background: #e8f5e8"] {
+    background: rgba(76, 175, 80, 0.3) !important;
+    color: var(--text-primary, #333) !important;
+    border-color: #4caf50 !important;
+}
+
+/* Override current/active element styling */
+[style*="background: #fff3e0"] {
+    background: rgba(255, 193, 7, 0.3) !important;
+    color: var(--text-primary, #333) !important;
+    border-color: #ffc107 !important;
+}
+
+/* Override comparison/highlight styling */
+[style*="background: #e3f2fd"] {
+    background: rgba(33, 150, 243, 0.2) !important;
+    color: var(--text-primary, #333) !important;
+    border-color: #2196f3 !important;
+}
+
+/* Override pivot/special element styling */
+[style*="background: #ffebee"] {
+    background: rgba(244, 67, 54, 0.2) !important;
+    color: var(--text-primary, #333) !important;
+    border-color: #f44336 !important;
+}
+
+/* Override status and info containers */
+#sort-status,
+#insertion-status,
+#bubble-status,
+#selection-status {
+    background: var(--surface, #f8f9fa) !important;
+    color: var(--text-primary, #333) !important;
+    border: 1px solid var(--text-muted, #ddd) !important;
+}
+
+/* Override step info containers */
+[style*="background: #f8f9fa"][style*="padding: 10px"] {
+    background: var(--surface, #f8f9fa) !important;
+    color: var(--text-body, #333) !important;
+    border: 1px solid var(--text-muted, #ddd) !important;
+}
+
+/* Override legend and control containers */
+[style*="color: #666"] {
+    color: var(--text-muted, #666) !important;
+}
+
+/* Specific overrides for algorithm containers */
+#array-visualization,
+.visualization-section,
+.algorithm-demo {
+    background: var(--bg, transparent) !important;
+}
+
+/* Override any div that looks like a cell (50px width/height) */
+div[style*="width: 50px"][style*="height: 50px"] {
+    color: var(--text-primary, #333) !important;
+}
+
+/* Override any element with a light background that might contain text */
+[style*="background: #f"],
+[style*="background: rgb(248"],
+[style*="background: rgba(248"] {
+    background: var(--surface, #f8f9fa) !important;
+    color: var(--text-primary, #333) !important;
+}
+
+/* Ensure buttons in visualizations are properly styled */
+button[style*="background: #28a745"] {
+    background: #28a745 !important;
+    color: white !important;
+}
+
+button[style*="background: #ffc107"] {
+    background: #ffc107 !important;
+    color: #212529 !important;
+}
+
+button[style*="background: #dc3545"] {
+    background: #dc3545 !important;
+    color: white !important;
+}
+
