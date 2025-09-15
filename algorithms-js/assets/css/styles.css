@@ -111,7 +111,12 @@ header {
 
 /* Utility classes for responsive design */
 .mobile-only {
-    display: none;
+    display: none !important;
+}
+
+/* Ensure header center is hidden on desktop when marked mobile-only */
+.header-center.mobile-only {
+    display: none !important;
 }
 
 .desktop-only {
