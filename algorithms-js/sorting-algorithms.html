@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms - SimplifyLearning</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .summary-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .algorithms-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .algorithms-table th, .algorithms-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        .algorithms-table th { background: #007acc; color: white; font-weight: 600; position: sticky; top: 0; z-index: 10; }
+        .algorithms-table .algorithm-row:hover, .algorithms-table .algorithm-row:hover + .algorithm-description-row { background: #e3f2fd !important; transition: background-color 0.2s ease; }
+        .algorithm-name { font-weight: 600; color: #007acc; }
+        .algorithm-name a { color: inherit; text-decoration: none; }
+        .algorithm-name a:hover { text-decoration: underline; }
+        .complexity { font-family: 'Courier New', monospace; background: #f8f9fa; padding: 2px 4px; border-radius: 3px; font-size: 0.85em; white-space: nowrap; }
+        .complexity.best { color: #28a745; } .complexity.average { color: #007acc; } .complexity.worst { color: #dc3545; }
+        .category-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; font-weight: 500; text-align: center; }
+        .category-general { background: #e3f2fd; color: #1976d2; }
+        .category-small { background: #fff3e0; color: #f57f17; }
+        .category-advanced { background: #f3e5f5; color: #7b1fa2; }
+        .stable-yes { color: #28a745; font-weight: 600; }
+        .stable-no { color: #dc3545; font-weight: 600; }
+        .demo-icon { font-size: 0.9em; margin-left: 4px; opacity: 0.7; transition: opacity 0.3s ease; }
+        .algorithm-name a:hover .demo-icon { opacity: 1; }
+        .comparison-section { margin: 20px 0; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .usage-guide { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin: 15px 0; }
+        .usage-card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid #007acc; }
+        .usage-card h3 { color: #007acc; margin-top: 0; }
+        .usage-card ul { margin: 10px 0; padding-left: 20px; }
+        .usage-card li { margin: 5px 0; }
+        .algorithms-table { font-size: 0.95em; }
+        @media (max-width: 768px) { 
+            .algorithms-table { font-size: 0.75em; max-width: 100%; table-layout: fixed; } 
+            .algorithms-table th, .algorithms-table td { padding: 3px 0px; word-wrap: break-word; } 
+            .summary-container { padding: 5px; max-width: 100%; box-sizing: border-box; } 
+            .complexity { font-size: 0.65em !important; padding: 0px 1px; } 
+            .algorithms-table th:first-child { width: 55px; }
+            .algorithms-table th:nth-child(2) { width: 100px; }
+            .algorithms-table th:nth-child(3) { width: 30px; }
+            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 28px; }
+            .algorithm-name a { font-size: 0.8em; line-height: 1.2; }
+            .efficiency-icon { font-size: 0.7em; }
+            /* Force table to fit mobile viewport */
+            .algorithms-table { width: 100%; max-width: calc(100vw - 10px); }
+        }
+        
+        /* Ultra-small mobile devices */
+        @media (max-width: 480px) {
+            .algorithms-table { font-size: 0.7em; table-layout: fixed; }
+            .algorithms-table th, .algorithms-table td { padding: 2px 0px; }
+            .algorithms-table th:first-child { width: 50px; }
+            .algorithms-table th:nth-child(2) { width: 90px; }
+            .algorithms-table th:nth-child(3) { width: 25px; }
+            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 25px; }
+            .complexity { font-size: 0.6em !important; padding: 0px; }
+            .algorithm-name a { font-size: 0.75em; }
+            .summary-container { padding: 3px; }
+            .comparison-section { margin: 5px 0; }
+            .algorithms-table { margin: 5px 0; }
+        }
+        
+        .time-label.best { color: #28a745; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
+        .time-label.avg { color: #007acc; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
+        .time-label.worst { color: #dc3545; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
+        .efficiency-icon { margin-left: 6px; font-size: 1.1em; }
+        /* Dark mode */
+        body.dark-mode .algorithms-table { background: #2c3e50; }
+        body.dark-mode .algorithms-table th { background: #34495e !important; color: #ecf0f1; }
+        body.dark-mode .algorithms-table td { background: #2c3e50 !important; color: #ecf0f1; border-bottom-color: #4a5f7a; }
+        body.dark-mode .algorithms-table tr:hover td { background: #34495e !important; }
+        body.dark-mode .algorithm-name a { color: #74b9ff !important; }
+        body.dark-mode .complexity { background: #34495e !important; color: #ecf0f1; }
+        body.dark-mode .complexity.best { color: #2ecc71 !important; }
+        body.dark-mode .complexity.average { color: #74b9ff !important; }
+        body.dark-mode .complexity.worst { color: #e74c3c !important; }
+        body.dark-mode .category-badge.category-general { background: #3742fa; color: #dfe4ea; }
+        body.dark-mode .category-badge.category-small { background: #fa8231; color: #ffffff; }
+        body.dark-mode .stable-yes { color: #2ecc71 !important; }
+        body.dark-mode .stable-no { color: #e74c3c !important; }
+        body.dark-mode .comparison-section { background: #2c3e50 !important; color: #ecf0f1; }
+        body.dark-mode .usage-card { background: #34495e !important; color: #ecf0f1; border-left-color: #74b9ff; }
+        body.dark-mode .usage-card h3 { color: #74b9ff !important; }
+        
+        /* Dark mode for compact legend */
+        body.dark-mode .compact-legend { color: #b0b0b0 !important; }
+        body.dark-mode .compact-legend span { color: #b0b0b0 !important; }
+        
+        /* Mobile legend optimization */
+        @media (max-width: 768px) {
+            .compact-legend { font-size: 0.7rem !important; gap: 6px !important; }
+        }
+        
+        @media (max-width: 480px) {
+            .compact-legend { font-size: 0.65rem !important; gap: 4px !important; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <button id="hamburger-menu" class="hamburger-btn mobile-first">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="index.html" class="home-link desktop-adjacent">
+                <img src="assets/images/sl-logo.svg" alt="SimplifyLearning" style="width: 32px; height: 32px;">
+            </a>
+            <a href="https://github.com/sachinlala/SimplifyLearning" target="_blank" class="github-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+        </div>
+        <div class="header-center mobile-only">
+            <a href="index.html" class="home-link">
+                <img src="assets/images/sl-logo.svg" alt="SimplifyLearning" style="width: 32px; height: 32px;">
+            </a>
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="back-to-home desktop-only">🏠 Home</a>
+            <div class="theme-slider-container">
+                <label class="theme-slider" for="global-theme-toggle">
+                    <input type="checkbox" id="global-theme-toggle" class="theme-toggle-input">
+                    <span class="slider">
+                        <span class="slider-icon sun">☀️</span>
+                        <span class="slider-icon moon">🌙</span>
+                        <span class="slider-thumb"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar for mobile -->
+    <div id="sidebar-overlay" class="sidebar-overlay">
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>Algorithms</h3>
+                <button id="close-sidebar" class="close-btn">&times;</button>
+            </div>
+            <div class="sidebar-content">
+                <div class="mobile-nav-controls" style="padding: 15px; border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                    <a href="index.html" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
+                    <button id="mobile-theme-toggle" class="mobile-theme-btn" style="width: 100%; padding: 12px; background: #f8f9fa; color: #333; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: 500; margin-bottom: 10px;">🌙 Toggle Theme</button>
+                    <div class="mobile-nav-note" style="background: #e3f2fd; color: #1976d2; padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; text-align: center;">📚 Summary of all sorting algorithms with complexities and usage guidance</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero" style="padding: 15px 20px; min-height: auto; margin-bottom: 5px;">
+            <h1 style="margin-bottom: 8px;">🔢 Sorting Algorithms</h1>
+            <p style="margin-bottom: 0;">Summary of sorting algorithms with complexity analysis and usage recommendations</p>
+        </section>
+
+        <div class="summary-container" style="padding-top: 0;">
+            
+            <!-- Quick Comparison Table -->
+            <section class="comparison-section">
+                <!-- Compact legend positioned above table -->
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 8px; padding: 0 4px;">
+                    <div class="compact-legend" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.75rem; color: #666;">
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block;"></span><span>Best</span></div>
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block;"></span><span>Avg</span></div>
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block;"></span><span>Worst</span></div>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="algorithms-table">
+                        <thead>
+                            <tr>
+                                <th style="white-space: nowrap; font-size: 0.9em;">Algorithm</th>
+                                <th style="font-size: 0.9em;">Time</th>
+                                <th style="font-size: 0.9em;">Space</th>
+                                <th style="font-size: 0.9em; text-align: center;">Stable</th>
+                                <th style="font-size: 0.9em; text-align: center;">In-Place</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/bubble-sort">Bubble Sort</a></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n²)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n²)</span></div>
+                                </td>
+                                <td><span class="complexity">O(1)</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Simple comparison-based algorithm. Best for educational purposes and very small datasets (&lt;10 elements). Repeatedly compares adjacent elements and swaps them if in wrong order.</td>
+                            </tr>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/selection-sort">Selection Sort</a></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n²)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n²)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n²)</span></div>
+                                </td>
+                                <td><span class="complexity">O(1)</span></td>
+                                <td style="text-align: center;"><span style="color: #dc3545; font-weight: 600; font-style: normal;">✗</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Finds minimum element and swaps it to the beginning. Good for small datasets and when write operations are expensive. Makes minimum number of swaps.</td>
+                            </tr>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/insertion-sort">Insertion Sort</a></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n²)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n²)</span></div>
+                                </td>
+                                <td><span class="complexity">O(1)</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Builds sorted array incrementally. Excellent for small or nearly sorted datasets. Adaptive algorithm that performs well on partially sorted data.</td>
+                            </tr>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/merge-sort">Merge Sort</a> <span class="efficiency-icon">⚡</span></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n log n)</span></div>
+                                </td>
+                                <td><span class="complexity">O(n)</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                                <td style="text-align: center;"><span style="color: #dc3545; font-weight: 600; font-style: normal;">✗</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Divide-and-conquer algorithm with guaranteed performance. Ideal for large datasets, stable sorting, and when predictable performance is critical.</td>
+                            </tr>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/quick-sort">Quick Sort</a> <span class="efficiency-icon">🏆</span></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n²)</span></div>
+                                </td>
+                                <td><span class="complexity">O(log n)</span></td>
+                                <td style="text-align: center;"><span style="color: #dc3545; font-weight: 600; font-style: normal;">✗</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Most widely used general-purpose algorithm. Excellent average performance, cache-friendly, and memory efficient. Industry standard for most applications.</td>
+                            </tr>
+                            <tr class="algorithm-row">
+                                <td class="algorithm-name" style="white-space: nowrap;"><a href="demo.html?algo=sort/heap-sort">Heap Sort</a> <span class="efficiency-icon">🏭</span></td>
+                                <td style="line-height: 1.4;">
+                                    <div><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity best">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity average">O(n log n)</span></div>
+                                    <div><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block; margin-right: 4px;"></span><span class="complexity worst">O(n log n)</span></div>
+                                </td>
+                                <td><span class="complexity">O(1)</span></td>
+                                <td style="text-align: center;"><span style="color: #dc3545; font-weight: 600; font-style: normal;">✗</span></td>
+                                <td style="text-align: center;"><span style="color: #28a745; font-weight: 600; font-style: normal;">✓</span></td>
+                            </tr>
+                            <tr class="algorithm-description-row">
+                                <td colspan="5" style="padding: 6px 12px; font-size: 0.85em; color: #666; background: #f9f9f9; border-bottom: 1px solid #e0e0e0;">Guaranteed O(n log n) performance with minimal memory usage. Perfect for memory-constrained environments and real-time systems requiring predictable behavior.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Usage Guidelines -->
+            <section class="comparison-section">
+                <h2>💡 When to use which one</h2>
+                <div class="usage-guide">
+                    <div class="usage-card">
+                        <h3>🚀 General Purpose (Recommended)</h3>
+                        <p><strong>Best for most real-world applications:</strong></p>
+                        <ul>
+                            <li><strong>Quick Sort:</strong> Best average performance, widely used in standard libraries</li>
+                            <li><strong>Merge Sort:</strong> When you need stable sorting and predictable performance</li>
+                            <li><strong>Heap Sort:</strong> When memory is limited and you need guaranteed O(n log n)</li>
+                        </ul>
+                    </div>
+                    <div class="usage-card">
+                        <h3>📚 Educational & Small Data</h3>
+                        <p><strong>Simple algorithms, good for learning:</strong></p>
+                        <ul>
+                            <li><strong>Insertion Sort:</strong> Small arrays (&lt;50), nearly sorted data</li>
+                            <li><strong>Selection Sort:</strong> When write operations are expensive</li>
+                            <li><strong>Bubble Sort:</strong> Educational purposes only</li>
+                        </ul>
+                    </div>
+                    <div class="usage-card">
+                        <h3>⚖️ Trade-offs to Consider</h3>
+                        <p><strong>Key decision factors:</strong></p>
+                        <ul>
+                            <li><strong>Stability needed?</strong> → Merge Sort or Insertion Sort</li>
+                            <li><strong>Memory constrained?</strong> → Heap Sort or Quick Sort</li>
+                            <li><strong>Predictable performance?</strong> → Merge Sort or Heap Sort</li>
+                            <li><strong>Best average case?</strong> → Quick Sort</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Characteristics -->
+            <section class="comparison-section">
+                <h2>⚡ Performance Characteristics</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                        <h4 style="color: #2e7d2e; margin-top: 0;">✅ Stable Algorithms</h4>
+                        <p style="margin-bottom: 10px;"><strong>Preserve relative order of equal elements:</strong></p>
+                        <ul style="margin: 0;">
+                            <li>Bubble Sort</li>
+                            <li>Insertion Sort</li>
+                            <li>Merge Sort</li>
+                        </ul>
+                    </div>
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                        <h4 style="color: #e65100; margin-top: 0;">🏠 In-Place Algorithms</h4>
+                        <p style="margin-bottom: 10px;"><strong>Use O(1) extra space:</strong></p>
+                        <ul style="margin: 0;">
+                            <li>Bubble Sort</li>
+                            <li>Selection Sort</li>
+                            <li>Insertion Sort</li>
+                            <li>Quick Sort</li>
+                            <li>Heap Sort</li>
+                        </ul>
+                    </div>
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                        <h4 style="color: #1565c0; margin-top: 0;">⚡ Adaptive Algorithms</h4>
+                        <p style="margin-bottom: 10px;"><strong>Perform better on partially sorted data:</strong></p>
+                        <ul style="margin: 0;">
+                            <li>Bubble Sort</li>
+                            <li>Insertion Sort</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section class="comparison-section">
+                <h2>📝 Quick Reference</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4>🎯 Choose Quick Sort when:</h4>
+                        <ul>
+                            <li>You need the best average-case performance</li>
+                            <li>Memory usage should be minimal</li>
+                            <li>Data is randomly distributed</li>
+                            <li>Using a general-purpose sorting library</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>🛡️ Choose Merge Sort when:</h4>
+                        <ul>
+                            <li>Stability is required</li>
+                            <li>Predictable performance is critical</li>
+                            <li>Sorting linked lists</li>
+                            <li>External sorting (very large datasets)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>💾 Choose Heap Sort when:</h4>
+                        <ul>
+                            <li>Memory is extremely constrained</li>
+                            <li>Guaranteed O(n log n) performance needed</li>
+                            <li>Implementing priority queues</li>
+                            <li>Real-time systems with strict requirements</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📖 Choose Simple Sorts when:</h4>
+                        <ul>
+                            <li>Data size is very small (&lt;50 elements)</li>
+                            <li>Learning algorithm concepts</li>
+                            <li>Data is nearly sorted (Insertion Sort)</li>
+                            <li>Implementation simplicity is priority</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-line">Built with ❤️</div>
+            <div class="footer-line">© <span id="footer-year">2025</span>&nbsp;•&nbsp;<a href="https://github.com/sachinlala" target="_blank">Sachin Lala</a>&nbsp;•&nbsp;<a href="https://github.com/sachinlala/SimplifyLearning/blob/master/LICENSE" target="_blank">MIT License</a></div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const yearElement = document.getElementById('footer-year');
+                if (yearElement) {
+                    yearElement.textContent = new Date().getFullYear();
+                }
+            });
+        </script>
+    </footer>
+
+    <script src="assets/js/unified-theme-manager.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script src="assets/js/components.js"></script>
+</body>
+</html>
