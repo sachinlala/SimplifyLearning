@@ -8,12 +8,12 @@ const config = {
     category: "sequences",
     problem: "Generate the nth term of the Count and Say sequence by reading and describing the digits of the previous term.",
     cssPath: "../../../assets/css/styles.css",
-    jsPath: "count-and-say.js",
-    githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/patterns/count-and-say/count-and-say.js",
+    jsPath: "count-and-say-core.js",
+    githubPath: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/patterns/count-and-say/count-and-say-core.js",
     
     // Multi-language source code paths
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/patterns/count-and-say/count-and-say.js",
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/patterns/count-and-say/count-and-say-core.js",
         java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sequences/countandsay",
         python: "", // Coming soon
         go: "" // Coming soon

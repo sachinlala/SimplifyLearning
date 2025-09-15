@@ -2,23 +2,24 @@
 
 ## File Structure Pattern
 
-Each algorithm should follow this standardized structure:
+Each algorithm follows this standardized structure:
 
 ```
 src/[category]/[algorithm-name]/
-├── [algorithm-name].js          # Core algorithm logic only
-├── [algorithm-name]-viz.js      # Visualization logic only  
-├── config.js                    # Configuration for UI
-└── README.md                    # Algorithm documentation
+├── [algorithm-name]-core.js     # Core algorithm implementation
+├── [algorithm-name].js          # Visualization with step tracking
+├── [algorithm-name].config.js   # UI configuration and demo logic
+└── README.md                    # Algorithm documentation (optional)
 ```
 
-## Core Algorithm File (`[algorithm-name].js`)
+## Core Algorithm File (`[algorithm-name]-core.js`)
 
-**Purpose**: Pure algorithm implementation, no DOM manipulation or visualization
-- Export core algorithm functions
-- Include multiple implementations (iterative, recursive, etc.)
-- Provide step-tracking functions for visualization consumption
-- No browser-specific code
+**Purpose**: Pure algorithm implementation with no DOM dependencies
+
+- Core algorithm functions (iterative, recursive variants)
+- Utility functions (swap, partition, etc.)
+- Performance metrics tracking
+- Browser compatibility exports
 
 **Example structure**:
 ```javascript
@@ -26,96 +27,100 @@ src/[category]/[algorithm-name]/
  * [Algorithm Name] - Core Implementation
  */
 
-// Main algorithm function
-export function algorithmName(input, options = {}) {
+function algorithmName(arr, options = {}) {
     // Core algorithm logic
+    return { sortedArray, metrics };
 }
 
-// Alternative implementations  
-export function algorithmNameIterative(input) {
-    // Iterative version
-}
-
-export function algorithmNameRecursive(input) {
-    // Recursive version
-}
-
-// Step-by-step version for visualization
-export function algorithmNameWithSteps(input) {
-    // Returns { result, steps, metrics }
-}
-
-// Utility functions
-function helperFunction() {
-    // Helper logic
+function algorithmNameIterative(arr) {
+    // Alternative implementation
 }
 
 // Browser compatibility
 if (typeof window !== 'undefined') {
-    window.AlgorithmName = { algorithmName, algorithmNameWithSteps };
+    window.AlgorithmCore = { algorithmName, algorithmNameIterative };
 }
 ```
 
-## Visualization File (`[algorithm-name]-viz.js`)
+## Visualization File (`[algorithm-name].js`)
 
-**Purpose**: Handle all DOM manipulation, animation, and user interaction
-- Import core algorithm functions
-- Manage visualization canvas/DOM elements
-- Handle animation timing and controls
-- Provide interactive controls
+**Purpose**: Step-by-step tracking for visualization
+
+- Extends core algorithms with step tracking
+- Generates animation steps
+- No DOM manipulation (handled by config)
+- Browser compatibility exports
 
 **Example structure**:
 ```javascript
 /**
- * [Algorithm Name] - Visualization Logic
+ * [Algorithm Name] - Step Tracking for Visualization
  */
 
-// Import core algorithm
-import { algorithmName, algorithmNameWithSteps } from './algorithm-name.js';
-
-export class AlgorithmVisualizer {
-    constructor(containerElement) {
-        this.container = containerElement;
-        this.animationSpeed = 1000;
-        this.isPlaying = false;
-    }
-
-    // Create visualization elements
-    createVisualization(data) {
-        // DOM creation logic
-    }
-
-    // Animate algorithm steps
-    animate(steps) {
-        // Animation logic
-    }
-
-    // Control methods
-    play() { /* */ }
-    pause() { /* */ }
-    reset() { /* */ }
+function algorithmNameWithSteps(arr, options = {}) {
+    const steps = [];
+    const metrics = { comparisons: 0, swaps: 0 };
     
-    // Event handlers
-    setupControls() { /* */ }
+    // Algorithm with step recording
+    steps.push({
+        type: 'start',
+        array: [...arr],
+        message: 'Starting algorithm'
+    });
+    
+    return { sortedArray, steps, metrics };
 }
 
 // Browser compatibility
 if (typeof window !== 'undefined') {
-    window.AlgorithmVisualizer = AlgorithmVisualizer;
+    window.algorithmNameWithSteps = algorithmNameWithSteps;
 }
 ```
 
-## Benefits of This Architecture
+## Configuration File (`[algorithm-name].config.js`)
 
-1. **Separation of Concerns**: Core logic separate from presentation
-2. **Reusability**: Core algorithms can be used without visualization
-3. **Testability**: Easier to unit test pure algorithm functions
-4. **Maintainability**: Changes to visualization don't affect core logic
-5. **Performance**: Core algorithms can be optimized independently
+**Purpose**: Complete demo configuration including UI, visualization, and controls
 
-## Migration Strategy
+- Algorithm metadata and documentation
+- Input configuration and validation
+- Complete visualization logic with DOM manipulation
+- Animation controls and styling
+- Browser compatibility exports
 
-1. Extract core algorithm logic from existing mixed files
-2. Create separate visualization files with DOM manipulation
-3. Update config.js to reference both files
-4. Ensure backward compatibility during transition
+**Key sections**:
+```javascript
+const config = {
+    name: "Algorithm Name",
+    algorithmFunction: "algorithmNameWithSteps",
+    hasVisualization: true,
+    
+    inputs: [/* Input configurations */],
+    explanation: {/* Algorithm explanation */},
+    complexityAnalysis: {/* Time/space complexity */},
+    
+    customDemoFunction: `/* Complete demo logic */`,
+    customStyles: `/* CSS for visualization */`
+};
+
+// Browser compatibility
+if (typeof window !== 'undefined') {
+    window.algorithmNameConfig = config;
+}
+```
+
+## Universal Loading System
+
+Algorithms are loaded via `demo.html?algo=category/algorithm-name`:
+
+1. **Universal Loader** (`assets/js/universal-loader.js`) detects algorithm from URL
+2. **Config Loading** - Dynamically loads `[algorithm-name].config.js`
+3. **Dependency Loading** - Config references core and visualization files
+4. **DOM Generation** - Creates complete demo interface from configuration
+
+## Architecture Benefits
+
+1. **Separation of Concerns**: Core logic, visualization, and UI are separate
+2. **Dynamic Loading**: Single `demo.html` serves all algorithms
+3. **Self-Contained**: Each algorithm directory is independent
+4. **Consistent Interface**: Universal loader provides consistent UX
+5. **Extensible**: Easy to add new algorithms following the pattern

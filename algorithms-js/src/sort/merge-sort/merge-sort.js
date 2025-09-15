@@ -111,11 +111,37 @@ function showMergeSortVisualization(originalArray, steps) {
         <button id="start-sort-animation" class="viz-button start">Start Animation</button>
         <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
         <button id="reset-sort-animation" class="viz-button reset">Reset</button>
-        <div class="viz-legend">
-            🔵 Left Partition | 🟢 Right Partition | 🟡 Current | 🟢 Sorted
+        <div class="viz-legend" id="mergesort-legend">
+            <span class="viz-legend-desktop">🔵 Left Partition | 🟠 Right Partition | 🟡 Current | 🟢 Sorted</span>
+            <div class="viz-legend-mobile" style="display: none;">
+                <div class="viz-legend-item">🔵 Left Partition</div>
+                <div class="viz-legend-item">🟠 Right Partition</div>
+                <div class="viz-legend-item">🟡 Current</div>
+                <div class="viz-legend-item">🟢 Sorted</div>
+            </div>
         </div>
     `;
     arrayViz.appendChild(controlsDiv);
+    
+    // Toggle legend display based on screen size
+    function updateLegendDisplay() {
+        const isMobile = window.innerWidth <= 768;
+        const desktopLegend = document.querySelector('#mergesort-legend .viz-legend-desktop');
+        const mobileLegend = document.querySelector('#mergesort-legend .viz-legend-mobile');
+        
+        if (desktopLegend && mobileLegend) {
+            if (isMobile) {
+                desktopLegend.style.display = 'none';
+                mobileLegend.style.display = 'flex';
+            } else {
+                desktopLegend.style.display = 'inline';
+                mobileLegend.style.display = 'none';
+            }
+        }
+    }
+    
+    updateLegendDisplay();
+    window.addEventListener('resize', updateLegendDisplay);
     
     // Status display
     const statusDiv = document.createElement('div');

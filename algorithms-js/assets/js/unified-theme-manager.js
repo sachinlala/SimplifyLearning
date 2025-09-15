@@ -11,21 +11,45 @@ class UnifiedThemeManager {
         this.body = document.body;
         this.currentTheme = 'light';
         
-        // Theme configuration
+        // Calculate base path for assets based on current location
+        this.basePath = this.calculateBasePath();
+        
+        // Theme configuration with dynamic paths
         this.themes = {
             light: {
-                syntaxTheme: 'assets/vendor/prism/prism-github-light.css',
+                syntaxTheme: `${this.basePath}assets/vendor/prism/prism-github-light.css`,
                 name: 'Light Mode',
                 icon: '🌙'
             },
             dark: {
-                syntaxTheme: 'assets/vendor/prism/prism-dracula.css',
+                syntaxTheme: `${this.basePath}assets/vendor/prism/prism-dracula.css`,
                 name: 'Dark Mode',
                 icon: '☀️'
             }
         };
         
         this.init();
+    }
+    
+    /**
+     * Calculate the base path to reach the root directory from current location
+     */
+    calculateBasePath() {
+        const pathname = window.location.pathname;
+        const segments = pathname.split('/').filter(segment => segment !== '');
+        
+        // Remove the filename from the segments count
+        const fileSegments = segments.filter(segment => !segment.includes('.html'));
+        const depth = fileSegments.length;
+        
+        // For each directory level, we need to go up one level
+        if (depth === 0) {
+            return './'; // Root level (index.html)
+        } else if (depth === 1) {
+            return '../'; // One level deep (demo.html)
+        } else {
+            return '../'.repeat(depth); // Multiple levels deep
+        }
     }
 
     init() {

@@ -71,6 +71,20 @@ const config = {
     },
     
     customDemoFunction: `  
+        // Simple bubble sort function for result display
+        function bubbleSort(arr) {
+            const sortedArray = [...arr];
+            const n = sortedArray.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (sortedArray[j] > sortedArray[j + 1]) {
+                        [sortedArray[j], sortedArray[j + 1]] = [sortedArray[j + 1], sortedArray[j]];
+                    }
+                }
+            }
+            return sortedArray;
+        }
+        
         function runDemo() {
             const arrayInputStr = document.getElementById('array-input').value;
             const animationSpeed = parseInt(document.getElementById('animation-speed').value);
@@ -154,8 +168,8 @@ const config = {
             arrayDiv.id = 'array-display';
             
             // Calculate proportional heights
-            const maxValue = getMax(array);
-            const minValue = getMin(array);
+            const maxValue = Math.max(...array.map(v => typeof v === 'number' ? v : v.toString().length));
+            const minValue = Math.min(...array.map(v => typeof v === 'number' ? v : v.toString().length));
             const maxBarHeight = 200;
             const minBarHeight = 40;
             
@@ -163,11 +177,32 @@ const config = {
                 const bar = document.createElement('div');
                 bar.textContent = value;
                 
-                // Calculate proportional height using utility function
-                const barHeight = calculateBarHeight(value, minValue, maxValue, minBarHeight, maxBarHeight);
+                // Calculate proportional height directly
+                const numericValue = typeof value === 'number' ? value : value.toString().length;
+                const normalizedValue = maxValue === minValue ? 0.5 : 
+                    (numericValue - minValue) / (maxValue - minValue);
+                const barHeight = minBarHeight + (normalizedValue * (maxBarHeight - minBarHeight));
                 
-                // Generate bar style using utility function
-                bar.style.cssText = generateBarStyle(barHeight, '#007acc', 50);
+                // Create bar with direct styling to ensure colors work
+                bar.style.cssText = \`
+                    width: 50px;
+                    height: \${Math.round(barHeight)}px;
+                    background: rgba(33, 150, 243, 0.8);
+                    border: 3px solid #1976d2;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 12px;
+                    margin: 2px;
+                    padding: 2px;
+                    transition: all 0.4s ease;
+                    position: relative;
+                    box-sizing: border-box;
+                    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+                \`;
                 bar.setAttribute('data-index', index);
                 bar.setAttribute('data-value', value);
                 arrayDiv.appendChild(bar);
@@ -178,19 +213,49 @@ const config = {
             // Add status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'sort-status';
-            statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold;';
-            statusDiv.textContent = 'Starting bubble sort visualization...';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start bubble sort visualization...';
             arrayViz.appendChild(statusDiv);
             
-            // Add controls
+            // Add controls with legend
             const controlsDiv = document.createElement('div');
-            controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
+            controlsDiv.className = 'viz-controls';
             controlsDiv.innerHTML = \`
-                <button id="start-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
+                <h4>Bubble Sort Visualization</h4>
+                <button id="start-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="bubblesort-legend">
+                    <span class="viz-legend-desktop">🔵 Unsorted | 🟡 Comparing | 🟢 Swapping | ✅ Complete</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🔵 Unsorted</div>
+                        <div class="viz-legend-item">🟡 Comparing</div>
+                        <div class="viz-legend-item">🟢 Swapping</div>
+                        <div class="viz-legend-item">✅ Complete</div>
+                    </div>
+                </div>
             \`;
             arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#bubblesort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#bubblesort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
             
             // Animation variables
             let currentStepIndex = 0;
@@ -204,18 +269,41 @@ const config = {
                 const bars = arrayDiv.querySelectorAll('div');
                 const statusDiv = document.getElementById('sort-status');
                 
-                // Reset all bar colors
+                // Reset all bar colors - default to unsorted (blue) - more visible
                 bars.forEach(bar => {
-                    bar.style.background = '#007acc';
+                    bar.style.background = 'rgba(33, 150, 243, 0.8)';
+                    bar.style.borderColor = '#1976d2';
+                    bar.style.border = '3px solid';
+                    bar.style.borderRadius = '6px';
                     bar.style.transform = 'scale(1)';
+                    bar.style.transition = 'all 0.4s ease';
+                    bar.style.boxShadow = '0 2px 4px rgba(33, 150, 243, 0.3)';
                 });
                 
-                // Update based on step type
+                // Mark sorted elements (from the end) - more visible green
+                const totalSteps = Math.max(0, array.length - 1);
+                const currentPass = Math.floor(currentStepIndex / array.length) || 0;
+                const sortedCount = Math.min(currentPass, array.length);
+                
+                for (let i = array.length - sortedCount; i < array.length; i++) {
+                    if (bars[i]) {
+                        bars[i].style.background = 'rgba(76, 175, 80, 0.7)';
+                        bars[i].style.borderColor = '#388e3c';
+                        bars[i].style.border = '3px solid';
+                        bars[i].style.boxShadow = '0 2px 6px rgba(76, 175, 80, 0.4)';
+                    }
+                }
+                
+                // Update based on step type - more visible colors
                 if (step.compareIndices) {
                     step.compareIndices.forEach(index => {
                         if (bars[index]) {
                             bars[index].style.background = '#ffc107';
+                            bars[index].style.borderColor = '#f57c00';
+                            bars[index].style.border = '3px solid';
                             bars[index].style.transform = 'scale(1.1)';
+                            bars[index].style.boxShadow = '0 4px 12px rgba(255, 193, 7, 0.6)';
+                            bars[index].style.color = '#000';
                         }
                     });
                 }
@@ -223,8 +311,12 @@ const config = {
                 if (step.swapIndices) {
                     step.swapIndices.forEach(index => {
                         if (bars[index]) {
-                            bars[index].style.background = '#dc3545';
-                            bars[index].style.transform = 'scale(1.2)';
+                            bars[index].style.background = '#4caf50';
+                            bars[index].style.borderColor = '#2e7d32';
+                            bars[index].style.border = '3px solid';
+                            bars[index].style.transform = 'scale(1.15)';
+                            bars[index].style.boxShadow = '0 6px 16px rgba(76, 175, 80, 0.7)';
+                            bars[index].style.color = '#fff';
                         }
                     });
                 }
@@ -232,8 +324,8 @@ const config = {
                 // Update the array visualization with current state
                 if (step.array) {
                     // Recalculate proportional heights for current array state
-                    const currentMaxValue = getMax(step.array);
-                    const currentMinValue = getMin(step.array);
+                    const currentMaxValue = Math.max(...step.array.map(v => typeof v === 'number' ? v : v.toString().length));
+                    const currentMinValue = Math.min(...step.array.map(v => typeof v === 'number' ? v : v.toString().length));
                     const maxBarHeight = 200;
                     const minBarHeight = 40;
                     
@@ -242,8 +334,11 @@ const config = {
                             bars[index].textContent = value;
                             bars[index].setAttribute('data-value', value);
                             
-                            // Calculate and update proportional height using utility function
-                            const barHeight = calculateBarHeight(value, currentMinValue, currentMaxValue, minBarHeight, maxBarHeight);
+                            // Calculate proportional height directly
+                            const numericValue = typeof value === 'number' ? value : value.toString().length;
+                            const normalizedValue = currentMaxValue === currentMinValue ? 0.5 : 
+                                (numericValue - currentMinValue) / (currentMaxValue - currentMinValue);
+                            const barHeight = minBarHeight + (normalizedValue * (maxBarHeight - minBarHeight));
                             bars[index].style.height = Math.round(barHeight) + 'px';
                         }
                     });
@@ -256,7 +351,7 @@ const config = {
                 
                 // Show step info
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em;';
+                stepInfo.className = 'viz-step-info';
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
                     <small>Comparisons: \${step.comparisons || 0}, Swaps: \${step.swaps || 0}</small>
@@ -309,21 +404,43 @@ const config = {
                 const bars = arrayDiv.querySelectorAll('div');
                 
                 // Recalculate proportional heights for original array
-                const originalMaxValue = getMax(array);
-                const originalMinValue = getMin(array);
+                const originalMaxValue = Math.max(...array.map(v => typeof v === 'number' ? v : v.toString().length));
+                const originalMinValue = Math.min(...array.map(v => typeof v === 'number' ? v : v.toString().length));
                 const maxBarHeight = 200;
                 const minBarHeight = 40;
                 
                 array.forEach((value, index) => {
                     if (bars[index]) {
                         bars[index].textContent = value;
-                        bars[index].style.background = '#007acc';
-                        bars[index].style.transform = 'scale(1)';
-                        bars[index].setAttribute('data-value', value);
                         
-                        // Calculate and restore original proportional height using utility function
-                        const barHeight = calculateBarHeight(value, originalMinValue, originalMaxValue, minBarHeight, maxBarHeight);
-                        bars[index].style.height = Math.round(barHeight) + 'px';
+                        // Calculate proportional height directly
+                        const numericValue = typeof value === 'number' ? value : value.toString().length;
+                        const normalizedValue = originalMaxValue === originalMinValue ? 0.5 : 
+                            (numericValue - originalMinValue) / (originalMaxValue - originalMinValue);
+                        const barHeight = minBarHeight + (normalizedValue * (maxBarHeight - minBarHeight));
+                        
+                        // Apply complete styling
+                        bars[index].style.cssText = \`
+                            width: 50px;
+                            height: \${Math.round(barHeight)}px;
+                            background: rgba(33, 150, 243, 0.8);
+                            border: 3px solid #1976d2;
+                            border-radius: 6px;
+                            display: flex;
+                            align-items: flex-end;
+                            justify-content: center;
+                            color: #fff;
+                            font-weight: bold;
+                            font-size: 12px;
+                            margin: 2px;
+                            padding: 2px;
+                            transition: all 0.4s ease;
+                            position: relative;
+                            box-sizing: border-box;
+                            transform: scale(1);
+                            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+                        \`;
+                        bars[index].setAttribute('data-value', value);
                     }
                 });
                 

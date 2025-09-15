@@ -12,8 +12,8 @@ const config = {
     
     // Multi-language source code paths  
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/merge-sort/merge-sort.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/merge"
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/merge-sort/merge-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/merge/MergeSort.java"
     },
     
     inputs: [
@@ -58,44 +58,28 @@ const config = {
         "Cache-friendly memory access patterns"
     ],
 
-    // Data size recommendations - This addresses your nice-to-have requirement!
+    // Data size recommendations - simplified for clarity
     dataSizeRecommendations: {
         excellent: {
-            range: "1,000 - 10,000,000+ elements",
-            description: "Merge sort excels with large datasets due to its guaranteed O(n log n) performance and predictable behavior",
-            reasons: [
-                "Consistent performance regardless of input order",
-                "Excellent for external sorting (data larger than memory)",
-                "Highly parallelizable for multi-threaded environments",
-                "Stable sorting preserves original order of equal elements"
-            ]
+            range: "1,000+ elements",
+            description: "Perfect for large datasets - guaranteed O(n log n) performance and stable sorting",
+            reasons: ["Consistent performance", "Stable sorting", "Parallelizable"]
         },
         good: {
             range: "100 - 1,000 elements", 
-            description: "Good choice for medium-sized datasets, especially when stability is required",
-            reasons: [
-                "Guaranteed O(n log n) performance",
-                "Stable sorting when order preservation matters",
-                "Predictable memory usage patterns"
-            ]
+            description: "Good choice for medium datasets when stability matters",
+            reasons: ["Guaranteed performance", "Stable sorting"]
         },
         fair: {
             range: "50 - 100 elements",
-            description: "Reasonable choice but may have overhead compared to simpler algorithms",
-            reasons: [
-                "Still efficient but overhead from recursion and auxiliary arrays",
-                "Consider QuickSort for better cache performance"
-            ]
+            description: "Reasonable but has recursion overhead",
+            reasons: ["Consider QuickSort for better cache performance"]
         },
         poor: {
             range: "1 - 50 elements",
-            description: "Not recommended for small datasets due to overhead",
-            reasons: [
-                "Insertion sort is typically faster for small arrays",
-                "Overhead from recursion and auxiliary array allocation",
-                "Simple algorithms like insertion sort have better cache locality"
-            ],
-            alternatives: ["Insertion Sort", "Selection Sort", "Bubble Sort"]
+            description: "Use simpler algorithms for small datasets",
+            reasons: ["Insertion sort is faster for small arrays"],
+            alternatives: ["Insertion Sort", "Selection Sort"]
         }
     },
 

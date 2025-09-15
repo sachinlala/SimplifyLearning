@@ -13,7 +13,7 @@ const config = {
     // Multi-language source code paths  
     sourceCode: {
         javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/insertion-sort/insertion-sort-core.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/insertionsort"
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/InsertionSort.java"
     },
     
     inputs: [
@@ -127,7 +127,7 @@ const config = {
                 // Execute insertion sort based on variant
                 let result;
                 if (sortVariant === 'binary') {
-                    result = binaryInsertionSort(arrayInput);
+                    result = binaryInsertionSortWithSteps(arrayInput);
                     result.variant = 'Binary Insertion Sort';
                 } else {
                     result = insertionSortWithSteps(arrayInput);
@@ -150,20 +150,14 @@ const config = {
                 
                 resultContainer.innerHTML = resultHTML;
 
-                // Show visualization if steps are available (standard variant only)
-                if (result.steps && result.steps.length > 0 && sortVariant === 'standard') {
-                    showInsertionSortVisualization(arrayInput, result.steps);
+                // Show visualization if steps are available (both variants now supported)
+                if (result.steps && result.steps.length > 0) {
+                    if (sortVariant === 'binary') {
+                        showBinaryInsertionSortVisualization(arrayInput, result.steps);
+                    } else {
+                        showInsertionSortVisualization(arrayInput, result.steps);
+                    }
                     visualizationSection.style.display = 'block';
-                } else if (sortVariant === 'binary') {
-                    // For binary insertion sort, show summary without step-by-step animation
-                    const summaryDiv = document.createElement('div');
-                    summaryDiv.style.cssText = 'background: #f8f9fa; padding: 15px; border-radius: 4px; margin-top: 15px;';
-                    summaryDiv.innerHTML = \`
-                        <strong>Binary Insertion Sort Summary:</strong><br>
-                        Uses binary search to find insertion position, reducing comparisons from O(n) to O(log n) per element.<br>
-                        However, shifting elements still requires O(n) time, so overall complexity remains O(n²).
-                    \`;
-                    resultContainer.appendChild(summaryDiv);
                 }
                 
             } catch (error) {
@@ -181,8 +175,201 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'sort-array-display';
+            
+            originalArray.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.textContent = value;
+                cell.className = 'viz-cell';
+                cell.setAttribute('data-index', index);
+                cell.setAttribute('data-value', value);
+                arrayDiv.appendChild(cell);
+            });
+            
+            arrayViz.appendChild(arrayDiv);
+            
+            // Add controls with legend
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = \`
+                <h4>Insertion Sort Visualization</h4>
+                <button id="start-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="insertionsort-legend">
+                    <span class="viz-legend-desktop">🟢 Sorted | 🟡 Current Key | 🟣 Just Inserted</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🟢 Sorted</div>
+                        <div class="viz-legend-item">🟡 Current Key</div>
+                        <div class="viz-legend-item">🟣 Just Inserted</div>
+                    </div>
+                </div>
+            \`;
+            arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#insertionsort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#insertionsort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
+            
+            // Status display
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'sort-status';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start insertion sort animation...';
+            arrayViz.appendChild(statusDiv);
+            
+            // Animation variables
+            let currentStepIndex = 0;
+            let animationRunning = false;
+            let animationInterval;
+            
+            function updateVisualization(step) {
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                const statusDiv = document.getElementById('sort-status');
+                
+                // Reset all cell classes
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell';
+                });
+                
+                // Update array values
+                step.array.forEach((value, index) => {
+                    if (cells[index]) {
+                        cells[index].textContent = value;
+                    }
+                });
+                
+                // Apply sorted portion first (green)
+                if (step.sortedUpTo !== undefined && step.sortedUpTo > 0) {
+                    for (let i = 0; i < step.sortedUpTo; i++) {
+                        if (cells[i]) {
+                            cells[i].className = 'viz-cell sorted';
+                        }
+                    }
+                }
+                
+                // Apply step-specific highlighting (these override sorted)
+                if (step.type === 'compare') {
+                    // Highlight current element (yellow)
+                    if (step.currentIndex !== undefined && cells[step.currentIndex]) {
+                        cells[step.currentIndex].className = 'viz-cell current';
+                    }
+                    // Highlight comparison element (blue)
+                    if (step.comparePosition !== undefined && cells[step.comparePosition]) {
+                        cells[step.comparePosition].className = 'viz-cell comparing';
+                    }
+                } else if (step.type === 'insert') {
+                    // Highlight just inserted element (purple)
+                    if (step.insertPosition !== undefined && cells[step.insertPosition]) {
+                        cells[step.insertPosition].className = 'viz-cell just-inserted';
+                    }
+                } else {
+                    // Default: highlight current element (yellow)
+                    if (step.currentIndex !== undefined && cells[step.currentIndex]) {
+                        cells[step.currentIndex].className = 'viz-cell current';
+                    }
+                }
+                // Update status
+                statusDiv.textContent = step.message;
+                
+                // Show step info in container
+                const stepInfo = document.createElement('div');
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+                
+                stepInfo.innerHTML = \`
+                    <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
+                    <small>Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
+                \`;
+                
+                if (stepsContainer.children.length > 6) {
+                    stepsContainer.removeChild(stepsContainer.firstChild);
+                }
+                stepsContainer.appendChild(stepInfo);
+            }
+            
+            function startAnimation() {
+                if (animationRunning || currentStepIndex >= steps.length) return;
+                
+                animationRunning = true;
+                document.getElementById('start-sort-animation').disabled = true;
+                document.getElementById('pause-sort-animation').disabled = false;
+                
+                animationInterval = setInterval(() => {
+                    if (currentStepIndex >= steps.length) {
+                        clearInterval(animationInterval);
+                        animationRunning = false;
+                        document.getElementById('start-sort-animation').disabled = false;
+                        document.getElementById('pause-sort-animation').disabled = true;
+                        return;
+                    }
+                    
+                    updateVisualization(steps[currentStepIndex]);
+                    currentStepIndex++;
+                }, 2500); // 2.5 second delay between steps (slower for better visibility)
+            }
+            
+            function pauseAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                document.getElementById('start-sort-animation').disabled = false;
+                document.getElementById('pause-sort-animation').disabled = true;
+            }
+            
+            function resetAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                currentStepIndex = 0;
+                document.getElementById('start-sort-animation').disabled = false;
+                document.getElementById('pause-sort-animation').disabled = true;
+                stepsContainer.innerHTML = '';
+                
+                // Reset visualization
+                if (steps.length > 0) {
+                    updateVisualization(steps[0]);
+                }
+                document.getElementById('sort-status').textContent = 'Ready to start insertion sort animation...';
+            }
+            
+            // Bind control events
+            document.getElementById('start-sort-animation').addEventListener('click', startAnimation);
+            document.getElementById('pause-sort-animation').addEventListener('click', pauseAnimation);
+            document.getElementById('reset-sort-animation').addEventListener('click', resetAnimation);
+            
+            // Show initial state
+            if (steps.length > 0) {
+                updateVisualization(steps[0]);
+            }
+        }
+        
+        function showBinaryInsertionSortVisualization(originalArray, steps) {
+            const arrayViz = document.getElementById('array-visualization');
+            const stepsContainer = document.getElementById('steps-container');
+            
+            // Clear previous visualization
+            arrayViz.innerHTML = '';
+            stepsContainer.innerHTML = '';
+            
+            // Create array visualization
+            const arrayDiv = document.createElement('div');
+            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.id = 'binary-sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
@@ -204,21 +391,21 @@ const config = {
             const controlsDiv = document.createElement('div');
             controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
             controlsDiv.innerHTML = \`
-                <div style="margin-bottom: 15px;"><strong>Insertion Sort Visualization</strong></div>
-                <button id="start-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
+                <div style="margin-bottom: 15px;"><strong>Binary Insertion Sort Visualization</strong></div>
+                <button id="start-binary-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
+                <button id="pause-binary-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
+                <button id="reset-binary-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
                 <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                    Green: Sorted portion | Orange: Current element | Blue: Comparing/Inserting
+                    Green: Sorted | Orange: Current element | Purple: Binary search range | Blue: Mid element
                 </div>
             \`;
             arrayViz.appendChild(controlsDiv);
             
             // Status display
             const statusDiv = document.createElement('div');
-            statusDiv.id = 'sort-status';
+            statusDiv.id = 'binary-sort-status';
             statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold; min-height: 25px;';
-            statusDiv.textContent = 'Ready to start insertion sort animation...';
+            statusDiv.textContent = 'Ready to start binary insertion sort animation...';
             arrayViz.appendChild(statusDiv);
             
             // Animation variables
@@ -226,9 +413,9 @@ const config = {
             let animationRunning = false;
             let animationInterval;
             
-            function updateVisualization(step) {
+            function updateBinaryVisualization(step) {
                 const cells = arrayDiv.querySelectorAll('div');
-                const statusDiv = document.getElementById('sort-status');
+                const statusDiv = document.getElementById('binary-sort-status');
                 
                 // Reset all cell colors
                 cells.forEach(cell => {
@@ -263,24 +450,39 @@ const config = {
                     cells[step.currentIndex].style.zIndex = '10';
                 }
                 
-                // Highlight elements being compared (blue)
-                if (step.highlightIndices) {
-                    step.highlightIndices.forEach(index => {
-                        if (cells[index] && index !== step.currentIndex) {
-                            cells[index].style.background = '#e3f2fd';
-                            cells[index].style.borderColor = '#2196f3';
-                            cells[index].style.transform = 'scale(1.05)';
+                // Highlight binary search range (purple/violet)
+                if (step.searchRange && step.type.includes('binary-search')) {
+                    for (let i = step.searchRange[0]; i <= step.searchRange[1]; i++) {
+                        if (cells[i] && i !== step.currentIndex && i !== step.mid) {
+                            cells[i].style.background = '#f3e5f5';
+                            cells[i].style.borderColor = '#9c27b0';
                         }
-                    });
+                    }
                 }
                 
-                // Special highlighting for key element during insertion
-                if (step.key !== undefined && step.type === 'insert' && step.insertPosition !== undefined) {
-                    if (cells[step.insertPosition]) {
-                        cells[step.insertPosition].style.background = '#e8f5e8';
-                        cells[step.insertPosition].style.borderColor = '#4caf50';
-                        cells[step.insertPosition].style.transform = 'scale(1.15)';
-                        cells[step.insertPosition].style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.5)';
+                // Highlight mid element in binary search (blue)
+                if (step.mid !== undefined && cells[step.mid]) {
+                    cells[step.mid].style.background = '#e3f2fd';
+                    cells[step.mid].style.borderColor = '#2196f3';
+                    cells[step.mid].style.transform = 'scale(1.15)';
+                    cells[step.mid].style.zIndex = '8';
+                }
+                
+                // Highlight insertion position (bright green)
+                if (step.insertPosition !== undefined && cells[step.insertPosition] && step.type === 'position-found') {
+                    cells[step.insertPosition].style.background = '#a5d6a7';
+                    cells[step.insertPosition].style.borderColor = '#388e3c';
+                    cells[step.insertPosition].style.transform = 'scale(1.1)';
+                    cells[step.insertPosition].style.zIndex = '9';
+                }
+                
+                // Highlight shifting range (light red)
+                if (step.shiftRange && (step.type === 'shift-start' || step.type === 'shift-complete')) {
+                    for (let i = step.shiftRange[0]; i <= step.shiftRange[1]; i++) {
+                        if (cells[i] && i !== step.currentIndex) {
+                            cells[i].style.background = '#ffcdd2';
+                            cells[i].style.borderColor = '#f44336';
+                        }
                     }
                 }
                 
@@ -291,79 +493,85 @@ const config = {
                 const stepInfo = document.createElement('div');
                 stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
                 
-                let stepTypeColor = '#007acc';
-                if (step.type === 'complete') stepTypeColor = '#28a745';
-                else if (step.type === 'insert') stepTypeColor = '#4caf50';
-                else if (step.type === 'shift') stepTypeColor = '#ff9800';
-                
-                stepInfo.style.borderLeftColor = stepTypeColor;
+                // Color code the step info based on step type
+                if (step.type.includes('binary-search')) {
+                    stepInfo.style.borderLeftColor = '#9c27b0';
+                    stepInfo.style.background = '#f3e5f5';
+                } else if (step.type === 'insert') {
+                    stepInfo.style.borderLeftColor = '#4caf50';
+                    stepInfo.style.background = '#e8f5e8';
+                } else if (step.type.includes('shift')) {
+                    stepInfo.style.borderLeftColor = '#f44336';
+                    stepInfo.style.background = '#ffebee';
+                }
                 
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
-                    <small style="color: #666;">Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
+                    <small>Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
                 \`;
                 
                 if (step.type === 'complete') {
+                    stepInfo.style.borderLeftColor = '#28a745';
                     stepInfo.style.background = '#d4edda';
                 }
                 
-                if (stepsContainer.children.length > 6) {
+                if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);
                 }
                 stepsContainer.appendChild(stepInfo);
             }
             
-            function startAnimation() {
+            function startBinaryAnimation() {
                 if (animationRunning || currentStepIndex >= steps.length) return;
                 
                 animationRunning = true;
-                document.getElementById('start-sort-animation').disabled = true;
-                document.getElementById('pause-sort-animation').disabled = false;
+                document.getElementById('start-binary-sort-animation').disabled = true;
+                document.getElementById('pause-binary-sort-animation').disabled = false;
                 
                 animationInterval = setInterval(() => {
                     if (currentStepIndex >= steps.length) {
                         clearInterval(animationInterval);
                         animationRunning = false;
-                        document.getElementById('start-sort-animation').disabled = false;
-                        document.getElementById('pause-sort-animation').disabled = true;
+                        document.getElementById('start-binary-sort-animation').disabled = false;
+                        document.getElementById('pause-binary-sort-animation').disabled = true;
                         return;
                     }
                     
-                    updateVisualization(steps[currentStepIndex]);
+                    updateBinaryVisualization(steps[currentStepIndex]);
                     currentStepIndex++;
-                }, 1500); // 1.5 second delay between steps
+                }, 1500); // 1.5 second delay between steps (slightly faster than standard)
             }
             
-            function pauseAnimation() {
+            function pauseBinaryAnimation() {
                 clearInterval(animationInterval);
                 animationRunning = false;
-                document.getElementById('start-sort-animation').disabled = false;
-                document.getElementById('pause-sort-animation').disabled = true;
+                document.getElementById('start-binary-sort-animation').disabled = false;
+                document.getElementById('pause-binary-sort-animation').disabled = true;
             }
             
-            function resetAnimation() {
+            function resetBinaryAnimation() {
                 clearInterval(animationInterval);
                 animationRunning = false;
                 currentStepIndex = 0;
-                document.getElementById('start-sort-animation').disabled = false;
-                document.getElementById('pause-sort-animation').disabled = true;
+                document.getElementById('start-binary-sort-animation').disabled = false;
+                document.getElementById('pause-binary-sort-animation').disabled = true;
                 stepsContainer.innerHTML = '';
                 
                 // Reset visualization
                 if (steps.length > 0) {
-                    updateVisualization(steps[0]);
+                    updateBinaryVisualization(steps[0]);
                 }
-                document.getElementById('sort-status').textContent = 'Ready to start insertion sort animation...';
+                document.getElementById('binary-sort-status').textContent = 'Ready to start binary insertion sort animation...';
             }
             
             // Bind control events
-            document.getElementById('start-sort-animation').addEventListener('click', startAnimation);
-            document.getElementById('pause-sort-animation').addEventListener('click', pauseAnimation);
-            document.getElementById('reset-sort-animation').addEventListener('click', resetAnimation);
+            document.getElementById('start-binary-sort-animation').addEventListener('click', startBinaryAnimation);
+            document.getElementById('pause-binary-sort-animation').addEventListener('click', pauseBinaryAnimation);
+            document.getElementById('reset-binary-sort-animation').addEventListener('click', resetBinaryAnimation);
             
             // Show initial state
             if (steps.length > 0) {
-                updateVisualization(steps[0]);
+                updateBinaryVisualization(steps[0]);
             }
         }`
 };

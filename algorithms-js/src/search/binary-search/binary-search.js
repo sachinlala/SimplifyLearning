@@ -1,68 +1,23 @@
 /**
- * Binary Search Algorithm Implementation
+ * Binary Search - Visualization and Step-by-Step Implementation
  * 
- * Searches for a target element in a sorted array using the divide-and-conquer approach.
- * Time Complexity: O(log n)
- * Space Complexity: O(1)
+ * This file contains the visualization functions for Binary Search algorithm.
+ * The core algorithm logic is in binary-search-core.js.
+ * 
+ * @author SimplifyLearning
+ * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-/**
- * Iterative binary search implementation
- * @param {number[]} sortedArray - The sorted array to search in
- * @param {number} target - The target element to find
- * @returns {number} Index of the target element, or -1 if not found
- */
-function binarySearchIterative(sortedArray, target) {
-    if (!Array.isArray(sortedArray) || sortedArray.length === 0) {
-        throw new Error('Input must be a non-empty array');
-    }
+// Core algorithm functions are loaded from binary-search-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.BinarySearchCore
 
-    let start = 0;
-    let end = sortedArray.length - 1;
+// For compatibility, create references to core functions (loaded dynamically)
+// Note: Core functions are available globally via window.BinarySearchCore when needed
 
-    while (start <= end) {
-        const mid = Math.floor((start + end) / 2);
-        const midValue = sortedArray[mid];
-
-        if (midValue === target) {
-            return mid; // Found the target
-        } else if (target < midValue) {
-            end = mid - 1; // Search left half
-        } else {
-            start = mid + 1; // Search right half
-        }
-    }
-
-    return -1; // Target not found
-}
-
-/**
- * Recursive binary search implementation
- * @param {number[]} sortedArray - The sorted array to search in
- * @param {number} target - The target element to find
- * @param {number} start - Start index (default: 0)
- * @param {number} end - End index (default: array.length - 1)
- * @returns {number} Index of the target element, or -1 if not found
- */
-function binarySearchRecursive(sortedArray, target, start = 0, end = sortedArray.length - 1) {
-    if (!Array.isArray(sortedArray) || sortedArray.length === 0) {
-        throw new Error('Input must be a non-empty array');
-    }
-
-    if (start > end) {
-        return -1; // Base case: target not found
-    }
-
-    const mid = Math.floor((start + end) / 2);
-    const midValue = sortedArray[mid];
-
-    if (midValue === target) {
-        return mid; // Found the target
-    } else if (target < midValue) {
-        return binarySearchRecursive(sortedArray, target, start, mid - 1); // Search left half
-    } else {
-        return binarySearchRecursive(sortedArray, target, mid + 1, end); // Search right half
-    }
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    // Core functions are available via window.BinarySearchCore when needed
+    // No local variables needed since we're not using them in this file
 }
 
 /**
@@ -119,18 +74,26 @@ function binarySearchWithSteps(sortedArray, target) {
     };
 }
 
-// Export for module environment
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        binarySearchIterative,
-        binarySearchRecursive,
+// Browser compatibility - expose visualization functions to global scope
+if (typeof window !== 'undefined') {
+    window.BinarySearchVisualization = {
         binarySearchWithSteps
     };
-}
-
-// Make available globally for browser use
-if (typeof window !== 'undefined') {
-    window.binarySearchIterative = binarySearchIterative;
-    window.binarySearchRecursive = binarySearchRecursive;
+    // Expose commonly used functions in global scope for demo configs
     window.binarySearchWithSteps = binarySearchWithSteps;
+    
+    // Also expose core functions for backward compatibility
+    window.binarySearchIterative = window.binarySearchIterative || function(arr, target) {
+        if (window.BinarySearchCore) {
+            return window.BinarySearchCore.binarySearchIterative(arr, target);
+        }
+        throw new Error('BinarySearchCore not loaded');
+    };
+    
+    window.binarySearchRecursive = window.binarySearchRecursive || function(arr, target, start, end) {
+        if (window.BinarySearchCore) {
+            return window.BinarySearchCore.binarySearchRecursive(arr, target, start, end);
+        }
+        throw new Error('BinarySearchCore not loaded');
+    };
 }

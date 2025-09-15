@@ -21,6 +21,14 @@
     
     <!-- Base path utilities for dynamic links -->
     <script src="assets/js/base-path-utils.js"></script>
+    
+    <style>
+        .featured-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,122,204,0.4) !important;
+            background: linear-gradient(135deg, #0088ff, #006bb3) !important;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -75,6 +83,13 @@
         <section class="hero">
             <h1>Simplify Learning</h1>
             <p>An anthology of programs to simplify understanding of foundational algorithms and data structures</p>
+            
+            <!-- Featured Links -->
+            <div class="featured-links" style="max-width: 600px; margin: 20px auto; padding: 0 20px; text-align: center;">
+                <a href="src/sort/sorting-algorithms-summary.html" class="featured-link" style="display: inline-block; background: linear-gradient(135deg, #007acc, #005a99); color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 500; margin: 8px; box-shadow: 0 4px 12px rgba(0,122,204,0.3); transition: all 0.3s ease; border: none;">
+                    🔀 Sorting Algorithms
+                </a>
+            </div>
             
             <!-- Search Bar with Reset -->
             <div class="search-container" style="max-width: 500px; margin: 20px auto; padding: 0 20px; position: relative;">

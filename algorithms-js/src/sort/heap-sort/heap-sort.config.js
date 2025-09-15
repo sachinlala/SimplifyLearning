@@ -12,7 +12,7 @@ const config = {
     
     // Multi-language source code paths  
     sourceCode: {
-        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/heap-sort/heap-sort.js",
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/heap-sort/heap-sort-core.js",
         java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/heap/HeapSort.java"
     },
     
@@ -69,45 +69,27 @@ const config = {
         "Good for systems with memory constraints"
     ],
 
-    // Data size recommendations
+    // Data size recommendations - simplified
     dataSizeRecommendations: {
         excellent: {
-            range: "1,000 - 1,000,000+ elements",
-            description: "Heap sort excels with large datasets when memory is limited and guaranteed performance is needed",
-            reasons: [
-                "Consistent O(n log n) performance regardless of input",
-                "In-place operation with minimal memory overhead",
-                "Guaranteed worst-case performance unlike QuickSort",
-                "Excellent for embedded systems with memory constraints"
-            ]
+            range: "1,000+ elements",
+            description: "Best for large datasets with memory constraints - guaranteed O(n log n) in-place sorting",
+            reasons: ["In-place sorting", "Guaranteed performance", "Memory efficient"]
         },
         good: {
             range: "100 - 1,000 elements",
-            description: "Good choice for medium datasets when memory is constrained",
-            reasons: [
-                "Predictable performance characteristics",
-                "No risk of stack overflow (unlike recursive algorithms)",
-                "In-place operation saves memory"
-            ]
+            description: "Good for medium datasets when memory is limited",
+            reasons: ["Predictable performance", "No stack overflow risk"]
         },
         fair: {
             range: "50 - 100 elements",
-            description: "Reasonable choice but may be outperformed by cache-friendly algorithms",
-            reasons: [
-                "Overhead from heap operations may not be worth it",
-                "QuickSort or MergeSort might be faster in practice",
-                "Less cache-friendly than some alternatives"
-            ]
+            description: "Reasonable but less cache-friendly than alternatives",
+            reasons: ["Consider QuickSort or MergeSort for better performance"]
         },
         poor: {
             range: "1 - 50 elements",
-            description: "Not recommended for small datasets due to heap construction overhead",
-            reasons: [
-                "Insertion sort is typically faster for small arrays",
-                "Heap construction overhead not justified",
-                "Simple algorithms have better cache locality",
-                "More complex implementation for minimal benefit"
-            ],
+            description: "Use simpler algorithms for small datasets",
+            reasons: ["Heap construction overhead not worth it"],
             alternatives: ["Insertion Sort", "Selection Sort"]
         }
     },

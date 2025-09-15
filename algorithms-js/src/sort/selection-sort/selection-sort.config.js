@@ -13,7 +13,7 @@ const config = {
     // Multi-language source code paths  
     sourceCode: {
         javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/selection-sort/selection-sort-core.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/selectionsort"
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/generalpurpose/smalldata/SelectionSort.java"
     },
     
     inputs: [
@@ -23,17 +23,6 @@ const config = {
             label: "Unsorted Array (max 12 elements)",
             defaultValue: "64, 34, 25, 12, 22, 11, 90",
             width: "300px"
-        },
-        {
-            id: "sort-order",
-            type: "select", 
-            label: "Sort Order",
-            options: [
-                { value: "ascending", text: "Ascending" },
-                { value: "descending", text: "Descending" }
-            ],
-            defaultValue: "ascending",
-            width: "120px"
         }
     ],
     
@@ -70,7 +59,6 @@ const config = {
     customDemoFunction: `
         function runDemo() {
             const arrayInputStr = document.getElementById('unsorted-array').value;
-            const sortOrder = document.getElementById('sort-order').value;
             const resultContainer = document.getElementById('result');
             const errorContainer = document.getElementById('error-message');
             const visualizationSection = document.getElementById('visualization-section');
@@ -111,14 +99,8 @@ const config = {
             try {
                 const startTime = performance.now();
                 
-                // Execute selection sort with steps
+                // Execute selection sort with steps (ascending order)
                 const result = selectionSortWithSteps(arrayInput);
-                
-                // Handle descending order
-                if (sortOrder === 'descending') {
-                    result.sortedArray.reverse();
-                    // Note: Steps would need to be recalculated for descending order
-                }
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
@@ -126,7 +108,7 @@ const config = {
                 // Show result
                 let resultHTML = \`
                     <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Sorted Array (\${sortOrder}):</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
                     <strong>Total Comparisons:</strong> \${result.metrics.comparisons}<br>
                     <strong>Total Swaps:</strong> \${result.metrics.swaps}<br>
                     <strong>Passes:</strong> \${result.metrics.passes}<br>
@@ -136,7 +118,7 @@ const config = {
                 resultContainer.innerHTML = resultHTML;
 
                 // Show visualization if steps are available
-                if (result.steps && result.steps.length > 0 && sortOrder === 'ascending') {
+                if (result.steps && result.steps.length > 0) {
                     showSelectionSortVisualization(arrayInput, result.steps);
                     visualizationSection.style.display = 'block';
                 }
@@ -156,18 +138,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.5s ease;
-                    font-size: 14px;
-                \`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -175,21 +152,50 @@ const config = {
             
             arrayViz.appendChild(arrayDiv);
             
-            // Add controls
+            // Add controls with legend
             const controlsDiv = document.createElement('div');
-            controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
+            controlsDiv.className = 'viz-controls';
             controlsDiv.innerHTML = \`
-                <div style="margin-bottom: 15px;"><strong>Selection Sort Visualization</strong></div>
-                <button id="start-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
+                <h4>Selection Sort Visualization</h4>
+                <button id="start-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="selectionsort-legend">
+                    <span class="viz-legend-desktop">🔵 Unsorted | 🟡 Current Min | 🟠 Searching | 🟢 Sorted</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🔵 Unsorted</div>
+                        <div class="viz-legend-item">🟡 Current Min</div>
+                        <div class="viz-legend-item">🟠 Searching</div>
+                        <div class="viz-legend-item">🟢 Sorted</div>
+                    </div>
+                </div>
             \`;
             arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#selectionsort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#selectionsort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
             
             // Status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'sort-status';
-            statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold; min-height: 25px;';
+            statusDiv.className = 'viz-status';
             statusDiv.textContent = 'Ready to start selection sort animation...';
             arrayViz.appendChild(statusDiv);
             
@@ -199,14 +205,12 @@ const config = {
             let animationInterval;
             
             function updateVisualization(step) {
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('sort-status');
                 
-                // Reset all cell colors
+                // Reset all cell classes
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
+                    cell.className = 'viz-cell';
                 });
                 
                 // Update array values
@@ -216,32 +220,36 @@ const config = {
                     }
                 });
                 
-                // Highlight sorted portion (green)
-                if (step.sortedUpTo) {
-                    for (let i = 0; i < step.sortedUpTo; i++) {
+                // Highlight unsorted region (blue)
+                if (step.sortedUpTo !== undefined) {
+                    for (let i = step.sortedUpTo; i < step.array.length; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#c8e6c9';
-                            cells[i].style.borderColor = '#4caf50';
+                            cells[i].className = 'viz-cell unsorted';
                         }
                     }
                 }
                 
-                // Highlight current elements being compared/processed
+                // Highlight sorted portion (green)
+                if (step.sortedUpTo) {
+                    for (let i = 0; i < step.sortedUpTo; i++) {
+                        if (cells[i]) {
+                            cells[i].className = 'viz-cell sorted';
+                        }
+                    }
+                }
+                
+                // Highlight current elements being searched (orange)
                 if (step.highlightIndices) {
                     step.highlightIndices.forEach(index => {
                         if (cells[index]) {
-                            cells[index].style.background = '#fff3e0';
-                            cells[index].style.borderColor = '#ff9800';
-                            cells[index].style.transform = 'scale(1.1)';
+                            cells[index].className = 'viz-cell comparing';
                         }
                     });
                 }
                 
-                // Special highlighting for minimum element
+                // Special highlighting for current minimum element (yellow)
                 if (step.minIndex !== undefined && cells[step.minIndex]) {
-                    cells[step.minIndex].style.background = '#e1f5fe';
-                    cells[step.minIndex].style.borderColor = '#2196f3';
-                    cells[step.minIndex].style.transform = 'scale(1.1)';
+                    cells[step.minIndex].className = 'viz-cell current';
                 }
                 
                 // Update status
@@ -249,15 +257,10 @@ const config = {
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}
                 \`;
-                
-                if (step.type === 'complete') {
-                    stepInfo.style.borderLeftColor = '#28a745';
-                    stepInfo.style.background = '#d4edda';
-                }
                 
                 if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);

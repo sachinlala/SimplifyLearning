@@ -1578,60 +1578,80 @@ body.dark-mode .accordion-content {
     box-sizing: border-box;
 }
 
-/* Cell state variations */
+/* Cell state variations - Enhanced for better dark mode visibility with smart text colors */
 .viz-cell.current-range {
-    background: rgba(33, 150, 243, 0.15);
-    border-color: var(--accent, #2196f3);
+    background: rgba(33, 150, 243, 0.6);
+    border-color: #1976d2;
+    border-width: 3px;
     color: var(--text-primary, #333);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
 }
 
 .viz-cell.pivot {
-    background: rgba(244, 67, 54, 0.2);
-    border-color: #f44336;
-    color: var(--text-primary, #333);
+    background: rgba(244, 67, 54, 0.85);
+    border-color: #c62828;
+    border-width: 4px;
+    color: #fff;
     transform: scale(1.15);
-    box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.7);
     z-index: 10;
 }
 
 .viz-cell.comparing {
-    background: rgba(255, 152, 0, 0.2);
-    border-color: #ff9800;
+    background: rgba(255, 152, 0, 0.75);
+    border-color: #ef6c00;
+    border-width: 3px;
     color: var(--text-primary, #333);
     transform: scale(1.1);
+    box-shadow: 0 2px 10px rgba(255, 152, 0, 0.5);
 }
 
 .viz-cell.swapping {
-    background: rgba(156, 39, 176, 0.2);
-    border-color: #9c27b0;
-    color: var(--text-primary, #333);
+    background: rgba(156, 39, 176, 0.8);
+    border-color: #6a1b9a;
+    border-width: 3px;
+    color: #fff;
     transform: scale(1.1);
-    box-shadow: 0 0 8px rgba(156, 39, 176, 0.4);
+    box-shadow: 0 0 12px rgba(156, 39, 176, 0.6);
 }
 
 .viz-cell.left-partition {
-    background: rgba(33, 150, 243, 0.2);
-    border-color: #2196f3;
-    color: var(--text-primary, #333);
+    background: rgba(33, 150, 243, 0.85);
+    border-color: #0d47a1;
+    border-width: 4px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.6);
+    transform: scale(1.05);
+    font-weight: bold;
 }
 
 .viz-cell.right-partition {
-    background: rgba(76, 175, 80, 0.2);
-    border-color: #4caf50;
-    color: var(--text-primary, #333);
+    background: rgba(255, 87, 34, 0.85);
+    border-color: #d84315;
+    border-width: 4px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.6);
+    transform: scale(1.05);
+    font-weight: bold;
 }
 
 .viz-cell.sorted {
-    background: rgba(76, 175, 80, 0.3);
-    border-color: #4caf50;
+    background: rgba(76, 175, 80, 0.7);
+    border-color: #2e7d32;
+    border-width: 3px;
     color: var(--text-primary, #333);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+    font-weight: bold;
 }
 
 .viz-cell.current {
-    background: rgba(255, 193, 7, 0.3);
-    border-color: #ffc107;
+    background: rgba(255, 193, 7, 0.8);
+    border-color: #f57c00;
+    border-width: 3px;
     color: var(--text-primary, #333);
     transform: scale(1.1);
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.5);
+    font-weight: bold;
 }
 
 .viz-cell.minimum {
@@ -1639,6 +1659,30 @@ body.dark-mode .accordion-content {
     border-color: #673ab7;
     color: var(--text-primary, #333);
     transform: scale(1.1);
+}
+
+.viz-cell.excluded {
+    background: rgba(128, 128, 128, 0.1);
+    border-color: #999;
+    color: var(--text-muted, #999);
+    opacity: 0.5;
+}
+
+.viz-cell.unsorted {
+    background: rgba(33, 150, 243, 0.3);
+    border-color: #2196f3;
+    border-width: 2px;
+    color: var(--text-primary, #333);
+    box-shadow: 0 1px 3px rgba(33, 150, 243, 0.2);
+}
+
+.viz-cell.just-inserted {
+    background: rgba(156, 39, 176, 0.6);
+    border-color: #7b1fa2;
+    border-width: 3px;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(156, 39, 176, 0.5);
 }
 
 /* Array visualization container */
@@ -1733,6 +1777,9 @@ body.dark-mode .accordion-content {
     background: var(--surface, #f8f9fa);
     border-radius: 4px;
     border: 1px solid var(--text-muted, #ddd);
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Step information */
@@ -1789,6 +1836,173 @@ body.dark-mode .accordion-content {
     .viz-controls {
         padding: 10px;
     }
+    
+    .viz-legend {
+        font-size: 0.75em;
+        padding: 6px;
+        line-height: 1.6;
+        text-align: left;
+        max-width: 100%;
+    }
+    
+    /* Break legend items on mobile for better readability */
+    .viz-legend-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        align-items: flex-start;
+        max-height: 120px;
+        overflow-y: auto;
+    }
+    
+    .viz-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.75em;
+        line-height: 1.1;
+        padding: 1px 0;
+    }
+    
+    /* Hide desktop legend on mobile */
+    .viz-legend-desktop {
+        display: inline;
+    }
+}
+
+/* ===== ALGORITHM COMPLEXITY TABLE STYLES ===== */
+/* Prevent word-wrap for Time and Space complexity columns */
+.algorithm-complexity-table th.time-complexity,
+.algorithm-complexity-table td.time-complexity,
+.algorithm-complexity-table th.space-complexity,
+.algorithm-complexity-table td.space-complexity,
+th.time-complexity,
+td.time-complexity,
+th.space-complexity,
+td.space-complexity {
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+/* General algorithm table improvements */
+.algorithm-table,
+.algorithm-complexity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.algorithm-table th,
+.algorithm-complexity-table th,
+.algorithm-table td,
+.algorithm-complexity-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.algorithm-table th,
+.algorithm-complexity-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Dark mode for algorithm tables */
+body.dark-mode .algorithm-table th,
+body.dark-mode .algorithm-complexity-table th {
+    background-color: #343536;
+    color: #d7dadc;
+}
+
+body.dark-mode .algorithm-table td,
+body.dark-mode .algorithm-complexity-table td {
+    border-bottom-color: #555;
+    color: #c1c1c1;
+}
+
+/* ===== DEMO ICON STYLES ===== */
+.demo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #007acc 0%, #005a99 100%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 8px;
+    box-shadow: 0 2px 4px rgba(0, 122, 204, 0.3);
+}
+
+.demo-icon:hover {
+    background: linear-gradient(135deg, #005a99 0%, #003d6b 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 122, 204, 0.4);
+}
+
+.demo-icon::before {
+    content: "▶";
+    font-size: 10px;
+}
+
+/* Mobile responsive demo icon */
+@media (max-width: 768px) {
+    .demo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-left: 6px;
+    }
+    
+    .demo-icon::before {
+        font-size: 12px;
+    }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+    .demo-icon {
+        width: 28px;
+        height: 28px;
+        margin-left: 4px;
+    }
+    
+    /* Make complexity table more mobile-friendly */
+    .algorithm-complexity-table {
+        font-size: 0.85em;
+    }
+    
+    .algorithm-complexity-table th,
+    .algorithm-complexity-table td {
+        padding: 8px 4px;
+    }
+    
+    .algorithm-complexity-table th.time-complexity,
+    .algorithm-complexity-table td.time-complexity,
+    .algorithm-complexity-table th.space-complexity,
+    .algorithm-complexity-table td.space-complexity {
+        min-width: 100px;
+        font-size: 0.8em;
+    }
+}
+
+/* Dark mode for demo icon */
+body.dark-mode .demo-icon {
+    background: linear-gradient(135deg, #58a6ff 0%, #4a90e2 100%);
+    box-shadow: 0 2px 4px rgba(88, 166, 255, 0.3);
+}
+
+body.dark-mode .demo-icon:hover {
+    background: linear-gradient(135deg, #4a90e2 0%, #3a7bc8 100%);
+    box-shadow: 0 4px 8px rgba(88, 166, 255, 0.4);
 }
 
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
@@ -1886,6 +2100,43 @@ div[style*="width: 50px"][style*="height: 50px"] {
 [style*="background: rgba(248"] {
     background: var(--surface, #f8f9fa) !important;
     color: var(--text-primary, #333) !important;
+}
+
+/* Dark mode specific overrides for better QuickSort visibility */
+body.dark-mode .viz-cell.current-range {
+    background: rgba(33, 150, 243, 0.8) !important;
+    border-color: #1565c0 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.pivot {
+    background: rgba(244, 67, 54, 0.9) !important;
+    border-color: #b71c1c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.left-partition {
+    background: rgba(33, 150, 243, 0.9) !important;
+    border-color: #0d47a1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.right-partition {
+    background: rgba(255, 87, 34, 0.9) !important;
+    border-color: #bf360c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.comparing {
+    background: rgba(255, 193, 7, 0.85) !important;
+    border-color: #f57c00 !important;
+    color: #333 !important;
+}
+
+body.dark-mode .viz-cell.swapping {
+    background: rgba(156, 39, 176, 0.85) !important;
+    border-color: #4a148c !important;
+    color: #fff !important;
 }
 
 /* Ensure buttons in visualizations are properly styled */
