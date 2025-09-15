@@ -131,11 +131,39 @@ function showHeapSortVisualization(originalArray, steps, heapType) {
         <button id="start-sort-animation" class="viz-button start">Start Animation</button>
         <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
         <button id="reset-sort-animation" class="viz-button reset">Reset</button>
-        <div class="viz-legend">
-            🔵 Heap Region | 🟠 Comparing | 🟡 Current | 🔴 Pivot | 🟣 Swapping | 🟢 Sorted
+        <div class="viz-legend" id="heapsort-legend">
+            <span class="viz-legend-desktop">🔵 Heap Region | 🟠 Comparing | 🟡 Current | 🔴 Pivot | 🟣 Swapping | 🟢 Sorted</span>
+            <div class="viz-legend-mobile" style="display: none;">
+                <div class="viz-legend-item">🔵 Heap Region</div>
+                <div class="viz-legend-item">🟠 Comparing</div>
+                <div class="viz-legend-item">🟡 Current</div>
+                <div class="viz-legend-item">🔴 Pivot</div>
+                <div class="viz-legend-item">🟣 Swapping</div>
+                <div class="viz-legend-item">🟢 Sorted</div>
+            </div>
         </div>
     `;
     arrayViz.appendChild(controlsDiv);
+    
+    // Toggle legend display based on screen size
+    function updateLegendDisplay() {
+        const isMobile = window.innerWidth <= 768;
+        const desktopLegend = document.querySelector('#heapsort-legend .viz-legend-desktop');
+        const mobileLegend = document.querySelector('#heapsort-legend .viz-legend-mobile');
+        
+        if (desktopLegend && mobileLegend) {
+            if (isMobile) {
+                desktopLegend.style.display = 'none';
+                mobileLegend.style.display = 'flex';
+            } else {
+                desktopLegend.style.display = 'inline';
+                mobileLegend.style.display = 'none';
+            }
+        }
+    }
+    
+    updateLegendDisplay();
+    window.addEventListener('resize', updateLegendDisplay);
     
     // Status display
     const statusDiv = document.createElement('div');

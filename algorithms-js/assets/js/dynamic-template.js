@@ -69,6 +69,19 @@ class DynamicAlgorithmTemplate {
     }
 
     /**
+     * Check if algorithm is a sorting algorithm (supports both string and array categories)
+     */
+    isSortingAlgorithm(category) {
+        if (typeof category === 'string') {
+            return category === 'sort';
+        }
+        if (Array.isArray(category)) {
+            return category.includes('sort');
+        }
+        return false;
+    }
+
+    /**
      * Generate dynamic algorithms home URL based on config and current environment
      */
     generateDynamicAlgorithmsHomeUrl(config) {
@@ -199,7 +212,7 @@ class DynamicAlgorithmTemplate {
             <a href="${config.backPath || (config.basePath ? `${config.basePath}/index.html` : '../../../index.html')}" class="back-to-home desktop-only">
                 🏠 Home
             </a>
-            ${config.category === 'sort' ? `<a href="${config.basePath ? `${config.basePath}/src/sort/sorting-algorithms-summary.html` : '../sorting-algorithms-summary.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
+            ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/src/sort/sorting-algorithms-summary.html` : 'src/sort/sorting-algorithms-summary.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
             <div class="theme-slider-container">
                 <label class="theme-slider" for="global-theme-toggle">
                     <input type="checkbox" id="global-theme-toggle" class="theme-toggle-input">
@@ -224,7 +237,7 @@ class DynamicAlgorithmTemplate {
                 <!-- Mobile navigation controls -->
                 <div class="mobile-nav-controls" style="padding: 15px; border-bottom: 1px solid #eee; margin-bottom: 10px;">
                     <a href="${config.backPath || (config.basePath ? `${config.basePath}/index.html` : '../../../index.html')}" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
-                    ${config.category === 'sort' ? `<a href="${config.basePath ? `${config.basePath}/src/sort/sorting-algorithms-summary.html` : '../sorting-algorithms-summary.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
+                    ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/src/sort/sorting-algorithms-summary.html` : 'src/sort/sorting-algorithms-summary.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
                     <button id="mobile-theme-toggle" class="mobile-theme-btn" style="width: 100%; padding: 12px; background: #f8f9fa; color: #333; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: 500;">🌙 Toggle Theme</button>
                 </div>
                 <!-- Algorithm list will be populated by JavaScript -->

@@ -175,18 +175,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.6s ease;
-                    font-size: 14px; position: relative;
-                \`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -194,24 +189,49 @@ const config = {
             
             arrayViz.appendChild(arrayDiv);
             
-            // Add controls
+            // Add controls with legend
             const controlsDiv = document.createElement('div');
-            controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
+            controlsDiv.className = 'viz-controls';
             controlsDiv.innerHTML = \`
-                <div style="margin-bottom: 15px;"><strong>Insertion Sort Visualization</strong></div>
-                <button id="start-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
-                <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                    Green: Sorted portion | Orange: Current element | Blue: Comparing/Inserting
+                <h4>Insertion Sort Visualization</h4>
+                <button id="start-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="insertionsort-legend">
+                    <span class="viz-legend-desktop">🟢 Sorted | 🟡 Current Key | 🟣 Just Inserted</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🟢 Sorted</div>
+                        <div class="viz-legend-item">🟡 Current Key</div>
+                        <div class="viz-legend-item">🟣 Just Inserted</div>
+                    </div>
                 </div>
             \`;
             arrayViz.appendChild(controlsDiv);
             
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#insertionsort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#insertionsort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
+            
             // Status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'sort-status';
-            statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold; min-height: 25px;';
+            statusDiv.className = 'viz-status';
             statusDiv.textContent = 'Ready to start insertion sort animation...';
             arrayViz.appendChild(statusDiv);
             
@@ -221,15 +241,12 @@ const config = {
             let animationInterval;
             
             function updateVisualization(step) {
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('sort-status');
                 
-                // Reset all cell colors
+                // Reset all cell classes
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
-                    cell.style.zIndex = '1';
+                    cell.className = 'viz-cell';
                 });
                 
                 // Update array values
@@ -239,67 +256,47 @@ const config = {
                     }
                 });
                 
-                // Highlight sorted portion (green)
-                if (step.sortedUpTo) {
+                // Apply sorted portion first (green)
+                if (step.sortedUpTo !== undefined && step.sortedUpTo > 0) {
                     for (let i = 0; i < step.sortedUpTo; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#c8e6c9';
-                            cells[i].style.borderColor = '#4caf50';
+                            cells[i].className = 'viz-cell sorted';
                         }
                     }
                 }
                 
-                // Highlight current element being processed (orange)
-                if (step.currentIndex !== undefined && cells[step.currentIndex]) {
-                    cells[step.currentIndex].style.background = '#fff3e0';
-                    cells[step.currentIndex].style.borderColor = '#ff9800';
-                    cells[step.currentIndex].style.transform = 'scale(1.1)';
-                    cells[step.currentIndex].style.zIndex = '10';
-                }
-                
-                // Highlight elements being compared (blue)
-                if (step.highlightIndices) {
-                    step.highlightIndices.forEach(index => {
-                        if (cells[index] && index !== step.currentIndex) {
-                            cells[index].style.background = '#e3f2fd';
-                            cells[index].style.borderColor = '#2196f3';
-                            cells[index].style.transform = 'scale(1.05)';
-                        }
-                    });
-                }
-                
-                // Special highlighting for key element during insertion
-                if (step.key !== undefined && step.type === 'insert' && step.insertPosition !== undefined) {
-                    if (cells[step.insertPosition]) {
-                        cells[step.insertPosition].style.background = '#e8f5e8';
-                        cells[step.insertPosition].style.borderColor = '#4caf50';
-                        cells[step.insertPosition].style.transform = 'scale(1.15)';
-                        cells[step.insertPosition].style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.5)';
+                // Apply step-specific highlighting (these override sorted)
+                if (step.type === 'compare') {
+                    // Highlight current element (yellow)
+                    if (step.currentIndex !== undefined && cells[step.currentIndex]) {
+                        cells[step.currentIndex].className = 'viz-cell current';
+                    }
+                    // Highlight comparison element (blue)
+                    if (step.comparePosition !== undefined && cells[step.comparePosition]) {
+                        cells[step.comparePosition].className = 'viz-cell comparing';
+                    }
+                } else if (step.type === 'insert') {
+                    // Highlight just inserted element (purple)
+                    if (step.insertPosition !== undefined && cells[step.insertPosition]) {
+                        cells[step.insertPosition].className = 'viz-cell just-inserted';
+                    }
+                } else {
+                    // Default: highlight current element (yellow)
+                    if (step.currentIndex !== undefined && cells[step.currentIndex]) {
+                        cells[step.currentIndex].className = 'viz-cell current';
                     }
                 }
-                
                 // Update status
                 statusDiv.textContent = step.message;
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
-                
-                let stepTypeColor = '#007acc';
-                if (step.type === 'complete') stepTypeColor = '#28a745';
-                else if (step.type === 'insert') stepTypeColor = '#4caf50';
-                else if (step.type === 'shift') stepTypeColor = '#ff9800';
-                
-                stepInfo.style.borderLeftColor = stepTypeColor;
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
                 
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
-                    <small style="color: #666;">Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
+                    <small>Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
                 \`;
-                
-                if (step.type === 'complete') {
-                    stepInfo.style.background = '#d4edda';
-                }
                 
                 if (stepsContainer.children.length > 6) {
                     stepsContainer.removeChild(stepsContainer.firstChild);
@@ -325,7 +322,7 @@ const config = {
                     
                     updateVisualization(steps[currentStepIndex]);
                     currentStepIndex++;
-                }, 1500); // 1.5 second delay between steps
+                }, 2500); // 2.5 second delay between steps (slower for better visibility)
             }
             
             function pauseAnimation() {

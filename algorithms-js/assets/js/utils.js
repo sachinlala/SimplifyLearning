@@ -55,16 +55,20 @@ function generateRandomSortedArray(size, min = 1, max = 100) {
     return arr.sort((a, b) => a - b);
 }
 
-// Utility function to get maximum value from an array
+// Utility function to get maximum value from an array (supports mixed types)
 function getMax(arr) {
     if (!arr || !arr.length) return undefined;
-    return Math.max(...arr);
+    // Handle mixed arrays (numbers and strings)
+    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
+    return Math.max(...numericValues);
 }
 
-// Utility function to get minimum value from an array
+// Utility function to get minimum value from an array (supports mixed types)
 function getMin(arr) {
     if (!arr || !arr.length) return undefined;
-    return Math.min(...arr);
+    // Handle mixed arrays (numbers and strings)
+    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
+    return Math.min(...numericValues);
 }
 
 // Utility function to get maximum value (wrapper for Math.max)
@@ -77,16 +81,59 @@ function roundNumber(num) {
     return Math.round(num);
 }
 
-// Utility function to calculate the height of a bar given its value and max height
+// Utility function to calculate the height of a bar given its value and max height (supports mixed types)
 function calculateBarHeight(value, minValue, maxValue, minHeight = 40, maxHeight = 200) {
-    if (maxValue === minValue) return minHeight;
-    const normalizedValue = (value - minValue) / (maxValue - minValue);
-    return minHeight + (normalizedValue * (maxHeight - minHeight));
+    if (maxValue === minValue) return minHeight + ((maxHeight - minHeight) / 2); // Middle height for equal values
+    
+    // Handle mixed types (numbers and strings)
+    const numericValue = typeof value === 'number' ? value : value.toString().length;
+    const numericMin = typeof minValue === 'number' ? minValue : (typeof minValue === 'string' ? minValue.toString().length : minValue);
+    const numericMax = typeof maxValue === 'number' ? maxValue : (typeof maxValue === 'string' ? maxValue.toString().length : maxValue);
+    
+    const normalizedValue = (numericValue - numericMin) / (numericMax - numericMin);
+    return Math.round(minHeight + (normalizedValue * (maxHeight - minHeight)));
 }
 
-// Utility function to generate style for a bar based on its height
-function generateBarStyle(height, color = '#4ecdc4', width = 30) {
-    return `height: ${height}px; background-color: ${color}; margin: 2px; display: inline-block; width: ${width}px; transition: all 0.3s ease; text-align: center; line-height: ${height}px; color: white; font-weight: bold; border-radius: 4px;`;
+// Utility function to generate modern bar style with enhanced visuals and dark mode support
+function generateBarStyle(height, color = 'rgba(78, 205, 196, 0.8)', width = 50, options = {}) {
+    const defaults = {
+        borderWidth: 2,
+        borderRadius: 4,
+        margin: 2,
+        padding: 2,
+        transition: 'all 0.3s ease',
+        textColor: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold',
+        boxShadow: 'none'
+    };
+    
+    const config = { ...defaults, ...options };
+    
+    // Auto-determine border color from main color
+    const borderColor = color.includes('rgba') || color.includes('rgb') 
+        ? color.replace(/[\d\.]+\)$/g, '1)').replace('rgba', 'rgb') 
+        : color;
+    
+    return `
+        height: ${Math.round(height)}px;
+        width: ${width}px;
+        background: ${color};
+        border: ${config.borderWidth}px solid ${borderColor};
+        border-radius: ${config.borderRadius}px;
+        margin: ${config.margin}px;
+        padding: ${config.padding}px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        transition: ${config.transition};
+        color: ${config.textColor};
+        font-size: ${config.fontSize}px;
+        font-weight: ${config.fontWeight};
+        position: relative;
+        box-sizing: border-box;
+        ${config.boxShadow !== 'none' ? `box-shadow: ${config.boxShadow};` : ''}
+    `.trim().replace(/\s+/g, ' ');
 }
 
 // UI and rendering-related utilities

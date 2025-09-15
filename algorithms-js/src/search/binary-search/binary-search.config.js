@@ -7,8 +7,14 @@ const config = {
     title: "Binary Search Demo",
     category: "search",
     problem: "Given a sorted array, find the index of a target value in O(log n) time.",
-    algorithmFunction: "binarySearchWithSteps",
+    algorithmFunction: "binarySearchIterativeWithSteps",
     hasVisualization: true,
+    
+    // Multi-language source code paths  
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/search/binary-search/binary-search-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/search/BinarySearch.java"
+    },
     
     // Data type configuration for input toggle
     inputDataTypes: {
@@ -54,10 +60,9 @@ const config = {
             label: "Search Method",
             options: [
                 { value: "iterative", text: "Iterative" },
-                { value: "recursive", text: "Recursive" },
-                { value: "withSteps", text: "With Visualization" }
+                { value: "recursive", text: "Recursive" }
             ],
-            defaultValue: "withSteps",
+            defaultValue: "iterative",
             width: "150px"
         }
     ],
@@ -132,31 +137,20 @@ const config = {
                 const startTime = performance.now();
                 let result;
                 
-                // Execute based on selected method
+                // Execute based on selected method - always with visualization
                 switch (searchMethod) {
                     case 'iterative':
-                        const iterativeIndex = binarySearchIterative(arrayInput, targetElement);
+                        const iterativeResult = binarySearchIterativeWithSteps(arrayInput, targetElement);
                         result = {
-                            index: iterativeIndex,
-                            found: iterativeIndex !== -1,
-                            method: 'Iterative',
-                            steps: [] // No steps for iterative
+                            ...iterativeResult,
+                            method: 'Iterative'
                         };
                         break;
                     case 'recursive':
-                        const recursiveIndex = binarySearchRecursive(arrayInput, targetElement);
+                        const recursiveResult = binarySearchRecursiveWithSteps(arrayInput, targetElement);
                         result = {
-                            index: recursiveIndex,
-                            found: recursiveIndex !== -1,
-                            method: 'Recursive',
-                            steps: [] // No steps for recursive
-                        };
-                        break;
-                    default: // 'withSteps'
-                        const stepResult = binarySearchWithSteps(arrayInput, targetElement);
-                        result = {
-                            ...stepResult,
-                            method: 'With Visualization'
+                            ...recursiveResult,
+                            method: 'Recursive'
                         };
                         break;
                 }
@@ -188,15 +182,112 @@ const config = {
                 
                 resultContainer.innerHTML = resultHTML;
 
-                // Show visualization if steps are available
+                // Always show visualization
                 if (result.steps && result.steps.length > 0) {
                     showAnimatedVisualization(arrayInput, targetElement, result.steps);
-                    visualizationSection.style.display = 'block';
                 }
+                visualizationSection.style.display = 'block';
                 
             } catch (error) {
                 showError(error.message);
             }
+        }
+
+        // Binary search iterative implementation with steps for visualization
+        function binarySearchIterativeWithSteps(sortedArray, target) {
+            if (!Array.isArray(sortedArray) || sortedArray.length === 0) {
+                throw new Error('Input must be a non-empty array');
+            }
+
+            const steps = [];
+            let start = 0;
+            let end = sortedArray.length - 1;
+            let stepCount = 0;
+
+            while (start <= end) {
+                stepCount++;
+                const mid = Math.floor((start + end) / 2);
+                const midValue = sortedArray[mid];
+
+                steps.push({
+                    step: stepCount,
+                    start,
+                    end,
+                    mid,
+                    midValue,
+                    target,
+                    comparison: target === midValue ? 'equal' : target < midValue ? 'less' : 'greater',
+                    found: target === midValue
+                });
+
+                if (midValue === target) {
+                    return {
+                        index: mid,
+                        found: true,
+                        steps,
+                        totalComparisons: stepCount
+                    };
+                } else if (target < midValue) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+
+            return {
+                index: -1,
+                found: false,
+                steps,
+                totalComparisons: stepCount
+            };
+        }
+
+        // Binary search recursive implementation with steps for visualization
+        function binarySearchRecursiveWithSteps(sortedArray, target) {
+            if (!Array.isArray(sortedArray) || sortedArray.length === 0) {
+                throw new Error('Input must be a non-empty array');
+            }
+
+            const steps = [];
+            let stepCount = 0;
+
+            function recursiveSearch(start, end) {
+                if (start > end) {
+                    return -1;
+                }
+
+                stepCount++;
+                const mid = Math.floor((start + end) / 2);
+                const midValue = sortedArray[mid];
+
+                steps.push({
+                    step: stepCount,
+                    start,
+                    end,
+                    mid,
+                    midValue,
+                    target,
+                    comparison: target === midValue ? 'equal' : target < midValue ? 'less' : 'greater',
+                    found: target === midValue
+                });
+
+                if (midValue === target) {
+                    return mid;
+                } else if (target < midValue) {
+                    return recursiveSearch(start, mid - 1);
+                } else {
+                    return recursiveSearch(mid + 1, end);
+                }
+            }
+
+            const resultIndex = recursiveSearch(0, sortedArray.length - 1);
+
+            return {
+                index: resultIndex,
+                found: resultIndex !== -1,
+                steps,
+                totalComparisons: stepCount
+            };
         }
 
         function showAnimatedVisualization(array, target, steps) {
@@ -209,18 +300,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'search-array-display';
             
             array.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.5s ease;
-                    font-size: 14px;
-                \`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -228,21 +314,51 @@ const config = {
             
             arrayViz.appendChild(arrayDiv);
             
-            // Add target info and controls
+            // Add target info and controls with legend
             const controlsDiv = document.createElement('div');
-            controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
+            controlsDiv.className = 'viz-controls';
             controlsDiv.innerHTML = \`
+                \u003ch4\u003eBinary Search Visualization\u003c/h4\u003e
                 \u003cdiv style="margin-bottom: 15px;"\u003e\u003cstrong\u003eTarget: \${target}\u003c/strong\u003e\u003c/div\u003e
-                \u003cbutton id="start-search-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;"\u003eStart Animation\u003c/button\u003e
-                \u003cbutton id="pause-search-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled\u003ePause\u003c/button\u003e
-                \u003cbutton id="reset-search-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;"\u003eReset\u003c/button\u003e
+                \u003cbutton id="start-search-animation" class="viz-button start"\u003eStart Animation\u003c/button\u003e
+                \u003cbutton id="pause-search-animation" class="viz-button pause" disabled\u003ePause\u003c/button\u003e
+                \u003cbutton id="reset-search-animation" class="viz-button reset"\u003eReset\u003c/button\u003e
+                \u003cdiv class="viz-legend" id="binarysearch-legend"\u003e
+                    \u003cspan class="viz-legend-desktop"\u003e🔵 Search Range | 🟡 Checking (Mid) | 🟢 Found | ⚫ Excluded\u003c/span\u003e
+                    \u003cdiv class="viz-legend-mobile" style="display: none;"\u003e
+                        \u003cdiv class="viz-legend-item"\u003e🔵 Search Range\u003c/div\u003e
+                        \u003cdiv class="viz-legend-item"\u003e🟡 Checking (Mid)\u003c/div\u003e
+                        \u003cdiv class="viz-legend-item"\u003e🟢 Found\u003c/div\u003e
+                        \u003cdiv class="viz-legend-item"\u003e⚫ Excluded\u003c/div\u003e
+                    \u003c/div\u003e
+                \u003c/div\u003e
             \`;
             arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#binarysearch-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#binarysearch-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
             
             // Status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'search-status';
-            statusDiv.style.cssText = 'text-align: center; margin-bottom: 20px; font-size: 1.1em; font-weight: bold; min-height: 25px;';
+            statusDiv.className = 'viz-status';
             statusDiv.textContent = 'Ready to start binary search animation...';
             arrayViz.appendChild(statusDiv);
             
@@ -252,29 +368,35 @@ const config = {
             let animationInterval;
             
             function updateSearchVisualization(step) {
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('search-status');
                 
-                // Reset all cell colors
+                // Reset all cell classes
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
+                    cell.className = 'viz-cell';
                 });
                 
-                // Highlight current search range
-                for (let i = step.start; i <= step.end; i++) {
-                    if (cells[i]) {
-                        cells[i].style.background = '#e3f2fd';
-                        cells[i].style.borderColor = '#2196f3';
+                // Color excluded regions (outside current search range)
+                for (let i = 0; i < array.length; i++) {
+                    if (cells[i] && (i < step.start || i > step.end)) {
+                        cells[i].className = 'viz-cell excluded';
                     }
                 }
                 
-                // Highlight middle element
+                // Highlight current search range
+                for (let i = step.start; i <= step.end; i++) {
+                    if (cells[i] && i !== step.mid) {
+                        cells[i].className = 'viz-cell current-range';
+                    }
+                }
+                
+                // Highlight middle element being checked
                 if (cells[step.mid]) {
-                    cells[step.mid].style.background = step.found ? '#c8e6c9' : '#fff3e0';
-                    cells[step.mid].style.borderColor = step.found ? '#4caf50' : '#ff9800';
-                    cells[step.mid].style.transform = 'scale(1.1)';
+                    if (step.found) {
+                        cells[step.mid].className = 'viz-cell sorted'; // Found - green
+                    } else {
+                        cells[step.mid].className = 'viz-cell current'; // Checking - yellow
+                    }
                 }
                 
                 // Update status
@@ -288,16 +410,11 @@ const config = {
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
+                stepInfo.className = step.found ? 'viz-step-info complete' : 'viz-step-info';
                 stepInfo.innerHTML = \`
                     \u003cstrong\u003eStep \${step.step}:\u003c/strong\u003e Range [\${step.start}, \${step.end}], Mid: \${step.mid} (\${step.midValue})\u003cbr\u003e
                     \u003csmall\u003eComparison: \${target} \${step.comparison === 'equal' ? '==' : step.comparison === 'less' ? '\u003c' : '\u003e'} \${step.midValue}\u003c/small\u003e
                 \`;
-                
-                if (step.found) {
-                    stepInfo.style.borderLeftColor = '#28a745';
-                    stepInfo.style.background = '#d4edda';
-                }
                 
                 if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);
@@ -343,11 +460,9 @@ const config = {
                 stepsContainer.innerHTML = '';
                 
                 // Reset visualization
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
+                    cell.className = 'viz-cell';
                 });
                 
                 document.getElementById('search-status').textContent = 'Ready to start animation...';

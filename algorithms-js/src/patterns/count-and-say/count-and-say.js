@@ -1,80 +1,90 @@
-// JavaScript implementation of the Count and Say Algorithm
+/**
+ * Count and Say - Visualization and Step-by-Step Implementation
+ * 
+ * This file contains the visualization functions for Count and Say algorithm.
+ * The core algorithm logic is in count-and-say-core.js.
+ * 
+ * @see https://github.com/sachinlala/SimplifyLearning
+ */
+
+// Core algorithm functions are loaded from count-and-say-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.CountAndSayCore
+
+// For compatibility, create references to core functions (loaded dynamically)
+// Note: Core functions are available globally via window.CountAndSayCore when needed
+
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    // Core functions are available via window.CountAndSayCore when needed
+    // No local variables needed since we're not using them in this file
+}
 
 /**
- * Generate Count and Say sequence starting from a given number
- * @param {number} startingNumber - The starting number for the sequence
- * @param {number} rowNumber - The row number to generate (0-based)
- * @returns {string} The Count and Say sequence for the given row
+ * Generate Count and Say sequence with step-by-step visualization data
+ * @param {number} startingNumber - The starting number
+ * @param {number} rowNumber - The row number to generate
+ * @returns {Array<Object>} Array of step objects for visualization
  */
-function generateCountAndSay(startingNumber, rowNumber) {
-    // Input validation
+function generateCountAndSayWithSteps(startingNumber, rowNumber) {
+    // Ensure core functions are available (safe late binding)
+    ensureCoreFunctions();
+    
     if (startingNumber <= 0 || rowNumber < 0) {
         throw new Error('Invalid input: startingNumber must be positive, rowNumber must be non-negative');
     }
     
-    // Upper bound check to prevent memory issues
-    if (rowNumber > 40) {
-        throw new Error('Row number too large (max 40): may cause out-of-memory error');
+    if (rowNumber > 12) {
+        throw new Error('Row number limited to 12 for demo purposes');
     }
     
-    // Base case: row 0 is the starting number itself
-    if (rowNumber === 0) {
-        return startingNumber.toString();
-    }
-    
+    const steps = [];
     let current = startingNumber.toString();
     
-    // Generate sequence up to the requested row
-    for (let i = 1; i <= rowNumber; i++) {
-        current = getNext(current);
-    }
+    steps.push({
+        row: 0,
+        sequence: current,
+        description: `Starting with: ${current}`,
+        process: []
+    });
     
-    return current;
-}
-
-/**
- * Generate the next sequence in Count and Say
- * @param {string} sequence - Current sequence as string
- * @returns {string} Next sequence
- */
-function getNext(sequence) {
-    let result = '';
-    let count = 1;
-    let currentChar = sequence[0];
-    
-    for (let i = 1; i < sequence.length; i++) {
-        if (sequence[i] === currentChar) {
-            count++;
-        } else {
-            result += count + currentChar;
-            currentChar = sequence[i];
-            count = 1;
+    for (let row = 1; row <= rowNumber; row++) {
+        const processSteps = [];
+        let result = '';
+        let i = 0;
+        
+        while (i < current.length) {
+            let count = 1;
+            const digit = current[i];
+            
+            // Count consecutive identical digits
+            while (i + count < current.length && current[i + count] === digit) {
+                count++;
+            }
+            
+            processSteps.push({
+                startIndex: i,
+                endIndex: i + count - 1,
+                digit: digit,
+                count: count,
+                saying: `${count} ${digit}${count > 1 ? 's' : ''}`
+            });
+            
+            result += count.toString() + digit;
+            i += count;
         }
+        
+        steps.push({
+            row: row,
+            sequence: result,
+            previous: current,
+            description: `Row ${row}: Reading "${current}" → "${result}"`,
+            process: processSteps
+        });
+        
+        current = result;
     }
     
-    // Add the last group
-    result += count + currentChar;
-    
-    return result;
-}
-
-/**
- * Generate multiple rows of Count and Say sequence for visualization
- * @param {number} startingNumber - The starting number
- * @param {number} maxRows - Maximum number of rows to generate
- * @returns {Array<string>} Array of sequences
- */
-function generateMultipleRows(startingNumber, maxRows) {
-    const results = [];
-    let current = startingNumber.toString();
-    results.push(`Row 0: ${current}`);
-    
-    for (let i = 1; i < maxRows; i++) {
-        current = getNext(current);
-        results.push(`Row ${i}: ${current}`);
-    }
-    
-    return results;
+    return steps;
 }
 
 // Export for module environment

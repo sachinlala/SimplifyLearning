@@ -36,17 +36,6 @@ const config = {
             ],
             defaultValue: "median-of-three",
             width: "200px"
-        },
-        {
-            id: "implementation",
-            type: "select",
-            label: "Implementation Type",
-            options: [
-                { value: "recursive", text: "Recursive (Standard)" },
-                { value: "iterative", text: "Iterative (Stack-based)" }
-            ],
-            defaultValue: "recursive",
-            width: "180px"
         }
     ],
     
@@ -121,7 +110,6 @@ const config = {
         function runDemo() {
             const arrayInputStr = document.getElementById('unsorted-array').value;
             const pivotStrategy = document.getElementById('pivot-strategy').value;
-            const implementation = document.getElementById('implementation').value;
             const resultContainer = document.getElementById('result');
             const errorContainer = document.getElementById('error-message');
             const visualizationSection = document.getElementById('visualization-section');
@@ -162,38 +150,29 @@ const config = {
             try {
                 const startTime = performance.now();
                 
-                // Execute quicksort based on implementation type
-                let result;
-                if (implementation === 'iterative') {
-                    result = quickSortIterative(arrayInput);
-                    result.variant = 'Iterative QuickSort';
-                } else {
-                    const options = { pivotStrategy };
-                    result = quickSortWithSteps(arrayInput, options);
-                    result.variant = 'Recursive QuickSort';
-                }
+                // Execute recursive quicksort with steps for visualization
+                const options = { pivotStrategy };
+                const result = quickSortWithSteps(arrayInput, options);
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
                 
                 // Show result
                 let resultHTML = \`
-                    <strong>Algorithm:</strong> \${result.variant}<br>
                     <strong>Pivot Strategy:</strong> \${pivotStrategy.replace('-', ' ').replace(/\\b\\w/g, l => l.toUpperCase())}<br>
                     <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
                     <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
                     <strong>Total Comparisons:</strong> \${result.metrics.comparisons}<br>
                     <strong>Total Swaps:</strong> \${result.metrics.swaps}<br>
                     <strong>Partitions Created:</strong> \${result.metrics.partitions}<br>
-                    \${result.metrics.recursiveDepth ? \`<strong>Max Recursion Depth:</strong> \${result.metrics.recursiveDepth}<br>\` : ''}
-                    \${result.metrics.stackSize ? \`<strong>Max Stack Size:</strong> \${result.metrics.stackSize}<br>\` : ''}
+                    <strong>Max Recursion Depth:</strong> \${result.metrics.recursiveDepth}<br>
                     <strong>Execution Time:</strong> \${executionTime} ms
                 \`;
                 
                 resultContainer.innerHTML = resultHTML;
 
-                // Show visualization if steps are available (recursive only)
-                if (result.steps && result.steps.length > 0 && implementation === 'recursive') {
+                // Show visualization if steps are available
+                if (result.steps && result.steps.length > 0) {
                     showQuickSortVisualization(arrayInput, result.steps, pivotStrategy);
                     visualizationSection.style.display = 'block';
                 }
@@ -235,12 +214,39 @@ const config = {
                 <button id="start-sort-animation" class="viz-button start">Start Animation</button>
                 <button id="pause-sort-animation" class="viz-button pause" disabled>Pause</button>
                 <button id="reset-sort-animation" class="viz-button reset">Reset</button>
-                <div class="viz-legend">
-                    🔴 Pivot | 🟡 Comparing | 🔵 Left Partition | 🟢 Right Partition | ⚪ Current Range
+                <div class="viz-legend" id="quicksort-legend">
+                    <span class="viz-legend-desktop">🔴 Pivot | 🟡 Comparing | 🟠 Swapping | 🔵 Left Partition | 🟢 Right Partition</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🔴 Pivot</div>
+                        <div class="viz-legend-item">🟡 Comparing</div>
+                        <div class="viz-legend-item">🟠 Swapping</div>
+                        <div class="viz-legend-item">🔵 Left Partition</div>
+                        <div class="viz-legend-item">🟢 Right Partition</div>
+                    </div>
                 </div>
             \`;
+            
             arrayViz.appendChild(controlsDiv);
             
+            // Toggle legend display based on screen size
+            function updateLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#quicksort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#quicksort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateLegendDisplay();
+            window.addEventListener('resize', updateLegendDisplay);
             // Status display
             const statusDiv = document.createElement('div');
             statusDiv.id = 'sort-status';
@@ -257,6 +263,9 @@ const config = {
                 const cells = arrayDiv.querySelectorAll('div');
                 const statusDiv = document.getElementById('sort-status');
                 
+                // Debug: Log every step
+                console.log('Step:', step.type, step);
+                
                 // Reset all cell colors
                 cells.forEach(cell => {
                     cell.className = 'viz-cell'; // Reset to base class
@@ -269,18 +278,10 @@ const config = {
                     }
                 });
                 
-                // Highlight current range being processed
-                if (step.range) {
-                    for (let i = step.range[0]; i <= step.range[1]; i++) {
-                        if (cells[i]) {
-                            cells[i].className = 'viz-cell current-range';
-                        }
-                    }
-                }
-                
                 // Highlight pivot element
                 if (step.pivotIndex !== undefined && cells[step.pivotIndex]) {
                     cells[step.pivotIndex].className = 'viz-cell pivot';
+                    console.log('Applied pivot to cell', step.pivotIndex);
                 }
                 
                 // Highlight elements being compared
@@ -288,6 +289,7 @@ const config = {
                     step.compareIndices.forEach(index => {
                         if (cells[index] && index !== step.pivotIndex) {
                             cells[index].className = 'viz-cell comparing';
+                            console.log('Applied comparing to cell', index);
                         }
                     });
                 }
@@ -297,23 +299,51 @@ const config = {
                     step.swapIndices.forEach(index => {
                         if (cells[index]) {
                             cells[index].className = 'viz-cell swapping';
+                            console.log('Applied swapping to cell', index);
                         }
                     });
                 }
                 
-                // Show partitions after pivot placement
-                if (step.type === 'pivot-final' && step.leftPartition && step.rightPartition) {
-                    // Left partition (blue)
-                    for (let i = step.leftPartition[0]; i <= step.leftPartition[1]; i++) {
-                        if (cells[i]) {
-                            cells[i].className = 'viz-cell left-partition';
+                // Show partitions after pivot placement - CRITICAL DEBUG
+                if (step.type === 'pivot-final') {
+                    console.log('*** PIVOT-FINAL STEP DETECTED ***');
+                    console.log('leftPartition:', step.leftPartition);
+                    console.log('rightPartition:', step.rightPartition);
+                    
+                    if (step.leftPartition && step.rightPartition) {
+                        console.log('*** APPLYING PARTITION COLORS ***');
+                        
+                        // Left partition (blue) - only if valid range
+                        if (step.leftPartition[0] <= step.leftPartition[1]) {
+                            for (let i = step.leftPartition[0]; i <= step.leftPartition[1]; i++) {
+                                if (cells[i] && i !== step.pivotFinalIndex) {
+                                    cells[i].className = 'viz-cell left-partition';
+                                    console.log('*** APPLIED LEFT-PARTITION to cell', i, 'with color blue ***');
+                                }
+                            }
+                        } else {
+                            console.log('*** LEFT PARTITION EMPTY - range invalid:', step.leftPartition);
                         }
-                    }
-                    // Right partition (green)  
-                    for (let i = step.rightPartition[0]; i <= step.rightPartition[1]; i++) {
-                        if (cells[i]) {
-                            cells[i].className = 'viz-cell right-partition';
+                        
+                        // Right partition (green) - only if valid range
+                        if (step.rightPartition[0] <= step.rightPartition[1]) {
+                            for (let i = step.rightPartition[0]; i <= step.rightPartition[1]; i++) {
+                                if (cells[i] && i !== step.pivotFinalIndex) {
+                                    cells[i].className = 'viz-cell right-partition';
+                                    console.log('*** APPLIED RIGHT-PARTITION to cell', i, 'with color green ***');
+                                }
+                            }
+                        } else {
+                            console.log('*** RIGHT PARTITION EMPTY - range invalid:', step.rightPartition);
                         }
+                        
+                        // Ensure pivot stays highlighted
+                        if (step.pivotFinalIndex !== undefined && cells[step.pivotFinalIndex]) {
+                            cells[step.pivotFinalIndex].className = 'viz-cell pivot';
+                            console.log('*** KEPT PIVOT at cell', step.pivotFinalIndex);
+                        }
+                    } else {
+                        console.log('*** MISSING PARTITION DATA ***', 'leftPartition:', step.leftPartition, 'rightPartition:', step.rightPartition);
                     }
                 }
                 
@@ -422,11 +452,6 @@ const config = {
         font-size: 14px;
     }
     
-    .viz-cell.current-range {
-        background: #e3f2fd !important;
-        border-color: #2196f3 !important;
-        box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
-    }
     
     .viz-cell.pivot {
         background: #ffecb3 !important;
@@ -444,23 +469,34 @@ const config = {
     }
     
     .viz-cell.swapping {
-        background: #ffcdd2 !important;
-        border-color: #f44336 !important;
-        transform: scale(1.15);
+        background: #ff5722 !important;
+        border-color: #d84315 !important;
+        border-width: 4px !important;
+        color: #fff !important;
+        transform: scale(1.15) !important;
         animation: shake 0.5s;
-        box-shadow: 0 3px 6px rgba(244, 67, 54, 0.5);
+        box-shadow: 0 4px 8px rgba(255, 87, 34, 0.7) !important;
+        font-weight: bold !important;
     }
     
     .viz-cell.left-partition {
-        background: #e8f5e8 !important;
-        border-color: #4caf50 !important;
-        box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        background: #2196f3 !important;
+        border-color: #0d47a1 !important;
+        border-width: 4px !important;
+        color: #fff !important;
+        transform: scale(1.1) !important;
+        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.7) !important;
+        font-weight: bold !important;
     }
     
     .viz-cell.right-partition {
-        background: #f3e5f5 !important;
-        border-color: #9c27b0 !important;
-        box-shadow: 0 2px 4px rgba(156, 39, 176, 0.3);
+        background: #4caf50 !important;
+        border-color: #1b5e20 !important;
+        border-width: 4px !important;
+        color: #fff !important;
+        transform: scale(1.1) !important;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.7) !important;
+        font-weight: bold !important;
     }
     
     .viz-status {
@@ -503,11 +539,57 @@ const config = {
         75% { transform: translateX(2px) scale(1.15); }
     }
     
+    /* Light mode text colors - ensure visibility */
+    .viz-cell {
+        color: #333;
+    }
+    
+    
+    .viz-cell.pivot {
+        color: #e65100;
+    }
+    
+    .viz-cell.comparing {
+        color: #e65100;
+    }
+    
+    .viz-cell.swapping {
+        color: #c62828;
+    }
+    
+    
     /* Dark mode styles */
     body.dark-mode .viz-cell {
         background: #343a40 !important;
         border-color: #495057 !important;
-        color: #fff;
+        color: #fff !important;
+    }
+    
+    
+    body.dark-mode .viz-cell.pivot {
+        color: #ffcc02 !important;
+    }
+    
+    body.dark-mode .viz-cell.comparing {
+        color: #ffb74d !important;
+    }
+    
+    body.dark-mode .viz-cell.swapping {
+        color: #ef5350 !important;
+    }
+    
+    body.dark-mode .viz-cell.left-partition {
+        background: #1976d2 !important;
+        border-color: #0d47a1 !important;
+        color: #fff !important;
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.8) !important;
+    }
+    
+    body.dark-mode .viz-cell.right-partition {
+        background: #388e3c !important;
+        border-color: #1b5e20 !important;
+        color: #fff !important;
+        box-shadow: 0 4px 12px rgba(56, 142, 60, 0.8) !important;
     }
     
     body.dark-mode .viz-status {
