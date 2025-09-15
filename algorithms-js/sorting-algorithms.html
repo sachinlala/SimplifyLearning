@@ -15,7 +15,7 @@
     
     <style>
         .summary-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .algorithms-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .algorithms-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .algorithms-table th, .algorithms-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #e0e0e0; }
         .algorithms-table th { background: #007acc; color: white; font-weight: 600; position: sticky; top: 0; z-index: 10; }
         .algorithms-table .algorithm-row:hover, .algorithms-table .algorithm-row:hover + .algorithm-description-row { background: #e3f2fd !important; transition: background-color 0.2s ease; }
@@ -39,7 +39,16 @@
         .usage-card ul { margin: 10px 0; padding-left: 20px; }
         .usage-card li { margin: 5px 0; }
         .algorithms-table { font-size: 0.95em; }
-        @media (max-width: 768px) { .algorithms-table { font-size: 0.85em; } .algorithms-table th, .algorithms-table td { padding: 8px 3px; } .summary-container { padding: 10px; } .complexity { font-size: 0.8em !important; padding: 1px 3px; } }
+        @media (max-width: 768px) { 
+            .algorithms-table { font-size: 0.85em; } 
+            .algorithms-table th, .algorithms-table td { padding: 6px 2px; } 
+            .summary-container { padding: 10px; } 
+            .complexity { font-size: 0.75em !important; padding: 1px 2px; } 
+            .algorithms-table th:first-child { min-width: 90px; }
+            .algorithms-table th:nth-child(2) { min-width: 140px; }
+            .algorithms-table th:nth-child(3) { min-width: 50px; }
+            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 45px; }
+        }
         .time-label.best { color: #28a745; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.avg { color: #007acc; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.worst { color: #dc3545; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
@@ -139,11 +148,11 @@
                     <table class="algorithms-table">
                         <thead>
                             <tr>
-                                <th style="white-space: nowrap; font-size: 0.9em; width: 25%;">Algorithm</th>
-                                <th style="font-size: 0.9em; width: 40%;">Time</th>
-                                <th style="font-size: 0.9em; width: 15%;">Space</th>
-                                <th style="font-size: 0.9em; width: 10%;">Stable</th>
-                                <th style="font-size: 0.9em; width: 10%;">In-Place</th>
+                                <th style="white-space: nowrap; font-size: 0.9em; min-width: 140px;">Algorithm</th>
+                                <th style="font-size: 0.9em; min-width: 160px;">Time</th>
+                                <th style="font-size: 0.9em; min-width: 70px;">Space</th>
+                                <th style="font-size: 0.9em; width: 60px; text-align: center;">Stable</th>
+                                <th style="font-size: 0.9em; width: 70px; text-align: center;">In-Place</th>
                             </tr>
                         </thead>
                         <tbody>
