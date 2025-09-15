@@ -15,14 +15,14 @@
     
     <style>
         .summary-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .algorithms-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .algorithms-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .algorithms-table th, .algorithms-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #e0e0e0; }
         .algorithms-table th { background: #007acc; color: white; font-weight: 600; position: sticky; top: 0; z-index: 10; }
         .algorithms-table .algorithm-row:hover, .algorithms-table .algorithm-row:hover + .algorithm-description-row { background: #e3f2fd !important; transition: background-color 0.2s ease; }
         .algorithm-name { font-weight: 600; color: #007acc; }
         .algorithm-name a { color: inherit; text-decoration: none; }
         .algorithm-name a:hover { text-decoration: underline; }
-        .complexity { font-family: 'Courier New', monospace; background: #f8f9fa; padding: 2px 4px; border-radius: 3px; font-size: 0.9em; }
+        .complexity { font-family: 'Courier New', monospace; background: #f8f9fa; padding: 2px 4px; border-radius: 3px; font-size: 0.85em; white-space: nowrap; }
         .complexity.best { color: #28a745; } .complexity.average { color: #007acc; } .complexity.worst { color: #dc3545; }
         .category-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; font-weight: 500; text-align: center; }
         .category-general { background: #e3f2fd; color: #1976d2; }
@@ -39,7 +39,7 @@
         .usage-card ul { margin: 10px 0; padding-left: 20px; }
         .usage-card li { margin: 5px 0; }
         .algorithms-table { font-size: 0.95em; }
-        @media (max-width: 768px) { .algorithms-table { font-size: 0.9em; } .algorithms-table th, .algorithms-table td { padding: 8px 4px; } .summary-container { padding: 10px; } .complexity { font-size: 0.9em !important; padding: 2px 4px; } }
+        @media (max-width: 768px) { .algorithms-table { font-size: 0.85em; } .algorithms-table th, .algorithms-table td { padding: 8px 3px; } .summary-container { padding: 10px; } .complexity { font-size: 0.8em !important; padding: 1px 3px; } }
         .time-label.best { color: #28a745; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.avg { color: #007acc; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.worst { color: #dc3545; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
@@ -62,10 +62,9 @@
         body.dark-mode .usage-card { background: #34495e !important; color: #ecf0f1; border-left-color: #74b9ff; }
         body.dark-mode .usage-card h3 { color: #74b9ff !important; }
         
-        /* Dark mode for legend */
-        body.dark-mode .legend-section { background: #2c3e50 !important; }
-        body.dark-mode .legend-section h3 { color: #74b9ff !important; }
-        body.dark-mode .legend-section span { color: #ecf0f1 !important; }
+        /* Dark mode for compact legend */
+        body.dark-mode .compact-legend { color: #b0b0b0 !important; }
+        body.dark-mode .compact-legend span { color: #b0b0b0 !important; }
     </style>
 </head>
 <body>
@@ -125,27 +124,26 @@
         </section>
 
         <div class="summary-container" style="padding-top: 0;">
-            <!-- Color Legend -->
-            <section class="legend-section" style="background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h3 style="margin: 0 0 10px 0; color: #007acc; font-size: 0.9rem; font-weight: 600;">🎨 Time Complexity Legend</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-                    <div style="display: flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background: #28a745; border-radius: 50%; display: inline-block;"></span><span style="font-size: 0.8rem;">Best case</span></div>
-                    <div style="display: flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background: #007acc; border-radius: 50%; display: inline-block;"></span><span style="font-size: 0.8rem;">Average case</span></div>
-                    <div style="display: flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background: #dc3545; border-radius: 50%; display: inline-block;"></span><span style="font-size: 0.8rem;">Worst case</span></div>
-                </div>
-            </section>
             
             <!-- Quick Comparison Table -->
             <section class="comparison-section">
+                <!-- Compact legend positioned above table -->
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 8px; padding: 0 4px;">
+                    <div class="compact-legend" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.75rem; color: #666;">
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #28a745; border-radius: 50%; display: inline-block;"></span><span>Best</span></div>
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #007acc; border-radius: 50%; display: inline-block;"></span><span>Avg</span></div>
+                        <div style="display: flex; align-items: center; gap: 3px;"><span style="width: 6px; height: 6px; background: #dc3545; border-radius: 50%; display: inline-block;"></span><span>Worst</span></div>
+                    </div>
+                </div>
                 <div style="overflow-x: auto;">
                     <table class="algorithms-table">
                         <thead>
                             <tr>
-                                <th style="white-space: nowrap; font-size: 0.9em;">Algorithm</th>
-                                <th style="font-size: 0.9em;">Time</th>
-                                <th style="font-size: 0.9em;">Space</th>
-                                <th style="font-size: 0.9em;">Stable</th>
-                                <th style="font-size: 0.9em;">In-Place</th>
+                                <th style="white-space: nowrap; font-size: 0.9em; width: 25%;">Algorithm</th>
+                                <th style="font-size: 0.9em; width: 40%;">Time</th>
+                                <th style="font-size: 0.9em; width: 15%;">Space</th>
+                                <th style="font-size: 0.9em; width: 10%;">Stable</th>
+                                <th style="font-size: 0.9em; width: 10%;">In-Place</th>
                             </tr>
                         </thead>
                         <tbody>
