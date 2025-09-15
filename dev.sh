@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/bash
 set -euo pipefail
 
 # Root-level dev server helper for SimplifyLearning
