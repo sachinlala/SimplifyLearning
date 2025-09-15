@@ -119,7 +119,7 @@ class SidebarManager {
         
         const searchInput = document.createElement('input');
         searchInput.type = 'text';
-        searchInput.placeholder = 'Search algorithms...';
+        searchInput.placeholder = 'Search...';
         searchInput.className = 'sidebar-search-input';
         searchInput.style.cssText = `
             width: 100%;
@@ -199,81 +199,111 @@ class SidebarManager {
     }
     
     getAlgorithms() {
-        // All algorithms - matches the ones in components.js plus summary pages
+        // Organized algorithm groups for better navigation
         return [
-            // Special summary pages
+            // Sorting Algorithms Group
             {
                 name: 'Sorting Algorithms',
                 description: 'Comprehensive overview of all sorting algorithms with complexity analysis',
                 url: 'sorting-algorithms.html',
-                category: 'summary',
+                category: 'Sorting Algorithms',
                 subcategory: 'overview',
-                icon: '🔢'
-            },
-            // Individual algorithms
-            {
-                name: 'Count and Say',
-                description: 'Generate sequences where each term describes the previous term',
-                url: 'demo.html?algo=patterns/count-and-say',
-                category: 'sequences',
-                subcategory: 'sequences',
-                icon: '🔄'
-            },
-            {
-                name: 'Binary Search',
-                description: 'Efficient search algorithm for sorted arrays with O(log n) complexity',
-                url: 'demo.html?algo=search/binary-search',
-                category: 'search',
-                subcategory: 'arrays',
-                icon: '🔍'
+                icon: '🔢',
+                isGroupHeader: true
             },
             {
                 name: 'Bubble Sort',
                 description: 'Simple sorting algorithm that repeatedly compares adjacent elements',
                 url: 'demo.html?algo=sort/bubble-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'comparison',
-                icon: '🫧'
+                icon: '🫧',
+                isSubItem: true
             },
             {
                 name: 'Selection Sort',
                 description: 'In-place sorting algorithm that finds minimum elements one by one',
                 url: 'demo.html?algo=sort/selection-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'comparison',
-                icon: '👆'
+                icon: '👆',
+                isSubItem: true
             },
             {
                 name: 'Insertion Sort',
                 description: 'Adaptive sorting algorithm that builds sorted array incrementally',
                 url: 'demo.html?algo=sort/insertion-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'comparison',
-                icon: '⬅️'
+                icon: '⬅️',
+                isSubItem: true
             },
             {
                 name: 'Quick Sort',
                 description: 'Efficient divide-and-conquer algorithm with O(n log n) average performance',
                 url: 'demo.html?algo=sort/quick-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'divide-and-conquer',
-                icon: '⚡'
+                icon: '⚡',
+                isSubItem: true
             },
             {
                 name: 'Merge Sort',
                 description: 'Stable divide-and-conquer algorithm with guaranteed O(n log n) time complexity',
                 url: 'demo.html?algo=sort/merge-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'divide-and-conquer',
-                icon: '🔗'
+                icon: '🔗',
+                isSubItem: true
             },
             {
                 name: 'Heap Sort',
                 description: 'In-place sorting algorithm using binary heap with O(n log n) guaranteed performance',
                 url: 'demo.html?algo=sort/heap-sort',
-                category: 'sort',
+                category: 'Sorting Algorithms',
                 subcategory: 'heap-based',
-                icon: '⛰️'
+                icon: '⛰️',
+                isSubItem: true
+            },
+            // Search Algorithms Group
+            {
+                name: 'Search Algorithms',
+                description: 'Efficient algorithms for finding elements in data structures',
+                url: '#search-algorithms-summary', // Placeholder for future search algorithms page
+                category: 'Search Algorithms',
+                subcategory: 'overview',
+                icon: '🔍',
+                isGroupHeader: true,
+                isPlaceholder: true
+            },
+            {
+                name: 'Binary Search',
+                description: 'Efficient search algorithm for sorted arrays with O(log n) complexity',
+                url: 'demo.html?algo=search/binary-search',
+                category: 'Search Algorithms',
+                subcategory: 'arrays',
+                icon: '🔎',
+                isSubItem: true
+            },
+            // Numbers & Mathematics Group
+            {
+                name: 'Numbers & Mathematics',
+                description: 'Mathematical algorithms and number sequences',
+                url: '#numbers-mathematics-summary', // Placeholder for future math algorithms page
+                category: 'Numbers & Mathematics',
+                subcategory: 'overview',
+                icon: '🧮',
+                isGroupHeader: true,
+                isPlaceholder: true
+            },
+            {
+                name: 'Count and Say',
+                description: 'Generate sequences where each term describes the previous term',
+                url: 'demo.html?algo=patterns/count-and-say',
+                category: 'Numbers & Mathematics',
+                subcategory: 'sequences',
+                icon: '🔄',
+                isSubItem: true
             }
         ];
     }
@@ -281,9 +311,26 @@ class SidebarManager {
     createSidebarItem(algorithm) {
         const item = document.createElement('a');
         item.href = algorithm.url;
-        item.className = 'sidebar-algorithm-item';
+        
+        // Different styling for group headers vs sub-items
+        if (algorithm.isGroupHeader) {
+            item.className = 'sidebar-group-header';
+        } else if (algorithm.isSubItem) {
+            item.className = 'sidebar-sub-item';
+        } else {
+            item.className = 'sidebar-algorithm-item';
+        }
         
         const icon = algorithm.icon || '🔄';
+        
+        // Handle placeholder links (for future pages)
+        if (algorithm.isPlaceholder) {
+            item.href = '#';
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Don't close sidebar for placeholder items
+            });
+        }
         
         item.innerHTML = `
             <div class="algorithm-icon">${icon}</div>
@@ -292,15 +339,33 @@ class SidebarManager {
             </div>
         `;
         
+        // Base styling
+        let paddingLeft = '20px';
+        let fontSize = '0.9rem';
+        let fontWeight = '500';
+        let backgroundColor = 'transparent';
+        
+        if (algorithm.isGroupHeader) {
+            paddingLeft = '20px';
+            fontSize = '0.95rem';
+            fontWeight = '600';
+            backgroundColor = algorithm.isPlaceholder ? 'rgba(0, 0, 0, 0.02)' : 'transparent';
+        } else if (algorithm.isSubItem) {
+            paddingLeft = '40px'; // Indent sub-items
+            fontSize = '0.85rem';
+            fontWeight = '400';
+        }
+        
         item.style.cssText = `
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px ${paddingLeft} 12px 20px;
             text-decoration: none;
             color: var(--text-body, #333);
             border-bottom: 1px solid var(--border-color, #f0f0f0);
             transition: all 0.2s ease;
             gap: 12px;
+            background: ${backgroundColor};
         `;
         
         // Style the icon and info sections
@@ -327,24 +392,40 @@ class SidebarManager {
         
         if (algorithmName) {
             algorithmName.style.cssText = `
-                font-weight: 500;
-                font-size: 0.9rem;
+                font-weight: ${fontWeight};
+                font-size: ${fontSize};
                 color: var(--text-body, #333);
             `;
         }
         
-        // Hover effects
+        // Hover effects with better accessibility
         item.addEventListener('mouseenter', () => {
-            item.style.backgroundColor = 'var(--surface-hover, #f8f9fa)';
+            if (algorithm.isPlaceholder) {
+                // No hover effect for placeholder items
+                return;
+            }
+            
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            if (isDarkMode) {
+                item.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            } else {
+                item.style.backgroundColor = '#e3f2fd'; // Light blue consistent with site
+            }
         });
         
         item.addEventListener('mouseleave', () => {
-            item.style.backgroundColor = '';
+            if (algorithm.isPlaceholder) {
+                item.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
+            } else {
+                item.style.backgroundColor = backgroundColor;
+            }
         });
         
-        // Close sidebar when item is clicked
+        // Close sidebar when functional item is clicked
         item.addEventListener('click', () => {
-            this.closeSidebar();
+            if (!algorithm.isPlaceholder) {
+                this.closeSidebar();
+            }
         });
         
         return item;
