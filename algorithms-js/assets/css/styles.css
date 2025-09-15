@@ -122,6 +122,23 @@ header {
     display: flex;
 }
 
+/* Correct header sequence: Ham Menu -> SL Logo -> GitHub Icon */
+.hamburger-btn {
+    order: 1;
+}
+
+.desktop-adjacent {
+    order: 2;
+}
+
+.home-link {
+    order: 2;
+}
+
+.github-link {
+    order: 3;
+}
+
 /* Mobile first positioning for hamburger */
 .mobile-first {
     order: 1;
@@ -1380,8 +1397,16 @@ body.dark-mode .accordion-content {
         order: 1;
     }
     
-    .github-link {
+    .desktop-adjacent {
         order: 2;
+    }
+    
+    .home-link {
+        order: 2;
+    }
+    
+    .github-link {
+        order: 3;
     }
     
     .hamburger-btn {
