@@ -40,15 +40,35 @@
         .usage-card li { margin: 5px 0; }
         .algorithms-table { font-size: 0.95em; }
         @media (max-width: 768px) { 
-            .algorithms-table { font-size: 0.85em; } 
-            .algorithms-table th, .algorithms-table td { padding: 6px 2px; } 
-            .summary-container { padding: 10px; } 
-            .complexity { font-size: 0.75em !important; padding: 1px 2px; } 
-            .algorithms-table th:first-child { min-width: 90px; }
-            .algorithms-table th:nth-child(2) { min-width: 140px; }
-            .algorithms-table th:nth-child(3) { min-width: 50px; }
-            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 45px; }
+            .algorithms-table { font-size: 0.75em; max-width: 100%; table-layout: fixed; } 
+            .algorithms-table th, .algorithms-table td { padding: 3px 0px; word-wrap: break-word; } 
+            .summary-container { padding: 5px; max-width: 100%; box-sizing: border-box; } 
+            .complexity { font-size: 0.65em !important; padding: 0px 1px; } 
+            .algorithms-table th:first-child { width: 55px; }
+            .algorithms-table th:nth-child(2) { width: 100px; }
+            .algorithms-table th:nth-child(3) { width: 30px; }
+            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 28px; }
+            .algorithm-name a { font-size: 0.8em; line-height: 1.2; }
+            .efficiency-icon { font-size: 0.7em; }
+            /* Force table to fit mobile viewport */
+            .algorithms-table { width: 100%; max-width: calc(100vw - 10px); }
         }
+        
+        /* Ultra-small mobile devices */
+        @media (max-width: 480px) {
+            .algorithms-table { font-size: 0.7em; table-layout: fixed; }
+            .algorithms-table th, .algorithms-table td { padding: 2px 0px; }
+            .algorithms-table th:first-child { width: 50px; }
+            .algorithms-table th:nth-child(2) { width: 90px; }
+            .algorithms-table th:nth-child(3) { width: 25px; }
+            .algorithms-table th:nth-child(4), .algorithms-table th:nth-child(5) { width: 25px; }
+            .complexity { font-size: 0.6em !important; padding: 0px; }
+            .algorithm-name a { font-size: 0.75em; }
+            .summary-container { padding: 3px; }
+            .comparison-section { margin: 5px 0; }
+            .algorithms-table { margin: 5px 0; }
+        }
+        
         .time-label.best { color: #28a745; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.avg { color: #007acc; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
         .time-label.worst { color: #dc3545; font-weight: 600; font-size: 0.75em; margin-right: 4px; }
@@ -74,6 +94,15 @@
         /* Dark mode for compact legend */
         body.dark-mode .compact-legend { color: #b0b0b0 !important; }
         body.dark-mode .compact-legend span { color: #b0b0b0 !important; }
+        
+        /* Mobile legend optimization */
+        @media (max-width: 768px) {
+            .compact-legend { font-size: 0.7rem !important; gap: 6px !important; }
+        }
+        
+        @media (max-width: 480px) {
+            .compact-legend { font-size: 0.65rem !important; gap: 4px !important; }
+        }
     </style>
 </head>
 <body>
@@ -148,11 +177,11 @@
                     <table class="algorithms-table">
                         <thead>
                             <tr>
-                                <th style="white-space: nowrap; font-size: 0.9em; min-width: 140px;">Algorithm</th>
-                                <th style="font-size: 0.9em; min-width: 160px;">Time</th>
-                                <th style="font-size: 0.9em; min-width: 70px;">Space</th>
-                                <th style="font-size: 0.9em; width: 60px; text-align: center;">Stable</th>
-                                <th style="font-size: 0.9em; width: 70px; text-align: center;">In-Place</th>
+                                <th style="white-space: nowrap; font-size: 0.9em;">Algorithm</th>
+                                <th style="font-size: 0.9em;">Time</th>
+                                <th style="font-size: 0.9em;">Space</th>
+                                <th style="font-size: 0.9em; text-align: center;">Stable</th>
+                                <th style="font-size: 0.9em; text-align: center;">In-Place</th>
                             </tr>
                         </thead>
                         <tbody>
