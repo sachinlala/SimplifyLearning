@@ -124,6 +124,8 @@ algorithms-js/
 - Often caused by missing `-core.js` files
 - Ensure config files point to correct paths
 - Check that all referenced scripts exist
+- Verify file is not excluded by gitignore patterns
+- Consider adding files to git with `git add -f filename` if needed
 
 ### **Mobile Issues**
 - Tables may need horizontal scrolling on small screens
@@ -154,11 +156,14 @@ algorithms-js/
 - Mobile responsiveness improvements
 - Dark mode consistency
 - 404 error elimination
+- Icon consistency across pages
 
 ### **Ongoing Improvements**
 - Code organization and maintainability
 - User experience enhancements
 - Educational value optimization
+- Deployment reliability
+- Cross-browser compatibility testing
 
 ## 💡 Tips for AI Assistants
 
@@ -166,19 +171,30 @@ algorithms-js/
 - Always consider the educational purpose of changes
 - Maintain consistency with existing patterns
 - Ask for clarification when simplicity conflicts with functionality
+- Remember this is primarily an educational resource, not a production app
 
 ### **File Management**
 - Check for existing files before creating new ones
 - Update related configuration when adding new files
 - Maintain proper file organization
+- Be aware of `.gitignore` patterns that might affect new files
+- Use `git add -f filename` when necessary to override gitignore
+
+### **Deployment Awareness**
+- Main URL: https://www.designforlife.co.in/algorithms/
+- GitHub Pages: https://sachinlala.github.io/SimplifyLearning/
+- Files at project root are accessible from both URLs
+- Subdirectory files follow the same structure (e.g., `/src/sort/algorithm.html`)
 
 ### **Testing Reminders**
 - Verify changes don't break existing functionality
 - Test both desktop and mobile experiences
 - Check browser console for errors after changes
+- Test in multiple browsers when possible
+- Verify icon/asset consistency across pages
 
 ---
 
-**Last Updated**: January 2025  
+**Last Updated**: August 2025
 **Maintainer**: Sachin Lala  
 **Purpose**: Ensure consistent AI assistance across development sessions

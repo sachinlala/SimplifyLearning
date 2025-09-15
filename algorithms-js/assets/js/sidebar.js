@@ -73,6 +73,14 @@ class SidebarManager {
         this.sidebar.classList.remove('active');
         this.hamburgerBtn.classList.remove('active');
         document.body.style.overflow = ''; // Restore scrolling
+        
+        // Clear search when sidebar is closed
+        if (this.searchInput) {
+            this.searchInput.value = '';
+            if (this.allAlgorithms) {
+                this.displayAlgorithms(this.allAlgorithms);
+            }
+        }
     }
     
     isOpen() {
@@ -83,36 +91,111 @@ class SidebarManager {
         if (!this.sidebarContent) return;
         
         // Get algorithms from the components.js if available
-        const algorithms = this.getAlgorithms();
+        this.allAlgorithms = this.getAlgorithms();
         
         // Clear existing content
         this.sidebarContent.innerHTML = '';
         
-        // Group algorithms by category
-        const groupedAlgorithms = this.groupByCategory(algorithms);
+        // Create search input
+        this.createSearchInput();
         
-        // Create sidebar items
-        Object.keys(groupedAlgorithms).forEach(category => {
-            const categoryHeader = document.createElement('div');
-            categoryHeader.className = 'sidebar-category-header';
-            categoryHeader.style.cssText = `
-                padding: 12px 20px 8px 20px;
-                font-weight: 600;
-                font-size: 0.9rem;
-                color: #666;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                border-bottom: 1px solid #eee;
-                background: #f8f9fa;
-            `;
-            categoryHeader.textContent = category;
-            this.sidebarContent.appendChild(categoryHeader);
-            
-            groupedAlgorithms[category].forEach(algorithm => {
-                const item = this.createSidebarItem(algorithm);
-                this.sidebarContent.appendChild(item);
-            });
+        // Create algorithm items container
+        this.algorithmsContainer = document.createElement('div');
+        this.algorithmsContainer.className = 'sidebar-algorithms-container';
+        this.sidebarContent.appendChild(this.algorithmsContainer);
+        
+        // Display all algorithms initially
+        this.displayAlgorithms(this.allAlgorithms);
+    }
+    
+    createSearchInput() {
+        const searchContainer = document.createElement('div');
+        searchContainer.className = 'sidebar-search-container';
+        searchContainer.style.cssText = `
+            padding: 15px 20px 10px 20px;
+            border-bottom: 1px solid var(--border-color, #eee);
+            background: var(--surface, #fff);
+        `;
+        
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Search algorithms...';
+        searchInput.className = 'sidebar-search-input';
+        searchInput.style.cssText = `
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: var(--surface, #fff);
+            color: var(--text-body, #333);
+            outline: none;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        `;
+        
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            this.filterAlgorithms(query);
         });
+        
+        // Focus styling
+        searchInput.addEventListener('focus', () => {
+            searchInput.style.borderColor = 'var(--accent, #007acc)';
+        });
+        
+        searchInput.addEventListener('blur', () => {
+            searchInput.style.borderColor = 'var(--border-color, #ddd)';
+        });
+        
+        searchContainer.appendChild(searchInput);
+        this.sidebarContent.appendChild(searchContainer);
+        
+        // Store reference for clearing
+        this.searchInput = searchInput;
+    }
+    
+    displayAlgorithms(algorithms) {
+        if (!this.algorithmsContainer) return;
+        
+        // Clear container
+        this.algorithmsContainer.innerHTML = '';
+        
+        if (algorithms.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'sidebar-no-results';
+            noResults.style.cssText = `
+                padding: 20px;
+                text-align: center;
+                color: var(--text-muted, #666);
+                font-style: italic;
+            `;
+            noResults.textContent = 'No algorithms found';
+            this.algorithmsContainer.appendChild(noResults);
+            return;
+        }
+        
+        // Create items without category headers
+        algorithms.forEach(algorithm => {
+            const item = this.createSidebarItem(algorithm);
+            this.algorithmsContainer.appendChild(item);
+        });
+    }
+    
+    filterAlgorithms(query) {
+        if (!query) {
+            this.displayAlgorithms(this.allAlgorithms);
+            return;
+        }
+        
+        const filtered = this.allAlgorithms.filter(algorithm => {
+            return algorithm.name.toLowerCase().includes(query) ||
+                   algorithm.description.toLowerCase().includes(query) ||
+                   algorithm.category.toLowerCase().includes(query);
+        });
+        
+        this.displayAlgorithms(filtered);
     }
     
     getAlgorithms() {
@@ -122,10 +205,10 @@ class SidebarManager {
             {
                 name: 'Sorting Algorithms',
                 description: 'Comprehensive overview of all sorting algorithms with complexity analysis',
-                url: 'src/sort/sorting-algorithms-summary.html',
+                url: 'sorting-algorithms.html',
                 category: 'summary',
                 subcategory: 'overview',
-                icon: '🔀'
+                icon: '🔢'
             },
             // Individual algorithms
             {
@@ -134,7 +217,7 @@ class SidebarManager {
                 url: 'demo.html?algo=patterns/count-and-say',
                 category: 'sequences',
                 subcategory: 'sequences',
-                icon: '🔢'
+                icon: '🔄'
             },
             {
                 name: 'Binary Search',
@@ -195,18 +278,6 @@ class SidebarManager {
         ];
     }
     
-    groupByCategory(algorithms) {
-        const grouped = {};
-        algorithms.forEach(algorithm => {
-            const category = algorithm.category.charAt(0).toUpperCase() + algorithm.category.slice(1);
-            if (!grouped[category]) {
-                grouped[category] = [];
-            }
-            grouped[category].push(algorithm);
-        });
-        return grouped;
-    }
-    
     createSidebarItem(algorithm) {
         const item = document.createElement('a');
         item.href = algorithm.url;
@@ -218,7 +289,6 @@ class SidebarManager {
             <div class="algorithm-icon">${icon}</div>
             <div class="algorithm-info">
                 <span class="algorithm-name">${algorithm.name}</span>
-                <span class="algorithm-category">${algorithm.category}</span>
             </div>
         `;
         
@@ -227,8 +297,8 @@ class SidebarManager {
             align-items: center;
             padding: 12px 20px;
             text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #f0f0f0;
+            color: var(--text-body, #333);
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
             transition: all 0.2s ease;
             gap: 12px;
         `;
@@ -237,7 +307,6 @@ class SidebarManager {
         const algorithmIcon = item.querySelector('.algorithm-icon');
         const algorithmInfo = item.querySelector('.algorithm-info');
         const algorithmName = item.querySelector('.algorithm-name');
-        const algorithmCategory = item.querySelector('.algorithm-category');
         
         if (algorithmIcon) {
             algorithmIcon.style.cssText = `
@@ -260,26 +329,13 @@ class SidebarManager {
             algorithmName.style.cssText = `
                 font-weight: 500;
                 font-size: 0.9rem;
-                color: #333;
-            `;
-        }
-        
-        if (algorithmCategory) {
-            algorithmCategory.style.cssText = `
-                font-size: 0.75rem;
-                color: #666;
-                text-transform: capitalize;
-                background: #f0f0f0;
-                padding: 2px 6px;
-                border-radius: 8px;
-                align-self: flex-start;
-                font-weight: 400;
+                color: var(--text-body, #333);
             `;
         }
         
         // Hover effects
         item.addEventListener('mouseenter', () => {
-            item.style.backgroundColor = '#f8f9fa';
+            item.style.backgroundColor = 'var(--surface-hover, #f8f9fa)';
         });
         
         item.addEventListener('mouseleave', () => {
