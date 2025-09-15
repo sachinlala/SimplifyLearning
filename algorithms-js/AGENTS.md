@@ -19,10 +19,14 @@ This document contains essential context and guidelines for AI assistants workin
 
 ## 🔧 Development Conventions
 
-### **Branch Management**
+### **Branch Management & PR Workflow**
 - `master` is the main branch (not `main`)
-- All production-ready code goes to `master`
-- Use feature branches for development when needed
+- **NEVER push directly to `master` branch**
+- **NEVER merge PRs directly without review**
+- Always use feature branches for all development work
+- Create descriptive branch names like `feature/fix-header-consistency`
+- All changes must go through Pull Request (PR) process
+- PRs require review before merging to maintain code quality
 
 ### **Development Scripts**
 - **`dev.sh`** is the primary development utility script
@@ -149,6 +153,16 @@ algorithms-js/
 - Reference issues or features being implemented
 - Group related changes in single commits
 
+### **Pull Request (PR) Process**
+- Create feature branch: `git checkout -b feature/descriptive-name`
+- Make all changes in the feature branch
+- Push branch: `git push origin feature/descriptive-name`
+- Create PR using GitHub CLI: `gh pr create --title "Title" --body "Description"`
+- Or create PR via GitHub web interface
+- Include clear description of changes and testing done
+- Wait for review before merging
+- Delete feature branch after successful merge
+
 ## 🎯 Current Focus Areas
 
 ### **Recent Priorities**
@@ -166,6 +180,14 @@ algorithms-js/
 - Cross-browser compatibility testing
 
 ## 💡 Tips for AI Assistants
+
+### **🚨 CRITICAL: Workflow Requirements**
+- **NEVER push directly to `master` branch - use feature branches only**
+- **NEVER merge PRs without explicit approval from maintainer**
+- **ALWAYS create PRs for any code changes, no matter how small**
+- Use proper branch naming: `feature/`, `fix/`, or `enhancement/` prefix
+- Test thoroughly before creating PR
+- Include detailed PR descriptions with testing evidence
 
 ### **Context Awareness**
 - Always consider the educational purpose of changes
@@ -188,13 +210,16 @@ algorithms-js/
 
 ### **Testing Reminders**
 - Verify changes don't break existing functionality
-- Test both desktop and mobile experiences
+- Test both desktop and mobile experiences  
 - Check browser console for errors after changes
 - Test in multiple browsers when possible
 - Verify icon/asset consistency across pages
+- **Always test changes in feature branch before creating PR**
+- Include testing results in PR description
+- Test on both localhost and production URLs when possible
 
 ---
 
-**Last Updated**: August 2025
+**Last Updated**: September 2025
 **Maintainer**: Sachin Lala  
 **Purpose**: Ensure consistent AI assistance across development sessions
