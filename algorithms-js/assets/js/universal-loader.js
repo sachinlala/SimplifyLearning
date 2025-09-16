@@ -179,7 +179,6 @@ class UniversalAlgorithmLoader {
             document.head.appendChild(script);
         });
     }
-    }
 
     /**
      * Convert kebab-case to camelCase
