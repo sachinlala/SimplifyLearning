@@ -13,6 +13,8 @@
 - 🏷️ **Category Filtering**: Filter algorithms by type (search, sort, etc.)
 - 📖 **Step-by-Step Explanations**: Understand how each algorithm works
 - 🎨 **Beautiful UI**: Water drop style category tags and smooth animations
+- 🧪 **Comprehensive Testing**: Jest test suite with coverage reports
+- 📊 **Algorithm Summary**: Dedicated page comparing all sorting algorithms
 
 ### 🚀 Quick Start
 
@@ -98,6 +100,10 @@ What it does:
 | `npm run serve:node` | Start Node.js serve with clean URLs disabled |
 | `npm run serve:http` | Start http-server without extension redirects |
 | `npm run serve:live` | Start live-server with auto-reload |
+| `npm test` | Run Jest test suite |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Generate coverage report |
+| `npm run test:manual` | Run all manual test files |
 | `npm run clean` | Kill all running servers on port 8080 |
 | `npm run restart` | Clean and restart the server |
 
@@ -124,7 +130,14 @@ algorithms-js/
 │   ├── search/
 │   │   └── binary-search/
 │   └── sort/
-│       └── bubble-sort/
+│       ├── bubble-sort/
+│       ├── bucket-sort/
+│       ├── counting-sort/
+│       ├── dutch-flag-sort/
+│       ├── radix-sort/
+│       ├── wiggle-sort/
+│       ├── utils/           # Shared sorting utilities
+│       └── sorting-algorithms.html  # Algorithm comparison page
 │   └── .../
 └── package.json
 ```
@@ -203,14 +216,34 @@ The universal loader automatically:
 - **Naming**: Use meaningful variable names
 - **Indentation**: 2 spaces consistently
 
-### Testing
-```bash
-# Manual testing via browser console
-# Navigate to http://localhost:8000
-# Open browser DevTools console
-# Test your functions interactively
+### 🧪 Testing
 
-# Automated testing: //TODO
+#### Jest Unit Tests
+```bash
+# Run all tests
+npm test
+
+# Watch mode for development
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+```
+
+#### Manual Testing
+```bash
+# Run manual test suites
+npm run test:manual
+
+# Test specific algorithm
+node src/sort/dutch-flag-sort/test-manual.js
+```
+
+#### Browser Testing
+```bash
+# Navigate to http://localhost:8080
+# Open browser DevTools console
+# Test functions interactively
 ```
 
 ### Browser Support

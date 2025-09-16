@@ -19,57 +19,9 @@ function parseArray(input) {
     }
 }
 
-// Utility function for validating sorted arrays
-function isSorted(arr) {
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i - 1] > arr[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// Utility function for timing execution
-function measureTime(fn) {
-    const start = performance.now();
-    const result = fn();
-    const end = performance.now();
-    return {
-        result: result,
-        time: (end - start).toFixed(4)
-    };
-}
-
-// Utility function for generating random arrays
-function generateRandomArray(size, min = 1, max = 100) {
-    const arr = [];
-    for (let i = 0; i < size; i++) {
-        arr.push(Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-    return arr;
-}
-
-// Utility function for generating random sorted arrays
-function generateRandomSortedArray(size, min = 1, max = 100) {
-    const arr = generateRandomArray(size, min, max);
-    return arr.sort((a, b) => a - b);
-}
-
-// Utility function to get maximum value from an array (supports mixed types)
-function getMax(arr) {
-    if (!arr || !arr.length) return undefined;
-    // Handle mixed arrays (numbers and strings)
-    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
-    return Math.max(...numericValues);
-}
-
-// Utility function to get minimum value from an array (supports mixed types)
-function getMin(arr) {
-    if (!arr || !arr.length) return undefined;
-    // Handle mixed arrays (numbers and strings)
-    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
-    return Math.min(...numericValues);
-}
+// Note: Core array utilities (isSorted, generateRandomArray, etc.) have been moved to
+// src/sort/utils/sorting-utils.js for centralized algorithm support.
+// These functions remain here for UI-specific purposes.
 
 // Utility function to get maximum value (wrapper for Math.max)
 function getMaxValue(...args) {
@@ -212,12 +164,6 @@ async function copyToClipboard(text) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         parseArray,
-        isSorted,
-        measureTime,
-        generateRandomArray,
-        generateRandomSortedArray,
-        getMax,
-        getMin,
         getMaxValue,
         roundNumber,
         calculateBarHeight,
@@ -231,14 +177,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // Export to global window object for browser compatibility
 if (typeof window !== 'undefined') {
-    // Attach all utility functions to the global window object
+    // Attach UI-specific utility functions to the global window object
     window.parseArray = parseArray;
-    window.isSorted = isSorted;
-    window.measureTime = measureTime;
-    window.generateRandomArray = generateRandomArray;
-    window.generateRandomSortedArray = generateRandomSortedArray;
-    window.getMax = getMax;
-    window.getMin = getMin;
     window.getMaxValue = getMaxValue;
     window.roundNumber = roundNumber;
     window.calculateBarHeight = calculateBarHeight;
@@ -247,4 +187,7 @@ if (typeof window !== 'undefined') {
     window.formatNumber = formatNumber;
     window.debounce = debounce;
     window.copyToClipboard = copyToClipboard;
+    
+    // Note: For algorithm-specific utilities like isSorted, generateRandomArray, etc.
+    // please import from src/sort/utils/sorting-utils.js
 }
