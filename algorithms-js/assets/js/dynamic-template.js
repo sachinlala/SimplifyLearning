@@ -429,12 +429,9 @@ class TemplateManager {
 
     generateScripts(config) {
         const scriptPaths = PathGenerator.generateScriptPaths(config);
+        // Note: The universal loader handles script loading, so we don't include them in HTML
+        // Only include the inline script with custom functions
         return `
-    <script src="${scriptPaths.utils}"></script>
-    <script src="${scriptPaths.unifiedThemeManager}"></script>
-    <script src="${scriptPaths.sidebar}"></script>
-    <script src="${scriptPaths.components}"></script>
-    <script src="${config.jsPath}"></script>
     <script>
         ${config.customDemoFunction || 'function runDemo() { console.log("Demo function not implemented"); }'}
         
