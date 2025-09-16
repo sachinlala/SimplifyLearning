@@ -101,5 +101,111 @@
     } else if (isWindow) {
         // Browser globals
         window.DutchFlagSort = DutchFlagSort;
+        
+        // Demo interface function for dynamic template
+        window.runAlgorithm = function(array_input, red_value, white_value, blue_value) {
+            try {
+                // Parse the array input
+                let array;
+                if (typeof array_input === 'string') {
+                    // Handle comma-separated values
+                    const trimmed = array_input.trim();
+                    if (trimmed === '') {
+                        array = [];
+                    } else {
+                        array = trimmed.split(',').map(item => {
+                            const cleaned = item.trim();
+                            // Try to parse as number first
+                            const num = Number(cleaned);
+                            if (!isNaN(num) && isFinite(num)) {
+                                return num;
+                            }
+                            // Try to parse as boolean
+                            if (cleaned.toLowerCase() === 'true') return true;
+                            if (cleaned.toLowerCase() === 'false') return false;
+                            // Return as string
+                            return cleaned;
+                        });
+                    }
+                } else {
+                    array = Array.isArray(array_input) ? array_input : [array_input];
+                }
+                
+                // Parse the values (red, white, blue)
+                const parseValue = (val) => {
+                    if (val === '' || val === null || val === undefined) return null;
+                    const trimmed = val.trim();
+                    if (trimmed === '' || trimmed.toLowerCase() === 'null') return null;
+                    
+                    // Try to parse as number
+                    const num = Number(trimmed);
+                    if (!isNaN(num) && isFinite(num)) return num;
+                    
+                    // Try to parse as boolean
+                    if (trimmed.toLowerCase() === 'true') return true;
+                    if (trimmed.toLowerCase() === 'false') return false;
+                    
+                    // Return as string
+                    return trimmed;
+                };
+                
+                const redVal = parseValue(red_value);
+                const whiteVal = parseValue(white_value);
+                const blueVal = parseValue(blue_value);
+                
+                // Make a copy of the array to avoid mutating the original
+                const arrayToSort = [...array];
+                
+                // Determine if this is 2-way or 3-way partitioning
+                const is3Way = whiteVal !== null && whiteVal !== undefined;
+                
+                let result;
+                let sortedArray;
+                
+                if (is3Way) {
+                    // 3-way partitioning
+                    if (coreFunctions?.dutchFlagSort3Way) {
+                        result = coreFunctions.dutchFlagSort3Way(arrayToSort, redVal, whiteVal, blueVal);
+                        sortedArray = result.array || arrayToSort;
+                    } else {
+                        throw new Error('3-way Dutch Flag Sort function not available');
+                    }
+                } else {
+                    // 2-way partitioning
+                    if (coreFunctions?.dutchFlagSort2Way) {
+                        result = coreFunctions.dutchFlagSort2Way(arrayToSort, redVal, blueVal);
+                        sortedArray = result.array || arrayToSort;
+                    } else {
+                        throw new Error('2-way Dutch Flag Sort function not available');
+                    }
+                }
+                
+                // Format the output
+                const originalStr = '[' + array.map(val => JSON.stringify(val)).join(', ') + ']';
+                const sortedStr = '[' + sortedArray.map(val => JSON.stringify(val)).join(', ') + ']';
+                
+                let output = `<strong>Original array:</strong> ${originalStr}<br><br>`;
+                output += `<strong>Sorted array:</strong> ${sortedStr}<br><br>`;
+                
+                if (result && result.swaps !== undefined) {
+                    output += `<strong>Number of swaps:</strong> ${result.swaps}<br>`;
+                }
+                if (result && result.comparisons !== undefined) {
+                    output += `<strong>Number of comparisons:</strong> ${result.comparisons}<br>`;
+                }
+                
+                // Add partitioning information
+                if (is3Way) {
+                    output += `<br><strong>Partitioning:</strong> ${JSON.stringify(redVal)} | ${JSON.stringify(whiteVal)} | ${JSON.stringify(blueVal)}`;
+                } else {
+                    output += `<br><strong>Partitioning:</strong> ${JSON.stringify(redVal)} | ${JSON.stringify(blueVal)}`;
+                }
+                
+                return output;
+                
+            } catch (error) {
+                throw new Error(`Dutch Flag Sort error: ${error.message}`);
+            }
+        };
     }
 })();
