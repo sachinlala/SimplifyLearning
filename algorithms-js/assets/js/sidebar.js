@@ -553,23 +553,35 @@ class PaginationManager {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize when DOM is loaded (unless using universal loader)
+function initializeSidebarComponents() {
     // Initialize sidebar
-    window.sidebarManager = new SidebarManager();
+    if (!window.sidebarManager && document.getElementById('hamburger-menu')) {
+        window.sidebarManager = new SidebarManager();
+    }
     
     // Initialize pagination
-    window.paginationManager = new PaginationManager(6);
-    
-    // Wait for algorithm grid to be populated, then set up pagination
-    setTimeout(() => {
-        const algorithmCards = document.querySelectorAll('.algorithm-card');
-        if (algorithmCards.length > 0) {
-            const cardArray = Array.from(algorithmCards);
-            window.paginationManager.updateItems(cardArray);
-        }
-    }, 500);
-});
+    if (!window.paginationManager) {
+        window.paginationManager = new PaginationManager(6);
+        
+        // Wait for algorithm grid to be populated, then set up pagination
+        setTimeout(() => {
+            const algorithmCards = document.querySelectorAll('.algorithm-card');
+            if (algorithmCards.length > 0) {
+                const cardArray = Array.from(algorithmCards);
+                window.paginationManager.updateItems(cardArray);
+            }
+        }, 500);
+    }
+}
+
+// Only auto-initialize if not using universal loader (for index.html and other static pages)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSidebarComponents);
+} else {
+    // DOM already loaded, initialize immediately (for static pages)
+    initializeSidebarComponents();
+}
 
 // Export for use in other scripts
 if (typeof window !== 'undefined') {

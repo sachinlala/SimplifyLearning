@@ -311,28 +311,48 @@ class UniversalAlgorithmLoader {
     /**
      * Initialize the accordion functionality after HTML is generated
      */
-    initializeAccordion() {
+    initializeUIComponents() {
         setTimeout(() => {
-            const accordions = document.querySelectorAll('.accordion');
+            // Initialize accordion functionality
+            this.initializeAccordion();
             
-            accordions.forEach(accordion => {
-                const header = accordion.querySelector('.accordion-header');
-                if (header && !header.hasAttribute('data-initialized')) {
-                    header.setAttribute('data-initialized', 'true');
+            // Initialize sidebar functionality
+            this.initializeSidebar();
+        }, 300);
+    }
+    
+    initializeAccordion() {
+        const accordions = document.querySelectorAll('.accordion');
+        
+        accordions.forEach(accordion => {
+            const header = accordion.querySelector('.accordion-header');
+            if (header && !header.hasAttribute('data-initialized')) {
+                header.setAttribute('data-initialized', 'true');
+                
+                header.addEventListener('click', () => {
+                    accordion.classList.toggle('active');
                     
-                    header.addEventListener('click', () => {
-                        accordion.classList.toggle('active');
-                        
-                        // Update icon
-                        const icon = accordion.querySelector('.accordion-icon');
-                        if (icon) {
-                            const isActive = accordion.classList.contains('active');
-                            icon.textContent = isActive ? '▲' : '▼';
-                        }
-                    });
-                }
-            });
-        }, 200);
+                    // Update icon
+                    const icon = accordion.querySelector('.accordion-icon');
+                    if (icon) {
+                        const isActive = accordion.classList.contains('active');
+                        icon.textContent = isActive ? '▲' : '▼';
+                    }
+                });
+            }
+        });
+    }
+    
+    initializeSidebar() {
+        // Initialize sidebar if SidebarManager is available and elements exist
+        if (typeof window.SidebarManager !== 'undefined') {
+            const hamburgerBtn = document.getElementById('hamburger-menu');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (hamburgerBtn && sidebar) {
+                window.sidebarManager = new window.SidebarManager();
+            }
+        }
     }
 
     /**
@@ -420,8 +440,8 @@ class UniversalAlgorithmLoader {
             // Load required UI scripts after HTML is ready
             await this.loadUIScripts();
             
-            // Initialize accordion functionality
-            this.initializeAccordion();
+            // Initialize UI components
+            this.initializeUIComponents();
             
         } catch (error) {
             console.error('Error loading algorithm page:', error);
