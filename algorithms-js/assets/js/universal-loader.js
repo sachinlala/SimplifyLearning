@@ -11,10 +11,23 @@
 
 class UniversalAlgorithmLoader {
     constructor() {
-        this.currentPath = window.location.pathname;
-        this.urlParams = new URLSearchParams(window.location.search);
-        this.basePath = this.detectBasePath();
-        this.algorithmPath = this.detectAlgorithmPath();
+        try {
+            console.log('🔄 Initializing UniversalAlgorithmLoader...');
+            this.currentPath = window.location.pathname;
+            this.urlParams = new URLSearchParams(window.location.search);
+            console.log('📍 Current path:', this.currentPath);
+            console.log('🔍 URL params:', this.urlParams.toString());
+            
+            this.basePath = this.detectBasePath();
+            console.log('📂 Base path:', this.basePath);
+            
+            this.algorithmPath = this.detectAlgorithmPath();
+            console.log('🎯 Algorithm path:', this.algorithmPath);
+            console.log('✅ UniversalAlgorithmLoader initialized successfully');
+        } catch (error) {
+            console.error('❌ UniversalAlgorithmLoader initialization failed:', error.message);
+            throw error;
+        }
     }
 
     /**
@@ -520,14 +533,30 @@ class UniversalAlgorithmLoader {
 }
 
 // Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+function initializeLoader() {
+    try {
+        console.log('🚀 Starting algorithm loader...');
         const loader = new UniversalAlgorithmLoader();
         loader.load();
-    });
+    } catch (error) {
+        console.error('🚫 Failed to initialize algorithm loader:', error.message);
+        document.body.innerHTML = `
+            <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+                <h2 style="color: #dc3545;">⚠️ Algorithm Loading Error</h2>
+                <p>Failed to load algorithm demo.</p>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p><strong>Current URL:</strong> ${window.location.href}</p>
+                <p><strong>Expected format:</strong> demo.html?algo=category/algorithm-name</p>
+                <a href="index.html" style="color: #007acc; text-decoration: none;">← Back to Algorithm Catalog</a>
+            </div>
+        `;
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLoader);
 } else {
-    const loader = new UniversalAlgorithmLoader();
-    loader.load();
+    initializeLoader();
 }
 
 // Export for manual use if needed
