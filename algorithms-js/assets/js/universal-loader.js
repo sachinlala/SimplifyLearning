@@ -302,6 +302,7 @@ class UniversalAlgorithmLoader {
         </script>
     </footer>
     
+    <script src="${this.basePath || '../../../'}/assets/js/path-config.js"></script>
     <script src="${this.basePath || '../../../'}/assets/js/unified-theme-manager.js"></script>
     <script src="${this.basePath || '../../../'}/assets/js/sidebar.js"></script>
 </body>
@@ -312,13 +313,13 @@ class UniversalAlgorithmLoader {
      * Initialize the accordion functionality after HTML is generated
      */
     initializeUIComponents() {
-        setTimeout(() => {
-            // Initialize accordion functionality
-            this.initializeAccordion();
-            
-            // Initialize sidebar functionality
+        // Initialize accordion functionality
+        this.initializeAccordion();
+        
+        // Initialize sidebar functionality (only if not already initialized)
+        if (!window.sidebarManager) {
             this.initializeSidebar();
-        }, 300);
+        }
     }
     
     initializeAccordion() {
@@ -344,14 +345,17 @@ class UniversalAlgorithmLoader {
     }
     
     initializeSidebar() {
-        // Initialize sidebar if SidebarManager is available and elements exist
         if (typeof window.SidebarManager !== 'undefined') {
             const hamburgerBtn = document.getElementById('hamburger-menu');
             const sidebar = document.getElementById('sidebar');
             
             if (hamburgerBtn && sidebar) {
                 window.sidebarManager = new window.SidebarManager();
+            } else {
+                console.warn('⚠️ Sidebar elements not found in DOM');
             }
+        } else {
+            console.warn('⚠️ SidebarManager class not available');
         }
     }
 
@@ -432,16 +436,33 @@ class UniversalAlgorithmLoader {
             
             const html = template.generateHTML(config);
             
-            // Replace document with generated HTML
-            document.open();
-            document.write(html);
-            document.close();
+            // Replace document with generated HTML using safer DOM manipulation
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Update document title
+            document.title = doc.title;
+            
+            // Replace head content (but keep existing scripts)
+            const existingScripts = document.head.querySelectorAll('script');
+            const newHeadContent = doc.head.innerHTML;
+            
+            // Clear head and add new content, then re-add existing scripts
+            document.head.innerHTML = newHeadContent;
+            existingScripts.forEach(script => {
+                document.head.appendChild(script.cloneNode(true));
+            });
+            
+            // Replace body content
+            document.body.innerHTML = doc.body.innerHTML;
             
             // Load required UI scripts after HTML is ready
             await this.loadUIScripts();
             
-            // Initialize UI components
-            this.initializeUIComponents();
+            // Wait a moment for DOM to settle, then initialize UI components
+            setTimeout(() => {
+                this.initializeUIComponents();
+            }, 100);
             
         } catch (error) {
             console.error('Error loading algorithm page:', error);
@@ -477,11 +498,15 @@ class UniversalAlgorithmLoader {
      */
     async loadUIScripts() {
         try {
+            // Load path configuration first (needed by sidebar)
+            const pathConfigPath = this.buildPath('assets/js/path-config.js');
+            await this.loadScript(pathConfigPath);
+            
             // Load theme manager
             const themeManagerPath = this.buildPath('assets/js/unified-theme-manager.js');
             await this.loadScript(themeManagerPath);
             
-            // Load sidebar functionality
+            // Load sidebar functionality (depends on path configuration)
             const sidebarPath = this.buildPath('assets/js/sidebar.js');
             await this.loadScript(sidebarPath);
             
@@ -569,15 +594,26 @@ class UniversalAlgorithmLoader {
 // Auto-initialize when DOM is ready
 function initializeLoader() {
     try {
-        // Starting algorithm loader
         const loader = new UniversalAlgorithmLoader();
-        loader.load();
+        loader.load().catch(error => {
+            console.error('❌ Algorithm loading failed:', error.message);
+            document.body.innerHTML = `
+                <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+                    <h2 style="color: #dc3545;">⚠️ Algorithm Loading Error</h2>
+                    <p>Failed to load algorithm demo.</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Current URL:</strong> ${window.location.href}</p>
+                    <p><strong>Expected format:</strong> demo.html?algo=category/algorithm-name</p>
+                    <a href="index.html" style="color: #007acc; text-decoration: none;">← Back to Algorithm Catalog</a>
+                </div>
+            `;
+        });
     } catch (error) {
         console.error('🚫 Failed to initialize algorithm loader:', error.message);
         document.body.innerHTML = `
             <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
                 <h2 style="color: #dc3545;">⚠️ Algorithm Loading Error</h2>
-                <p>Failed to load algorithm demo.</p>
+                <p>Failed to load algorithm demo during initialization.</p>
                 <p><strong>Error:</strong> ${error.message}</p>
                 <p><strong>Current URL:</strong> ${window.location.href}</p>
                 <p><strong>Expected format:</strong> demo.html?algo=category/algorithm-name</p>
