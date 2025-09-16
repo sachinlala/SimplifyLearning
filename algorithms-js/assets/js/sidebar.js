@@ -205,7 +205,7 @@ class SidebarManager {
             {
                 name: 'Sorting Algorithms',
                 description: 'Comprehensive overview of all sorting algorithms with complexity analysis',
-                url: 'sorting-algorithms.html',
+                url: 'docs/sorting-algorithms.html',
                 category: 'Sorting Algorithms',
                 subcategory: 'overview',
                 icon: '🔢',
