@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=./docs/sorting-algorithms.html">
+    <link rel="canonical" href="./docs/sorting-algorithms.html">
+    <title>Redirecting to Sorting Algorithms...</title>
+</head>
+<body>
+    <script>
+        // Immediate redirect for better UX
+        window.location.replace('./docs/sorting-algorithms.html' + window.location.search + window.location.hash);
+    </script>
+    <noscript>
+        <p>Redirecting to <a href="./docs/sorting-algorithms.html">Sorting Algorithms</a>...</p>
+    </noscript>
+</body>
+</html>
