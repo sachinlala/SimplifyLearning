@@ -354,7 +354,7 @@ class UniversalAlgorithmLoader {
                 const algoInfo = this.getAlgorithmInfo();
                 if (algoInfo.category === 'sort') {
                     const sortUtilsPath = this.buildPath('src/sort/utils/sorting-utils.js');
-                    await this.loadScript(sortUtilsPath);
+                    await this.loadOptionalScript(sortUtilsPath);
                     console.log('✅ Loaded sorting utilities');
                 }
             } catch (e) {
@@ -366,7 +366,7 @@ class UniversalAlgorithmLoader {
             const fullCoreJsPath = this.buildPath(`${algorithmInfo.fullPath}/${coreJsPath}`);
             
             try {
-                await this.loadScript(fullCoreJsPath);
+                await this.loadOptionalScript(fullCoreJsPath);
                 console.log(`✅ Core algorithm loaded: ${coreJsPath}`);
             } catch (error) {
                 console.log(`ℹ️  No core file found: ${coreJsPath} (this is optional)`);
@@ -377,7 +377,7 @@ class UniversalAlgorithmLoader {
             const fullStepsJsPath = this.buildPath(`${algorithmInfo.fullPath}/${stepsJsPath}`);
             
             try {
-                await this.loadScript(fullStepsJsPath);
+                await this.loadOptionalScript(fullStepsJsPath);
                 console.log(`✅ Step tracking loaded: ${stepsJsPath}`);
             } catch (error) {
                 console.log(`ℹ️  No step tracking file found: ${stepsJsPath} (this is optional)`);
@@ -430,6 +430,25 @@ class UniversalAlgorithmLoader {
                 const error = new Error(`Failed to load script: ${src}`);
                 console.error(`❌ ${error.message}`);
                 reject(error);
+            };
+            document.head.appendChild(script);
+        });
+    }
+    
+    /**
+     * Load optional external script without logging 404 errors as failures
+     */
+    loadOptionalScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                console.log(`✅ Successfully loaded: ${src}`);
+                resolve();
+            };
+            script.onerror = () => {
+                // For optional scripts, don't log as error - just reject silently
+                reject(new Error(`Optional script not found: ${src}`));
             };
             document.head.appendChild(script);
         });
