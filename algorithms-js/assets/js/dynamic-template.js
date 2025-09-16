@@ -147,7 +147,6 @@ class SourceCodeHandler {
             <!-- Source Code Links -->
             <div class="source-code-section" style="background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-size: 0.85em;">
                 <h4 style="margin: 0 0 8px 0; font-size: 1.1em;">Source Code</h4>
-                <p style="margin: 0 0 10px 0; font-size: 0.9em;">View the core implementation:</p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
                     ${languageLinks}
                 </div>
@@ -462,16 +461,7 @@ class TemplateManager {
             }
         }
         
-        // Accordion functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const accordion = header.parentElement;
-                    accordion.classList.toggle('active');
-                });
-            });
-        });
+        // Accordion functionality handled by UniversalLoader.initializeAccordion()
     </script>`;
     }
 

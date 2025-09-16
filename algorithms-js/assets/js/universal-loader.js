@@ -321,21 +321,43 @@ class UniversalAlgorithmLoader {
      */
     initializeAccordion() {
         setTimeout(() => {
+            console.log('🎯 Initializing accordion functionality...');
             const accordions = document.querySelectorAll('.accordion');
-            accordions.forEach(accordion => {
+            console.log(`Found ${accordions.length} accordion(s)`);
+            
+            accordions.forEach((accordion, index) => {
                 const header = accordion.querySelector('.accordion-header');
                 if (header && !header.hasAttribute('data-initialized')) {
+                    console.log(`✅ Setting up accordion ${index + 1}`);
                     header.setAttribute('data-initialized', 'true');
+                    
                     header.addEventListener('click', () => {
+                        console.log('🖱️ Accordion clicked');
                         accordion.classList.toggle('active');
+                        
+                        // Update icon
                         const icon = accordion.querySelector('.accordion-icon');
                         if (icon) {
-                            icon.textContent = accordion.classList.contains('active') ? '▲' : '▼';
+                            const isActive = accordion.classList.contains('active');
+                            icon.textContent = isActive ? '▲' : '▼';
+                            console.log(`🔄 Icon updated to: ${icon.textContent}`);
                         }
+                        
+                        console.log(`📂 Accordion is now: ${accordion.classList.contains('active') ? 'open' : 'closed'}`);
                     });
+                } else if (!header) {
+                    console.warn(`⚠️ No accordion header found for accordion ${index + 1}`);
+                } else {
+                    console.log(`ℹ️ Accordion ${index + 1} already initialized`);
                 }
             });
-        }, 100);
+            
+            if (accordions.length === 0) {
+                console.warn('⚠️ No accordions found on page');
+            } else {
+                console.log('✅ Accordion initialization complete');
+            }
+        }, 200); // Increased timeout to ensure DOM is fully ready
     }
 
     /**
