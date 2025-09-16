@@ -126,24 +126,6 @@ class SourceCodeHandler {
                 color: '#d68910',
                 border: '#f8c471',
                 enabled: !!sourceCode.java
-            },
-            {
-                name: 'Python',
-                icon: `<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z" fill="#306998"/><path d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z" fill="#FFD43B"/></svg>`,
-                url: sourceCode.python,
-                background: '#e8f4fd',
-                color: '#2874a6',
-                border: '#aed6f1',
-                enabled: !!sourceCode.python
-            },
-            {
-                name: 'Go',
-                icon: `<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M40.669 80.763v2.348c0 .653.461 1.192 1.073 1.307l35.24 6.652c.537.102 1.097-.216 1.239-.704l2.687-9.296c.142-.488-.197-1.018-.748-1.172l-35.249-9.835c-.551-.154-1.188.178-1.405.815l-2.837 9.885zm24.076 34.482h-.001c-11.292 0-20.451-8.801-20.451-19.656 0-10.855 9.159-19.656 20.451-19.656 11.293 0 20.451 8.801 20.451 19.656 0 10.855-9.158 19.656-20.45 19.656z" fill="#00ADD8"/><path d="M108.579 80.763v2.348c0 .653.461 1.192 1.073 1.307l35.24 6.652c.537.102 1.097-.216 1.239-.704l2.687-9.296c.142-.488-.197-1.018-.748-1.172l-35.249-9.835c-.551-.154-1.188.178-1.405.815l-2.837 9.885zm24.076 34.482h-.001c-11.292 0-20.451-8.801-20.451-19.656 0-10.855 9.159-19.656 20.451-19.656 11.293 0 20.451 8.801 20.451 19.656 0 10.855-9.158 19.656-20.45 19.656z" fill="#00ADD8"/></svg>`,
-                url: sourceCode.go,
-                background: '#e1f5fe',
-                color: '#0288d1', 
-                border: '#81d4fa',
-                enabled: !!sourceCode.go
             }
         ];
         
@@ -234,18 +216,21 @@ class TemplateManager {
         return `
     <header>
         <div class="header-left">
-            <button id="hamburger-menu" class="hamburger-btn">
+            <button id="hamburger-menu" class="hamburger-btn mobile-first">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
+            <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="home-link desktop-adjacent">
+                <img src="${PathGenerator.generateLogoPath(config)}" alt="SimplifyLearning" style="width: 32px; height: 32px;">
+            </a>
             <a href="https://github.com/sachinlala/SimplifyLearning" target="_blank" class="github-link">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.30.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.30 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
             </a>
         </div>
-        <div class="header-center">
+        <div class="header-center mobile-only">
             <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="home-link">
                 <img src="${PathGenerator.generateLogoPath(config)}" alt="SimplifyLearning" style="width: 32px; height: 32px;">
             </a>
@@ -254,7 +239,7 @@ class TemplateManager {
             <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="back-to-home desktop-only">
                 🏠 Home
             </a>
-            ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
+            ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/docs/sorting-algorithms.html` : '../../../docs/sorting-algorithms.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
             <div class="theme-slider-container">
                 <label class="theme-slider" for="global-theme-toggle">
                     <input type="checkbox" id="global-theme-toggle" class="theme-toggle-input">
@@ -279,7 +264,7 @@ class TemplateManager {
                 <!-- Mobile navigation controls -->
                 <div class="mobile-nav-controls" style="padding: 15px; border-bottom: 1px solid #eee; margin-bottom: 10px;">
                     <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
-                    ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
+                    ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/docs/sorting-algorithms.html` : '../../../docs/sorting-algorithms.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
                     <button id="mobile-theme-toggle" class="mobile-theme-btn" style="width: 100%; padding: 12px; background: #f8f9fa; color: #333; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: 500;">🌙 Toggle Theme</button>
                 </div>
                 <!-- Algorithm list will be populated by JavaScript -->
@@ -290,12 +275,8 @@ class TemplateManager {
 
     generateHeroSection(config) {
         return `
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>${config.name}</h1>
-                <p class="hero-description">${config.problem}</p>
-            </div>
+        <section class="hero" style="padding: 20px 20px; min-height: auto;">
+            <h1>${config.name}</h1>
         </section>`;
     }
 
@@ -464,6 +445,39 @@ class TemplateManager {
                 errorContainer.style.display = 'block';
             }
         }
+        
+        // Data type toggle handler
+        function handleDataTypeChange() {
+            const dataTypeSelect = document.getElementById('data-type-toggle');
+            if (!dataTypeSelect) return;
+            
+            const selectedType = dataTypeSelect.value;
+            const config = window.algorithmConfig;
+            
+            if (config && config.inputDataTypes && config.inputDataTypes.options) {
+                const typeConfig = config.inputDataTypes.options.find(type => type.value === selectedType);
+                if (typeConfig && typeConfig.sampleData) {
+                    // Update input fields with sample data
+                    Object.keys(typeConfig.sampleData).forEach(inputId => {
+                        const inputElement = document.getElementById(inputId);
+                        if (inputElement) {
+                            inputElement.value = typeConfig.sampleData[inputId];
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordion = header.parentElement;
+                    accordion.classList.toggle('active');
+                });
+            });
+        });
     </script>`;
     }
 
@@ -508,7 +522,16 @@ class TemplateManager {
         .viz-legend { margin-top: 10px; font-size: 0.9em; color: #666; }
         .themed-section { background: var(--bg-color, #fff); color: var(--text-color, #333); }
         body.dark-mode .themed-section { background: var(--dark-bg-secondary, #2c2c2c); color: var(--dark-text, #f0f0f0); }
+        /* Fix mobile header center visibility */
         @media (max-width: 768px) {
+            .header-center.mobile-only {
+                display: flex !important;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                align-items: center;
+                justify-content: center;
+            }
             .viz-legend-desktop { display: none !important; }
             .viz-legend-mobile { display: flex !important; flex-direction: column; gap: 5px; }
         }

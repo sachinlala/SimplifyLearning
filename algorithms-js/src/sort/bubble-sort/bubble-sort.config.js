@@ -28,7 +28,7 @@ const config = {
                 value: "numeric",
                 label: "Numeric",
                 sampleData: {
-                    "array-input": "64, 34, 25, 12, 22, 11, 90"
+                    "array-input": "64, 34, 25, 12, 22, 11"
                 }
             },
             {
@@ -46,7 +46,7 @@ const config = {
             id: "array-input",
             type: "text",
             label: "Array (numbers or strings)",
-            defaultValue: "64, 34, 25, 12, 22, 11, 90",
+            defaultValue: "64, 34, 25, 12, 22, 11",
             width: "300px"
         },
         {
