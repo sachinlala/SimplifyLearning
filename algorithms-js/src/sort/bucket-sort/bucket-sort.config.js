@@ -9,6 +9,7 @@ const BucketSortConfig = {
     // Top-level properties for dynamic template compatibility
     name: 'Bucket Sort',
     category: 'sort',
+    hasStepsFile: true,
     problem: 'Sort an array of floating-point numbers by distributing them into buckets, sorting each bucket individually, then concatenating the results. Most efficient with uniformly distributed data.',
     
     // Inputs for the demo interface

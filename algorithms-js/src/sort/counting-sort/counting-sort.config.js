@@ -9,6 +9,7 @@ const CountingSortConfig = {
     // Top-level properties for dynamic template compatibility
     name: 'Counting Sort',
     category: 'sort',
+    hasStepsFile: true,
     problem: 'Sort an array of non-negative integers efficiently using counting instead of comparisons. Ideal for integers within a small, known range.',
     
     // Inputs for the demo interface

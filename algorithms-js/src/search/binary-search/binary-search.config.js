@@ -9,6 +9,7 @@ const config = {
     problem: "Given a sorted array, find the index of a target value in O(log n) time.",
     algorithmFunction: "binarySearchIterativeWithSteps",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

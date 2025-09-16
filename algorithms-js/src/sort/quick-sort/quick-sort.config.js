@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array efficiently using the divide-and-conquer approach by partitioning around a pivot element.",
     algorithmFunction: "quickSortWithSteps",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

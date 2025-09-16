@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array using the stable divide-and-conquer merge sort algorithm with guaranteed O(n log n) time complexity.",
     algorithmFunction: "runMergeSortDemo",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

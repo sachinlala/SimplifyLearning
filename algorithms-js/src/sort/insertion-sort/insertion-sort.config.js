@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array by building the final sorted array one element at a time, inserting each element at its correct position in the already sorted portion.",
     algorithmFunction: "insertionSortWithSteps",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

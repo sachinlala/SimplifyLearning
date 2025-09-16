@@ -10,7 +10,8 @@
 const DUTCH_FLAG_SORT_CONFIG = {
     // Top-level properties for dynamic template compatibility
     name: "Dutch National Flag Sort",
-    category: "sort", 
+    category: "sort",
+    hasStepsFile: true,
     problem: "Efficiently partition an array into 2-3 distinct groups in linear time using the Dutch National Flag algorithm invented by Edsger Dijkstra.",
     
     inputs: [

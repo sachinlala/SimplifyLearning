@@ -9,6 +9,7 @@ const RadixSortConfig = {
     // Top-level properties for dynamic template compatibility
     name: 'Radix Sort',
     category: 'sort',
+    hasStepsFile: true,
     problem: 'Sort an array of non-negative integers efficiently by processing digits from least significant to most significant, using counting sort as a stable subroutine for each digit position.',
     
     // Inputs for the demo interface

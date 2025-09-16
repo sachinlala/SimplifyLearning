@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array using the heap-based sorting algorithm with guaranteed O(n log n) time complexity and in-place operation.",
     algorithmFunction: "runHeapSortDemo",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

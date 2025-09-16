@@ -19,6 +19,7 @@ const config = {
     },
     algorithmFunction: "bubbleSort",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Data type configuration for input toggle
     inputDataTypes: {

@@ -11,6 +11,7 @@ const WIGGLE_SORT_CONFIG = {
     // Top-level properties for dynamic template compatibility
     name: "Wiggle Sort",
     category: "sort",
+    hasStepsFile: true,
     problem: "Arrange array elements in a wiggling pattern where arr[0] < arr[1] > arr[2] < arr[3] > arr[4]... Elements alternate between peaks and valleys.",
     
     // Inputs for the demo interface

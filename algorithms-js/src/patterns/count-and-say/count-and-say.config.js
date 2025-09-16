@@ -20,6 +20,7 @@ const config = {
     },
     algorithmFunction: "generateCountAndSay",
     hasVisualization: true,
+    hasStepsFile: true,
     
     inputs: [
         {
