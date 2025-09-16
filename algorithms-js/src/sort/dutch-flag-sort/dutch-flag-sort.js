@@ -37,14 +37,15 @@
         utils = configModule.DutchFlagSortConfigUtils;
     } else if (isWindow) {
         // Browser environment - use globals set by previously loaded scripts
+        const core = window.DutchFlagSortCore || {};
         coreFunctions = {
-            dutchFlagSort: window.dutchFlagSort,
-            dutchFlagSort3Way: window.dutchFlagSort3Way,
-            dutchFlagSort2Way: window.dutchFlagSort2Way,
-            dutchFlagSortWithSteps: window.dutchFlagSortWithSteps,
-            dutchFlagSortSimple: window.dutchFlagSortSimple,
-            sortColors: window.sortColors,
-            sort012: window.sort012
+            dutchFlagSort: core.dutchFlagSort || window.dutchFlagSort,
+            dutchFlagSort3Way: core.dutchFlagSort3Way,
+            dutchFlagSort2Way: core.dutchFlagSort2Way,
+            dutchFlagSortWithSteps: core.dutchFlagSortWithSteps || window.dutchFlagSortWithSteps,
+            dutchFlagSortSimple: core.dutchFlagSortSimple,
+            sortColors: core.sortColors,
+            sort012: core.sort012
         };
         
         config = window.DUTCH_FLAG_SORT_CONFIG;
@@ -166,7 +167,7 @@
                     // 3-way partitioning
                     if (coreFunctions?.dutchFlagSort3Way) {
                         result = coreFunctions.dutchFlagSort3Way(arrayToSort, redVal, whiteVal, blueVal);
-                        sortedArray = result.array || arrayToSort;
+                        sortedArray = result.sortedArray || arrayToSort;
                     } else {
                         throw new Error('3-way Dutch Flag Sort function not available');
                     }
@@ -174,7 +175,7 @@
                     // 2-way partitioning
                     if (coreFunctions?.dutchFlagSort2Way) {
                         result = coreFunctions.dutchFlagSort2Way(arrayToSort, redVal, blueVal);
-                        sortedArray = result.array || arrayToSort;
+                        sortedArray = result.sortedArray || arrayToSort;
                     } else {
                         throw new Error('2-way Dutch Flag Sort function not available');
                     }
@@ -187,11 +188,11 @@
                 let output = `<strong>Original array:</strong> ${originalStr}<br><br>`;
                 output += `<strong>Sorted array:</strong> ${sortedStr}<br><br>`;
                 
-                if (result && result.swaps !== undefined) {
-                    output += `<strong>Number of swaps:</strong> ${result.swaps}<br>`;
+                if (result && result.metrics && result.metrics.swaps !== undefined) {
+                    output += `<strong>Number of swaps:</strong> ${result.metrics.swaps}<br>`;
                 }
-                if (result && result.comparisons !== undefined) {
-                    output += `<strong>Number of comparisons:</strong> ${result.comparisons}<br>`;
+                if (result && result.metrics && result.metrics.comparisons !== undefined) {
+                    output += `<strong>Number of comparisons:</strong> ${result.metrics.comparisons}<br>`;
                 }
                 
                 // Add partitioning information
