@@ -4,7 +4,6 @@
  * This file contains the visualization functions for Binary Search algorithm.
  * The core algorithm logic is in binary-search-core.js.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

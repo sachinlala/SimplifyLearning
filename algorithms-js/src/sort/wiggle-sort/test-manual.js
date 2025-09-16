@@ -3,7 +3,6 @@
  * 
  * Simple test to verify the Wiggle Sort implementation works correctly.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

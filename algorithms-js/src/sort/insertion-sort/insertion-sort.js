@@ -4,7 +4,6 @@
  * This file contains the visualization functions for Insertion Sort algorithm.
  * The core algorithm logic is in insertion-sort-core.js.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

@@ -13,7 +13,6 @@
  * Properties: In-place, not stable, divide-and-conquer
  * Usage: General purpose, excellent average case performance
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

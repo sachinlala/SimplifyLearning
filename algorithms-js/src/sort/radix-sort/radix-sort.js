@@ -4,7 +4,6 @@
  * Entry point for the Radix Sort algorithm implementation,
  * providing both the core algorithm and demo configuration.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
@@ -168,6 +167,11 @@
     } else if (isWindow) {
         // Browser globals
         window.RadixSortModule = RadixSortModule;
+        
+        // Ensure step tracking function is available
+        if (!window.radixSortWithSteps && window.RadixSortSteps && window.RadixSortSteps.radixSortWithSteps) {
+            window.radixSortWithSteps = window.RadixSortSteps.radixSortWithSteps;
+        }
         
         // Demo interface function for dynamic template
         window.runAlgorithm = function(array_input) {

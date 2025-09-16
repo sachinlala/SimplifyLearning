@@ -4,7 +4,6 @@
  * Configuration for Wiggle Sort algorithm demonstrations,
  * including preset test cases and visualization settings.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

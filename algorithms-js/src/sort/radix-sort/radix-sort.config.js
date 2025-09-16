@@ -26,6 +26,14 @@ const RadixSortConfig = {
         description: 'Radix Sort is a non-comparison based sorting algorithm that works by processing individual digits of numbers. It operates in O((n + k) × d) time where n is the number of elements, k is the radix (base, typically 10), and d is the number of digits. The algorithm uses counting sort as a stable subroutine to sort elements by each digit position, starting from the least significant digit.'
     },
     
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/radix-sort/radix-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/finitegroups/integersorting/RadixSort.java",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
+    
     // Demo identification and display
     id: 'radix-sort',
     description: 'A stable, non-comparison based sorting algorithm that processes individual digits. Uses counting sort as a subroutine to sort digits from least significant to most significant.',

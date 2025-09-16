@@ -26,6 +26,14 @@ const CountingSortConfig = {
         description: 'Counting Sort is a non-comparison based sorting algorithm that works by counting occurrences of each element. It operates in O(n + k) time where n is the number of elements and k is the range of values. The algorithm uses a counting array to track frequencies and then reconstructs the sorted array by placing elements in their correct positions.'
     },
     
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/counting-sort/counting-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/finitegroups/integersorting/CountingSort.java",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
+    
     // Demo identification and display
     id: 'counting-sort',
     description: 'A stable, linear-time sorting algorithm that works by counting occurrences of each element. Efficient for sorting integers within a known, small range.',

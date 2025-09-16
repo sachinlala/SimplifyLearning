@@ -4,7 +4,6 @@
  * This file contains the visualization functions for Heap Sort algorithm.
  * The core algorithm logic is in heap-sort-core.js.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
@@ -329,4 +328,154 @@ function showHeapSortVisualization(originalArray, steps, heapType) {
     if (steps.length > 0) {
         updateVisualization(steps[0]);
     }
+}
+
+/**
+ * Heap sort with step-by-step visualization data
+ * This function provides the step tracking needed for visualization
+ * @param {number[]} arr - Array to be sorted
+ * @param {string} heapType - Type of heap ('max' or 'min')
+ * @returns {Object} Result with sorted array, steps, and metrics
+ */
+function heapSortWithSteps(arr, heapType = 'max') {
+    if (!arr || arr.length <= 1) {
+        return {
+            sortedArray: arr || [],
+            steps: [],
+            metrics: { comparisons: 0, swaps: 0, heapOperations: 0 }
+        };
+    }
+
+    // Use core algorithm with step tracking
+    if (window.HeapSortCore && window.HeapSortCore.heapSortWithSteps) {
+        return window.HeapSortCore.heapSortWithSteps([...arr], heapType);
+    }
+
+    // Fallback implementation with basic step tracking
+    const steps = [];
+    const metrics = { comparisons: 0, swaps: 0, heapOperations: 0 };
+    const workingArray = [...arr];
+    const n = workingArray.length;
+    
+    // Comparison function based on heap type
+    const shouldSwap = (parent, child) => {
+        return heapType === 'max' ? workingArray[parent] < workingArray[child] :
+                                   workingArray[parent] > workingArray[child];
+    };
+    
+    // Heapify function
+    function heapify(array, n, rootIndex, phase = 'build-heap') {
+        let largest = rootIndex;
+        let left = 2 * rootIndex + 1;
+        let right = 2 * rootIndex + 2;
+        
+        // Compare with left child
+        if (left < n) {
+            metrics.comparisons++;
+            if (shouldSwap(largest, left)) {
+                largest = left;
+            }
+        }
+        
+        // Compare with right child
+        if (right < n) {
+            metrics.comparisons++;
+            if (shouldSwap(largest, right)) {
+                largest = right;
+            }
+        }
+        
+        // If largest is not root, swap and continue heapifying
+        if (largest !== rootIndex) {
+            [array[rootIndex], array[largest]] = [array[largest], array[rootIndex]];
+            metrics.swaps++;
+            metrics.heapOperations++;
+            
+            steps.push({
+                type: phase === 'build-heap' ? 'build-heap-step' : 'heapify',
+                array: [...array],
+                phase: phase,
+                heapSize: n,
+                currentNode: rootIndex,
+                targetNode: largest,
+                leftChild: left < n ? left : undefined,
+                rightChild: right < n ? right : undefined,
+                swapIndices: [rootIndex, largest],
+                message: `${phase === 'build-heap' ? 'Building heap' : 'Heapifying'}: Swapped ${array[rootIndex]} and ${array[largest]}`,
+                metrics: { ...metrics }
+            });
+            
+            // Recursively heapify the affected subtree
+            heapify(array, n, largest, phase);
+        } else {
+            // No swap needed, just add a step to show the comparison
+            steps.push({
+                type: phase === 'build-heap' ? 'build-heap-step' : 'heapify',
+                array: [...array],
+                phase: phase,
+                heapSize: n,
+                currentNode: rootIndex,
+                leftChild: left < n ? left : undefined,
+                rightChild: right < n ? right : undefined,
+                message: `${phase === 'build-heap' ? 'Building heap' : 'Heapifying'}: Node ${rootIndex} already in correct position`,
+                metrics: { ...metrics }
+            });
+        }
+    }
+    
+    // Build initial heap (rearrange array)
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        heapify(workingArray, n, i, 'build-heap');
+    }
+    
+    steps.push({
+        type: 'heap-built',
+        array: [...workingArray],
+        phase: 'heap-built',
+        heapSize: n,
+        message: `${heapType === 'max' ? 'Max' : 'Min'}-heap built successfully`,
+        metrics: { ...metrics }
+    });
+    
+    // Extract elements from heap one by one
+    for (let i = n - 1; i > 0; i--) {
+        // Move current root to end
+        [workingArray[0], workingArray[i]] = [workingArray[i], workingArray[0]];
+        metrics.swaps++;
+        
+        steps.push({
+            type: 'extract',
+            array: [...workingArray],
+            phase: 'extract-sort',
+            heapSize: i,
+            extractedIndex: i,
+            swapIndices: [0, i],
+            message: `Extracted ${workingArray[i]} to position ${i}`,
+            metrics: { ...metrics }
+        });
+        
+        // Call heapify on the reduced heap
+        heapify(workingArray, i, 0, 'extract-sort');
+    }
+    
+    steps.push({
+        type: 'complete',
+        array: [...workingArray],
+        phase: 'complete',
+        heapSize: 0,
+        message: `Heap sort completed! Array sorted in ${heapType === 'max' ? 'ascending' : 'descending'} order.`,
+        metrics: { ...metrics }
+    });
+    
+    return {
+        sortedArray: workingArray,
+        steps: steps,
+        metrics: metrics
+    };
+}
+
+// Browser compatibility - expose functions
+if (typeof window !== 'undefined') {
+    window.heapSortWithSteps = heapSortWithSteps;
+    window.runHeapSortDemo = runHeapSortDemo;
 }

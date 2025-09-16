@@ -12,7 +12,6 @@
  * 
  * Usage: Small data-sets or when 'write' operations are expensive
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

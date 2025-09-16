@@ -1,17 +1,28 @@
 /**
- * Bubble Sort Algorithm Implementation
+ * Bubble Sort - Visualization and Step-by-Step Implementation
  * 
- * Bubble Sort is a simple sorting algorithm that repeatedly steps through the list,
- * compares adjacent elements and swaps them if they are in the wrong order.
- * The pass through the list is repeated until the list is sorted.
+ * This file contains the visualization functions for Bubble Sort algorithm.
+ * The core algorithm logic is in bubble-sort-core.js.
  * 
- * Time Complexity: O(n²) in worst and average case, O(n) in best case
- * Space Complexity: O(1)
- * 
- * @author SimplifyLearning
- * @see https://github.com/SimplifyLearning/algorithms-java
+ * @see https://github.com/sachinlala/SimplifyLearning
  */
 
+// Core algorithm functions are loaded from bubble-sort-core.js via script tag
+// In browser environment, these functions are available in the global scope via window.BubbleSortCore
+
+// For compatibility, create references to core functions (loaded dynamically)
+// Note: Core functions are available globally via window.BubbleSortCore
+
+// Safe dependency loading - check for core functions when needed
+function ensureCoreFunctions() {
+    // Core functions are available via window.BubbleSortCore when needed
+    // No local variables needed since we're not using them in this file
+}
+
+/**
+ * Legacy BubbleSort class for backward compatibility
+ * This wraps the core functions and adds visualization capabilities
+ */
 class BubbleSort {
     constructor() {
         this.steps = [];
@@ -20,7 +31,7 @@ class BubbleSort {
     }
 
     /**
-     * Sorts an array using bubble sort algorithm
+     * Sorts an array using bubble sort algorithm with step tracking
      * @param {number[]} arr - Array to be sorted
      * @param {boolean} trackSteps - Whether to track steps for visualization
      * @returns {number[]} Sorted array
@@ -30,120 +41,21 @@ class BubbleSort {
             return arr;
         }
 
-        // Create a copy to avoid modifying the original array
-        const sortedArray = [...arr];
-        const n = sortedArray.length;
-        
-        this.reset();
-        
         if (trackSteps) {
-            this.addStep({
-                type: 'start',
-                array: [...sortedArray],
-                message: 'Starting Bubble Sort',
-                comparisons: this.comparisons,
-                swaps: this.swaps
-            });
+            const result = bubbleSortWithSteps(arr);
+            this.steps = result.steps;
+            this.comparisons = result.metrics.comparisons;
+            this.swaps = result.metrics.swaps;
+            return result.sortedArray;
+        } else {
+            // Use core function
+            if (window.BubbleSortCore && window.BubbleSortCore.bubbleSort) {
+                const result = window.BubbleSortCore.bubbleSort(arr);
+                return result.sortedArray;
+            }
+            // Fallback - should not happen in normal operation
+            throw new Error('BubbleSortCore not loaded');
         }
-
-        // Bubble sort implementation
-        for (let i = 0; i < n - 1; i++) {
-            let swapped = false;
-            
-            if (trackSteps) {
-                this.addStep({
-                    type: 'pass-start',
-                    array: [...sortedArray],
-                    message: `Pass ${i + 1}: Looking for the ${this.getOrdinal(n - i)} largest element`,
-                    currentPass: i + 1,
-                    comparisons: this.comparisons,
-                    swaps: this.swaps,
-                    sortedUpTo: n - i
-                });
-            }
-
-            for (let j = 0; j < n - i - 1; j++) {
-                this.comparisons++;
-                
-                if (trackSteps) {
-                    this.addStep({
-                        type: 'compare',
-                        array: [...sortedArray],
-                        message: `Comparing ${sortedArray[j]} and ${sortedArray[j + 1]}`,
-                        compareIndices: [j, j + 1],
-                        comparisons: this.comparisons,
-                        swaps: this.swaps
-                    });
-                }
-
-                if (sortedArray[j] > sortedArray[j + 1]) {
-                    // Swap elements
-                    [sortedArray[j], sortedArray[j + 1]] = [sortedArray[j + 1], sortedArray[j]];
-                    this.swaps++;
-                    swapped = true;
-
-                    if (trackSteps) {
-                        this.addStep({
-                            type: 'swap',
-                            array: [...sortedArray],
-                            message: `Swapped ${sortedArray[j + 1]} and ${sortedArray[j]}`,
-                            swapIndices: [j, j + 1],
-                            comparisons: this.comparisons,
-                            swaps: this.swaps
-                        });
-                    }
-                } else if (trackSteps) {
-                    this.addStep({
-                        type: 'no-swap',
-                        array: [...sortedArray],
-                        message: `No swap needed - ${sortedArray[j]} ≤ ${sortedArray[j + 1]}`,
-                        compareIndices: [j, j + 1],
-                        comparisons: this.comparisons,
-                        swaps: this.swaps
-                    });
-                }
-            }
-
-            if (trackSteps) {
-                this.addStep({
-                    type: 'pass-end',
-                    array: [...sortedArray],
-                    message: swapped 
-                        ? `Pass ${i + 1} complete. Element ${sortedArray[n - i - 1]} is in its final position.`
-                        : `Pass ${i + 1} complete. No swaps made - array is sorted!`,
-                    currentPass: i + 1,
-                    comparisons: this.comparisons,
-                    swaps: this.swaps,
-                    sortedUpTo: n - i - 1
-                });
-            }
-
-            // Early termination if no swaps were made
-            if (!swapped) {
-                if (trackSteps) {
-                    this.addStep({
-                        type: 'early-termination',
-                        array: [...sortedArray],
-                        message: 'Array is already sorted. Terminating early.',
-                        comparisons: this.comparisons,
-                        swaps: this.swaps
-                    });
-                }
-                break;
-            }
-        }
-
-        if (trackSteps) {
-            this.addStep({
-                type: 'complete',
-                array: [...sortedArray],
-                message: `Bubble Sort complete! Made ${this.comparisons} comparisons and ${this.swaps} swaps.`,
-                comparisons: this.comparisons,
-                swaps: this.swaps
-            });
-        }
-
-        return sortedArray;
     }
 
     /**
@@ -200,45 +112,65 @@ class BubbleSort {
 }
 
 /**
- * Simple bubble sort function for demos
+ * Bubble sort with step-by-step visualization data
+ * This uses the step tracking from bubble-sort-steps.js
+ * @param {number[]} arr - Array to be sorted
+ * @returns {Object} Result with sorted array, steps, and metrics
+ */
+function bubbleSortWithSteps(arr) {
+    // Ensure step tracking functions are available
+    if (window.BubbleSortSteps && window.BubbleSortSteps.bubbleSortWithSteps) {
+        return window.BubbleSortSteps.bubbleSortWithSteps(arr);
+    }
+    
+    // Fallback - should not happen in normal operation
+    throw new Error('BubbleSortSteps not loaded');
+}
+
+/**
+ * Simple bubble sort function wrapper for backward compatibility
  * @param {number[]} arr - Array to sort
  * @returns {number[]} Sorted array
  */
 function bubbleSort(arr) {
-    if (!arr || arr.length <= 1) {
-        return arr || [];
+    // Ensure core functions are available
+    ensureCoreFunctions();
+    
+    if (window.BubbleSortCore && window.BubbleSortCore.bubbleSort) {
+        const result = window.BubbleSortCore.bubbleSort(arr);
+        return result.sortedArray;
     }
     
-    const result = [...arr];
-    const n = result.length;
-    
-    for (let i = 0; i < n - 1; i++) {
-        let swapped = false;
-        
-        for (let j = 0; j < n - i - 1; j++) {
-            if (result[j] > result[j + 1]) {
-                // Swap elements
-                [result[j], result[j + 1]] = [result[j + 1], result[j]];
-                swapped = true;
-            }
-        }
-        
-        // If no swapping occurred, array is sorted
-        if (!swapped) {
-            break;
-        }
-    }
-    
-    return result;
+    // Fallback - should not happen in normal operation
+    throw new Error('BubbleSortCore not loaded');
 }
 
-// Make functions available globally for browser use
+// Browser compatibility - expose visualization functions to global scope
 if (typeof window !== 'undefined') {
-    window.BubbleSort = BubbleSort;
+    window.BubbleSortVisualization = {
+        bubbleSortWithSteps,
+        BubbleSort
+    };
+    // Expose commonly used functions in global scope for demo configs
+    window.bubbleSortWithSteps = bubbleSortWithSteps;
     window.bubbleSort = bubbleSort;
+    window.BubbleSort = BubbleSort;
+    
+    // Also expose core functions for backward compatibility
+    window.bubbleSortSimple = window.bubbleSortSimple || function(arr) {
+        if (window.BubbleSortCore) {
+            const result = window.BubbleSortCore.bubbleSort(arr);
+            return result.sortedArray;
+        }
+        throw new Error('BubbleSortCore not loaded');
+    };
 }
 
 // Export for CommonJS compatibility
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { BubbleSort, bubbleSort };
+    module.exports = { 
+        bubbleSortWithSteps,
+        BubbleSort, 
+        bubbleSort 
+    };
 }

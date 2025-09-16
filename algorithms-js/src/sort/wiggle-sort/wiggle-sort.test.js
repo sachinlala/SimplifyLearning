@@ -4,7 +4,6 @@
  * Comprehensive test suite for Wiggle Sort algorithm
  * including unit tests, integration tests, and performance benchmarks.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

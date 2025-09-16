@@ -4,7 +4,6 @@
  * Entry point for Dutch National Flag Sort algorithm implementation.
  * Exports all core functions, configuration, and utilities.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

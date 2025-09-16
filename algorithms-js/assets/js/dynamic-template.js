@@ -50,12 +50,17 @@ class DynamicAlgorithmTemplate {
 
     /**
      * Auto-generate GitHub path based on algorithm info
+     * Prefers *-core.js files for better source code focus
      */
     generateGithubPath(config) {
-        const fileName = config.jsPath || `${config.name.toLowerCase().replace(/\s+/g, '-')}.js`;
+        // Prefer *-core.js files for better source code focus on algorithm logic
+        const algorithmSlug = config.name.toLowerCase().replace(/\s+/g, '-');
+        const coreFileName = `${algorithmSlug}-core.js`;
+        const fileName = config.jsPath || coreFileName;
+        
         // Use the first category for the GitHub path
         const primaryCategory = Array.isArray(config.category) ? config.category[0] : config.category;
-        return `https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/${primaryCategory}/${config.name.toLowerCase().replace(/\s+/g, '-')}/${fileName}`;
+        return `https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/${primaryCategory}/${algorithmSlug}/${fileName}`;
     }
 
     /**
@@ -458,8 +463,9 @@ class DynamicAlgorithmTemplate {
      */
     generateSourceCodeSection(config) {
         // Use sourceCode paths if available, otherwise generate proper paths
+        // Prefer *-core.js files for JavaScript source code links
         const sourceCode = config.sourceCode || {
-            javascript: config.githubPath,
+            javascript: this.generateGithubPath(config), // This now prefers *-core.js files
             java: this.generateJavaPath(config),
             python: "",
             go: ""

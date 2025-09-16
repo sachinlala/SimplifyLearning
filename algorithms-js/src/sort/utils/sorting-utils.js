@@ -4,7 +4,6 @@
  * Central repository for common functions used across sorting algorithms.
  * Follows DRY principle to avoid code duplication.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

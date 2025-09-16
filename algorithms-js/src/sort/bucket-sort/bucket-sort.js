@@ -4,7 +4,6 @@
  * Entry point for the Bucket Sort algorithm implementation,
  * providing both the core algorithm and demo configuration.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
@@ -254,5 +253,10 @@
         
         // Also export individual components for flexibility
         window.BucketSortCore = coreFunctions;
+        
+        // Ensure step tracking function is available
+        if (!window.bucketSortWithSteps && window.BucketSortSteps && window.BucketSortSteps.bucketSortWithSteps) {
+            window.bucketSortWithSteps = window.BucketSortSteps.bucketSortWithSteps;
+        }
     }
 })();

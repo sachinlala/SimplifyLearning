@@ -10,7 +10,6 @@
  * Named after the Dutch flag (red, white, blue stripes) and invented by
  * Edsger Dijkstra as part of the quicksort partitioning strategy.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
@@ -130,180 +129,6 @@ function dutchFlagSort2Way(arr, firstValue, secondValue) {
  * @param {any} blueValue - Blue group value
  * @returns {Object} Result with sorted array, steps, and metrics
  */
-function dutchFlagSortWithSteps(arr, redValue, whiteValue, blueValue) {
-    if (!arr || arr.length <= 1) {
-        return {
-            sortedArray: arr || [],
-            steps: [],
-            metrics: { comparisons: 0, swaps: 0, partitions: { red: 0, white: 0, blue: 0 } }
-        };
-    }
-
-    const sortedArray = [...arr];
-    const n = sortedArray.length;
-    const steps = [];
-    let comparisons = 0;
-    let swaps = 0;
-    const isTwoValueSort = (whiteValue === undefined || whiteValue === null);
-
-    let redCount = 0;
-    let whiteCount = 0;
-    let blueCount = 0;
-
-    // Initial state
-    steps.push({
-        type: 'start',
-        array: [...sortedArray],
-        message: `Starting Dutch Flag Sort - partitioning into ${isTwoValueSort ? 2 : 3} groups`,
-        phase: 'partition',
-        comparisons,
-        swaps,
-        highlightIndices: [],
-        redValue,
-        whiteValue: isTwoValueSort ? 'implicit' : whiteValue,
-        blueValue,
-        boundaries: { red: 0, white: n - 1, blue: n - 1 }
-    });
-
-    let red = 0;
-    let white = n - 1;
-    let blue = n - 1;
-
-    while (white >= red) {
-        const current = sortedArray[white];
-        comparisons++;
-
-        steps.push({
-            type: 'examine-element',
-            array: [...sortedArray],
-            message: `Examining element ${current} at position ${white}`,
-            phase: 'partition',
-            comparisons,
-            swaps,
-            highlightIndices: [white],
-            boundaries: { red, white, blue },
-            currentElement: current
-        });
-
-        if (current === redValue) {
-            // Move to red section
-            if (red !== white) {
-                SortingUtils.swap(sortedArray, red, white);
-                swaps++;
-                
-                steps.push({
-                    type: 'swap-to-red',
-                    array: [...sortedArray],
-                    message: `${current} is RED - swapped positions ${red} and ${white}`,
-                    phase: 'partition',
-                    comparisons,
-                    swaps,
-                    highlightIndices: [red, white],
-                    boundaries: { red, white, blue },
-                    swappedElement: current,
-                    swapType: 'red'
-                });
-            }
-            
-            redCount++;
-            red++;
-            
-            steps.push({
-                type: 'expand-red',
-                array: [...sortedArray],
-                message: `Red boundary expanded. Red section: [0, ${red - 1}]`,
-                phase: 'partition',
-                comparisons,
-                swaps,
-                highlightIndices: [red - 1],
-                boundaries: { red, white, blue },
-                sectionCounts: { red: redCount, white: whiteCount, blue: blueCount }
-            });
-
-        } else if (current === blueValue) {
-            // Move to blue section
-            if (white !== blue) {
-                SortingUtils.swap(sortedArray, white, blue);
-                swaps++;
-                
-                steps.push({
-                    type: 'swap-to-blue',
-                    array: [...sortedArray],
-                    message: `${current} is BLUE - swapped positions ${white} and ${blue}`,
-                    phase: 'partition',
-                    comparisons,
-                    swaps,
-                    highlightIndices: [white, blue],
-                    boundaries: { red, white, blue },
-                    swappedElement: current,
-                    swapType: 'blue'
-                });
-            }
-            
-            blueCount++;
-            blue--;
-            white--;
-            
-            steps.push({
-                type: 'expand-blue',
-                array: [...sortedArray],
-                message: `Blue boundary expanded. Blue section: [${blue + 1}, ${n - 1}]`,
-                phase: 'partition',
-                comparisons,
-                swaps,
-                highlightIndices: [blue + 1],
-                boundaries: { red, white, blue },
-                sectionCounts: { red: redCount, white: whiteCount, blue: blueCount }
-            });
-
-        } else {
-            // White element (or unknown in 2-way sort)
-            whiteCount++;
-            white--;
-            
-            const elementType = isTwoValueSort ? 'OTHER' : 'WHITE';
-            steps.push({
-                type: 'keep-white',
-                array: [...sortedArray],
-                message: `${current} is ${elementType} - stays in middle section`,
-                phase: 'partition',
-                comparisons,
-                swaps,
-                highlightIndices: [white + 1],
-                boundaries: { red, white, blue },
-                sectionCounts: { red: redCount, white: whiteCount, blue: blueCount }
-            });
-        }
-    }
-
-    // Final step
-    steps.push({
-        type: 'complete',
-        array: [...sortedArray],
-        message: `Dutch Flag Sort complete! Partitioned into ${redCount} red, ${whiteCount} ${isTwoValueSort ? 'other' : 'white'}, ${blueCount} blue elements`,
-        phase: 'complete',
-        comparisons,
-        swaps,
-        highlightIndices: [],
-        boundaries: { red, white, blue },
-        finalCounts: { red: redCount, white: whiteCount, blue: blueCount }
-    });
-
-    return {
-        sortedArray,
-        steps,
-        metrics: { 
-            comparisons, 
-            swaps,
-            partitions: { red: redCount, white: whiteCount, blue: blueCount },
-            redValue,
-            whiteValue: isTwoValueSort ? 'implicit' : whiteValue,
-            blueValue
-        }
-    };
-}
-
-/**
  * Simple Dutch flag sort function (backward compatibility)
  * @param {any[]} arr - Array to sort
  * @param {any} redValue - Red value
@@ -340,7 +165,7 @@ if (typeof module !== 'undefined' && module.exports) {
         dutchFlagSort,
         dutchFlagSort3Way,
         dutchFlagSort2Way,
-        dutchFlagSortWithSteps,
+        
         dutchFlagSortSimple,
         sortColors,
         sort012
@@ -350,13 +175,13 @@ if (typeof module !== 'undefined' && module.exports) {
         dutchFlagSort,
         dutchFlagSort3Way,
         dutchFlagSort2Way,
-        dutchFlagSortWithSteps,
+        
         dutchFlagSortSimple,
         sortColors,
         sort012
     };
     // Expose commonly used functions in global scope for demo configs
-    window.dutchFlagSortWithSteps = dutchFlagSortWithSteps;
+    
     // Backward compatibility
     window.dutchFlagSort = dutchFlagSortSimple;
 }
