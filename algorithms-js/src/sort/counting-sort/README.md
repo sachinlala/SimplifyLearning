@@ -33,7 +33,7 @@ A stable, linear-time sorting algorithm that works by counting occurrences of ea
 ### Basic Usage
 
 ```javascript
-const { CountingSortModule } = require('./index.js');
+const { CountingSortModule } = require('./counting-sort.js');
 
 // Simple sorting
 const sorted = CountingSortModule.sort([4, 2, 2, 8, 3, 3, 1]);
@@ -123,7 +123,7 @@ The module includes comprehensive configuration for interactive demos:
 - `counting-sort-core.js` - Core algorithm implementation
 - `counting-sort-config.js` - Configuration for demos and visualization
 - `test-counting-sort.js` - Comprehensive test suite
-- `index.js` - Main module entry point
+- `counting-sort.js` - Main module entry point
 - `README.md` - This documentation
 
 ## Testing
@@ -149,7 +149,7 @@ The module works in both Node.js and browser environments:
 ```html
 <script src="counting-sort-core.js"></script>
 <script src="counting-sort-config.js"></script>
-<script src="index.js"></script>
+<script src="counting-sort.js"></script>
 
 <script>
     // Use CountingSortModule in browser

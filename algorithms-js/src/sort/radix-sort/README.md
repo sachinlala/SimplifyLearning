@@ -34,7 +34,7 @@ A stable, non-comparison based sorting algorithm that processes individual digit
 ### Basic Usage
 
 ```javascript
-const { RadixSortModule } = require('./index.js');
+const { RadixSortModule } = require('./radix-sort.js');
 
 // Simple sorting
 const sorted = RadixSortModule.sort([170, 45, 75, 90, 2, 802, 24, 66]);
@@ -142,7 +142,7 @@ The module includes comprehensive configuration for interactive demos:
 - `radix-sort-core.js` - Core algorithm implementation
 - `radix-sort-config.js` - Configuration for demos and visualization
 - `test-radix-sort.js` - Comprehensive test suite
-- `index.js` - Main module entry point
+- `radix-sort.js` - Main module entry point
 - `README.md` - This documentation
 
 ## Testing
@@ -168,7 +168,7 @@ The module works in both Node.js and browser environments:
 ```html
 <script src="radix-sort-core.js"></script>
 <script src="radix-sort-config.js"></script>
-<script src="index.js"></script>
+<script src="radix-sort.js"></script>
 
 <script>
     // Use RadixSortModule in browser
