@@ -111,7 +111,7 @@ class SourceCodeHandler {
         const languages = [
             {
                 name: 'JavaScript',
-                icon: `<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M0 0h256v256H0V0zm81.706 213.381c0 12.814-7.526 20.907-18.618 20.907-9.968 0-15.717-5.158-18.618-11.378l10.088-6.094c1.943 3.445 3.708 6.37 7.978 6.37 4.088 0 6.693-1.608 6.693-7.882v-42.669h12.477v61.646zm50.6 20.907c-11.565 0-19.056-5.503-22.732-12.814l10.088-5.837c2.644 4.315 6.092 7.526 12.12 7.526 5.085 0 8.345-2.532 8.345-6.04 0-4.2-3.348-5.68-8.978-8.134l-3.081-1.322c-8.887-3.784-14.787-8.535-14.787-18.573 0-9.24 7.04-16.28 18.056-16.28 7.844 0 13.471 2.733 17.522 9.887l-9.598 6.158c-2.111-3.784-4.385-5.269-7.924-5.269-3.606 0-5.895 2.287-5.895 5.269 0 3.686 2.289 5.178 7.587 7.465l3.081 1.322c10.473 4.496 16.373 9.106 16.373 19.454 0 11.146-8.75 17.177-20.478 17.177z"/></svg>`,
+                icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="#F7DF1E" rx="3"/><path d="m18.42 15.28-.96 1.73a4.56 4.56 0 01-3.82 1.59 4 4 0 01-4.19-4v-3.92H8v-1.6h6.19v1.6h-1.43v3.92a2.42 2.42 0 002.5 2.59 3 3 0 002.38-1.18l.96-1.73zm-8.76-.7H5.31v-1.6h4.35v1.6z" fill="#000"/></svg>`,
                 url: sourceCode.javascript,
                 background: '#fff3cd',
                 color: '#856404',
@@ -159,7 +159,7 @@ class SourceCodeHandler {
                            ${lang.icon} <span style="text-decoration: line-through;">${lang.name}</span> <small>(Coming Soon)</small>
                         </span>`;
             }
-        }).join('\\n                    ');
+        }).join('\n                    ');
         
         return `
             <!-- Source Code Links -->
@@ -218,6 +218,16 @@ class TemplateManager {
             throw new Error('Category must be a string or non-empty array');
         }
     }
+    
+    isSortingAlgorithm(category) {
+        if (typeof category === 'string') {
+            return category === 'sort';
+        }
+        if (Array.isArray(category)) {
+            return category.includes('sort');
+        }
+        return false;
+    }
 
     // Simplified HTML generation methods (embedded for efficiency)
     generateHeader(config) {
@@ -244,11 +254,38 @@ class TemplateManager {
             <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="back-to-home desktop-only">
                 🏠 Home
             </a>
-            <button id="global-theme-toggle" class="theme-toggle-btn">
-                🌙
-            </button>
+            ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
+            <div class="theme-slider-container">
+                <label class="theme-slider" for="global-theme-toggle">
+                    <input type="checkbox" id="global-theme-toggle" class="theme-toggle-input">
+                    <span class="slider">
+                        <span class="slider-icon sun">☀️</span>
+                        <span class="slider-icon moon">🌙</span>
+                        <span class="slider-thumb"></span>
+                    </span>
+                </label>
+            </div>
         </div>
-    </header>`;
+    </header>
+    
+    <!-- Hamburger Menu Sidebar -->
+    <div id="sidebar-overlay" class="sidebar-overlay">
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>Algorithms</h3>
+                <button id="close-sidebar" class="close-btn">&times;</button>
+            </div>
+            <div class="sidebar-content">
+                <!-- Mobile navigation controls -->
+                <div class="mobile-nav-controls" style="padding: 15px; border-bottom: 1px solid #eee; margin-bottom: 10px;">
+                    <a href="${PathGenerator.generateAlgorithmsHomeUrl(config)}" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
+                    ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
+                    <button id="mobile-theme-toggle" class="mobile-theme-btn" style="width: 100%; padding: 12px; background: #f8f9fa; color: #333; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: 500;">🌙 Toggle Theme</button>
+                </div>
+                <!-- Algorithm list will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>`;
     }
 
     generateHeroSection(config) {
@@ -264,11 +301,9 @@ class TemplateManager {
 
     generateProblemSection(config) {
         return `
-        <!-- Problem Statement -->
-        <div class="problem-section" style="max-width: 800px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3>Problem Statement</h3>
+        <section class="problem-description">
             <p>${config.problem}</p>
-        </div>`;
+        </section>`;
     }
 
     generateFooter() {
@@ -346,21 +381,28 @@ class TemplateManager {
         if (!config.inputs || config.inputs.length === 0) return '';
         
         const inputElements = config.inputs.map(input => {
+            const commonStyles = 'padding: 8px; border: 1px solid #ddd; border-radius: 4px;';
             return `
-                <div style="margin-bottom: 15px;">
-                    <label for="${input.id}" style="display: block; margin-bottom: 5px; font-weight: 500;">${input.label}</label>
-                    <input type="${input.type || 'text'}" 
-                           id="${input.id}" 
-                           value="${input.defaultValue || ''}" 
-                           style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: ${input.width || '200px'};">
-                </div>`;
-        }).join('');
-
+                    <div>
+                        <label for="${input.id}" style="display: block; margin-bottom: 5px;">${input.label}</label>
+                        <input type="${input.type || 'text'}" id="${input.id}" value="${input.defaultValue || ''}" style="${commonStyles} width: ${input.width || '80px'};">
+                    </div>`;
+        }).join('\n                    ');
+        
+        // Check for data type toggle
+        const dataTypeToggleHtml = config.inputDataTypes ? this.generateDataTypeToggleInline(config.inputDataTypes) : '';
+        
         return `
             <div class="input-section" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h3>Input</h3>
-                ${inputElements}
-                <button onclick="runDemo()" style="background: #007acc; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px;">Run Demo</button>
+                <h3>Inputs</h3>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: end;">
+                    ${dataTypeToggleHtml}
+                    ${inputElements}
+                    <div>
+                        <button onclick="runDemo()" style="padding: 8px 16px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer;">Run Demo</button>
+                    </div>
+                </div>
+                ${config.example ? this.generateExampleBox(config.example) : ''}
             </div>`;
     }
 
@@ -375,7 +417,7 @@ class TemplateManager {
 
     generateVisualizationSection(config) {
         return `
-            <div id="visualization-section" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: none;">
+            <div id="visualization-section" style="padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: none;" class="themed-section">
                 <h3>Step-by-Step Visualization</h3>
                 <div id="array-visualization" style="margin-bottom: 20px;"></div>
                 <div id="steps-container"></div>
@@ -386,7 +428,7 @@ class TemplateManager {
         if (!config.explanation) return '';
         
         const steps = config.explanation.steps ? 
-            config.explanation.steps.map(step => `<li>${step}</li>`).join('\\n                        ') : 
+            config.explanation.steps.map(step => `<li>${step}</li>`).join('\n                        ') : 
             '';
 
         return `
@@ -398,7 +440,7 @@ class TemplateManager {
                     </div>
                     <div class="accordion-content">
                         <p>${config.explanation.description}</p>
-                        ${steps ? `<ol class="step-list">\\n                        ${steps}\\n                    </ol>` : ''}
+                        ${steps ? `<ol class="step-list">\n                        ${steps}\n                    </ol>` : ''}
                     </div>
                 </div>
             </div>`;
@@ -425,6 +467,32 @@ class TemplateManager {
     </script>`;
     }
 
+    generateDataTypeToggleInline(inputDataTypes) {
+        if (!inputDataTypes || !inputDataTypes.options || inputDataTypes.options.length === 0) {
+            return '';
+        }
+        
+        const toggleOptions = inputDataTypes.options.map((type) => {
+            const isDefault = type.value === inputDataTypes.default;
+            return `<option value="${type.value}" ${isDefault ? 'selected' : ''}>${type.label}</option>`;
+        }).join('');
+        
+        return `
+                    <div>
+                        <label for="data-type-toggle" style="display: block; margin-bottom: 5px; font-weight: 500;">Input Data Type</label>
+                        <select id="data-type-toggle" onchange="handleDataTypeChange()" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 140px;">
+                            ${toggleOptions}
+                        </select>
+                    </div>`;
+    }
+    
+    generateExampleBox(example) {
+        return `
+                <div style="margin-top: 10px; padding: 10px; background: #f0f8ff; border-radius: 4px; font-size: 0.9em;">
+                    <strong>Example:</strong> ${example}
+                </div>`;
+    }
+
     generateStyles(config) {
         return `
     <style>
@@ -438,6 +506,8 @@ class TemplateManager {
         .viz-button.reset { background: #dc3545; color: white; }
         .viz-button:disabled { opacity: 0.6; cursor: not-allowed; }
         .viz-legend { margin-top: 10px; font-size: 0.9em; color: #666; }
+        .themed-section { background: var(--bg-color, #fff); color: var(--text-color, #333); }
+        body.dark-mode .themed-section { background: var(--dark-bg-secondary, #2c2c2c); color: var(--dark-text, #f0f0f0); }
         @media (max-width: 768px) {
             .viz-legend-desktop { display: none !important; }
             .viz-legend-mobile { display: flex !important; flex-direction: column; gap: 5px; }
@@ -450,7 +520,6 @@ class TemplateManager {
     generateJavaPath(config) { return PathGenerator.generateJavaPath(config); }
     generateDynamicAlgorithmsHomeUrl(config) { return PathGenerator.generateDynamicAlgorithmsHomeUrl(config); }
     generateAlgorithmsHomeUrl(config) { return PathGenerator.generateAlgorithmsHomeUrl(config); }
-    isSortingAlgorithm(category) { return PathGenerator.isSortingAlgorithm(category); }
     buildAssetPath(config, relativePath) { return PathGenerator.buildAssetPath(config, relativePath); }
     generateSourceCodeSection(config) { return SourceCodeHandler.generateSourceCodeSection(config); }
 }
