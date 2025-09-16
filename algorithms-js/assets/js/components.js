@@ -228,6 +228,41 @@ class AlgorithmList {
                 url: 'demo.html?algo=sort/heap-sort',
                 category: 'sort',
                 subcategory: 'heap-based'
+            },
+            {
+                name: 'Counting Sort',
+                description: 'Linear-time integer sorting algorithm for small ranges',
+                url: 'demo.html?algo=sort/counting-sort',
+                category: 'sort',
+                subcategory: 'non-comparison'
+            },
+            {
+                name: 'Radix Sort',
+                description: 'Non-comparison sort that processes digits individually',
+                url: 'demo.html?algo=sort/radix-sort',
+                category: 'sort',
+                subcategory: 'non-comparison'
+            },
+            {
+                name: 'Bucket Sort',
+                description: 'Distribution-based sort for uniformly distributed data',
+                url: 'demo.html?algo=sort/bucket-sort',
+                category: 'sort',
+                subcategory: 'distribution'
+            },
+            {
+                name: 'Dutch Flag Sort',
+                description: 'Three-way partitioning algorithm for 2-3 group segregation',
+                url: 'demo.html?algo=sort/dutch-flag-sort',
+                category: 'sort',
+                subcategory: 'partitioning'
+            },
+            {
+                name: 'Wiggle Sort',
+                description: 'Arranges elements in alternating peak-valley pattern',
+                url: 'demo.html?algo=sort/wiggle-sort',
+                category: 'sort',
+                subcategory: 'specialized'
             }
             // More algorithms can be added here
         ];

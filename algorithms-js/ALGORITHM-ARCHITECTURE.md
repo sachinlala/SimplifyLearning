@@ -117,6 +117,31 @@ Algorithms are loaded via `demo.html?algo=category/algorithm-name`:
 3. **Dependency Loading** - Config references core and visualization files
 4. **DOM Generation** - Creates complete demo interface from configuration
 
+## Utilities and DRY Principles
+
+**Purpose**: Centralized reusable functions to avoid code duplication
+
+### Algorithm-Specific Utilities (`src/sort/utils/sorting-utils.js`)
+- Core algorithm functions: `swap`, `findMax`, `findMin`
+- Array utilities: `generateRandomArray`, `isSorted`, `copyArray`
+- Performance tracking: `PerformanceTracker`
+- Step generation helpers for visualization
+- Validation functions: `validateArrayWithConstraints`
+
+### UI/Web Utilities (`assets/js/utils.js`)
+- DOM/UI-specific functions: `parseArray`, `calculateBarHeight`
+- Web utilities: `debounce`, `copyToClipboard`, `formatNumber`
+- Style generators: `generateBarStyle`, `wrapLongText`
+
+**Import Pattern**:
+```javascript
+// In core algorithm files
+const SortingUtils = (typeof require !== 'undefined') ? 
+    require('../utils/sorting-utils.js') : window.SortingUtils;
+
+// Use: SortingUtils.swap(arr, i, j)
+```
+
 ## Architecture Benefits
 
 1. **Separation of Concerns**: Core logic, visualization, and UI are separate
@@ -124,3 +149,5 @@ Algorithms are loaded via `demo.html?algo=category/algorithm-name`:
 3. **Self-Contained**: Each algorithm directory is independent
 4. **Consistent Interface**: Universal loader provides consistent UX
 5. **Extensible**: Easy to add new algorithms following the pattern
+6. **DRY Compliance**: Utilities are centralized and reusable
+7. **Testing Ready**: Jest configuration for comprehensive testing

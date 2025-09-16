@@ -19,59 +19,57 @@ function parseArray(input) {
     }
 }
 
-// Utility function for validating sorted arrays
-function isSorted(arr) {
+// Note: Core array utilities have been moved to src/sort/utils/sorting-utils.js for Node.js usage.
+// These functions are duplicated here for web demo compatibility.
+
+// Utility function to check if array is sorted
+function isSorted(arr, ascending = true) {
+    if (!arr || arr.length <= 1) return true;
     for (let i = 1; i < arr.length; i++) {
-        if (arr[i - 1] > arr[i]) {
+        if (ascending ? arr[i] < arr[i-1] : arr[i] > arr[i-1]) {
             return false;
         }
     }
     return true;
 }
 
-// Utility function for timing execution
+// Utility function to measure execution time
 function measureTime(fn) {
     const start = performance.now();
     const result = fn();
     const end = performance.now();
     return {
         result: result,
-        time: (end - start).toFixed(4)
+        time: end - start
     };
 }
 
-// Utility function for generating random arrays
-function generateRandomArray(size, min = 1, max = 100) {
-    const arr = [];
-    for (let i = 0; i < size; i++) {
-        arr.push(Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-    return arr;
+// Utility function to generate random array
+function generateRandomArray(size, min = 0, max = 100) {
+    return Array.from({ length: size }, () => 
+        Math.floor(Math.random() * (max - min + 1)) + min
+    );
 }
 
-// Utility function for generating random sorted arrays
-function generateRandomSortedArray(size, min = 1, max = 100) {
+// Utility function to generate random sorted array
+function generateRandomSortedArray(size, min = 0, max = 100, ascending = true) {
     const arr = generateRandomArray(size, min, max);
-    return arr.sort((a, b) => a - b);
+    return arr.sort((a, b) => ascending ? a - b : b - a);
 }
 
-// Utility function to get maximum value from an array (supports mixed types)
+// Utility function to get maximum value
 function getMax(arr) {
-    if (!arr || !arr.length) return undefined;
-    // Handle mixed arrays (numbers and strings)
-    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
-    return Math.max(...numericValues);
+    if (!arr || arr.length === 0) return 0;
+    return Math.max(...arr);
 }
 
-// Utility function to get minimum value from an array (supports mixed types)
+// Utility function to get minimum value
 function getMin(arr) {
-    if (!arr || !arr.length) return undefined;
-    // Handle mixed arrays (numbers and strings)
-    const numericValues = arr.map(v => typeof v === 'number' ? v : v.toString().length);
-    return Math.min(...numericValues);
+    if (!arr || arr.length === 0) return 0;
+    return Math.min(...arr);
 }
 
-// Utility function to get maximum value (wrapper for Math.max)
+// Utility function to get maximum value (wrapper for Math.max - legacy)
 function getMaxValue(...args) {
     return Math.max(...args);
 }
@@ -231,7 +229,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // Export to global window object for browser compatibility
 if (typeof window !== 'undefined') {
-    // Attach all utility functions to the global window object
+    // Attach all utility functions to the global window object for web demo compatibility
     window.parseArray = parseArray;
     window.isSorted = isSorted;
     window.measureTime = measureTime;

@@ -120,58 +120,64 @@ class UniversalAlgorithmLoader {
         
         try {
             // Create a script element to load config file from the algorithm directory
-            const script = document.createElement('script');
-            const configPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${algorithmInfo.configPath}` : `${algorithmInfo.fullPath}/${algorithmInfo.configPath}`;
-            script.src = configPath;
-            
-            return new Promise((resolve, reject) => {
-                script.onload = () => {
-                    // Try to find the config in window object
-                    // Config files should export to window with a predictable name
-                    const possibleNames = [
-                        `${algorithmInfo.algorithmName.replace(/-/g, '')}Config`,
-                        `${algorithmInfo.algorithmName.replace(/-/g, '').toLowerCase()}Config`,
-                        `${this.toCamelCase(algorithmInfo.algorithmName)}Config`
-                    ];
-                    
-                    let config = null;
-                    for (const name of possibleNames) {
-                        if (window[name]) {
-                            config = window[name];
-                            break;
-                        }
-                    }
-                    
-                    // Fallback: look for any config object in window
-                    if (!config) {
-                        const configKeys = Object.keys(window).filter(key => 
-                            key.toLowerCase().includes('config') && 
-                            typeof window[key] === 'object' &&
-                            window[key] !== null
-                        );
-                        
-                        if (configKeys.length > 0) {
-                            config = window[configKeys[configKeys.length - 1]]; // Get the last one added
-                        }
-                    }
-                    
-                    if (config) {
-                        resolve(config);
-                    } else {
-                        reject(new Error(`Could not find configuration object in ${algorithmInfo.configPath}`));
-                    }
-                };
-                
-                script.onerror = () => {
-                    reject(new Error(`Failed to load ${algorithmInfo.configPath}`));
-                };
-                
-                document.head.appendChild(script);
-            });
-            
+            const configPath = this.buildPath(`${algorithmInfo.fullPath}/${algorithmInfo.configPath}`);
+            return this.loadConfigFile(configPath, algorithmInfo);
         } catch (error) {
             throw new Error(`Failed to load configuration: ${error.message}`);
         }
+    }
+    
+    /**
+     * Load a specific config file
+     */
+    loadConfigFile(configPath, algorithmInfo) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = configPath;
+            
+            script.onload = () => {
+                // Try to find the config in window object
+                // Config files should export to window with a predictable name
+                const possibleNames = [
+                    `${algorithmInfo.algorithmName.replace(/-/g, '')}Config`,
+                    `${algorithmInfo.algorithmName.replace(/-/g, '').toLowerCase()}Config`,
+                    `${this.toCamelCase(algorithmInfo.algorithmName)}Config`
+                ];
+                
+                let config = null;
+                for (const name of possibleNames) {
+                    if (window[name]) {
+                        config = window[name];
+                        break;
+                    }
+                }
+                
+                // Fallback: look for any config object in window
+                if (!config) {
+                    const configKeys = Object.keys(window).filter(key => 
+                        key.toLowerCase().includes('config') && 
+                        typeof window[key] === 'object' &&
+                        window[key] !== null
+                    );
+                    
+                    if (configKeys.length > 0) {
+                        config = window[configKeys[configKeys.length - 1]]; // Get the last one added
+                    }
+                }
+                
+                if (config) {
+                    resolve(config);
+                } else {
+                    reject(new Error(`Could not find configuration object in ${configPath}`));
+                }
+            };
+            
+            script.onerror = () => {
+                reject(new Error(`Failed to load ${configPath}`));
+            };
+            
+            document.head.appendChild(script);
+        });
     }
 
     /**
@@ -179,6 +185,20 @@ class UniversalAlgorithmLoader {
      */
     toCamelCase(str) {
         return str.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    /**
+     * Build proper path, avoiding double slashes
+     */
+    buildPath(relativePath) {
+        if (!this.basePath || this.basePath === '') {
+            return relativePath;
+        }
+        // Remove leading slash from relativePath if basePath exists
+        const cleanRelativePath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
+        // Ensure basePath doesn't end with slash before joining
+        const cleanBasePath = this.basePath.endsWith('/') ? this.basePath.slice(0, -1) : this.basePath;
+        return `${cleanBasePath}/${cleanRelativePath}`;
     }
 
     /**
@@ -316,11 +336,11 @@ class UniversalAlgorithmLoader {
             document.body.innerHTML = this.generateLoadingScreen(algorithmInfo);
             
             // Load required scripts
-            const templatePath = this.basePath ? `${this.basePath}/assets/js/dynamic-template.js` : `assets/js/dynamic-template.js`;
+            const templatePath = this.buildPath('assets/js/dynamic-template.js');
             await this.loadScript(templatePath);
             
             // Load utils.js immediately after dynamic template to ensure utilities are available
-            const utilsPath = this.basePath ? `${this.basePath}/assets/js/utils.js` : `assets/js/utils.js`;
+            const utilsPath = this.buildPath('assets/js/utils.js');
             await this.loadScript(utilsPath);
             
             // Verify utility functions are available in global scope
@@ -329,9 +349,21 @@ class UniversalAlgorithmLoader {
             // Load algorithm configuration
             const config = await this.loadConfig();
             
+            // Attempt to load category-specific utilities before core (e.g., SortingUtils for sort)
+            try {
+                const algoInfo = this.getAlgorithmInfo();
+                if (algoInfo.category === 'sort') {
+                    const sortUtilsPath = this.buildPath('src/sort/utils/sorting-utils.js');
+                    await this.loadScript(sortUtilsPath);
+                    console.log('✅ Loaded sorting utilities');
+                }
+            } catch (e) {
+                console.warn('⚠️ Could not load category utilities:', e.message);
+            }
+            
             // Load core algorithm file first (if it exists)
             const coreJsPath = algorithmInfo.jsPath.replace('.js', '-core.js');
-            const fullCoreJsPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${coreJsPath}` : `${algorithmInfo.fullPath}/${coreJsPath}`;
+            const fullCoreJsPath = this.buildPath(`${algorithmInfo.fullPath}/${coreJsPath}`);
             
             try {
                 await this.loadScript(fullCoreJsPath);
@@ -341,7 +373,7 @@ class UniversalAlgorithmLoader {
             }
             
             // Load main algorithm JavaScript file
-            const jsPath = this.basePath ? `${this.basePath}/${algorithmInfo.fullPath}/${algorithmInfo.jsPath}` : `${algorithmInfo.fullPath}/${algorithmInfo.jsPath}`;
+            const jsPath = this.buildPath(`${algorithmInfo.fullPath}/${algorithmInfo.jsPath}`);
             await this.loadScript(jsPath);
             
             // Create template generator and generate HTML
