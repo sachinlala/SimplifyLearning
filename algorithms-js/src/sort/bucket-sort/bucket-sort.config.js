@@ -6,9 +6,37 @@
  */
 
 const BucketSortConfig = {
+    // Top-level properties for dynamic template compatibility
+    name: 'Bucket Sort',
+    category: 'sort',
+    problem: 'Sort an array of floating-point numbers by distributing them into buckets, sorting each bucket individually, then concatenating the results. Most efficient with uniformly distributed data.',
+    
+    // Inputs for the demo interface
+    inputs: [
+        {
+            id: 'array-input',
+            type: 'text',
+            label: 'Array Elements (decimals 0.0-1.0)',
+            defaultValue: '0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12',
+            width: '400px'
+        },
+        {
+            id: 'bucket-count',
+            type: 'number',
+            label: 'Number of Buckets',
+            defaultValue: 5,
+            min: 2,
+            max: 10,
+            width: '100px'
+        }
+    ],
+    
+    explanation: {
+        description: 'Bucket Sort is a distribution sorting algorithm that works by dividing elements into a finite number of buckets. Each bucket is then sorted individually, either using a different sorting algorithm or by recursively applying bucket sort. Finally, the buckets are concatenated to produce the sorted array. It works best when input is uniformly distributed over a range.'
+    },
+    
     // Demo identification and display
     id: 'bucket-sort',
-    name: 'Bucket Sort',
     description: 'A distribution sorting algorithm that divides elements into buckets, sorts each bucket individually, then concatenates them. Works best with uniformly distributed data.',
     
     // Algorithm properties
@@ -351,4 +379,9 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = BucketSortConfig;
 } else if (typeof window !== 'undefined') {
     window.BucketSortConfig = BucketSortConfig;
+    
+    // Additional exports for universal loader compatibility
+    window.BUCKET_SORT_CONFIG = BucketSortConfig;
+    window.bucketsortConfig = BucketSortConfig;
+    window.bucketsortconfig = BucketSortConfig;
 }

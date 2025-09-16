@@ -313,9 +313,5 @@ if (typeof module !== 'undefined' && module.exports) {
     window.COUNTING_SORT_CONFIG = CountingSortConfig;
     window.countingsortConfig = CountingSortConfig;
     window.countingsortconfig = CountingSortConfig;
-}
-    // Additional exports for universal loader compatibility
-    window.COUNTING_SORT_CONFIG = CountingSortConfig;
-    window.countingsortConfig = CountingSortConfig;
-    window.countingsortconfig = CountingSortConfig;
+    window.countingSortConfig = CountingSortConfig;  // camelCase for universal loader
 }
