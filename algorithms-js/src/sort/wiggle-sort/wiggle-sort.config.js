@@ -9,6 +9,37 @@
  */
 
 const WIGGLE_SORT_CONFIG = {
+    // Top-level properties for dynamic template compatibility
+    name: "Wiggle Sort",
+    category: "sort",
+    problem: "Arrange array elements in a wiggling pattern where arr[0] < arr[1] > arr[2] < arr[3] > arr[4]... Elements alternate between peaks and valleys.",
+    
+    // Inputs for the demo interface
+    inputs: [
+        {
+            id: 'array-input',
+            type: 'text',
+            label: 'Array Elements',
+            defaultValue: '3, 5, 2, 1, 6, 4',
+            width: '300px'
+        },
+        {
+            id: 'variant',
+            type: 'select',
+            label: 'Wiggle Sort Variant',
+            defaultValue: 'I',
+            width: '150px',
+            options: [
+                { value: 'I', text: 'Wiggle Sort I (Simple)' },
+                { value: 'II', text: 'Wiggle Sort II (No Adjacent Duplicates)' }
+            ]
+        }
+    ],
+    
+    explanation: {
+        description: 'Wiggle Sort rearranges an array so that elements alternate between being smaller and larger than their neighbors, creating a "wiggling" pattern. Wiggle Sort I achieves this in O(n) time by making local adjustments, while Wiggle Sort II handles duplicates more carefully to avoid adjacent identical elements.'
+    },
+    
     algorithm: {
         name: "Wiggle Sort",
         shortName: "Wiggle",
@@ -369,4 +400,9 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
     window.WIGGLE_SORT_CONFIG = WIGGLE_SORT_CONFIG;
     window.WiggleSortConfigUtils = WiggleSortConfigUtils;
+    
+    // Additional exports for universal loader compatibility
+    window.WiggleSortConfig = WIGGLE_SORT_CONFIG;
+    window.wigglesortConfig = WIGGLE_SORT_CONFIG;
+    window.wigglesortconfig = WIGGLE_SORT_CONFIG;
 }

@@ -115,4 +115,84 @@ if (typeof window !== 'undefined') {
         countingSortSimple
     };
     window.CountingSortConfig = CountingSortConfig;
+    
+    // Demo interface function for dynamic template
+    window.runAlgorithm = function(array_input) {
+        console.log('🔍 runAlgorithm called with:', { array_input });
+        
+        try {
+            // Parse the array input
+            let array;
+            if (typeof array_input === 'string') {
+                // Handle comma-separated values
+                const trimmed = array_input.trim();
+                if (trimmed === '') {
+                    array = [];
+                } else {
+                    array = trimmed.split(',').map(item => {
+                        const cleaned = item.trim();
+                        const num = Number(cleaned);
+                        if (!isNaN(num) && isFinite(num)) {
+                            return Math.max(0, Math.floor(num)); // Ensure non-negative integers
+                        }
+                        return 0; // Default to 0 for invalid values
+                    });
+                }
+            } else {
+                array = Array.isArray(array_input) ? array_input.map(x => Math.max(0, Math.floor(Number(x)))) : [Math.max(0, Math.floor(Number(array_input)))];
+            }
+            
+            console.log('🔍 Parsed array:', array);
+            
+            // Validate array
+            if (array.length === 0) {
+                return '<strong>Result:</strong> Empty array - nothing to sort.';
+            }
+            
+            // Call counting sort
+            let result;
+            if (window.CountingSortCore && window.CountingSortCore.countingSort) {
+                result = window.CountingSortCore.countingSort(array);
+            } else if (countingSort) {
+                result = countingSort(array);
+            } else {
+                // Fallback: basic JavaScript sort
+                const sortedArray = [...array].sort((a, b) => a - b);
+                result = { 
+                    sortedArray, 
+                    metrics: { 
+                        elements: array.length, 
+                        range: Math.max(...array) + 1, 
+                        counts: new Array(Math.max(...array) + 1).fill(0)
+                    } 
+                };
+            }
+            
+            console.log('🔍 Sort result:', result);
+            
+            // Format the output
+            const originalStr = '[' + array.join(', ') + ']';
+            const sortedStr = '[' + result.sortedArray.join(', ') + ']';
+            
+            let output = `<strong>Original array:</strong> ${originalStr}<br><br>`;
+            output += `<strong>Sorted array:</strong> ${sortedStr}<br><br>`;
+            
+            if (result.metrics) {
+                if (result.metrics.elements !== undefined) {
+                    output += `<strong>Number of elements (n):</strong> ${result.metrics.elements}<br>`;
+                }
+                if (result.metrics.range !== undefined) {
+                    output += `<strong>Value range (k):</strong> ${result.metrics.range}<br>`;
+                }
+                output += `<strong>Time complexity:</strong> O(n + k)<br>`;
+                output += `<strong>Space complexity:</strong> O(k)<br>`;
+            }
+            
+            return output;
+            
+        } catch (error) {
+            console.error('❌ Error in runAlgorithm:', error);
+            throw new Error(`Counting Sort error: ${error.message}`);
+        }
+    };
 }

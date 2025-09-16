@@ -6,9 +6,28 @@
  */
 
 const CountingSortConfig = {
+    // Top-level properties for dynamic template compatibility
+    name: 'Counting Sort',
+    category: 'sort',
+    problem: 'Sort an array of non-negative integers efficiently using counting instead of comparisons. Ideal for integers within a small, known range.',
+    
+    // Inputs for the demo interface
+    inputs: [
+        {
+            id: 'array-input',
+            type: 'text',
+            label: 'Array Elements (non-negative integers)',
+            defaultValue: '4, 2, 2, 8, 3, 3, 1',
+            width: '300px'
+        }
+    ],
+    
+    explanation: {
+        description: 'Counting Sort is a non-comparison based sorting algorithm that works by counting occurrences of each element. It operates in O(n + k) time where n is the number of elements and k is the range of values. The algorithm uses a counting array to track frequencies and then reconstructs the sorted array by placing elements in their correct positions.'
+    },
+    
     // Demo identification and display
     id: 'counting-sort',
-    name: 'Counting Sort',
     description: 'A stable, linear-time sorting algorithm that works by counting occurrences of each element. Efficient for sorting integers within a known, small range.',
     
     // Algorithm properties
@@ -254,10 +273,12 @@ const CountingSortConfig = {
                 metrics: result.metrics,
                 summary: {
                     algorithm: 'Counting Sort',
-                    elements: result.metrics.elements,
-                    range: result.metrics.range,
-                    counts: result.metrics.counts,
-                    timeComplexity: `O(${result.metrics.elements} + ${result.metrics.range})`
+                    elements: result.metrics?.elements,
+                    range: result.metrics?.range,
+                    counts: result.metrics?.counts,
+                    timeComplexity: (result.metrics && result.metrics.elements !== undefined && result.metrics.range !== undefined)
+                        ? `O(${result.metrics.elements} + ${result.metrics.range})`
+                        : 'O(n + k)'
                 }
             };
         }
@@ -287,4 +308,14 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = CountingSortConfig;
 } else if (typeof window !== 'undefined') {
     window.CountingSortConfig = CountingSortConfig;
+    
+    // Additional exports for universal loader compatibility
+    window.COUNTING_SORT_CONFIG = CountingSortConfig;
+    window.countingsortConfig = CountingSortConfig;
+    window.countingsortconfig = CountingSortConfig;
+}
+    // Additional exports for universal loader compatibility
+    window.COUNTING_SORT_CONFIG = CountingSortConfig;
+    window.countingsortConfig = CountingSortConfig;
+    window.countingsortconfig = CountingSortConfig;
 }
