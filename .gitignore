@@ -36,7 +36,7 @@ buildNumber.properties
 **/target/
 **/out/
 **/*.class
-**/*.html
+# Only ignore generated/test HTML files, not essential site HTML files
 **/reports/
 **/jacoco/
 **/checkstyle/
@@ -45,6 +45,8 @@ buildNumber.properties
 **/TEST-*.html
 **/*Test.html
 **/*.java.html
+# Ignore generated HTML files from template system
+generated-*.html
 
 # Backup and temporary files
 *.backup
