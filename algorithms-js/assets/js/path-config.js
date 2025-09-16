@@ -21,18 +21,18 @@ class PathConfig {
         if (typeof window === 'undefined') return ''; // Node.js environment
         
         const currentPath = window.location.pathname;
-        const pathParts = currentPath.split('/');
+        const pathParts = currentPath.split('/').filter(part => part !== '');
         
         // Look for algorithms-js in path
         const algorithmsIndex = pathParts.findIndex(part => part === 'algorithms-js');
         if (algorithmsIndex !== -1) {
-            return pathParts.slice(0, algorithmsIndex + 1).join('/');
+            return '/' + pathParts.slice(0, algorithmsIndex + 1).join('/');
         }
         
         // Production deployment patterns
         const algorithmsLegacyIndex = pathParts.findIndex(part => part === 'algorithms');
         if (algorithmsLegacyIndex !== -1) {
-            return pathParts.slice(0, algorithmsLegacyIndex + 1).join('/');
+            return '/' + pathParts.slice(0, algorithmsLegacyIndex + 1).join('/');
         }
         
         // Default to root for local development
@@ -49,15 +49,65 @@ class PathConfig {
     }
 
     /**
+     * Calculate relative path from current directory to the algorithms-js root
+     */
+    getRelativePathToRoot() {
+        if (typeof window === 'undefined') return '';
+        
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/').filter(part => part !== '');
+        
+        // For local development (localhost), calculate subdirectory depth
+        if (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')) {
+            // Count subdirectories by looking at the current file's location
+            const currentFile = pathParts[pathParts.length - 1];
+            const isHtmlFile = currentFile && currentFile.endsWith('.html');
+            
+            // Remove the filename to get just the directory parts
+            const directoryParts = isHtmlFile ? pathParts.slice(0, -1) : pathParts;
+            
+            // For localhost, assume we're serving from the algorithms-js root
+            // Each directory level needs a '../' to get back to root
+            const depth = directoryParts.length;
+            
+            return depth > 0 ? '../'.repeat(depth) : '';
+        }
+        
+        // For production, find the algorithms-js root
+        let rootIndex = pathParts.findIndex(part => part === 'algorithms-js');
+        if (rootIndex === -1) {
+            rootIndex = pathParts.findIndex(part => part === 'algorithms');
+        }
+        
+        if (rootIndex !== -1) {
+            // We're inside the algorithms directory structure
+            const currentFile = pathParts[pathParts.length - 1];
+            const isHtmlFile = currentFile && currentFile.endsWith('.html');
+            
+            // Calculate depth from algorithms root (exclude the file itself)
+            const depth = pathParts.length - rootIndex - 1 - (isHtmlFile ? 1 : 0);
+            
+            return depth > 0 ? '../'.repeat(depth) : '';
+        }
+        
+        return ''; // Default to current directory
+    }
+    
+    /**
      * Build a complete path from a relative path
      */
     buildPath(relativePath) {
-        if (!this.basePath || this.basePath === '') {
+        // For local development, calculate relative path from current location
+        const relativeRoot = this.getRelativePathToRoot();
+        
+        if (relativeRoot === '') {
             return relativePath;
         }
+        
+        // Remove leading slash if present
         const cleanRelativePath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath;
-        const cleanBasePath = this.basePath.endsWith('/') ? this.basePath.slice(0, -1) : this.basePath;
-        return `${cleanBasePath}/${cleanRelativePath}`;
+        
+        return relativeRoot + cleanRelativePath;
     }
 
     // ===================================================================
