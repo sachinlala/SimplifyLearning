@@ -15,8 +15,13 @@
  */
 
 // Import utilities for reusable functions
-const SortingUtils = (typeof require !== 'undefined') ? 
-    require('../utils/sorting-utils.js') : window.SortingUtils;
+// Import utilities for reusable functions
+// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
+if (typeof require !== 'undefined') {
+    // Node.js environment
+    const SortingUtils = require('../utils/sorting-utils.js');
+}
+// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Wiggle Sort I - In-place O(n) algorithm

@@ -13,8 +13,12 @@
  */
 
 // Import utilities for reusable functions
-const SortingUtils = (typeof require !== 'undefined') ? 
-    require('../utils/sorting-utils.js') : window.SortingUtils;
+// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
+if (typeof require !== 'undefined') {
+    // Node.js environment
+    const SortingUtils = require('../utils/sorting-utils.js');
+}
+// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Core bucket sort algorithm for floating-point numbers in range [0, 1)
