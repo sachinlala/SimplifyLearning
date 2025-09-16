@@ -90,8 +90,19 @@ class DynamicAlgorithmTemplate {
             return config.basePath + '/';
         }
         
-        // For development/relative paths, go back to index.html
-        return config.backPath || '../../../index.html';
+        // For development/relative paths, go back to algorithms index.html
+        return '../../../index.html';
+    }
+    
+    /**
+     * Generate algorithms home URL for navigation (always points to algorithms home, not site root)
+     */
+    generateAlgorithmsHomeUrl(config) {
+        // Always point to the algorithms index, never to site root
+        if (config.basePath) {
+            return `${config.basePath}/index.html`;
+        }
+        return '../../../index.html';
     }
 
     /**
@@ -146,6 +157,21 @@ class DynamicAlgorithmTemplate {
     
     ${this.generateScripts(config)}
     ${this.generateStyles(config)}
+    
+    <!-- Fix mobile header center visibility -->
+    <style>
+        /* Override the !important rule for mobile header center */
+        @media (max-width: 768px) {
+            .header-center.mobile-only {
+                display: flex !important;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
 </body>
 </html>`;
     }
@@ -209,7 +235,7 @@ class DynamicAlgorithmTemplate {
             </a>
         </div>
         <div class="header-right">
-            <a href="${config.backPath || (config.basePath ? `${config.basePath}/index.html` : '../../../index.html')}" class="back-to-home desktop-only">
+            <a href="${this.generateAlgorithmsHomeUrl(config)}" class="back-to-home desktop-only">
                 🏠 Home
             </a>
             ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="back-to-summary desktop-only" style="padding: 8px 16px; background: rgba(255,255,255,0.2); color: #333; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; margin-right: 10px;">📊 Sorting Algorithms</a>` : ''}
@@ -236,7 +262,7 @@ class DynamicAlgorithmTemplate {
             <div class="sidebar-content">
                 <!-- Mobile navigation controls -->
                 <div class="mobile-nav-controls" style="padding: 15px; border-bottom: 1px solid #eee; margin-bottom: 10px;">
-                    <a href="${config.backPath || (config.basePath ? `${config.basePath}/index.html` : '../../../index.html')}" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
+                    <a href="${this.generateAlgorithmsHomeUrl(config)}" class="mobile-back-home" style="display: block; padding: 12px; background: #007acc; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">🏠 Back to Home</a>
                     ${this.isSortingAlgorithm(config.category) ? `<a href="${config.basePath ? `${config.basePath}/sorting-algorithms.html` : '../../../sorting-algorithms.html'}" class="mobile-back-summary" style="display: block; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; margin-bottom: 10px; text-align: center; font-weight: 500;">📊 Sorting Algorithms</a>` : ''}
                     <button id="mobile-theme-toggle" class="mobile-theme-btn" style="width: 100%; padding: 12px; background: #f8f9fa; color: #333; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: 500;">🌙 Toggle Theme</button>
                 </div>
