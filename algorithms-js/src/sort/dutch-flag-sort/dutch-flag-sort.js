@@ -8,63 +8,98 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import core algorithm functions
-const {
-    dutchFlagSort,
-    dutchFlagSort3Way,
-    dutchFlagSort2Way,
-    dutchFlagSortWithSteps,
-    dutchFlagSortSimple,
-    sortColors,
-    sort012
-} = require('./dutch-flag-sort-core.js');
+// Browser-compatible module that works with globally loaded dependencies
 
-// Import configuration and utilities
-const {
-    DUTCH_FLAG_SORT_CONFIG,
-    DutchFlagSortConfigUtils
-} = require('./dutch-flag-sort-config.js');
-
-// Main export object
-const DutchFlagSort = {
-    // Core algorithm functions
-    sort: dutchFlagSort,
-    sort3Way: dutchFlagSort3Way,
-    sort2Way: dutchFlagSort2Way,
-    sortWithSteps: dutchFlagSortWithSteps,
-    sortSimple: dutchFlagSortSimple,
+(function() {
+    // Check if we're in Node.js or browser environment
+    const isNode = typeof module !== 'undefined' && module.exports;
+    const isWindow = typeof window !== 'undefined';
     
-    // Convenience functions
-    sortColors,
-    sort012,
+    // Get dependencies from appropriate environment
+    let coreFunctions, config, utils;
     
-    // Configuration and utilities
-    config: DUTCH_FLAG_SORT_CONFIG,
-    utils: DutchFlagSortConfigUtils,
-    
-    // Algorithm metadata
-    metadata: {
-        name: 'Dutch National Flag Sort',
-        category: 'Partitioning',
-        timeComplexity: 'O(n)',
-        spaceComplexity: 'O(1)',
-        stable: false,
-        inPlace: true,
-        inventor: 'Edsger Dijkstra',
-        year: 1976
+    if (isNode) {
+        // Node.js environment - use require
+        const core = require('./dutch-flag-sort-core.js');
+        const configModule = require('./dutch-flag-sort.config.js');
+        
+        coreFunctions = {
+            dutchFlagSort: core.dutchFlagSort,
+            dutchFlagSort3Way: core.dutchFlagSort3Way,
+            dutchFlagSort2Way: core.dutchFlagSort2Way,
+            dutchFlagSortWithSteps: core.dutchFlagSortWithSteps,
+            dutchFlagSortSimple: core.dutchFlagSortSimple,
+            sortColors: core.sortColors,
+            sort012: core.sort012
+        };
+        
+        config = configModule.DUTCH_FLAG_SORT_CONFIG;
+        utils = configModule.DutchFlagSortConfigUtils;
+    } else if (isWindow) {
+        // Browser environment - use globals set by previously loaded scripts
+        coreFunctions = {
+            dutchFlagSort: window.dutchFlagSort,
+            dutchFlagSort3Way: window.dutchFlagSort3Way,
+            dutchFlagSort2Way: window.dutchFlagSort2Way,
+            dutchFlagSortWithSteps: window.dutchFlagSortWithSteps,
+            dutchFlagSortSimple: window.dutchFlagSortSimple,
+            sortColors: window.sortColors,
+            sort012: window.sort012
+        };
+        
+        config = window.DUTCH_FLAG_SORT_CONFIG;
+        utils = window.DutchFlagSortConfigUtils;
     }
-};
-
-// Export for different module systems
-module.exports = DutchFlagSort;
-
-// Additional named exports for convenience
-module.exports.dutchFlagSort = dutchFlagSort;
-module.exports.dutchFlagSort3Way = dutchFlagSort3Way;
-module.exports.dutchFlagSort2Way = dutchFlagSort2Way;
-module.exports.dutchFlagSortWithSteps = dutchFlagSortWithSteps;
-module.exports.dutchFlagSortSimple = dutchFlagSortSimple;
-module.exports.sortColors = sortColors;
-module.exports.sort012 = sort012;
-module.exports.DUTCH_FLAG_SORT_CONFIG = DUTCH_FLAG_SORT_CONFIG;
-module.exports.DutchFlagSortConfigUtils = DutchFlagSortConfigUtils;
+    
+    // Main export object
+    const DutchFlagSort = {
+        // Core algorithm functions
+        sort: coreFunctions?.dutchFlagSort,
+        sort3Way: coreFunctions?.dutchFlagSort3Way,
+        sort2Way: coreFunctions?.dutchFlagSort2Way,
+        sortWithSteps: coreFunctions?.dutchFlagSortWithSteps,
+        sortSimple: coreFunctions?.dutchFlagSortSimple,
+        
+        // Convenience functions
+        sortColors: coreFunctions?.sortColors,
+        sort012: coreFunctions?.sort012,
+        
+        // Configuration and utilities
+        config: config,
+        utils: utils,
+        
+        // Algorithm metadata
+        metadata: {
+            name: 'Dutch National Flag Sort',
+            category: 'Partitioning',
+            timeComplexity: 'O(n)',
+            spaceComplexity: 'O(1)',
+            stable: false,
+            inPlace: true,
+            inventor: 'Edsger Dijkstra',
+            year: 1976
+        }
+    };
+    
+    // Export for different environments
+    if (isNode) {
+        // Node.js exports
+        module.exports = DutchFlagSort;
+        
+        // Additional named exports for convenience
+        Object.assign(module.exports, {
+            dutchFlagSort: coreFunctions.dutchFlagSort,
+            dutchFlagSort3Way: coreFunctions.dutchFlagSort3Way,
+            dutchFlagSort2Way: coreFunctions.dutchFlagSort2Way,
+            dutchFlagSortWithSteps: coreFunctions.dutchFlagSortWithSteps,
+            dutchFlagSortSimple: coreFunctions.dutchFlagSortSimple,
+            sortColors: coreFunctions.sortColors,
+            sort012: coreFunctions.sort012,
+            DUTCH_FLAG_SORT_CONFIG: config,
+            DutchFlagSortConfigUtils: utils
+        });
+    } else if (isWindow) {
+        // Browser globals
+        window.DutchFlagSort = DutchFlagSort;
+    }
+})();

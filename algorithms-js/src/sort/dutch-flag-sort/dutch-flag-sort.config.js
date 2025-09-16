@@ -9,6 +9,46 @@
  */
 
 const DUTCH_FLAG_SORT_CONFIG = {
+    // Top-level properties for dynamic template compatibility
+    name: "Dutch National Flag Sort",
+    category: "sort", 
+    problem: "Efficiently partition an array into 2-3 distinct groups in linear time using the Dutch National Flag algorithm invented by Edsger Dijkstra.",
+    
+    inputs: [
+        {
+            id: "array-input",
+            type: "text", 
+            label: "Array Elements",
+            defaultValue: "2, 0, 1, 2, 1, 0",
+            width: "300px"
+        },
+        {
+            id: "red-value",
+            type: "text",
+            label: "Red Value (First Group)", 
+            defaultValue: "0",
+            width: "100px"
+        },
+        {
+            id: "white-value",
+            type: "text",
+            label: "White Value (Middle Group)",
+            defaultValue: "1", 
+            width: "100px"
+        },
+        {
+            id: "blue-value",
+            type: "text",
+            label: "Blue Value (Last Group)",
+            defaultValue: "2",
+            width: "100px"
+        }
+    ],
+    
+    explanation: {
+        description: "The Dutch National Flag Sort algorithm partitions an array into 2 or 3 distinct groups in a single pass. Named after the Dutch flag's colors (red, white, blue), it uses three pointers to maintain boundaries between sections. This is particularly useful for sorting arrays with only a few distinct values."
+    },
+    
     algorithm: {
         name: "Dutch National Flag Sort",
         shortName: "Dutch Flag",
