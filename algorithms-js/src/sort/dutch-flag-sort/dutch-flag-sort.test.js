@@ -4,7 +4,6 @@
  * Comprehensive test suite for Dutch National Flag Sort algorithm
  * including unit tests, integration tests, and performance benchmarks.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

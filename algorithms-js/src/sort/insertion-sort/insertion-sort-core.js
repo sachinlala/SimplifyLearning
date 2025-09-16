@@ -14,7 +14,6 @@
  * Properties: In-place, stable, online, adaptive
  * Usage: Small datasets, nearly sorted data, as subroutine in quicksort/mergesort
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

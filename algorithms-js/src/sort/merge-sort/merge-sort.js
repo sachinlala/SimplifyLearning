@@ -4,7 +4,6 @@
  * This file contains the visualization functions for Merge Sort algorithm.
  * The core algorithm logic is in merge-sort-core.js.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 

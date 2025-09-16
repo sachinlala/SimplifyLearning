@@ -4,7 +4,6 @@
  * Entry point for the Radix Sort algorithm implementation,
  * providing both the core algorithm and demo configuration.
  * 
- * @author SimplifyLearning
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
