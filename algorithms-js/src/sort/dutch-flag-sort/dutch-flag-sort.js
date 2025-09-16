@@ -105,6 +105,10 @@
         
         // Demo interface function for dynamic template
         window.runAlgorithm = function(array_input, red_value, white_value, blue_value) {
+            console.log('🔍 runAlgorithm called with:', { array_input, red_value, white_value, blue_value });
+            console.log('🔍 Available coreFunctions:', coreFunctions);
+            console.log('🔍 DutchFlagSortCore available:', window.DutchFlagSortCore);
+            
             try {
                 // Parse the array input
                 let array;
@@ -132,6 +136,8 @@
                     array = Array.isArray(array_input) ? array_input : [array_input];
                 }
                 
+                console.log('🔍 Parsed array:', array);
+                
                 // Parse the values (red, white, blue)
                 const parseValue = (val) => {
                     if (val === '' || val === null || val === undefined) return null;
@@ -154,32 +160,42 @@
                 const whiteVal = parseValue(white_value);
                 const blueVal = parseValue(blue_value);
                 
+                console.log('🔍 Parsed values:', { redVal, whiteVal, blueVal });
+                
                 // Make a copy of the array to avoid mutating the original
                 const arrayToSort = [...array];
                 
                 // Determine if this is 2-way or 3-way partitioning
                 const is3Way = whiteVal !== null && whiteVal !== undefined;
                 
+                console.log('🔍 Using', is3Way ? '3-way' : '2-way', 'partitioning');
+                
                 let result;
                 let sortedArray;
                 
+                // Use direct function calls to prevent recursion
                 if (is3Way) {
-                    // 3-way partitioning
-                    if (coreFunctions?.dutchFlagSort3Way) {
-                        result = coreFunctions.dutchFlagSort3Way(arrayToSort, redVal, whiteVal, blueVal);
+                    // 3-way partitioning - call function directly
+                    console.log('🔍 Calling 3-way partitioning');
+                    if (window.DutchFlagSortCore && window.DutchFlagSortCore.dutchFlagSort3Way) {
+                        result = window.DutchFlagSortCore.dutchFlagSort3Way(arrayToSort, redVal, whiteVal, blueVal);
                         sortedArray = result.sortedArray || arrayToSort;
                     } else {
-                        throw new Error('3-way Dutch Flag Sort function not available');
+                        throw new Error('3-way Dutch Flag Sort function not available in DutchFlagSortCore');
                     }
                 } else {
-                    // 2-way partitioning
-                    if (coreFunctions?.dutchFlagSort2Way) {
-                        result = coreFunctions.dutchFlagSort2Way(arrayToSort, redVal, blueVal);
+                    // 2-way partitioning - call function directly
+                    console.log('🔍 Calling 2-way partitioning');
+                    if (window.DutchFlagSortCore && window.DutchFlagSortCore.dutchFlagSort2Way) {
+                        result = window.DutchFlagSortCore.dutchFlagSort2Way(arrayToSort, redVal, blueVal);
                         sortedArray = result.sortedArray || arrayToSort;
                     } else {
-                        throw new Error('2-way Dutch Flag Sort function not available');
+                        throw new Error('2-way Dutch Flag Sort function not available in DutchFlagSortCore');
                     }
                 }
+                
+                console.log('🔍 Sort result:', result);
+                console.log('🔍 Sorted array:', sortedArray);
                 
                 // Format the output
                 const originalStr = '[' + array.map(val => JSON.stringify(val)).join(', ') + ']';
@@ -202,9 +218,11 @@
                     output += `<br><strong>Partitioning:</strong> ${JSON.stringify(redVal)} | ${JSON.stringify(blueVal)}`;
                 }
                 
+                console.log('🔍 Final output:', output);
                 return output;
                 
             } catch (error) {
+                console.error('❌ Error in runAlgorithm:', error);
                 throw new Error(`Dutch Flag Sort error: ${error.message}`);
             }
         };
