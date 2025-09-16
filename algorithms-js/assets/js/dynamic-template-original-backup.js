@@ -529,12 +529,9 @@ class DynamicAlgorithmTemplate {
             <!-- Source Code Links -->
             <div class="source-code-section" style="background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-size: 0.85em;">
                 <h4 style="margin: 0 0 8px 0; font-size: 1.1em;">Source Code</h4>
-                <p style="margin: 0 0 10px 0; font-size: 0.9em;">View the complete implementation in multiple languages:</p>
+                <p style="margin: 0 0 10px 0; font-size: 0.9em;">View the core implementation:</p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
                     ${languageLinks}
-                </div>
-                <div style="margin-top: 8px; font-size: 0.75em; color: #666;">
-                    <em>Note: Additional language implementations are in development.</em>
                 </div>
             </div>`;
     }
