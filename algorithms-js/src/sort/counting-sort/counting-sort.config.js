@@ -309,10 +309,76 @@ const CountingSortConfig = {
             'No comparisons needed - faster than comparison-based sorts for suitable inputs',
             'Process elements right-to-left in final step to maintain stability'
         ]
-    }
+    },
+    
+    customDemoFunction: `
+        function runDemo() {
+            const arrayInputStr = document.getElementById('array-input').value;
+            const resultContainer = document.getElementById('result');
+            const errorContainer = document.getElementById('error-message');
+            const visualizationSection = document.getElementById('visualization-section');
+
+            // Clear previous error and result
+            errorContainer.innerHTML = '';
+            errorContainer.style.display = 'none';
+            resultContainer.innerHTML = '';
+            visualizationSection.style.display = 'none';
+
+            // Parse input array
+            let arrayInput;
+            try {
+                arrayInput = arrayInputStr.split(',').map(item => {
+                    const trimmed = item.trim();
+                    const asNumber = parseInt(trimmed);
+                    if (isNaN(asNumber) || asNumber < 0) {
+                        throw new Error('All elements must be non-negative integers');
+                    }
+                    return asNumber;
+                });
+            } catch (e) {
+                showError('Invalid array format. Please use comma-separated non-negative integers.');
+                return;
+            }
+
+            // Validate input
+            if (arrayInput.length === 0) {
+                showError('Array cannot be empty');
+                return;
+            }
+            
+            if (arrayInput.length > 20) {
+                showError('Array size limited to 20 elements for demo purposes');
+                return;
+            }
+
+            try {
+                const startTime = performance.now();
+                
+                // Execute counting sort
+                const result = window.CountingSortCore ? window.CountingSortCore.countingSort(arrayInput) : countingSort(arrayInput);
+                
+                const endTime = performance.now();
+                const executionTime = (endTime - startTime).toFixed(4);
+                
+                // Show result
+                let resultHTML = \`
+                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Range (k):</strong> \${result.metrics.range} (0 to \${result.metrics.maxValue})<br>
+                    <strong>Space Used:</strong> O(n + k) = O(\${arrayInput.length} + \${result.metrics.range})<br>
+                    <strong>Execution Time:</strong> \${executionTime} ms
+                \`;
+                
+                resultContainer.innerHTML = resultHTML;
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+    `
 };
 
-// Export for both Node.js and browser environments
+// Export for browser/Node.js environments
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CountingSortConfig;
 } else if (typeof window !== 'undefined') {
