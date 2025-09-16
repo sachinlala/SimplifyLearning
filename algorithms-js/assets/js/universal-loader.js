@@ -349,6 +349,18 @@ class UniversalAlgorithmLoader {
             // Load algorithm configuration
             const config = await this.loadConfig();
             
+            // Attempt to load category-specific utilities before core (e.g., SortingUtils for sort)
+            try {
+                const algoInfo = this.getAlgorithmInfo();
+                if (algoInfo.category === 'sort') {
+                    const sortUtilsPath = this.buildPath('src/sort/utils/sorting-utils.js');
+                    await this.loadScript(sortUtilsPath);
+                    console.log('✅ Loaded sorting utilities');
+                }
+            } catch (e) {
+                console.warn('⚠️ Could not load category utilities:', e.message);
+            }
+            
             // Load core algorithm file first (if it exists)
             const coreJsPath = algorithmInfo.jsPath.replace('.js', '-core.js');
             const fullCoreJsPath = this.buildPath(`${algorithmInfo.fullPath}/${coreJsPath}`);
