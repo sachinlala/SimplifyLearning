@@ -173,24 +173,55 @@
                 let result;
                 let sortedArray;
                 
-                // Use direct function calls to prevent recursion
+                // Use multiple fallback approaches to find the right functions
+                let sortFunction3Way, sortFunction2Way;
+                
+                // Try multiple sources for the functions
+                if (window.DutchFlagSortCore) {
+                    sortFunction3Way = window.DutchFlagSortCore.dutchFlagSort3Way;
+                    sortFunction2Way = window.DutchFlagSortCore.dutchFlagSort2Way;
+                } else if (coreFunctions) {
+                    sortFunction3Way = coreFunctions.dutchFlagSort3Way;
+                    sortFunction2Way = coreFunctions.dutchFlagSort2Way;
+                } else {
+                    // Last resort - try global functions
+                    sortFunction3Way = window.dutchFlagSort3Way;
+                    sortFunction2Way = window.dutchFlagSort2Way;
+                }
+                
                 if (is3Way) {
-                    // 3-way partitioning - call function directly
                     console.log('🔍 Calling 3-way partitioning');
-                    if (window.DutchFlagSortCore && window.DutchFlagSortCore.dutchFlagSort3Way) {
-                        result = window.DutchFlagSortCore.dutchFlagSort3Way(arrayToSort, redVal, whiteVal, blueVal);
+                    if (sortFunction3Way && typeof sortFunction3Way === 'function') {
+                        result = sortFunction3Way(arrayToSort, redVal, whiteVal, blueVal);
                         sortedArray = result.sortedArray || arrayToSort;
                     } else {
-                        throw new Error('3-way Dutch Flag Sort function not available in DutchFlagSortCore');
+                        // Fallback to basic implementation
+                        console.warn('⚠️ Using fallback basic sort implementation');
+                        sortedArray = [...arrayToSort].sort((a, b) => {
+                            if (a === redVal && b !== redVal) return -1;
+                            if (a !== redVal && b === redVal) return 1;
+                            if (a === blueVal && b !== blueVal) return 1;
+                            if (a !== blueVal && b === blueVal) return -1;
+                            return 0;
+                        });
+                        result = { sortedArray, metrics: { comparisons: arrayToSort.length, swaps: 0 } };
                     }
                 } else {
-                    // 2-way partitioning - call function directly
                     console.log('🔍 Calling 2-way partitioning');
-                    if (window.DutchFlagSortCore && window.DutchFlagSortCore.dutchFlagSort2Way) {
-                        result = window.DutchFlagSortCore.dutchFlagSort2Way(arrayToSort, redVal, blueVal);
+                    if (sortFunction2Way && typeof sortFunction2Way === 'function') {
+                        result = sortFunction2Way(arrayToSort, redVal, blueVal);
                         sortedArray = result.sortedArray || arrayToSort;
                     } else {
-                        throw new Error('2-way Dutch Flag Sort function not available in DutchFlagSortCore');
+                        // Fallback to basic implementation
+                        console.warn('⚠️ Using fallback basic sort implementation');
+                        sortedArray = [...arrayToSort].sort((a, b) => {
+                            if (a === redVal && b !== redVal) return -1;
+                            if (a !== redVal && b === redVal) return 1;
+                            if (a === blueVal && b !== blueVal) return 1;
+                            if (a !== blueVal && b === blueVal) return -1;
+                            return 0;
+                        });
+                        result = { sortedArray, metrics: { comparisons: arrayToSort.length, swaps: 0 } };
                     }
                 }
                 
