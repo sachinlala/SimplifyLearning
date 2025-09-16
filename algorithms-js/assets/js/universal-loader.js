@@ -12,20 +12,12 @@
 class UniversalAlgorithmLoader {
     constructor() {
         try {
-            console.log('🔄 Initializing UniversalAlgorithmLoader...');
             this.currentPath = window.location.pathname;
             this.urlParams = new URLSearchParams(window.location.search);
-            console.log('📍 Current path:', this.currentPath);
-            console.log('🔍 URL params:', this.urlParams.toString());
-            
             this.basePath = this.detectBasePath();
-            console.log('📂 Base path:', this.basePath);
-            
             this.algorithmPath = this.detectAlgorithmPath();
-            console.log('🎯 Algorithm path:', this.algorithmPath);
-            console.log('✅ UniversalAlgorithmLoader initialized successfully');
         } catch (error) {
-            console.error('❌ UniversalAlgorithmLoader initialization failed:', error.message);
+            console.error('❌ Algorithm loading failed:', error.message);
             throw error;
         }
     }
@@ -321,18 +313,14 @@ class UniversalAlgorithmLoader {
      */
     initializeAccordion() {
         setTimeout(() => {
-            console.log('🎯 Initializing accordion functionality...');
             const accordions = document.querySelectorAll('.accordion');
-            console.log(`Found ${accordions.length} accordion(s)`);
             
-            accordions.forEach((accordion, index) => {
+            accordions.forEach(accordion => {
                 const header = accordion.querySelector('.accordion-header');
                 if (header && !header.hasAttribute('data-initialized')) {
-                    console.log(`✅ Setting up accordion ${index + 1}`);
                     header.setAttribute('data-initialized', 'true');
                     
                     header.addEventListener('click', () => {
-                        console.log('🖱️ Accordion clicked');
                         accordion.classList.toggle('active');
                         
                         // Update icon
@@ -340,24 +328,11 @@ class UniversalAlgorithmLoader {
                         if (icon) {
                             const isActive = accordion.classList.contains('active');
                             icon.textContent = isActive ? '▲' : '▼';
-                            console.log(`🔄 Icon updated to: ${icon.textContent}`);
                         }
-                        
-                        console.log(`📂 Accordion is now: ${accordion.classList.contains('active') ? 'open' : 'closed'}`);
                     });
-                } else if (!header) {
-                    console.warn(`⚠️ No accordion header found for accordion ${index + 1}`);
-                } else {
-                    console.log(`ℹ️ Accordion ${index + 1} already initialized`);
                 }
             });
-            
-            if (accordions.length === 0) {
-                console.warn('⚠️ No accordions found on page');
-            } else {
-                console.log('✅ Accordion initialization complete');
-            }
-        }, 200); // Increased timeout to ensure DOM is fully ready
+        }, 200);
     }
 
     /**
@@ -390,7 +365,7 @@ class UniversalAlgorithmLoader {
                 if (algoInfo.category === 'sort') {
                     const sortUtilsPath = this.buildPath('src/sort/utils/sorting-utils.js');
                     await this.loadOptionalScript(sortUtilsPath);
-                    console.log('✅ Loaded sorting utilities');
+                    // Sorting utilities loaded
                 }
             } catch (e) {
                 console.warn('⚠️ Could not load category utilities:', e.message);
@@ -402,9 +377,9 @@ class UniversalAlgorithmLoader {
             
             try {
                 await this.loadOptionalScript(fullCoreJsPath);
-                console.log(`✅ Core algorithm loaded: ${coreJsPath}`);
+                // Core algorithm loaded
             } catch (error) {
-                console.log(`ℹ️  No core file found: ${coreJsPath} (this is optional)`);
+                // No core file found (this is optional)
             }
             
             // Load step tracking file only if config specifies it exists
@@ -414,12 +389,12 @@ class UniversalAlgorithmLoader {
                 
                 try {
                     await this.loadOptionalScript(fullStepsJsPath);
-                    console.log(`✅ Step tracking loaded: ${stepsJsPath}`);
+                    // Step tracking loaded
                 } catch (error) {
                     console.warn(`⚠️ Failed to load steps file: ${stepsJsPath}`);
                 }
             } else {
-                console.log(`ℹ️  No step tracking file configured for ${algorithmInfo.algorithmName}`);
+                // No step tracking file configured
             }
             
             // Load main algorithm JavaScript file
@@ -432,12 +407,18 @@ class UniversalAlgorithmLoader {
             // Pass base path information to config
             config.basePath = this.basePath;
             
+            // Make config available globally for data type toggle function
+            window.algorithmConfig = config;
+            
             const html = template.generateHTML(config);
             
             // Replace document with generated HTML
             document.open();
             document.write(html);
             document.close();
+            
+            // Load required UI scripts after HTML is ready
+            await this.loadUIScripts();
             
             // Initialize accordion functionality
             this.initializeAccordion();
@@ -461,10 +442,7 @@ class UniversalAlgorithmLoader {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
-            script.onload = () => {
-                console.log(`✅ Successfully loaded: ${src}`);
-                resolve();
-            };
+            script.onload = () => resolve();
             script.onerror = () => {
                 const error = new Error(`Failed to load script: ${src}`);
                 console.error(`❌ ${error.message}`);
@@ -472,6 +450,25 @@ class UniversalAlgorithmLoader {
             };
             document.head.appendChild(script);
         });
+    }
+    
+    /**
+     * Load UI scripts (theme manager, sidebar) after HTML generation
+     */
+    async loadUIScripts() {
+        try {
+            // Load theme manager
+            const themeManagerPath = this.buildPath('assets/js/unified-theme-manager.js');
+            await this.loadScript(themeManagerPath);
+            
+            // Load sidebar functionality
+            const sidebarPath = this.buildPath('assets/js/sidebar.js');
+            await this.loadScript(sidebarPath);
+            
+            // UI scripts loaded
+        } catch (error) {
+            console.warn('⚠️ Failed to load some UI scripts:', error.message);
+        }
     }
     
     /**
@@ -502,13 +499,8 @@ class UniversalAlgorithmLoader {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
-            script.onload = () => {
-                console.log(`✅ Successfully loaded: ${src}`);
-                resolve();
-            };
-            script.onerror = () => {
-                reject(new Error(`Failed to load optional script: ${src}`));
-            };
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load optional script: ${src}`));
             document.head.appendChild(script);
         });
     }
@@ -550,14 +542,14 @@ class UniversalAlgorithmLoader {
             throw error;
         }
         
-        console.log('✅ All utility functions are available in global scope');
+        // All utility functions verified
     }
 }
 
 // Auto-initialize when DOM is ready
 function initializeLoader() {
     try {
-        console.log('🚀 Starting algorithm loader...');
+        // Starting algorithm loader
         const loader = new UniversalAlgorithmLoader();
         loader.load();
     } catch (error) {
