@@ -6,9 +6,28 @@
  */
 
 const RadixSortConfig = {
+    // Top-level properties for dynamic template compatibility
+    name: 'Radix Sort',
+    category: 'sort',
+    problem: 'Sort an array of non-negative integers efficiently by processing digits from least significant to most significant, using counting sort as a stable subroutine for each digit position.',
+    
+    // Inputs for the demo interface
+    inputs: [
+        {
+            id: 'array-input',
+            type: 'text',
+            label: 'Array Elements (non-negative integers)',
+            defaultValue: '170, 45, 75, 90, 2, 802, 24, 66',
+            width: '350px'
+        }
+    ],
+    
+    explanation: {
+        description: 'Radix Sort is a non-comparison based sorting algorithm that works by processing individual digits of numbers. It operates in O((n + k) × d) time where n is the number of elements, k is the radix (base, typically 10), and d is the number of digits. The algorithm uses counting sort as a stable subroutine to sort elements by each digit position, starting from the least significant digit.'
+    },
+    
     // Demo identification and display
     id: 'radix-sort',
-    name: 'Radix Sort',
     description: 'A stable, non-comparison based sorting algorithm that processes individual digits. Uses counting sort as a subroutine to sort digits from least significant to most significant.',
     
     // Algorithm properties
@@ -304,4 +323,9 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = RadixSortConfig;
 } else if (typeof window !== 'undefined') {
     window.RadixSortConfig = RadixSortConfig;
+    
+    // Additional exports for universal loader compatibility
+    window.RADIX_SORT_CONFIG = RadixSortConfig;
+    window.radixsortConfig = RadixSortConfig;
+    window.radixsortconfig = RadixSortConfig;
 }
