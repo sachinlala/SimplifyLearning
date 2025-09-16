@@ -253,5 +253,10 @@
         
         // Also export individual components for flexibility
         window.BucketSortCore = coreFunctions;
+        
+        // Ensure step tracking function is available
+        if (!window.bucketSortWithSteps && window.BucketSortSteps && window.BucketSortSteps.bucketSortWithSteps) {
+            window.bucketSortWithSteps = window.BucketSortSteps.bucketSortWithSteps;
+        }
     }
 })();

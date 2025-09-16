@@ -48,6 +48,14 @@ const DUTCH_FLAG_SORT_CONFIG = {
         description: "The Dutch National Flag Sort algorithm partitions an array into 2 or 3 distinct groups in a single pass. Named after the Dutch flag's colors (red, white, blue), it uses three pointers to maintain boundaries between sections. This is particularly useful for sorting arrays with only a few distinct values."
     },
     
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/dutch-flag-sort/dutch-flag-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/sort/finitegroups/DutchNationalFlagSort.java",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
+    
     algorithm: {
         name: "Dutch National Flag Sort",
         shortName: "Dutch Flag",

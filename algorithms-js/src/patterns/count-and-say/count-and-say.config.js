@@ -14,7 +14,7 @@ const config = {
     // Multi-language source code paths
     sourceCode: {
         javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/patterns/count-and-say/count-and-say-core.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sequences/countandsay",
+        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/patterns/CountAndSay.java",
         python: "", // Coming soon
         go: "" // Coming soon
     },

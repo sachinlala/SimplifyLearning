@@ -35,6 +35,14 @@ const BucketSortConfig = {
         description: 'Bucket Sort is a distribution sorting algorithm that works by dividing elements into a finite number of buckets. Each bucket is then sorted individually, either using a different sorting algorithm or by recursively applying bucket sort. Finally, the buckets are concatenated to produce the sorted array. It works best when input is uniformly distributed over a range.'
     },
     
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/bucket-sort/bucket-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/finitegroups/bucketsort",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
+    
     // Demo identification and display
     id: 'bucket-sort',
     description: 'A distribution sorting algorithm that divides elements into buckets, sorts each bucket individually, then concatenates them. Works best with uniformly distributed data.',

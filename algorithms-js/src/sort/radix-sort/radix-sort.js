@@ -168,6 +168,11 @@
         // Browser globals
         window.RadixSortModule = RadixSortModule;
         
+        // Ensure step tracking function is available
+        if (!window.radixSortWithSteps && window.RadixSortSteps && window.RadixSortSteps.radixSortWithSteps) {
+            window.radixSortWithSteps = window.RadixSortSteps.radixSortWithSteps;
+        }
+        
         // Demo interface function for dynamic template
         window.runAlgorithm = function(array_input) {
             console.log('🔍 runAlgorithm called with:', { array_input });

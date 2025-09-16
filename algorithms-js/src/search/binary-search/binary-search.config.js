@@ -13,7 +13,7 @@ const config = {
     // Multi-language source code paths  
     sourceCode: {
         javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/search/binary-search/binary-search-core.js",
-        java: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-java/src/main/java/com/sl/algorithms/search/binarysearch/BinarySearch.java"
+        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/search/binarysearch"
     },
     
     // Data type configuration for input toggle

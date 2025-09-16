@@ -280,3 +280,135 @@ function showMergeSortVisualization(originalArray, steps) {
         updateVisualization(steps[0]);
     }
 }
+
+/**
+ * Merge sort with step-by-step visualization data
+ * This function provides the step tracking needed for visualization
+ * @param {number[]} arr - Array to be sorted
+ * @returns {Object} Result with sorted array, steps, and metrics
+ */
+function mergeSortWithSteps(arr) {
+    if (!arr || arr.length <= 1) {
+        return {
+            sortedArray: arr || [],
+            steps: [],
+            metrics: { comparisons: 0, merges: 0, recursiveDepth: 0 }
+        };
+    }
+
+    // Use core algorithm with step tracking
+    if (window.MergeSortCore && window.MergeSortCore.mergeSortWithSteps) {
+        return window.MergeSortCore.mergeSortWithSteps([...arr]);
+    }
+
+    // Fallback implementation with basic step tracking
+    const steps = [];
+    const metrics = { comparisons: 0, merges: 0, recursiveDepth: 0 };
+    
+    function mergeSortRecursive(array, left = 0, right = array.length - 1, depth = 0) {
+        metrics.recursiveDepth = Math.max(metrics.recursiveDepth, depth);
+        
+        if (left >= right) {
+            return;
+        }
+        
+        const mid = Math.floor((left + right) / 2);
+        
+        // Add division step
+        steps.push({
+            type: 'divide',
+            array: [...array],
+            subArrays: [
+                { start: left, end: mid + 1, type: 'left' },
+                { start: mid + 1, end: right + 1, type: 'right' }
+            ],
+            message: `Dividing array: Left[${left}..${mid}], Right[${mid + 1}..${right}]`,
+            depth: depth
+        });
+        
+        mergeSortRecursive(array, left, mid, depth + 1);
+        mergeSortRecursive(array, mid + 1, right, depth + 1);
+        
+        // Merge step
+        merge(array, left, mid, right, depth);
+    }
+    
+    function merge(array, left, mid, right, depth) {
+        const leftArray = array.slice(left, mid + 1);
+        const rightArray = array.slice(mid + 1, right + 1);
+        
+        let i = 0, j = 0, k = left;
+        
+        while (i < leftArray.length && j < rightArray.length) {
+            metrics.comparisons++;
+            
+            if (leftArray[i] <= rightArray[j]) {
+                array[k] = leftArray[i];
+                i++;
+            } else {
+                array[k] = rightArray[j];
+                j++;
+            }
+            
+            // Add merge step
+            steps.push({
+                type: 'merge',
+                array: [...array],
+                targetIndex: k,
+                subArrays: [{
+                    start: left,
+                    end: right + 1,
+                    type: 'merged'
+                }],
+                message: `Merging: Placed ${array[k]} at position ${k}`,
+                depth: depth
+            });
+            
+            k++;
+        }
+        
+        // Copy remaining elements
+        while (i < leftArray.length) {
+            array[k] = leftArray[i];
+            steps.push({
+                type: 'merge',
+                array: [...array],
+                targetIndex: k,
+                message: `Copying remaining left element: ${array[k]}`,
+                depth: depth
+            });
+            i++;
+            k++;
+        }
+        
+        while (j < rightArray.length) {
+            array[k] = rightArray[j];
+            steps.push({
+                type: 'merge',
+                array: [...array],
+                targetIndex: k,
+                message: `Copying remaining right element: ${array[k]}`,
+                depth: depth
+            });
+            j++;
+            k++;
+        }
+        
+        metrics.merges++;
+    }
+    
+    const workingArray = [...arr];
+    mergeSortRecursive(workingArray);
+    
+    return {
+        sortedArray: workingArray,
+        steps: steps,
+        metrics: metrics
+    };
+}
+
+// Browser compatibility - expose functions
+if (typeof window !== 'undefined') {
+    window.mergeSortWithSteps = mergeSortWithSteps;
+    window.runMergeSortDemo = runMergeSortDemo;
+}
