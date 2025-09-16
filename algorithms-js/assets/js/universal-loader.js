@@ -372,15 +372,15 @@ class UniversalAlgorithmLoader {
                 console.log(`ℹ️  No core file found: ${coreJsPath} (this is optional)`);
             }
             
-            // Load step tracking file (if it exists)
+            // Load step tracking file (now guaranteed to exist for all algorithms)
             const stepsJsPath = algorithmInfo.jsPath.replace('.js', '-steps.js');
             const fullStepsJsPath = this.buildPath(`${algorithmInfo.fullPath}/${stepsJsPath}`);
             
             try {
-                await this.loadOptionalScript(fullStepsJsPath);
+                await this.loadScript(fullStepsJsPath);
                 console.log(`✅ Step tracking loaded: ${stepsJsPath}`);
             } catch (error) {
-                console.log(`ℹ️  No step tracking file found: ${stepsJsPath} (this is optional)`);
+                console.warn(`⚠️ Failed to load steps file: ${stepsJsPath}`);
             }
             
             // Load main algorithm JavaScript file
