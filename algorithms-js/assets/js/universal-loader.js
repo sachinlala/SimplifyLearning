@@ -453,8 +453,28 @@ class UniversalAlgorithmLoader {
                 document.head.appendChild(script.cloneNode(true));
             });
             
-            // Replace body content
+            // Replace body content and execute scripts
             document.body.innerHTML = doc.body.innerHTML;
+            
+            // Execute all script tags that were added to the body
+            const scripts = document.body.querySelectorAll('script');
+            scripts.forEach(script => {
+                if (script.src) {
+                    // External script - create new script element
+                    const newScript = document.createElement('script');
+                    newScript.src = script.src;
+                    if (script.async) newScript.async = true;
+                    if (script.defer) newScript.defer = true;
+                    document.head.appendChild(newScript);
+                } else {
+                    // Inline script - execute the content
+                    try {
+                        eval(script.textContent);
+                    } catch (error) {
+                        console.warn('⚠️ Error executing inline script:', error.message);
+                    }
+                }
+            });
             
             // Load required UI scripts after HTML is ready
             await this.loadUIScripts();

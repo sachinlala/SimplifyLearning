@@ -497,7 +497,7 @@
     <!-- Update hardcoded demo links to use centralized path configuration -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Wait for path config to load, then update all demo links
+            // Wait for path config to load, then update all demo links and logo paths
             setTimeout(function() {
                 if (window.pathConfig) {
                     const linkMappings = {
@@ -521,6 +521,20 @@
                         const match = href.match(/demo\.html\?algo=sort\/([^&]+)/);
                         if (match && linkMappings[match[1]]) {
                             link.setAttribute('href', linkMappings[match[1]]);
+                        }
+                    });
+                    
+                    // Update logo image paths to use centralized config
+                    const logoImages = document.querySelectorAll('img[src*="sl-logo.svg"]');
+                    logoImages.forEach(img => {
+                        img.src = window.pathConfig.assets.images.LOGO;
+                    });
+                    
+                    // Update home page links
+                    const homeLinks = document.querySelectorAll('a[href*="index.html"]');
+                    homeLinks.forEach(link => {
+                        if (link.getAttribute('href') === '../index.html') {
+                            link.href = window.pathConfig.pages.HOME;
                         }
                     });
                 }
