@@ -436,9 +436,30 @@ class UniversalAlgorithmLoader {
     }
     
     /**
-     * Load optional external script without logging 404 errors as failures
+     * Check if a file exists without triggering console errors
      */
-    loadOptionalScript(src) {
+    async checkFileExists(url) {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    }
+    
+    /**
+     * Load optional external script only if it exists (prevents 404 console errors)
+     */
+    async loadOptionalScript(src) {
+        // Check if file exists first to prevent console 404 errors
+        const exists = await this.checkFileExists(src);
+        
+        if (!exists) {
+            // File doesn't exist, reject without creating script tag
+            throw new Error(`Optional script not found: ${src}`);
+        }
+        
+        // File exists, proceed with loading
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
@@ -447,8 +468,7 @@ class UniversalAlgorithmLoader {
                 resolve();
             };
             script.onerror = () => {
-                // For optional scripts, don't log as error - just reject silently
-                reject(new Error(`Optional script not found: ${src}`));
+                reject(new Error(`Failed to load optional script: ${src}`));
             };
             document.head.appendChild(script);
         });
