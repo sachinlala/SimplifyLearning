@@ -19,11 +19,57 @@ function parseArray(input) {
     }
 }
 
-// Note: Core array utilities (isSorted, generateRandomArray, etc.) have been moved to
-// src/sort/utils/sorting-utils.js for centralized algorithm support.
-// These functions remain here for UI-specific purposes.
+// Note: Core array utilities have been moved to src/sort/utils/sorting-utils.js for Node.js usage.
+// These functions are duplicated here for web demo compatibility.
 
-// Utility function to get maximum value (wrapper for Math.max)
+// Utility function to check if array is sorted
+function isSorted(arr, ascending = true) {
+    if (!arr || arr.length <= 1) return true;
+    for (let i = 1; i < arr.length; i++) {
+        if (ascending ? arr[i] < arr[i-1] : arr[i] > arr[i-1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Utility function to measure execution time
+function measureTime(fn) {
+    const start = performance.now();
+    const result = fn();
+    const end = performance.now();
+    return {
+        result: result,
+        time: end - start
+    };
+}
+
+// Utility function to generate random array
+function generateRandomArray(size, min = 0, max = 100) {
+    return Array.from({ length: size }, () => 
+        Math.floor(Math.random() * (max - min + 1)) + min
+    );
+}
+
+// Utility function to generate random sorted array
+function generateRandomSortedArray(size, min = 0, max = 100, ascending = true) {
+    const arr = generateRandomArray(size, min, max);
+    return arr.sort((a, b) => ascending ? a - b : b - a);
+}
+
+// Utility function to get maximum value
+function getMax(arr) {
+    if (!arr || arr.length === 0) return 0;
+    return Math.max(...arr);
+}
+
+// Utility function to get minimum value
+function getMin(arr) {
+    if (!arr || arr.length === 0) return 0;
+    return Math.min(...arr);
+}
+
+// Utility function to get maximum value (wrapper for Math.max - legacy)
 function getMaxValue(...args) {
     return Math.max(...args);
 }
@@ -164,6 +210,12 @@ async function copyToClipboard(text) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         parseArray,
+        isSorted,
+        measureTime,
+        generateRandomArray,
+        generateRandomSortedArray,
+        getMax,
+        getMin,
         getMaxValue,
         roundNumber,
         calculateBarHeight,
@@ -177,8 +229,14 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // Export to global window object for browser compatibility
 if (typeof window !== 'undefined') {
-    // Attach UI-specific utility functions to the global window object
+    // Attach all utility functions to the global window object for web demo compatibility
     window.parseArray = parseArray;
+    window.isSorted = isSorted;
+    window.measureTime = measureTime;
+    window.generateRandomArray = generateRandomArray;
+    window.generateRandomSortedArray = generateRandomSortedArray;
+    window.getMax = getMax;
+    window.getMin = getMin;
     window.getMaxValue = getMaxValue;
     window.roundNumber = roundNumber;
     window.calculateBarHeight = calculateBarHeight;
@@ -187,7 +245,4 @@ if (typeof window !== 'undefined') {
     window.formatNumber = formatNumber;
     window.debounce = debounce;
     window.copyToClipboard = copyToClipboard;
-    
-    // Note: For algorithm-specific utilities like isSorted, generateRandomArray, etc.
-    // please import from src/sort/utils/sorting-utils.js
 }

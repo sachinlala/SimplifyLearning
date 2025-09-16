@@ -19,8 +19,7 @@ module.exports = {
     'src/**/*.js',
     '!src/**/*.test.js',
     '!src/**/*-config.js',
-    '!src/**/test-manual.js',
-    '!src/**/index.js'
+    '!src/**/test-manual.js'
   ],
   
   // Coverage output
