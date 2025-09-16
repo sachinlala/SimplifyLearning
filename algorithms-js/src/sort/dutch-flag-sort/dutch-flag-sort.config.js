@@ -384,4 +384,9 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
     window.DUTCH_FLAG_SORT_CONFIG = DUTCH_FLAG_SORT_CONFIG;
     window.DutchFlagSortConfigUtils = DutchFlagSortConfigUtils;
+    
+    // Additional exports for universal loader compatibility
+    window.DutchFlagSortConfig = DUTCH_FLAG_SORT_CONFIG;  // camelCase version
+    window.dutchflagsortConfig = DUTCH_FLAG_SORT_CONFIG;  // lowercase version
+    window.dutchflagsortconfig = DUTCH_FLAG_SORT_CONFIG;  // all lowercase version
 }
