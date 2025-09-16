@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=./src/sort/sorting-algorithms.html">
-    <link rel="canonical" href="./src/sort/sorting-algorithms.html">
+    <meta http-equiv="refresh" content="0; url=./docs/sorting-algorithms.html">
+    <link rel="canonical" href="./docs/sorting-algorithms.html">
     <title>Redirecting to Sorting Algorithms...</title>
 </head>
 <body>
     <script>
         // Immediate redirect for better UX
-        window.location.replace('./src/sort/sorting-algorithms.html' + window.location.search + window.location.hash);
+        window.location.replace('./docs/sorting-algorithms.html' + window.location.search + window.location.hash);
     </script>
     <noscript>
-        <p>Redirecting to <a href="./src/sort/sorting-algorithms.html">Sorting Algorithms</a>...</p>
+        <p>Redirecting to <a href="./docs/sorting-algorithms.html">Sorting Algorithms</a>...</p>
     </noscript>
 </body>
 </html>
