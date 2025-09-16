@@ -120,58 +120,65 @@ class UniversalAlgorithmLoader {
         
         try {
             // Create a script element to load config file from the algorithm directory
-            const script = document.createElement('script');
             const configPath = this.buildPath(`${algorithmInfo.fullPath}/${algorithmInfo.configPath}`);
-            script.src = configPath;
-            
-            return new Promise((resolve, reject) => {
-                script.onload = () => {
-                    // Try to find the config in window object
-                    // Config files should export to window with a predictable name
-                    const possibleNames = [
-                        `${algorithmInfo.algorithmName.replace(/-/g, '')}Config`,
-                        `${algorithmInfo.algorithmName.replace(/-/g, '').toLowerCase()}Config`,
-                        `${this.toCamelCase(algorithmInfo.algorithmName)}Config`
-                    ];
-                    
-                    let config = null;
-                    for (const name of possibleNames) {
-                        if (window[name]) {
-                            config = window[name];
-                            break;
-                        }
-                    }
-                    
-                    // Fallback: look for any config object in window
-                    if (!config) {
-                        const configKeys = Object.keys(window).filter(key => 
-                            key.toLowerCase().includes('config') && 
-                            typeof window[key] === 'object' &&
-                            window[key] !== null
-                        );
-                        
-                        if (configKeys.length > 0) {
-                            config = window[configKeys[configKeys.length - 1]]; // Get the last one added
-                        }
-                    }
-                    
-                    if (config) {
-                        resolve(config);
-                    } else {
-                        reject(new Error(`Could not find configuration object in ${algorithmInfo.configPath}`));
-                    }
-                };
-                
-                script.onerror = () => {
-                    reject(new Error(`Failed to load ${algorithmInfo.configPath}`));
-                };
-                
-                document.head.appendChild(script);
-            });
-            
+            return this.loadConfigFile(configPath, algorithmInfo);
         } catch (error) {
             throw new Error(`Failed to load configuration: ${error.message}`);
         }
+    }
+    
+    /**
+     * Load a specific config file
+     */
+    loadConfigFile(configPath, algorithmInfo) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = configPath;
+            
+            script.onload = () => {
+                // Try to find the config in window object
+                // Config files should export to window with a predictable name
+                const possibleNames = [
+                    `${algorithmInfo.algorithmName.replace(/-/g, '')}Config`,
+                    `${algorithmInfo.algorithmName.replace(/-/g, '').toLowerCase()}Config`,
+                    `${this.toCamelCase(algorithmInfo.algorithmName)}Config`
+                ];
+                
+                let config = null;
+                for (const name of possibleNames) {
+                    if (window[name]) {
+                        config = window[name];
+                        break;
+                    }
+                }
+                
+                // Fallback: look for any config object in window
+                if (!config) {
+                    const configKeys = Object.keys(window).filter(key => 
+                        key.toLowerCase().includes('config') && 
+                        typeof window[key] === 'object' &&
+                        window[key] !== null
+                    );
+                    
+                    if (configKeys.length > 0) {
+                        config = window[configKeys[configKeys.length - 1]]; // Get the last one added
+                    }
+                }
+                
+                if (config) {
+                    resolve(config);
+                } else {
+                    reject(new Error(`Could not find configuration object in ${configPath}`));
+                }
+            };
+            
+            script.onerror = () => {
+                reject(new Error(`Failed to load ${configPath}`));
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
     }
 
     /**

@@ -22,7 +22,7 @@ const {
 const { 
     DUTCH_FLAG_SORT_CONFIG,
     DutchFlagSortConfigUtils
-} = require('./dutch-flag-sort-config.js');
+} = require('./dutch-flag-sort.config.js');
 
 // Test helper functions
 const TestUtils = {

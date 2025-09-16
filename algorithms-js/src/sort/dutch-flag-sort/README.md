@@ -7,7 +7,7 @@ Dutch National Flag Sort is a specialized partitioning algorithm that efficientl
 
 ### Core Implementation
 - **`dutch-flag-sort-core.js`** - Main algorithm implementation with multiple function variants
-- **`dutch-flag-sort-config.js`** - Configuration, presets, and utilities
+- **`dutch-flag-sort.config.js`** - Configuration, presets, and utilities
 - **`dutch-flag-sort.js`** - Main module entry point
 - **`dutch-flag-sort.test.js`** - Comprehensive test suite (Jest format)
 - **`test-manual.js`** - Manual test runner for quick verification
