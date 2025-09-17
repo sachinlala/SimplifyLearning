@@ -466,30 +466,30 @@ const config = {
                     cells[step.currentIndex].className = 'viz-cell current';
                 }
                 
-                // Highlight binary search range (purple/violet)
+                // Highlight binary search range (purple) 🟣
                 if (step.searchRange && step.type.includes('binary-search')) {
                     for (let i = step.searchRange[0]; i <= step.searchRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex && i !== step.mid) {
-                            cells[i].className = 'viz-cell comparing';
+                            cells[i].className = 'viz-cell swapping'; // Purple/magenta - rgba(156, 39, 176, 0.8)
                         }
                     }
                 }
                 
-                // Highlight mid element in binary search (blue) - override other classes
+                // Highlight mid element in binary search (blue) 🔵 - override other classes
                 if (step.mid !== undefined && cells[step.mid]) {
-                    cells[step.mid].className = 'viz-cell current-range';
+                    cells[step.mid].className = 'viz-cell current-range'; // Blue - rgba(33, 150, 243, 0.6)
                 }
                 
-                // Highlight insertion position (bright green) - override other classes  
+                // Highlight insertion position - use distinct green
                 if (step.insertPosition !== undefined && cells[step.insertPosition] && step.type === 'position-found') {
-                    cells[step.insertPosition].className = 'viz-cell just-inserted';
+                    cells[step.insertPosition].className = 'viz-cell just-inserted'; // Bright purple for insertion
                 }
                 
-                // Highlight shifting range (light red)
+                // Highlight shifting range (red) 🔴
                 if (step.shiftRange && (step.type === 'shift-start' || step.type === 'shift-complete')) {
                     for (let i = step.shiftRange[0]; i <= step.shiftRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex) {
-                            cells[i].className = 'viz-cell unsorted';
+                            cells[i].className = 'viz-cell pivot'; // Red - rgba(244, 67, 54, 0.85)
                         }
                     }
                 }
