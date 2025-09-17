@@ -119,35 +119,26 @@ function binarySearch(sortedArray, target) {
     };
 }
 
-/**
- * Simple binary search function for backward compatibility
- * @param {number[]} sortedArray - The sorted array to search in
- * @param {number} target - The target element to find
- * @returns {number} Index of the target element, or -1 if not found
- */
-function binarySearchSimple(sortedArray, target) {
-    const result = binarySearch(sortedArray, target);
-    return result.index;
-}
 
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         binarySearch,
         binarySearchIterative,
-        binarySearchRecursive,
-        binarySearchSimple
+        binarySearchRecursive
     };
 } else if (typeof window !== 'undefined') {
     window.BinarySearchCore = {
         binarySearch,
         binarySearchIterative,
-        binarySearchRecursive,
-        binarySearchSimple
+        binarySearchRecursive
     };
     // Expose commonly used functions for configs
     window.binarySearchIterative = binarySearchIterative;
     window.binarySearchRecursive = binarySearchRecursive;
     // Global function for backward compatibility
-    window.binarySearch = binarySearchSimple;
+    window.binarySearch = (sortedArray, target) => {
+        const result = binarySearch(sortedArray, target);
+        return result.index;
+    };
 }
