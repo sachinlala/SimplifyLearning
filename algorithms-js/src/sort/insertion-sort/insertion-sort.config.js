@@ -392,15 +392,42 @@ const config = {
             const controlsDiv = document.createElement('div');
             controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
             controlsDiv.innerHTML = \`
-                <div style="margin-bottom: 15px;"><strong>Binary Insertion Sort Visualization</strong></div>
-                <button id="start-binary-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-binary-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-binary-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
-                <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                    Green: Sorted | Orange: Current element | Purple: Binary search range | Blue: Mid element
+<h4>Binary Insertion Sort Visualization</h4>
+                <button id="start-binary-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-binary-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-binary-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="binaryinsertionsort-legend">
+                    <span class="viz-legend-desktop">🟢 Sorted | 🟠 Current | 🟣 Search Range | 🔵 Mid | 🔴 Shifting</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🟢 Sorted</div>
+                        <div class="viz-legend-item">🟠 Current</div>
+                        <div class="viz-legend-item">🟣 Search Range</div>
+                        <div class="viz-legend-item">🔵 Mid</div>
+                        <div class="viz-legend-item">🔴 Shifting</div>
+                    </div>
                 </div>
             \`;
             arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateBinaryLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#binaryinsertionsort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#binaryinsertionsort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateBinaryLegendDisplay();
+            window.addEventListener('resize', updateBinaryLegendDisplay);
             
             // Status display
             const statusDiv = document.createElement('div');
@@ -492,29 +519,24 @@ const config = {
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
                 
-                // Color code the step info based on step type
+                // Use CSS classes that adapt to theme instead of hardcoded colors
                 if (step.type.includes('binary-search')) {
-                    stepInfo.style.borderLeftColor = '#9c27b0';
-                    stepInfo.style.background = '#f3e5f5';
+                    stepInfo.className = 'viz-step-info binary-search';
                 } else if (step.type === 'insert') {
-                    stepInfo.style.borderLeftColor = '#4caf50';
-                    stepInfo.style.background = '#e8f5e8';
+                    stepInfo.className = 'viz-step-info insert';
                 } else if (step.type.includes('shift')) {
-                    stepInfo.style.borderLeftColor = '#f44336';
-                    stepInfo.style.background = '#ffebee';
+                    stepInfo.className = 'viz-step-info shift';
+                } else if (step.type === 'complete') {
+                    stepInfo.className = 'viz-step-info complete';
+                } else {
+                    stepInfo.className = 'viz-step-info';
                 }
                 
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
                     <small>Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
                 \`;
-                
-                if (step.type === 'complete') {
-                    stepInfo.style.borderLeftColor = '#28a745';
-                    stepInfo.style.background = '#d4edda';
-                }
                 
                 if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);
