@@ -30,8 +30,8 @@ const config = {
             type: "select", 
             label: "Algorithm Variant",
             options: [
-                { value: "standard", text: "Standard Insertion Sort" },
-                { value: "binary", text: "Binary Insertion Sort" }
+                { value: "standard", text: "Standard" },
+                { value: "binary", text: "Binary" }
             ],
             defaultValue: "standard",
             width: "180px"
