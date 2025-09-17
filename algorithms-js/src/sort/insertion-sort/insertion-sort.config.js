@@ -369,18 +369,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'binary-sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.6s ease;
-                    font-size: 14px; position: relative;
-                \`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -442,15 +437,12 @@ const config = {
             let animationInterval;
             
             function updateBinaryVisualization(step) {
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('binary-sort-status');
                 
-                // Reset all cell colors
+                // Reset all cell classes
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
-                    cell.style.zIndex = '1';
+                    cell.className = 'viz-cell';
                 });
                 
                 // Update array values
@@ -464,52 +456,40 @@ const config = {
                 if (step.sortedUpTo) {
                     for (let i = 0; i < step.sortedUpTo; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#c8e6c9';
-                            cells[i].style.borderColor = '#4caf50';
+                            cells[i].className = 'viz-cell sorted';
                         }
                     }
                 }
                 
                 // Highlight current element being processed (orange)
                 if (step.currentIndex !== undefined && cells[step.currentIndex]) {
-                    cells[step.currentIndex].style.background = '#fff3e0';
-                    cells[step.currentIndex].style.borderColor = '#ff9800';
-                    cells[step.currentIndex].style.transform = 'scale(1.1)';
-                    cells[step.currentIndex].style.zIndex = '10';
+                    cells[step.currentIndex].className = 'viz-cell current';
                 }
                 
                 // Highlight binary search range (purple/violet)
                 if (step.searchRange && step.type.includes('binary-search')) {
                     for (let i = step.searchRange[0]; i <= step.searchRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex && i !== step.mid) {
-                            cells[i].style.background = '#f3e5f5';
-                            cells[i].style.borderColor = '#9c27b0';
+                            cells[i].className = 'viz-cell comparing';
                         }
                     }
                 }
                 
-                // Highlight mid element in binary search (blue)
+                // Highlight mid element in binary search (blue) - override other classes
                 if (step.mid !== undefined && cells[step.mid]) {
-                    cells[step.mid].style.background = '#e3f2fd';
-                    cells[step.mid].style.borderColor = '#2196f3';
-                    cells[step.mid].style.transform = 'scale(1.15)';
-                    cells[step.mid].style.zIndex = '8';
+                    cells[step.mid].className = 'viz-cell current-range';
                 }
                 
-                // Highlight insertion position (bright green)
+                // Highlight insertion position (bright green) - override other classes  
                 if (step.insertPosition !== undefined && cells[step.insertPosition] && step.type === 'position-found') {
-                    cells[step.insertPosition].style.background = '#a5d6a7';
-                    cells[step.insertPosition].style.borderColor = '#388e3c';
-                    cells[step.insertPosition].style.transform = 'scale(1.1)';
-                    cells[step.insertPosition].style.zIndex = '9';
+                    cells[step.insertPosition].className = 'viz-cell just-inserted';
                 }
                 
                 // Highlight shifting range (light red)
                 if (step.shiftRange && (step.type === 'shift-start' || step.type === 'shift-complete')) {
                     for (let i = step.shiftRange[0]; i <= step.shiftRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex) {
-                            cells[i].style.background = '#ffcdd2';
-                            cells[i].style.borderColor = '#f44336';
+                            cells[i].className = 'viz-cell unsorted';
                         }
                     }
                 }
