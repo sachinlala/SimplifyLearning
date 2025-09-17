@@ -359,6 +359,23 @@ class TemplateManager {
         
         const inputElements = config.inputs.map(input => {
             const commonStyles = 'padding: 8px; border: 1px solid #ddd; border-radius: 4px;';
+            
+            // Handle select dropdown inputs
+            if (input.type === 'select' && input.options) {
+                const options = input.options.map(option => 
+                    `<option value="${option.value}" ${option.value === input.defaultValue ? 'selected' : ''}>${option.text}</option>`
+                ).join('\n                            ');
+                
+                return `
+                    <div>
+                        <label for="${input.id}" style="display: block; margin-bottom: 5px;">${input.label}</label>
+                        <select id="${input.id}" style="${commonStyles} width: ${input.width || '150px'};">
+                            ${options}
+                        </select>
+                    </div>`;
+            }
+            
+            // Handle regular text inputs
             return `
                     <div>
                         <label for="${input.id}" style="display: block; margin-bottom: 5px;">${input.label}</label>
