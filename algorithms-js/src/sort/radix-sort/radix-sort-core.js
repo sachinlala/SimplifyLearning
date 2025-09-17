@@ -19,10 +19,9 @@ const DECIMAL_RADIX = 10;
 /**
  * Core radix sort algorithm
  * @param {number[]} arr - Array of non-negative integers to be sorted
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function radixSort(arr, options = {}) {
+function radixSort(arr) {
     if (!arr || arr.length === 0) {
         return {
             sortedArray: arr || [],
@@ -113,26 +112,17 @@ function countingSort(arr, digitPlace) {
     }
 }
 
-/**
- * Simple radix sort function (backward compatibility)
- * @param {number[]} arr - Array of non-negative integers to sort
- * @returns {number[]} Sorted array
- */
-function radixSortSimple(arr) {
-
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         radixSort,
-        radixSortSimple,
         countingSort
     };
 } else if (typeof window !== 'undefined') {
     window.RadixSortCore = {
         radixSort,
-        radixSortSimple,
         countingSort
     };
     // Global function for backward compatibility
-    window.radixSort = radixSortSimple;
+    window.radixSort = arr => radixSort(arr).sortedArray;
 }

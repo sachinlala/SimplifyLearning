@@ -54,17 +54,6 @@ const config = {
             label: "Target Element",
             defaultValue: "12",
             width: "80px"
-        },
-        {
-            id: "search-method",
-            type: "select",
-            label: "Search Method",
-            options: [
-                { value: "iterative", text: "Iterative" },
-                { value: "recursive", text: "Recursive" }
-            ],
-            defaultValue: "iterative",
-            width: "150px"
         }
     ],
     
@@ -81,7 +70,6 @@ const config = {
         function runDemo() {
             const arrayInputStr = document.getElementById('sorted-array').value;
             const targetElementStr = document.getElementById('target-element').value.trim();
-            const searchMethod = document.getElementById('search-method').value;
             const resultContainer = document.getElementById('result');
             const errorContainer = document.getElementById('error-message');
             const visualizationSection = document.getElementById('visualization-section');
@@ -136,25 +124,9 @@ const config = {
 
             try {
                 const startTime = performance.now();
-                let result;
                 
-                // Execute based on selected method - always with visualization
-                switch (searchMethod) {
-                    case 'iterative':
-                        const iterativeResult = binarySearchIterativeWithSteps(arrayInput, targetElement);
-                        result = {
-                            ...iterativeResult,
-                            method: 'Iterative'
-                        };
-                        break;
-                    case 'recursive':
-                        const recursiveResult = binarySearchRecursiveWithSteps(arrayInput, targetElement);
-                        result = {
-                            ...recursiveResult,
-                            method: 'Recursive'
-                        };
-                        break;
-                }
+                // Execute iterative binary search with visualization
+                const result = binarySearchIterativeWithSteps(arrayInput, targetElement);
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
@@ -164,21 +136,15 @@ const config = {
                 if (result.found) {
                     resultHTML = \`
                         \u003cstrong\u003eElement found at index:\u003c/strong\u003e \${result.index}\u003cbr\u003e
-                        \u003cstrong\u003eMethod:\u003c/strong\u003e \${result.method}\u003cbr\u003e
-                        \u003cstrong\u003eExecution Time:\u003c/strong\u003e \${executionTime} ms\u003cbr\u003e
+                        \u003cstrong\u003eTotal Comparisons:\u003c/strong\u003e \${result.totalComparisons}\u003cbr\u003e
+                        \u003cstrong\u003eExecution Time:\u003c/strong\u003e \${executionTime} ms
                     \`;
-                    if (result.totalComparisons) {
-                        resultHTML += \`\u003cstrong\u003eTotal Comparisons:\u003c/strong\u003e \${result.totalComparisons}\`;
-                    }
                 } else {
                     resultHTML = \`
                         \u003cstrong\u003eElement not found\u003c/strong\u003e\u003cbr\u003e
-                        \u003cstrong\u003eMethod:\u003c/strong\u003e \${result.method}\u003cbr\u003e
-                        \u003cstrong\u003eExecution Time:\u003c/strong\u003e \${executionTime} ms\u003cbr\u003e
+                        \u003cstrong\u003eTotal Comparisons:\u003c/strong\u003e \${result.totalComparisons}\u003cbr\u003e
+                        \u003cstrong\u003eExecution Time:\u003c/strong\u003e \${executionTime} ms
                     \`;
-                    if (result.totalComparisons) {
-                        resultHTML += \`\u003cstrong\u003eTotal Comparisons:\u003c/strong\u003e \${result.totalComparisons}\`;
-                    }
                 }
                 
                 resultContainer.innerHTML = resultHTML;
