@@ -27,10 +27,9 @@ if (typeof require !== 'undefined') {
  * Wiggle Sort I - In-place O(n) algorithm
  * Ensures arr[0] < arr[1] > arr[2] < arr[3]... pattern
  * @param {number[]} arr - Array to wiggle sort
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function wiggleSortI(arr, options = {}) {
+function wiggleSortI(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -72,10 +71,9 @@ function wiggleSortI(arr, options = {}) {
  * Wiggle Sort II - No adjacent duplicates
  * Uses sorting and rearrangement to ensure no adjacent duplicates
  * @param {number[]} arr - Array to wiggle sort
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function wiggleSortII(arr, options = {}) {
+function wiggleSortII(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -120,19 +118,82 @@ function wiggleSortII(arr, options = {}) {
 }
 
 /**
- * Wiggle Sort with step-by-step tracking for visualization
- * @param {number[]} arr - Array to be sorted
- * @param {string} variant - "I" for wiggle sort I, "II" for wiggle sort II
- * @returns {Object} Result with sorted array, steps, and metrics
+ * Check if an array is in wiggle sorted order
+ * @param {number[]} arr - Array to check
+ * @returns {boolean} True if array is wiggle sorted
  */
- * Simple wiggle sort function (backward compatibility)
- * @param {number[]} arr - Array to sort
- * @param {string} variant - "I" or "II"
- * @returns {number[]} Wiggle sorted array
+function isWiggleSorted(arr) {
+    if (!arr || arr.length <= 1) return true;
+    
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (i % 2 === 0) {
+            // Even index: should be less than next (valley)
+            if (arr[i] > arr[i + 1]) return false;
+        } else {
+            // Odd index: should be greater than next (peak)
+            if (arr[i] < arr[i + 1]) return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Get wiggle pattern description for an array
+ * @param {number[]} arr - Array to analyze
+ * @returns {Object} Pattern information
  */
-function wiggleSortSimple(arr, variant = "I") {
-    const result = variant === "I" ? wiggleSortI(arr) : wiggleSortII(arr);
-    return result.sortedArray;
+function getWigglePattern(arr) {
+    if (!arr || arr.length === 0) {
+        return { pattern: [], isWiggleSorted: true, violations: [] };
+    }
+    
+    const pattern = [];
+    const violations = [];
+    
+    for (let i = 0; i < arr.length - 1; i++) {
+        const current = arr[i];
+        const next = arr[i + 1];
+        const expectedPattern = i % 2 === 0 ? 'valley' : 'peak';
+        
+        if (i % 2 === 0) {
+            // Even index: should be valley (less than next)
+            if (current <= next) {
+                pattern.push({ index: i, type: 'valley', satisfied: true });
+            } else {
+                pattern.push({ index: i, type: 'valley', satisfied: false });
+                violations.push({
+                    index: i,
+                    expected: 'valley (<=)',
+                    actual: `${current} > ${next}`,
+                    type: 'valley_violation'
+                });
+            }
+        } else {
+            // Odd index: should be peak (greater than next)
+            if (current >= next) {
+                pattern.push({ index: i, type: 'peak', satisfied: true });
+            } else {
+                pattern.push({ index: i, type: 'peak', satisfied: false });
+                violations.push({
+                    index: i,
+                    expected: 'peak (>=)',
+                    actual: `${current} < ${next}`,
+                    type: 'peak_violation'
+                });
+            }
+        }
+    }
+    
+    return {
+        pattern,
+        isWiggleSorted: violations.length === 0,
+        violations,
+        summary: {
+            valleys: pattern.filter(p => p.type === 'valley').length,
+            peaks: pattern.filter(p => p.type === 'peak').length,
+            violationsCount: violations.length
+        }
+    };
 }
 
 // Export for both Node.js and browser environments
@@ -140,8 +201,6 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         wiggleSortI,
         wiggleSortII,
-        
-        wiggleSortSimple,
         isWiggleSorted,
         getWigglePattern
     };
@@ -149,13 +208,12 @@ if (typeof module !== 'undefined' && module.exports) {
     window.WiggleSortCore = {
         wiggleSortI,
         wiggleSortII,
-        
-        wiggleSortSimple,
         isWiggleSorted,
         getWigglePattern
     };
-    // Expose commonly used functions in global scope for demo configs
-    
     // Backward compatibility
-    window.wiggleSort = wiggleSortSimple;
+    window.wiggleSort = (arr, variant = "I") => {
+        const result = variant === "I" ? wiggleSortI(arr) : wiggleSortII(arr);
+        return result.sortedArray;
+    };
 }
