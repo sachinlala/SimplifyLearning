@@ -207,31 +207,19 @@ function partitionSimple(array, low, high, metrics) {
     return i + 1;
 }
 
-/**
- * Simple quick sort function (backward compatibility)
- * @param {number[]} arr - Array to sort
- * @returns {number[]} Sorted array
- */
-function quickSortSimple(arr) {
-    const result = quickSort(arr);
-    return result.sortedArray;
-}
-
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         quickSort,
-        quickSortIterative,
-        quickSortSimple
+        quickSortIterative
     };
 } else if (typeof window !== 'undefined') {
     window.QuickSortCore = {
         quickSort,
-        quickSortIterative,
-        quickSortSimple
+        quickSortIterative
     };
     // Expose commonly used functions for configs
     window.quickSortIterative = quickSortIterative;
     // Global function for backward compatibility
-    window.quickSort = quickSortSimple;
+    window.quickSort = arr => quickSort(arr).sortedArray;
 }

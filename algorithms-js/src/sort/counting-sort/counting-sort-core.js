@@ -18,10 +18,9 @@
 /**
  * Core counting sort algorithm
  * @param {number[]} arr - Array of non-negative integers to be sorted
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function countingSort(arr, options = {}) {
+function countingSort(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -92,27 +91,11 @@ function countingSort(arr, options = {}) {
 }
 
 
-/**
- * Simple counting sort function (backward compatibility)
- * @param {number[]} arr - Array of non-negative integers to sort
- * @returns {number[]} Sorted array
- */
-function countingSortSimple(arr) {
-    const result = countingSort(arr);
-    return result.sortedArray;
-}
-
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        countingSort,
-        countingSortSimple
-    };
+    module.exports = { countingSort };
 } else if (typeof window !== 'undefined') {
-    window.CountingSortCore = {
-        countingSort,
-        countingSortSimple
-    };
+    window.CountingSortCore = { countingSort };
     // Global function for backward compatibility
-    window.countingSort = countingSortSimple;
+    window.countingSort = arr => countingSort(arr).sortedArray;
 }

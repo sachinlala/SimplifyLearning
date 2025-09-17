@@ -23,10 +23,9 @@ if (typeof require !== 'undefined') {
 /**
  * Core bucket sort algorithm for floating-point numbers in range [0, 1)
  * @param {number[]} arr - Array of numbers to be sorted
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function bucketSort(arr, options = {}) {
+function bucketSort(arr) {
     if (!arr || arr.length === 0) {
         return {
             sortedArray: arr || [],
@@ -133,16 +132,6 @@ function insertionSortForBucket(arr) {
 
 
 /**
- * Simple bucket sort function (backward compatibility)
- * @param {number[]} arr - Array of numbers to sort
- * @returns {number[]} Sorted array
- */
-function bucketSortSimple(arr) {
-    const result = bucketSort(arr);
-    return result.sortedArray;
-}
-
-/**
  * Bucket sort for integers in a specific range
  * @param {number[]} arr - Array of integers to sort
  * @param {number} maxValue - Maximum value in the array
@@ -177,17 +166,15 @@ function bucketSortIntegers(arr, maxValue = null) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         bucketSort,
-        bucketSortSimple,
         bucketSortIntegers,
         insertionSortForBucket
     };
 } else if (typeof window !== 'undefined') {
     window.BucketSortCore = {
         bucketSort,
-        bucketSortSimple,
         bucketSortIntegers,
         insertionSortForBucket
     };
     // Global function for backward compatibility
-    window.bucketSort = bucketSortSimple;
+    window.bucketSort = arr => bucketSort(arr).sortedArray;
 }
