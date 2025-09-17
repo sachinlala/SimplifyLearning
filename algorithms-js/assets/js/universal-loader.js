@@ -434,24 +434,11 @@ class UniversalAlgorithmLoader {
             // Make config available globally for data type toggle function
             window.algorithmConfig = config;
             
-            console.log('🎨 Generating HTML template...');
             const html = template.generateHTML(config);
-            console.log('✅ HTML generated, length:', html.length, 'characters');
             
             // Replace document with generated HTML using safer DOM manipulation
-            console.log('🔄 Parsing HTML with DOMParser...');
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            console.log('✅ HTML parsed successfully');
-            
-            // Debug: Check if the parsed document has the expected content
-            console.log('🔍 Parsed document info:', {
-                title: doc.title,
-                headScripts: doc.head.querySelectorAll('script').length,
-                bodyScripts: doc.body.querySelectorAll('script').length,
-                hasRunDemoButton: doc.body.innerHTML.includes('runDemo'),
-                bodyContentLength: doc.body.innerHTML.length
-            });
             
             // Update document title
             document.title = doc.title;
@@ -471,12 +458,10 @@ class UniversalAlgorithmLoader {
             
             // Execute all script tags that were added to the body
             const scripts = document.body.querySelectorAll('script');
-            console.log('📜 Found', scripts.length, 'scripts to execute');
             
-            scripts.forEach((script, index) => {
+            scripts.forEach((script) => {
                 if (script.src) {
                     // External script - create new script element
-                    console.log(`📁 Executing external script ${index + 1}:`, script.src);
                     const newScript = document.createElement('script');
                     newScript.src = script.src;
                     if (script.async) newScript.async = true;
@@ -484,21 +469,18 @@ class UniversalAlgorithmLoader {
                     document.head.appendChild(newScript);
                 } else {
                     // Inline script - execute the content
-                    console.log(`⚙️ Executing inline script ${index + 1}, length:`, script.textContent.length);
                     try {
                         // Create a new script element and add it to head for proper execution
                         const newScript = document.createElement('script');
                         newScript.textContent = script.textContent;
                         document.head.appendChild(newScript);
-                        console.log('✅ Inline script executed successfully');
                     } catch (error) {
-                        console.warn(`⚠️ Error executing inline script ${index + 1}:`, error.message);
+                        console.warn('⚠️ Error executing inline script:', error.message);
                         // Fallback to eval
                         try {
                             eval(script.textContent);
-                            console.log('✅ Fallback eval succeeded');
                         } catch (evalError) {
-                            console.error('❌ Both script execution methods failed:', evalError.message);
+                            console.error('❌ Script execution failed:', evalError.message);
                         }
                     }
                 }
