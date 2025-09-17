@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array by repeatedly finding the minimum element from the unsorted part and putting it at the beginning.",
     algorithmFunction: "selectionSortWithSteps",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {

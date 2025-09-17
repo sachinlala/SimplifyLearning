@@ -14,10 +14,9 @@
 /**
  * Core bubble sort algorithm
  * @param {number[]} arr - Array to be sorted
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function bubbleSort(arr, options = {}) {
+function bubbleSort(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -61,27 +60,11 @@ function bubbleSort(arr, options = {}) {
 }
 
 
-/**
- * Simple bubble sort function (backward compatibility)
- * @param {number[]} arr - Array to sort
- * @returns {number[]} Sorted array
- */
-function bubbleSortSimple(arr) {
-    const result = bubbleSort(arr);
-    return result.sortedArray;
-}
-
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        bubbleSort,
-        bubbleSortSimple
-    };
+    module.exports = { bubbleSort };
 } else if (typeof window !== 'undefined') {
-    window.BubbleSortCore = {
-        bubbleSort,
-        bubbleSortSimple
-    };
+    window.BubbleSortCore = { bubbleSort };
     // Global function for backward compatibility
-    window.bubbleSort = bubbleSortSimple;
+    window.bubbleSort = arr => bubbleSort(arr).sortedArray;
 }

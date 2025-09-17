@@ -170,97 +170,98 @@ class AlgorithmList {
     }
     
     loadAlgorithms() {
-        // This would typically fetch from an API or config file
-        // For now, we'll define them manually but in a way that's easy to extend
+        // Use centralized path configuration if available, fallback to hardcoded paths
+        const paths = window.pathConfig || null;
+        
         this.algorithms = [
             {
                 name: 'Count and Say',
                 description: 'Generate sequences where each term describes the previous term',
-                url: 'demo.html?algo=patterns/count-and-say',
+                url: paths ? paths.algorithms.patterns.COUNT_AND_SAY : 'demo.html?algo=patterns/count-and-say',
                 category: 'sequences',
                 subcategory: 'sequences'
             },
             {
                 name: 'Binary Search',
                 description: 'Efficient search algorithm for sorted arrays with O(log n) complexity',
-                url: 'demo.html?algo=search/binary-search',
+                url: paths ? paths.algorithms.search.BINARY_SEARCH : 'demo.html?algo=search/binary-search',
                 category: 'search',
                 subcategory: 'arrays'
             },
             {
                 name: 'Bubble Sort',
                 description: 'Simple sorting algorithm that repeatedly compares adjacent elements',
-                url: 'demo.html?algo=sort/bubble-sort',
+                url: paths ? paths.algorithms.sort.BUBBLE_SORT : 'demo.html?algo=sort/bubble-sort',
                 category: 'sort',
                 subcategory: 'comparison'
             },
             {
                 name: 'Selection Sort',
                 description: 'In-place sorting algorithm that finds minimum elements one by one',
-                url: 'demo.html?algo=sort/selection-sort',
+                url: paths ? paths.algorithms.sort.SELECTION_SORT : 'demo.html?algo=sort/selection-sort',
                 category: 'sort',
                 subcategory: 'comparison'
             },
             {
                 name: 'Insertion Sort',
                 description: 'Adaptive sorting algorithm that builds sorted array incrementally',
-                url: 'demo.html?algo=sort/insertion-sort',
+                url: paths ? paths.algorithms.sort.INSERTION_SORT : 'demo.html?algo=sort/insertion-sort',
                 category: 'sort',
                 subcategory: 'comparison'
             },
             {
                 name: 'Quick Sort',
                 description: 'Efficient divide-and-conquer algorithm with O(n log n) average performance',
-                url: 'demo.html?algo=sort/quick-sort',
+                url: paths ? paths.algorithms.sort.QUICK_SORT : 'demo.html?algo=sort/quick-sort',
                 category: 'sort',
                 subcategory: 'divide-and-conquer'
             },
             {
                 name: 'Merge Sort',
                 description: 'Stable divide-and-conquer algorithm with guaranteed O(n log n) time complexity',
-                url: 'demo.html?algo=sort/merge-sort',
+                url: paths ? paths.algorithms.sort.MERGE_SORT : 'demo.html?algo=sort/merge-sort',
                 category: 'sort',
                 subcategory: 'divide-and-conquer'
             },
             {
                 name: 'Heap Sort',
                 description: 'In-place sorting algorithm using binary heap with O(n log n) guaranteed performance',
-                url: 'demo.html?algo=sort/heap-sort',
+                url: paths ? paths.algorithms.sort.HEAP_SORT : 'demo.html?algo=sort/heap-sort',
                 category: 'sort',
                 subcategory: 'heap-based'
             },
             {
                 name: 'Counting Sort',
                 description: 'Linear-time integer sorting algorithm for small ranges',
-                url: 'demo.html?algo=sort/counting-sort',
+                url: paths ? paths.algorithms.sort.COUNTING_SORT : 'demo.html?algo=sort/counting-sort',
                 category: 'sort',
                 subcategory: 'non-comparison'
             },
             {
                 name: 'Radix Sort',
                 description: 'Non-comparison sort that processes digits individually',
-                url: 'demo.html?algo=sort/radix-sort',
+                url: paths ? paths.algorithms.sort.RADIX_SORT : 'demo.html?algo=sort/radix-sort',
                 category: 'sort',
                 subcategory: 'non-comparison'
             },
             {
                 name: 'Bucket Sort',
                 description: 'Distribution-based sort for uniformly distributed data',
-                url: 'demo.html?algo=sort/bucket-sort',
+                url: paths ? paths.algorithms.sort.BUCKET_SORT : 'demo.html?algo=sort/bucket-sort',
                 category: 'sort',
                 subcategory: 'distribution'
             },
             {
                 name: 'Dutch Flag Sort',
                 description: 'Three-way partitioning algorithm for 2-3 group segregation',
-                url: 'demo.html?algo=sort/dutch-flag-sort',
+                url: paths ? paths.algorithms.sort.DUTCH_FLAG_SORT : 'demo.html?algo=sort/dutch-flag-sort',
                 category: 'sort',
                 subcategory: 'partitioning'
             },
             {
                 name: 'Wiggle Sort',
                 description: 'Arranges elements in alternating peak-valley pattern',
-                url: 'demo.html?algo=sort/wiggle-sort',
+                url: paths ? paths.algorithms.sort.WIGGLE_SORT : 'demo.html?algo=sort/wiggle-sort',
                 category: 'sort',
                 subcategory: 'specialized'
             }

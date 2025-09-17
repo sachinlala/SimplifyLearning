@@ -9,6 +9,8 @@ const RadixSortConfig = {
     // Top-level properties for dynamic template compatibility
     name: 'Radix Sort',
     category: 'sort',
+    hasStepsFile: true,
+    hasVisualization: true,
     problem: 'Sort an array of non-negative integers efficiently by processing digits from least significant to most significant, using counting sort as a stable subroutine for each digit position.',
     
     // Inputs for the demo interface
@@ -18,7 +20,7 @@ const RadixSortConfig = {
             type: 'text',
             label: 'Array Elements (non-negative integers)',
             defaultValue: '170, 45, 75, 90, 2, 802, 24, 66',
-            width: '350px'
+            width: '280px'
         }
     ],
     
@@ -323,7 +325,74 @@ const RadixSortConfig = {
                 ]
             }
         ]
-    }
+    },
+    
+    customDemoFunction: `
+        function runDemo() {
+            const arrayInputStr = document.getElementById('array-input').value;
+            const resultContainer = document.getElementById('result');
+            const errorContainer = document.getElementById('error-message');
+            const visualizationSection = document.getElementById('visualization-section');
+
+            // Clear previous error and result
+            errorContainer.innerHTML = '';
+            errorContainer.style.display = 'none';
+            resultContainer.innerHTML = '';
+            visualizationSection.style.display = 'none';
+
+            // Parse input array
+            let arrayInput;
+            try {
+                arrayInput = arrayInputStr.split(',').map(item => {
+                    const trimmed = item.trim();
+                    const asNumber = parseInt(trimmed);
+                    if (isNaN(asNumber) || asNumber < 0) {
+                        throw new Error('All elements must be non-negative integers');
+                    }
+                    return asNumber;
+                });
+            } catch (e) {
+                showError('Invalid array format. Please use comma-separated non-negative integers.');
+                return;
+            }
+
+            // Validate input
+            if (arrayInput.length === 0) {
+                showError('Array cannot be empty');
+                return;
+            }
+            
+            if (arrayInput.length > 15) {
+                showError('Array size limited to 15 elements for demo purposes');
+                return;
+            }
+
+            try {
+                const startTime = performance.now();
+                
+                // Execute radix sort
+                const result = window.RadixSortCore ? window.RadixSortCore.radixSort(arrayInput) : radixSort(arrayInput);
+                
+                const endTime = performance.now();
+                const executionTime = (endTime - startTime).toFixed(4);
+                
+                // Show result
+                let resultHTML = \`
+                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Max Digits (d):</strong> \${result.metrics.maxDigits}<br>
+                    <strong>Passes:</strong> \${result.metrics.passes}<br>
+                    <strong>Total Operations:</strong> \${result.metrics.totalOperations}<br>
+                    <strong>Execution Time:</strong> \${executionTime} ms
+                \`;
+                
+                resultContainer.innerHTML = resultHTML;
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+    `
 };
 
 // Export for both Node.js and browser environments

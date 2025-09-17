@@ -15,18 +15,32 @@ class SidebarManager {
     }
     
     init() {
-        if (!this.sidebar || !this.hamburgerBtn) return;
+        if (!this.sidebar || !this.hamburgerBtn) {
+            console.warn('⚠️ SidebarManager: Missing required elements');
+            return;
+        }
         
         this.bindEvents();
         this.populateSidebar();
     }
     
     bindEvents() {
-        // Hamburger menu click
-        this.hamburgerBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.toggleSidebar();
-        });
+        // Check if we've already bound the delegated event listener
+        if (!document._hamburgerDelegated) {
+            // Use event delegation for hamburger menu click to handle DOM replacements
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#hamburger-menu')) {
+                    e.preventDefault();
+                    
+                    // Find the active sidebar manager and toggle it
+                    if (window.sidebarManager) {
+                        window.sidebarManager.toggleSidebar();
+                    }
+                }
+            });
+            
+            document._hamburgerDelegated = true;
+        }
         
         // Close button click
         if (this.closeSidebarBtn) {
@@ -199,13 +213,15 @@ class SidebarManager {
     }
     
     getAlgorithms() {
-        // Organized algorithm groups for better navigation
+        // Use centralized path configuration if available, fallback to hardcoded paths
+        const paths = window.pathConfig || null;
+        
         return [
             // Sorting Algorithms Group
             {
                 name: 'Sorting Algorithms',
                 description: 'Comprehensive overview of all sorting algorithms with complexity analysis',
-                url: 'sorting-algorithms.html',
+                url: paths ? paths.pages.SORTING_ALGORITHMS_SUMMARY : 'docs/sorting-algorithms.html',
                 category: 'Sorting Algorithms',
                 subcategory: 'overview',
                 icon: '🔢',
@@ -214,7 +230,7 @@ class SidebarManager {
             {
                 name: 'Bubble Sort',
                 description: 'Simple sorting algorithm that repeatedly compares adjacent elements',
-                url: 'demo.html?algo=sort/bubble-sort',
+                url: paths ? paths.algorithms.sort.BUBBLE_SORT : 'demo.html?algo=sort/bubble-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'comparison',
                 icon: '🫧',
@@ -223,7 +239,7 @@ class SidebarManager {
             {
                 name: 'Selection Sort',
                 description: 'In-place sorting algorithm that finds minimum elements one by one',
-                url: 'demo.html?algo=sort/selection-sort',
+                url: paths ? paths.algorithms.sort.SELECTION_SORT : 'demo.html?algo=sort/selection-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'comparison',
                 icon: '👆',
@@ -232,7 +248,7 @@ class SidebarManager {
             {
                 name: 'Insertion Sort',
                 description: 'Adaptive sorting algorithm that builds sorted array incrementally',
-                url: 'demo.html?algo=sort/insertion-sort',
+                url: paths ? paths.algorithms.sort.INSERTION_SORT : 'demo.html?algo=sort/insertion-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'comparison',
                 icon: '⬅️',
@@ -241,7 +257,7 @@ class SidebarManager {
             {
                 name: 'Quick Sort',
                 description: 'Efficient divide-and-conquer algorithm with O(n log n) average performance',
-                url: 'demo.html?algo=sort/quick-sort',
+                url: paths ? paths.algorithms.sort.QUICK_SORT : 'demo.html?algo=sort/quick-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'divide-and-conquer',
                 icon: '⚡',
@@ -250,7 +266,7 @@ class SidebarManager {
             {
                 name: 'Merge Sort',
                 description: 'Stable divide-and-conquer algorithm with guaranteed O(n log n) time complexity',
-                url: 'demo.html?algo=sort/merge-sort',
+                url: paths ? paths.algorithms.sort.MERGE_SORT : 'demo.html?algo=sort/merge-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'divide-and-conquer',
                 icon: '🔗',
@@ -259,7 +275,7 @@ class SidebarManager {
             {
                 name: 'Heap Sort',
                 description: 'In-place sorting algorithm using binary heap with O(n log n) guaranteed performance',
-                url: 'demo.html?algo=sort/heap-sort',
+                url: paths ? paths.algorithms.sort.HEAP_SORT : 'demo.html?algo=sort/heap-sort',
                 category: 'Sorting Algorithms',
                 subcategory: 'heap-based',
                 icon: '⛰️',
@@ -279,7 +295,7 @@ class SidebarManager {
             {
                 name: 'Binary Search',
                 description: 'Efficient search algorithm for sorted arrays with O(log n) complexity',
-                url: 'demo.html?algo=search/binary-search',
+                url: paths ? paths.algorithms.search.BINARY_SEARCH : 'demo.html?algo=search/binary-search',
                 category: 'Search Algorithms',
                 subcategory: 'arrays',
                 icon: '🔎',
@@ -299,7 +315,7 @@ class SidebarManager {
             {
                 name: 'Count and Say',
                 description: 'Generate sequences where each term describes the previous term',
-                url: 'demo.html?algo=patterns/count-and-say',
+                url: paths ? paths.algorithms.patterns.COUNT_AND_SAY : 'demo.html?algo=patterns/count-and-say',
                 category: 'Numbers & Mathematics',
                 subcategory: 'sequences',
                 icon: '🔄',
@@ -553,23 +569,35 @@ class PaginationManager {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize when DOM is loaded (unless using universal loader)
+function initializeSidebarComponents() {
     // Initialize sidebar
-    window.sidebarManager = new SidebarManager();
+    if (!window.sidebarManager && document.getElementById('hamburger-menu')) {
+        window.sidebarManager = new SidebarManager();
+    }
     
     // Initialize pagination
-    window.paginationManager = new PaginationManager(6);
-    
-    // Wait for algorithm grid to be populated, then set up pagination
-    setTimeout(() => {
-        const algorithmCards = document.querySelectorAll('.algorithm-card');
-        if (algorithmCards.length > 0) {
-            const cardArray = Array.from(algorithmCards);
-            window.paginationManager.updateItems(cardArray);
-        }
-    }, 500);
-});
+    if (!window.paginationManager) {
+        window.paginationManager = new PaginationManager(6);
+        
+        // Wait for algorithm grid to be populated, then set up pagination
+        setTimeout(() => {
+            const algorithmCards = document.querySelectorAll('.algorithm-card');
+            if (algorithmCards.length > 0) {
+                const cardArray = Array.from(algorithmCards);
+                window.paginationManager.updateItems(cardArray);
+            }
+        }, 500);
+    }
+}
+
+// Only auto-initialize if not using universal loader (for index.html and other static pages)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSidebarComponents);
+} else {
+    // DOM already loaded, initialize immediately (for static pages)
+    initializeSidebarComponents();
+}
 
 // Export for use in other scripts
 if (typeof window !== 'undefined') {

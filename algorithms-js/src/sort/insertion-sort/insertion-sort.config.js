@@ -9,6 +9,7 @@ const config = {
     problem: "Sort an array by building the final sorted array one element at a time, inserting each element at its correct position in the already sorted portion.",
     algorithmFunction: "insertionSortWithSteps",
     hasVisualization: true,
+    hasStepsFile: true,
     
     // Multi-language source code paths  
     sourceCode: {
@@ -29,8 +30,8 @@ const config = {
             type: "select", 
             label: "Algorithm Variant",
             options: [
-                { value: "standard", text: "Standard Insertion Sort" },
-                { value: "binary", text: "Binary Insertion Sort" }
+                { value: "standard", text: "Standard" },
+                { value: "binary", text: "Binary" }
             ],
             defaultValue: "standard",
             width: "180px"
@@ -368,18 +369,13 @@ const config = {
             
             // Create array visualization
             const arrayDiv = document.createElement('div');
-            arrayDiv.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;';
+            arrayDiv.className = 'array-visualization';
             arrayDiv.id = 'binary-sort-array-display';
             
             originalArray.forEach((value, index) => {
                 const cell = document.createElement('div');
                 cell.textContent = value;
-                cell.style.cssText = \`
-                    width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-                    border: 2px solid #ddd; background: #f8f9fa; font-weight: bold;
-                    border-radius: 4px; margin: 2px; transition: all 0.6s ease;
-                    font-size: 14px; position: relative;
-                \`;
+                cell.className = 'viz-cell';
                 cell.setAttribute('data-index', index);
                 cell.setAttribute('data-value', value);
                 arrayDiv.appendChild(cell);
@@ -391,15 +387,42 @@ const config = {
             const controlsDiv = document.createElement('div');
             controlsDiv.style.cssText = 'text-align: center; margin-bottom: 20px;';
             controlsDiv.innerHTML = \`
-                <div style="margin-bottom: 15px;"><strong>Binary Insertion Sort Visualization</strong></div>
-                <button id="start-binary-sort-animation" style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Start Animation</button>
-                <button id="pause-binary-sort-animation" style="padding: 8px 16px; background: #ffc107; color: black; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;" disabled>Pause</button>
-                <button id="reset-binary-sort-animation" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 5px;">Reset</button>
-                <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                    Green: Sorted | Orange: Current element | Purple: Binary search range | Blue: Mid element
+<h4>Binary Insertion Sort Visualization</h4>
+                <button id="start-binary-sort-animation" class="viz-button start">Start Animation</button>
+                <button id="pause-binary-sort-animation" class="viz-button pause" disabled>Pause</button>
+                <button id="reset-binary-sort-animation" class="viz-button reset">Reset</button>
+                <div class="viz-legend" id="binaryinsertionsort-legend">
+                    <span class="viz-legend-desktop">🟢 Sorted | 🟠 Current | 🟣 Search Range | 🔵 Mid | 🔴 Shifting</span>
+                    <div class="viz-legend-mobile" style="display: none;">
+                        <div class="viz-legend-item">🟢 Sorted</div>
+                        <div class="viz-legend-item">🟠 Current</div>
+                        <div class="viz-legend-item">🟣 Search Range</div>
+                        <div class="viz-legend-item">🔵 Mid</div>
+                        <div class="viz-legend-item">🔴 Shifting</div>
+                    </div>
                 </div>
             \`;
             arrayViz.appendChild(controlsDiv);
+            
+            // Toggle legend display based on screen size
+            function updateBinaryLegendDisplay() {
+                const isMobile = window.innerWidth <= 768;
+                const desktopLegend = document.querySelector('#binaryinsertionsort-legend .viz-legend-desktop');
+                const mobileLegend = document.querySelector('#binaryinsertionsort-legend .viz-legend-mobile');
+                
+                if (desktopLegend && mobileLegend) {
+                    if (isMobile) {
+                        desktopLegend.style.display = 'none';
+                        mobileLegend.style.display = 'flex';
+                    } else {
+                        desktopLegend.style.display = 'inline';
+                        mobileLegend.style.display = 'none';
+                    }
+                }
+            }
+            
+            updateBinaryLegendDisplay();
+            window.addEventListener('resize', updateBinaryLegendDisplay);
             
             // Status display
             const statusDiv = document.createElement('div');
@@ -414,15 +437,12 @@ const config = {
             let animationInterval;
             
             function updateBinaryVisualization(step) {
-                const cells = arrayDiv.querySelectorAll('div');
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('binary-sort-status');
                 
-                // Reset all cell colors
+                // Reset all cell classes
                 cells.forEach(cell => {
-                    cell.style.background = '#f8f9fa';
-                    cell.style.borderColor = '#ddd';
-                    cell.style.transform = 'scale(1)';
-                    cell.style.zIndex = '1';
+                    cell.className = 'viz-cell';
                 });
                 
                 // Update array values
@@ -436,52 +456,40 @@ const config = {
                 if (step.sortedUpTo) {
                     for (let i = 0; i < step.sortedUpTo; i++) {
                         if (cells[i]) {
-                            cells[i].style.background = '#c8e6c9';
-                            cells[i].style.borderColor = '#4caf50';
+                            cells[i].className = 'viz-cell sorted';
                         }
                     }
                 }
                 
                 // Highlight current element being processed (orange)
                 if (step.currentIndex !== undefined && cells[step.currentIndex]) {
-                    cells[step.currentIndex].style.background = '#fff3e0';
-                    cells[step.currentIndex].style.borderColor = '#ff9800';
-                    cells[step.currentIndex].style.transform = 'scale(1.1)';
-                    cells[step.currentIndex].style.zIndex = '10';
+                    cells[step.currentIndex].className = 'viz-cell current';
                 }
                 
-                // Highlight binary search range (purple/violet)
+                // Highlight binary search range (purple) 🟣
                 if (step.searchRange && step.type.includes('binary-search')) {
                     for (let i = step.searchRange[0]; i <= step.searchRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex && i !== step.mid) {
-                            cells[i].style.background = '#f3e5f5';
-                            cells[i].style.borderColor = '#9c27b0';
+                            cells[i].className = 'viz-cell swapping'; // Purple/magenta - rgba(156, 39, 176, 0.8)
                         }
                     }
                 }
                 
-                // Highlight mid element in binary search (blue)
+                // Highlight mid element in binary search (blue) 🔵 - override other classes
                 if (step.mid !== undefined && cells[step.mid]) {
-                    cells[step.mid].style.background = '#e3f2fd';
-                    cells[step.mid].style.borderColor = '#2196f3';
-                    cells[step.mid].style.transform = 'scale(1.15)';
-                    cells[step.mid].style.zIndex = '8';
+                    cells[step.mid].className = 'viz-cell current-range'; // Blue - rgba(33, 150, 243, 0.6)
                 }
                 
-                // Highlight insertion position (bright green)
+                // Highlight insertion position - use distinct green
                 if (step.insertPosition !== undefined && cells[step.insertPosition] && step.type === 'position-found') {
-                    cells[step.insertPosition].style.background = '#a5d6a7';
-                    cells[step.insertPosition].style.borderColor = '#388e3c';
-                    cells[step.insertPosition].style.transform = 'scale(1.1)';
-                    cells[step.insertPosition].style.zIndex = '9';
+                    cells[step.insertPosition].className = 'viz-cell just-inserted'; // Bright purple for insertion
                 }
                 
-                // Highlight shifting range (light red)
+                // Highlight shifting range (red) 🔴
                 if (step.shiftRange && (step.type === 'shift-start' || step.type === 'shift-complete')) {
                     for (let i = step.shiftRange[0]; i <= step.shiftRange[1]; i++) {
                         if (cells[i] && i !== step.currentIndex) {
-                            cells[i].style.background = '#ffcdd2';
-                            cells[i].style.borderColor = '#f44336';
+                            cells[i].className = 'viz-cell pivot'; // Red - rgba(244, 67, 54, 0.85)
                         }
                     }
                 }
@@ -491,29 +499,24 @@ const config = {
                 
                 // Show step info in container
                 const stepInfo = document.createElement('div');
-                stepInfo.style.cssText = 'background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; border-left: 4px solid #007acc;';
                 
-                // Color code the step info based on step type
+                // Use CSS classes that adapt to theme instead of hardcoded colors
                 if (step.type.includes('binary-search')) {
-                    stepInfo.style.borderLeftColor = '#9c27b0';
-                    stepInfo.style.background = '#f3e5f5';
+                    stepInfo.className = 'viz-step-info binary-search';
                 } else if (step.type === 'insert') {
-                    stepInfo.style.borderLeftColor = '#4caf50';
-                    stepInfo.style.background = '#e8f5e8';
+                    stepInfo.className = 'viz-step-info insert';
                 } else if (step.type.includes('shift')) {
-                    stepInfo.style.borderLeftColor = '#f44336';
-                    stepInfo.style.background = '#ffebee';
+                    stepInfo.className = 'viz-step-info shift';
+                } else if (step.type === 'complete') {
+                    stepInfo.className = 'viz-step-info complete';
+                } else {
+                    stepInfo.className = 'viz-step-info';
                 }
                 
                 stepInfo.innerHTML = \`
                     <strong>Step \${currentStepIndex + 1}:</strong> \${step.message}<br>
                     <small>Comparisons: \${step.comparisons || 0}, Shifts: \${step.shifts || 0}</small>
                 \`;
-                
-                if (step.type === 'complete') {
-                    stepInfo.style.borderLeftColor = '#28a745';
-                    stepInfo.style.background = '#d4edda';
-                }
                 
                 if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);

@@ -11,10 +11,15 @@
 
 class UniversalAlgorithmLoader {
     constructor() {
-        this.currentPath = window.location.pathname;
-        this.urlParams = new URLSearchParams(window.location.search);
-        this.basePath = this.detectBasePath();
-        this.algorithmPath = this.detectAlgorithmPath();
+        try {
+            this.currentPath = window.location.pathname;
+            this.urlParams = new URLSearchParams(window.location.search);
+            this.basePath = this.detectBasePath();
+            this.algorithmPath = this.detectAlgorithmPath();
+        } catch (error) {
+            console.error('❌ Algorithm loading failed:', error.message);
+            throw error;
+        }
     }
 
     /**
@@ -297,6 +302,7 @@ class UniversalAlgorithmLoader {
         </script>
     </footer>
     
+    <script src="${this.basePath || '../../../'}/assets/js/path-config.js"></script>
     <script src="${this.basePath || '../../../'}/assets/js/unified-theme-manager.js"></script>
     <script src="${this.basePath || '../../../'}/assets/js/sidebar.js"></script>
 </body>
@@ -306,23 +312,51 @@ class UniversalAlgorithmLoader {
     /**
      * Initialize the accordion functionality after HTML is generated
      */
+    initializeUIComponents() {
+        // Initialize accordion functionality
+        this.initializeAccordion();
+        
+        // Initialize sidebar functionality (only if not already initialized)
+        if (!window.sidebarManager) {
+            this.initializeSidebar();
+        }
+    }
+    
     initializeAccordion() {
-        setTimeout(() => {
-            const accordions = document.querySelectorAll('.accordion');
-            accordions.forEach(accordion => {
-                const header = accordion.querySelector('.accordion-header');
-                if (header && !header.hasAttribute('data-initialized')) {
-                    header.setAttribute('data-initialized', 'true');
-                    header.addEventListener('click', () => {
-                        accordion.classList.toggle('active');
-                        const icon = accordion.querySelector('.accordion-icon');
-                        if (icon) {
-                            icon.textContent = accordion.classList.contains('active') ? '▲' : '▼';
-                        }
-                    });
-                }
-            });
-        }, 100);
+        const accordions = document.querySelectorAll('.accordion');
+        
+        accordions.forEach(accordion => {
+            const header = accordion.querySelector('.accordion-header');
+            if (header && !header.hasAttribute('data-initialized')) {
+                header.setAttribute('data-initialized', 'true');
+                
+                header.addEventListener('click', () => {
+                    accordion.classList.toggle('active');
+                    
+                    // Update icon
+                    const icon = accordion.querySelector('.accordion-icon');
+                    if (icon) {
+                        const isActive = accordion.classList.contains('active');
+                        icon.textContent = isActive ? '▲' : '▼';
+                    }
+                });
+            }
+        });
+    }
+    
+    initializeSidebar() {
+        if (typeof window.SidebarManager !== 'undefined') {
+            const hamburgerBtn = document.getElementById('hamburger-menu');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (hamburgerBtn && sidebar) {
+                window.sidebarManager = new window.SidebarManager();
+            } else {
+                console.warn('⚠️ Sidebar elements not found in DOM');
+            }
+        } else {
+            console.warn('⚠️ SidebarManager class not available');
+        }
     }
 
     /**
@@ -354,8 +388,8 @@ class UniversalAlgorithmLoader {
                 const algoInfo = this.getAlgorithmInfo();
                 if (algoInfo.category === 'sort') {
                     const sortUtilsPath = this.buildPath('src/sort/utils/sorting-utils.js');
-                    await this.loadScript(sortUtilsPath);
-                    console.log('✅ Loaded sorting utilities');
+                    await this.loadOptionalScript(sortUtilsPath);
+                    // Sorting utilities loaded
                 }
             } catch (e) {
                 console.warn('⚠️ Could not load category utilities:', e.message);
@@ -366,21 +400,25 @@ class UniversalAlgorithmLoader {
             const fullCoreJsPath = this.buildPath(`${algorithmInfo.fullPath}/${coreJsPath}`);
             
             try {
-                await this.loadScript(fullCoreJsPath);
-                console.log(`✅ Core algorithm loaded: ${coreJsPath}`);
+                await this.loadOptionalScript(fullCoreJsPath);
+                // Core algorithm loaded
             } catch (error) {
-                console.log(`ℹ️  No core file found: ${coreJsPath} (this is optional)`);
+                // No core file found (this is optional)
             }
             
-            // Load step tracking file (if it exists)
-            const stepsJsPath = algorithmInfo.jsPath.replace('.js', '-steps.js');
-            const fullStepsJsPath = this.buildPath(`${algorithmInfo.fullPath}/${stepsJsPath}`);
-            
-            try {
-                await this.loadScript(fullStepsJsPath);
-                console.log(`✅ Step tracking loaded: ${stepsJsPath}`);
-            } catch (error) {
-                console.log(`ℹ️  No step tracking file found: ${stepsJsPath} (this is optional)`);
+            // Load step tracking file only if config specifies it exists
+            if (config.hasStepsFile) {
+                const stepsJsPath = algorithmInfo.jsPath.replace('.js', '-steps.js');
+                const fullStepsJsPath = this.buildPath(`${algorithmInfo.fullPath}/${stepsJsPath}`);
+                
+                try {
+                    await this.loadOptionalScript(fullStepsJsPath);
+                    // Step tracking loaded
+                } catch (error) {
+                    console.warn(`⚠️ Failed to load steps file: ${stepsJsPath}`);
+                }
+            } else {
+                // No step tracking file configured
             }
             
             // Load main algorithm JavaScript file
@@ -393,15 +431,68 @@ class UniversalAlgorithmLoader {
             // Pass base path information to config
             config.basePath = this.basePath;
             
+            // Make config available globally for data type toggle function
+            window.algorithmConfig = config;
+            
             const html = template.generateHTML(config);
             
-            // Replace document with generated HTML
-            document.open();
-            document.write(html);
-            document.close();
+            // Replace document with generated HTML using safer DOM manipulation
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
             
-            // Initialize accordion functionality
-            this.initializeAccordion();
+            // Update document title
+            document.title = doc.title;
+            
+            // Replace head content (but keep existing scripts)
+            const existingScripts = document.head.querySelectorAll('script');
+            const newHeadContent = doc.head.innerHTML;
+            
+            // Clear head and add new content, then re-add existing scripts
+            document.head.innerHTML = newHeadContent;
+            existingScripts.forEach(script => {
+                document.head.appendChild(script.cloneNode(true));
+            });
+            
+            // Replace body content and execute scripts
+            document.body.innerHTML = doc.body.innerHTML;
+            
+            // Execute all script tags that were added to the body
+            const scripts = document.body.querySelectorAll('script');
+            
+            scripts.forEach((script) => {
+                if (script.src) {
+                    // External script - create new script element
+                    const newScript = document.createElement('script');
+                    newScript.src = script.src;
+                    if (script.async) newScript.async = true;
+                    if (script.defer) newScript.defer = true;
+                    document.head.appendChild(newScript);
+                } else {
+                    // Inline script - execute the content
+                    try {
+                        // Create a new script element and add it to head for proper execution
+                        const newScript = document.createElement('script');
+                        newScript.textContent = script.textContent;
+                        document.head.appendChild(newScript);
+                    } catch (error) {
+                        console.warn('⚠️ Error executing inline script:', error.message);
+                        // Fallback to eval
+                        try {
+                            eval(script.textContent);
+                        } catch (evalError) {
+                            console.error('❌ Script execution failed:', evalError.message);
+                        }
+                    }
+                }
+            });
+            
+            // Load required UI scripts after HTML is ready
+            await this.loadUIScripts();
+            
+            // Wait a moment for DOM to settle, then initialize UI components
+            setTimeout(() => {
+                this.initializeUIComponents();
+            }, 100);
             
         } catch (error) {
             console.error('Error loading algorithm page:', error);
@@ -422,15 +513,69 @@ class UniversalAlgorithmLoader {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
-            script.onload = () => {
-                console.log(`✅ Successfully loaded: ${src}`);
-                resolve();
-            };
+            script.onload = () => resolve();
             script.onerror = () => {
                 const error = new Error(`Failed to load script: ${src}`);
                 console.error(`❌ ${error.message}`);
                 reject(error);
             };
+            document.head.appendChild(script);
+        });
+    }
+    
+    /**
+     * Load UI scripts (theme manager, sidebar) after HTML generation
+     */
+    async loadUIScripts() {
+        try {
+            // Load path configuration first (needed by sidebar)
+            const pathConfigPath = this.buildPath('assets/js/path-config.js');
+            await this.loadScript(pathConfigPath);
+            
+            // Load theme manager
+            const themeManagerPath = this.buildPath('assets/js/unified-theme-manager.js');
+            await this.loadScript(themeManagerPath);
+            
+            // Load sidebar functionality (depends on path configuration)
+            const sidebarPath = this.buildPath('assets/js/sidebar.js');
+            await this.loadScript(sidebarPath);
+            
+            // UI scripts loaded
+        } catch (error) {
+            console.warn('⚠️ Failed to load some UI scripts:', error.message);
+        }
+    }
+    
+    /**
+     * Check if a file exists without triggering console errors
+     */
+    async checkFileExists(url) {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    }
+    
+    /**
+     * Load optional external script only if it exists (prevents 404 console errors)
+     */
+    async loadOptionalScript(src) {
+        // Check if file exists first to prevent console 404 errors
+        const exists = await this.checkFileExists(src);
+        
+        if (!exists) {
+            // File doesn't exist, reject without creating script tag
+            throw new Error(`Optional script not found: ${src}`);
+        }
+        
+        // File exists, proceed with loading
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load optional script: ${src}`));
             document.head.appendChild(script);
         });
     }
@@ -472,19 +617,46 @@ class UniversalAlgorithmLoader {
             throw error;
         }
         
-        console.log('✅ All utility functions are available in global scope');
+        // All utility functions verified
     }
 }
 
 // Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+function initializeLoader() {
+    try {
         const loader = new UniversalAlgorithmLoader();
-        loader.load();
-    });
+        loader.load().catch(error => {
+            console.error('❌ Algorithm loading failed:', error.message);
+            document.body.innerHTML = `
+                <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+                    <h2 style="color: #dc3545;">⚠️ Algorithm Loading Error</h2>
+                    <p>Failed to load algorithm demo.</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Current URL:</strong> ${window.location.href}</p>
+                    <p><strong>Expected format:</strong> demo.html?algo=category/algorithm-name</p>
+                    <a href="index.html" style="color: #007acc; text-decoration: none;">← Back to Algorithm Catalog</a>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error('🚫 Failed to initialize algorithm loader:', error.message);
+        document.body.innerHTML = `
+            <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+                <h2 style="color: #dc3545;">⚠️ Algorithm Loading Error</h2>
+                <p>Failed to load algorithm demo during initialization.</p>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p><strong>Current URL:</strong> ${window.location.href}</p>
+                <p><strong>Expected format:</strong> demo.html?algo=category/algorithm-name</p>
+                <a href="index.html" style="color: #007acc; text-decoration: none;">← Back to Algorithm Catalog</a>
+            </div>
+        `;
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLoader);
 } else {
-    const loader = new UniversalAlgorithmLoader();
-    loader.load();
+    initializeLoader();
 }
 
 // Export for manual use if needed

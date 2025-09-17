@@ -5,7 +5,7 @@
 const config = {
     name: "Count and Say",
     title: "Count and Say Algorithm Demo",
-    category: "sequences",
+    category: "patterns",
     problem: "Generate the nth term of the Count and Say sequence by reading and describing the digits of the previous term.",
     cssPath: "../../../assets/css/styles.css",
     jsPath: "count-and-say-core.js",
@@ -20,6 +20,7 @@ const config = {
     },
     algorithmFunction: "generateCountAndSay",
     hasVisualization: true,
+    hasStepsFile: true,
     
     inputs: [
         {

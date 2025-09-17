@@ -18,7 +18,18 @@
 
 ### 🚀 Quick Start
 
-#### Option 0: Root-level dev helper
+#### Option 0: algorithms-js dev helper (Recommended)
+
+```bash
+# From algorithms-js directory
+cd algorithms-js
+./dev.sh start    # start http://localhost:8080
+./dev.sh status   # check status
+./dev.sh stop     # stop server
+./dev.sh restart  # restart server
+```
+
+#### Option 1: Root-level dev helper
 
 ```bash
 # From repo root
@@ -27,7 +38,7 @@
 ./dev.sh stop     # stop server
 ```
 
-#### Option 1: Using root build script (Recommended)
+#### Option 2: Using root build script
 
 ```bash
 # Clone the repository
@@ -42,7 +53,7 @@ cd algorithms-js
 npm start
 ```
 
-#### Option 2: Using npm scripts directly
+#### Option 3: Using npm scripts directly
 
 ```bash
 # Clone the repository
@@ -56,7 +67,7 @@ npm start
 npm run dev
 ```
 
-#### Option 3: Manual server setup
+#### Option 4: Manual server setup
 
 ```bash
 # Using Python (recommended - no redirect issues)
@@ -70,7 +81,7 @@ npx live-server --port=8080 --no-browser
 
 Then open: **http://localhost:8080**
 
-#### Option 4: Using the helper script (with dependency checks)
+#### Option 5: Using the helper script (with dependency checks)
 
 ```bash
 # From repo root

@@ -9,6 +9,8 @@ const BucketSortConfig = {
     // Top-level properties for dynamic template compatibility
     name: 'Bucket Sort',
     category: 'sort',
+    hasStepsFile: true,
+    hasVisualization: true,
     problem: 'Sort an array of floating-point numbers by distributing them into buckets, sorting each bucket individually, then concatenating the results. Most efficient with uniformly distributed data.',
     
     // Inputs for the demo interface
@@ -18,7 +20,7 @@ const BucketSortConfig = {
             type: 'text',
             label: 'Array Elements (decimals 0.0-1.0)',
             defaultValue: '0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12',
-            width: '400px'
+            width: '280px'
         },
         {
             id: 'bucket-count',
@@ -379,7 +381,91 @@ const BucketSortConfig = {
                 ]
             }
         ]
-    }
+    },
+    
+    customDemoFunction: `
+        function runDemo() {
+            const arrayInputStr = document.getElementById('array-input').value;
+            const bucketCountStr = document.getElementById('bucket-count').value;
+            const resultContainer = document.getElementById('result');
+            const errorContainer = document.getElementById('error-message');
+            const visualizationSection = document.getElementById('visualization-section');
+
+            // Clear previous error and result
+            errorContainer.innerHTML = '';
+            errorContainer.style.display = 'none';
+            resultContainer.innerHTML = '';
+            visualizationSection.style.display = 'none';
+
+            // Parse input array
+            let arrayInput;
+            try {
+                arrayInput = arrayInputStr.split(',').map(item => {
+                    const trimmed = item.trim();
+                    const asNumber = parseFloat(trimmed);
+                    if (isNaN(asNumber)) {
+                        throw new Error('All elements must be numbers');
+                    }
+                    return asNumber;
+                });
+            } catch (e) {
+                showError('Invalid array format. Please use comma-separated decimal numbers (0.0-1.0).');
+                return;
+            }
+
+            // Validate input
+            if (arrayInput.length === 0) {
+                showError('Array cannot be empty');
+                return;
+            }
+            
+            if (arrayInput.length > 15) {
+                showError('Array size limited to 15 elements for demo purposes');
+                return;
+            }
+            
+            // Validate range
+            for (let i = 0; i < arrayInput.length; i++) {
+                if (arrayInput[i] < 0 || arrayInput[i] > 1) {
+                    showError('All elements should be between 0.0 and 1.0 for optimal bucket sort performance');
+                    return;
+                }
+            }
+            
+            // Parse bucket count
+            const bucketCount = parseInt(bucketCountStr);
+            if (isNaN(bucketCount) || bucketCount < 2 || bucketCount > 10) {
+                showError('Bucket count must be between 2 and 10');
+                return;
+            }
+
+            try {
+                const startTime = performance.now();
+                
+                // Execute bucket sort
+                const result = window.BucketSortCore ? window.BucketSortCore.bucketSort(arrayInput) : bucketSort(arrayInput);
+                
+                const endTime = performance.now();
+                const executionTime = (endTime - startTime).toFixed(4);
+                
+                // Show result
+                let resultHTML = \`
+                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Buckets Used:</strong> \${result.metrics.buckets}<br>
+                    <strong>Buckets Sorted:</strong> \${result.metrics.bucketSorts}<br>
+                    <strong>Total Comparisons:</strong> \${result.metrics.comparisons}<br>
+                    <strong>Total Swaps:</strong> \${result.metrics.swaps}<br>
+                    <strong>Execution Time:</strong> \${executionTime} ms
+                \`;
+                
+                resultContainer.innerHTML = resultHTML;
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+    `
 };
 
 // Export for both Node.js and browser environments

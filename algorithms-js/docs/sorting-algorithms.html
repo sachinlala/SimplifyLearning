@@ -489,8 +489,57 @@
         </script>
     </footer>
 
+    <script src="../assets/js/path-config.js"></script>
     <script src="../assets/js/unified-theme-manager.js"></script>
     <script src="../assets/js/sidebar.js"></script>
     <script src="../assets/js/components.js"></script>
+    
+    <!-- Update hardcoded demo links to use centralized path configuration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for path config to load, then update all demo links and logo paths
+            setTimeout(function() {
+                if (window.pathConfig) {
+                    const linkMappings = {
+                        'bubble-sort': window.pathConfig.algorithms.sort.BUBBLE_SORT,
+                        'selection-sort': window.pathConfig.algorithms.sort.SELECTION_SORT,
+                        'insertion-sort': window.pathConfig.algorithms.sort.INSERTION_SORT,
+                        'merge-sort': window.pathConfig.algorithms.sort.MERGE_SORT,
+                        'quick-sort': window.pathConfig.algorithms.sort.QUICK_SORT,
+                        'heap-sort': window.pathConfig.algorithms.sort.HEAP_SORT,
+                        'counting-sort': window.pathConfig.algorithms.sort.COUNTING_SORT,
+                        'radix-sort': window.pathConfig.algorithms.sort.RADIX_SORT,
+                        'bucket-sort': window.pathConfig.algorithms.sort.BUCKET_SORT,
+                        'dutch-flag-sort': window.pathConfig.algorithms.sort.DUTCH_FLAG_SORT,
+                        'wiggle-sort': window.pathConfig.algorithms.sort.WIGGLE_SORT
+                    };
+                    
+                    // Update all links that point to demo pages
+                    const links = document.querySelectorAll('a[href*="demo.html?algo="]');
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        const match = href.match(/demo\.html\?algo=sort\/([^&]+)/);
+                        if (match && linkMappings[match[1]]) {
+                            link.setAttribute('href', linkMappings[match[1]]);
+                        }
+                    });
+                    
+                    // Update logo image paths to use centralized config
+                    const logoImages = document.querySelectorAll('img[src*="sl-logo.svg"]');
+                    logoImages.forEach(img => {
+                        img.src = window.pathConfig.assets.images.LOGO;
+                    });
+                    
+                    // Update home page links
+                    const homeLinks = document.querySelectorAll('a[href*="index.html"]');
+                    homeLinks.forEach(link => {
+                        if (link.getAttribute('href') === '../index.html') {
+                            link.href = window.pathConfig.pages.HOME;
+                        }
+                    });
+                }
+            }, 100); // Small delay to ensure path config is loaded
+        });
+    </script>
 </body>
 </html>

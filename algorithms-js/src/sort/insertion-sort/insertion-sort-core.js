@@ -20,10 +20,9 @@
 /**
  * Core insertion sort algorithm
  * @param {number[]} arr - Array to be sorted
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function insertionSort(arr, options = {}) {
+function insertionSort(arr) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -116,31 +115,19 @@ function binaryInsertionSort(arr) {
     };
 }
 
-/**
- * Simple insertion sort function (backward compatibility)
- * @param {number[]} arr - Array to sort
- * @returns {number[]} Sorted array
- */
-function insertionSortSimple(arr) {
-    const result = insertionSort(arr);
-    return result.sortedArray;
-}
-
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         insertionSort,
-        binaryInsertionSort,
-        insertionSortSimple
+        binaryInsertionSort
     };
 } else if (typeof window !== 'undefined') {
     window.InsertionSortCore = {
         insertionSort,
-        binaryInsertionSort,
-        insertionSortSimple
+        binaryInsertionSort
     };
     // Expose commonly used functions for configs
     window.binaryInsertionSort = binaryInsertionSort;
     // Global function for backward compatibility
-    window.insertionSort = insertionSortSimple;
+    window.insertionSort = arr => insertionSort(arr).sortedArray;
 }

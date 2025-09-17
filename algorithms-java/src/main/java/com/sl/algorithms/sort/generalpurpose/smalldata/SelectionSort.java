@@ -6,11 +6,10 @@ import com.sl.algorithms.core.interfaces.sort.SortingEngine;
 import com.sl.algorithms.core.list.ListNode;
 
 /**
- * <br>In-place quadratic-complexity sort algorithm, useful for small data-set.<br> <br><a
- * href="https://www.hackerearth.com/practice/algorithms/sorting/selection-sort/tutorial/">Reference</a><br>
- * <br><u>Approach</u>:&nbsp;Given a list, take the current element and exchange it with the
- * smallest element on the right.<br> <br><u>Usage</u>:&nbsp;Small data-set / when 'write' operation
- * is expensive.<br> <br><u>Inner Loop</u>:&nbsp;operates on the Unsorted portion.<br>
+ * <p>In-place quadratic-complexity algorithm, useful for small data-set.</p>
+ * <p>Given a list, take the current element and exchange it with the smallest element.</p>
+ * <p>Usage: Small data-set / when 'write' operation is expensive.</p>
+ * <p>Inner Loop: operates on the Unsorted portion.</p>
  */
 @SuppressWarnings("unchecked")
 public class SelectionSort<T extends Comparable> implements SortingEngine<T> {

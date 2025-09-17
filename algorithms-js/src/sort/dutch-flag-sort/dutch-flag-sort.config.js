@@ -10,7 +10,9 @@
 const DUTCH_FLAG_SORT_CONFIG = {
     // Top-level properties for dynamic template compatibility
     name: "Dutch National Flag Sort",
-    category: "sort", 
+    category: "sort",
+    hasStepsFile: true,
+    hasVisualization: true,
     problem: "Efficiently partition an array into 2-3 distinct groups in linear time using the Dutch National Flag algorithm invented by Edsger Dijkstra.",
     
     inputs: [
@@ -19,28 +21,28 @@ const DUTCH_FLAG_SORT_CONFIG = {
             type: "text", 
             label: "Array Elements",
             defaultValue: "2, 0, 1, 2, 1, 0",
-            width: "300px"
+            width: "200px"
         },
         {
             id: "red-value",
             type: "text",
-            label: "Red Value (First Group)", 
+            label: "Red Value", 
             defaultValue: "0",
-            width: "100px"
+            width: "80px"
         },
         {
             id: "white-value",
             type: "text",
-            label: "White Value (Middle Group)",
+            label: "White Value",
             defaultValue: "1", 
-            width: "100px"
+            width: "80px"
         },
         {
             id: "blue-value",
             type: "text",
-            label: "Blue Value (Last Group)",
+            label: "Blue Value",
             defaultValue: "2",
-            width: "100px"
+            width: "80px"
         }
     ],
     
@@ -381,6 +383,93 @@ const DutchFlagSortConfigUtils = {
         return array.every(element => allowedValues.includes(element));
     }
 };
+
+// Add custom demo function to the config
+DUTCH_FLAG_SORT_CONFIG.customDemoFunction = `
+    function runDemo() {
+        const arrayInputStr = document.getElementById('array-input').value;
+        const redValueStr = document.getElementById('red-value').value;
+        const blueValueStr = document.getElementById('blue-value').value;
+        const resultContainer = document.getElementById('result');
+        const errorContainer = document.getElementById('error-message');
+        const visualizationSection = document.getElementById('visualization-section');
+
+        // Clear previous error and result
+        errorContainer.innerHTML = '';
+        errorContainer.style.display = 'none';
+        resultContainer.innerHTML = '';
+        visualizationSection.style.display = 'none';
+
+        // Parse input array
+        let arrayInput;
+        try {
+            arrayInput = arrayInputStr.split(',').map(item => {
+                const trimmed = item.trim();
+                const asNumber = parseInt(trimmed);
+                if (isNaN(asNumber)) {
+                    throw new Error('All elements must be integers');
+                }
+                return asNumber;
+            });
+        } catch (e) {
+            showError('Invalid array format. Please use comma-separated integers.');
+            return;
+        }
+        
+        // Parse partition values
+        const redValue = parseInt(redValueStr);
+        const blueValue = parseInt(blueValueStr);
+        
+        if (isNaN(redValue) || isNaN(blueValue)) {
+            showError('Red and Blue values must be integers');
+            return;
+        }
+        
+        if (redValue >= blueValue) {
+            showError('Red value must be less than Blue value');
+            return;
+        }
+
+        // Validate input
+        if (arrayInput.length === 0) {
+            showError('Array cannot be empty');
+            return;
+        }
+        
+        if (arrayInput.length > 20) {
+            showError('Array size limited to 20 elements for demo purposes');
+            return;
+        }
+
+        try {
+            const startTime = performance.now();
+            
+            // Execute dutch flag sort
+            const result = window.DutchFlagSortCore ? 
+                window.DutchFlagSortCore.dutchFlagSort(arrayInput, redValue, blueValue) : 
+                dutchFlagSort(arrayInput, redValue, blueValue);
+            
+            const endTime = performance.now();
+            const executionTime = (endTime - startTime).toFixed(4);
+            
+            // Show result
+            let resultHTML = \`
+                <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                <strong>Partitioned Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                <strong>Red Group (\${redValue}):</strong> positions 0 to \${result.metrics.redEnd || 'N/A'}<br>
+                <strong>White/Other Group:</strong> middle section<br>
+                <strong>Blue Group (\${blueValue}):</strong> end section<br>
+                <strong>Total Swaps:</strong> \${result.metrics.swaps || 0}<br>
+                <strong>Execution Time:</strong> \${executionTime} ms
+            \`;
+            
+            resultContainer.innerHTML = resultHTML;
+            
+        } catch (error) {
+            showError(error.message);
+        }
+    }
+`;
 
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {

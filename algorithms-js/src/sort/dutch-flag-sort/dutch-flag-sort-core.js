@@ -14,8 +14,13 @@
  */
 
 // Import utilities for reusable functions
-const SortingUtils = (typeof require !== 'undefined') ? 
-    require('../utils/sorting-utils.js') : window.SortingUtils;
+// Import utilities for reusable functions
+// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
+if (typeof require !== 'undefined') {
+    // Node.js environment
+    const SortingUtils = require('../utils/sorting-utils.js');
+}
+// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Core Dutch National Flag sort algorithm
@@ -23,10 +28,9 @@ const SortingUtils = (typeof require !== 'undefined') ?
  * @param {any} redValue - Value for the first group (red)
  * @param {any} whiteValue - Value for the middle group (white) - optional
  * @param {any} blueValue - Value for the third group (blue)
- * @param {Object} options - Options for sorting behavior
  * @returns {Object} Sorted array and metrics
  */
-function dutchFlagSort(arr, redValue, whiteValue, blueValue, options = {}) {
+function dutchFlagSort(arr, redValue, whiteValue, blueValue) {
     if (!arr || arr.length <= 1) {
         return {
             sortedArray: arr || [],
@@ -129,17 +133,6 @@ function dutchFlagSort2Way(arr, firstValue, secondValue) {
  * @param {any} blueValue - Blue group value
  * @returns {Object} Result with sorted array, steps, and metrics
  */
- * Simple Dutch flag sort function (backward compatibility)
- * @param {any[]} arr - Array to sort
- * @param {any} redValue - Red value
- * @param {any} whiteValue - White value (optional)
- * @param {any} blueValue - Blue value
- * @returns {any[]} Sorted array
- */
-function dutchFlagSortSimple(arr, redValue, whiteValue, blueValue) {
-    const result = dutchFlagSort(arr, redValue, whiteValue, blueValue);
-    return result.sortedArray;
-}
 
 /**
  * Sort colors (classic Dutch flag problem)
@@ -165,8 +158,6 @@ if (typeof module !== 'undefined' && module.exports) {
         dutchFlagSort,
         dutchFlagSort3Way,
         dutchFlagSort2Way,
-        
-        dutchFlagSortSimple,
         sortColors,
         sort012
     };
@@ -175,13 +166,12 @@ if (typeof module !== 'undefined' && module.exports) {
         dutchFlagSort,
         dutchFlagSort3Way,
         dutchFlagSort2Way,
-        
-        dutchFlagSortSimple,
         sortColors,
         sort012
     };
-    // Expose commonly used functions in global scope for demo configs
-    
     // Backward compatibility
-    window.dutchFlagSort = dutchFlagSortSimple;
+    window.dutchFlagSort = (arr, redValue, whiteValue, blueValue) => {
+        const result = dutchFlagSort(arr, redValue, whiteValue, blueValue);
+        return result.sortedArray;
+    };
 }
