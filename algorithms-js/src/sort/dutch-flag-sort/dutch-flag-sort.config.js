@@ -12,6 +12,7 @@ const DUTCH_FLAG_SORT_CONFIG = {
     name: "Dutch National Flag Sort",
     category: "sort",
     hasStepsFile: true,
+    hasVisualization: true,
     problem: "Efficiently partition an array into 2-3 distinct groups in linear time using the Dutch National Flag algorithm invented by Edsger Dijkstra.",
     
     inputs: [
@@ -20,28 +21,28 @@ const DUTCH_FLAG_SORT_CONFIG = {
             type: "text", 
             label: "Array Elements",
             defaultValue: "2, 0, 1, 2, 1, 0",
-            width: "300px"
+            width: "200px"
         },
         {
             id: "red-value",
             type: "text",
-            label: "Red Value (First Group)", 
+            label: "Red Value", 
             defaultValue: "0",
-            width: "100px"
+            width: "80px"
         },
         {
             id: "white-value",
             type: "text",
-            label: "White Value (Middle Group)",
+            label: "White Value",
             defaultValue: "1", 
-            width: "100px"
+            width: "80px"
         },
         {
             id: "blue-value",
             type: "text",
-            label: "Blue Value (Last Group)",
+            label: "Blue Value",
             defaultValue: "2",
-            width: "100px"
+            width: "80px"
         }
     ],
     

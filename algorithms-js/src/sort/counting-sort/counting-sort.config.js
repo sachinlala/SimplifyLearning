@@ -10,6 +10,7 @@ const CountingSortConfig = {
     name: 'Counting Sort',
     category: 'sort',
     hasStepsFile: true,
+    hasVisualization: true,
     problem: 'Sort an array of non-negative integers efficiently using counting instead of comparisons. Ideal for integers within a small, known range.',
     
     // Inputs for the demo interface
@@ -19,7 +20,7 @@ const CountingSortConfig = {
             type: 'text',
             label: 'Array Elements (non-negative integers)',
             defaultValue: '4, 2, 2, 8, 3, 3, 1',
-            width: '300px'
+            width: '280px'
         }
     ],
     

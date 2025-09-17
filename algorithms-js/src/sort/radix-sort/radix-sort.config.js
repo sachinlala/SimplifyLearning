@@ -10,6 +10,7 @@ const RadixSortConfig = {
     name: 'Radix Sort',
     category: 'sort',
     hasStepsFile: true,
+    hasVisualization: true,
     problem: 'Sort an array of non-negative integers efficiently by processing digits from least significant to most significant, using counting sort as a stable subroutine for each digit position.',
     
     // Inputs for the demo interface
@@ -19,7 +20,7 @@ const RadixSortConfig = {
             type: 'text',
             label: 'Array Elements (non-negative integers)',
             defaultValue: '170, 45, 75, 90, 2, 802, 24, 66',
-            width: '350px'
+            width: '280px'
         }
     ],
     
