@@ -452,41 +452,45 @@ const RadixSortConfig = {
             digitInfoDiv.innerHTML = '<div class="digit-legend"><strong>Current Digit Position:</strong> <span id="current-digit-pos">Ready to start...</span></div>';
             arrayViz.appendChild(digitInfoDiv);
             
-            // Create color legend for digit assignments
+            // Create compact color legend for digit assignments
             const colorGuide = document.createElement('div');
             colorGuide.className = 'radix-color-guide';
-            colorGuide.innerHTML = '<h4>Digit Color Guide:</h4>';
             
-            const colorGrid = document.createElement('div');
-            colorGrid.className = 'radix-color-grid';
+            const colorHeader = document.createElement('div');
+            colorHeader.className = 'radix-color-header';
+            colorHeader.innerHTML = '<strong>Digit Colors:</strong>';
+            colorGuide.appendChild(colorHeader);
+            
+            const colorRow = document.createElement('div');
+            colorRow.className = 'radix-color-row';
             
             for (let digit = 0; digit <= 9; digit++) {
                 const colorItem = document.createElement('div');
                 colorItem.className = 'radix-color-item';
+                colorItem.title = 'Digit ' + digit + ' - ' + digitColors[digit];
                 
-                // Create color box with guaranteed styling
-                const colorBox = document.createElement('span');
-                colorBox.className = 'radix-color-box digit-' + digit;
-                colorBox.style.backgroundColor = digitColors[digit];
-                colorBox.style.border = '1px solid rgba(0,0,0,0.3)';
-                colorBox.style.display = 'inline-block';
-                colorBox.style.width = '16px';
-                colorBox.style.height = '16px';
-                colorBox.style.borderRadius = '3px';
-                colorBox.style.marginRight = '6px';
-                colorBox.style.flexShrink = '0';
+                // Create color circle with digit inside
+                const colorCircle = document.createElement('div');
+                colorCircle.className = 'radix-color-circle digit-' + digit;
+                colorCircle.style.backgroundColor = digitColors[digit];
+                colorCircle.style.color = 'white';
+                colorCircle.style.fontWeight = 'bold';
+                colorCircle.style.fontSize = '11px';
+                colorCircle.style.display = 'flex';
+                colorCircle.style.alignItems = 'center';
+                colorCircle.style.justifyContent = 'center';
+                colorCircle.style.width = '24px';
+                colorCircle.style.height = '24px';
+                colorCircle.style.borderRadius = '50%';
+                colorCircle.style.border = '2px solid rgba(0,0,0,0.2)';
+                colorCircle.style.textShadow = '0 1px 1px rgba(0,0,0,0.5)';
+                colorCircle.textContent = digit;
                 
-                // Create label
-                const colorLabel = document.createElement('span');
-                colorLabel.className = 'radix-digit-label';
-                colorLabel.textContent = 'Digit ' + digit;
-                
-                colorItem.appendChild(colorBox);
-                colorItem.appendChild(colorLabel);
-                colorGrid.appendChild(colorItem);
+                colorItem.appendChild(colorCircle);
+                colorRow.appendChild(colorItem);
             }
             
-            colorGuide.appendChild(colorGrid);
+            colorGuide.appendChild(colorRow);
             arrayViz.appendChild(colorGuide);
             
             // Add controls with legend

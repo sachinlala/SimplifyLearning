@@ -2343,65 +2343,60 @@ body.dark-mode .viz-cell.complete {
 /* Radix sort color guide */
 .radix-color-guide {
     margin: 15px 0;
-    padding: 15px;
-    background: rgba(33, 150, 243, 0.08);
-    border: 2px solid rgba(33, 150, 243, 0.3);
-    border-radius: 12px;
+    padding: 12px 16px;
+    background: rgba(33, 150, 243, 0.06);
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    border-radius: 8px;
+    text-align: center;
 }
 
-.radix-color-guide h4 {
-    margin: 0 0 10px 0;
+.radix-color-header {
+    margin-bottom: 8px;
     color: #1976d2;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.radix-color-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.radix-color-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
-    margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .radix-color-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 500;
+    cursor: help;
+    transition: transform 0.2s ease;
 }
 
-.radix-color-box {
-    width: 16px !important;
-    height: 16px !important;
-    border-radius: 3px !important;
-    border: 1px solid rgba(0, 0, 0, 0.3) !important;
-    flex-shrink: 0 !important;
-    display: inline-block !important;
-    margin-right: 6px !important;
-    vertical-align: middle !important;
+.radix-color-item:hover {
+    transform: scale(1.1);
 }
 
-/* Ensure specific digit color boxes display properly */
-.radix-color-box.digit-0,
-.radix-color-box.digit-1,
-.radix-color-box.digit-2,
-.radix-color-box.digit-3,
-.radix-color-box.digit-4,
-.radix-color-box.digit-5,
-.radix-color-box.digit-6,
-.radix-color-box.digit-7,
-.radix-color-box.digit-8,
-.radix-color-box.digit-9 {
+.radix-color-circle {
+    position: relative;
+    transition: all 0.2s ease;
+    cursor: help;
+}
+
+.radix-color-circle:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure all digit circles are visible */
+.radix-color-circle.digit-0,
+.radix-color-circle.digit-1,
+.radix-color-circle.digit-2,
+.radix-color-circle.digit-3,
+.radix-color-circle.digit-4,
+.radix-color-circle.digit-5,
+.radix-color-circle.digit-6,
+.radix-color-circle.digit-7,
+.radix-color-circle.digit-8,
+.radix-color-circle.digit-9 {
     opacity: 1 !important;
     visibility: visible !important;
-}
-
-.radix-digit-label {
-    white-space: nowrap;
-    color: #424242;
 }
 
 /* Animation states for radix sort */
@@ -2475,40 +2470,20 @@ body.dark-mode #current-digit-pos {
 }
 
 body.dark-mode .radix-color-guide {
-    background: rgba(66, 165, 245, 0.15);
-    border-color: rgba(66, 165, 245, 0.4);
+    background: rgba(66, 165, 245, 0.1);
+    border-color: rgba(66, 165, 245, 0.3);
 }
 
-body.dark-mode .radix-color-guide h4 {
+body.dark-mode .radix-color-header {
     color: #90caf9;
 }
 
-body.dark-mode .radix-color-item {
-    background: rgba(66, 66, 66, 0.8);
-    color: #e0e0e0;
+body.dark-mode .radix-color-circle {
+    border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-body.dark-mode .radix-digit-label {
-    color: #e0e0e0;
-}
-
-body.dark-mode .radix-color-box {
-    border-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-body.dark-mode .radix-color-box.digit-0,
-body.dark-mode .radix-color-box.digit-1,
-body.dark-mode .radix-color-box.digit-2,
-body.dark-mode .radix-color-box.digit-3,
-body.dark-mode .radix-color-box.digit-4,
-body.dark-mode .radix-color-box.digit-5,
-body.dark-mode .radix-color-box.digit-6,
-body.dark-mode .radix-color-box.digit-7,
-body.dark-mode .radix-color-box.digit-8,
-body.dark-mode .radix-color-box.digit-9 {
-    opacity: 1 !important;
-    visibility: visible !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
+body.dark-mode .radix-color-circle:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 body.dark-mode .digit-display {
@@ -2524,19 +2499,18 @@ body.dark-mode .digit-display.digit-highlight {
 
 /* Mobile responsive adjustments for radix sort */
 @media (max-width: 768px) {
-    .radix-color-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .radix-color-guide {
+        padding: 10px 12px;
+    }
+    
+    .radix-color-row {
         gap: 6px;
     }
     
-    .radix-color-item {
-        padding: 3px 6px;
-        font-size: 11px;
-    }
-    
-    .radix-color-box {
-        width: 14px;
-        height: 14px;
+    .radix-color-circle {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10px !important;
     }
     
     .digit-display {
@@ -2560,19 +2534,22 @@ body.dark-mode .digit-display.digit-highlight {
 }
 
 @media (max-width: 480px) {
-    .radix-color-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .radix-color-guide {
+        padding: 8px 10px;
+    }
+    
+    .radix-color-header {
+        font-size: 13px;
+    }
+    
+    .radix-color-row {
         gap: 4px;
     }
     
-    .radix-color-item {
-        padding: 2px 4px;
-        font-size: 10px;
-    }
-    
-    .radix-color-box {
-        width: 12px;
-        height: 12px;
+    .radix-color-circle {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 9px !important;
     }
     
     .viz-cell.radix-cell {
