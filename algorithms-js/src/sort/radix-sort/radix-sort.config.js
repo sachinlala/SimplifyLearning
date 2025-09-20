@@ -463,8 +463,26 @@ const RadixSortConfig = {
             for (let digit = 0; digit <= 9; digit++) {
                 const colorItem = document.createElement('div');
                 colorItem.className = 'radix-color-item';
-                colorItem.innerHTML = '<span class="radix-color-box digit-' + digit + '" style="background-color: ' + digitColors[digit] + ' !important;"></span>' + 
-                                   '<span class="radix-digit-label">Digit ' + digit + '</span>';
+                
+                // Create color box with guaranteed styling
+                const colorBox = document.createElement('span');
+                colorBox.className = 'radix-color-box digit-' + digit;
+                colorBox.style.backgroundColor = digitColors[digit];
+                colorBox.style.border = '1px solid rgba(0,0,0,0.3)';
+                colorBox.style.display = 'inline-block';
+                colorBox.style.width = '16px';
+                colorBox.style.height = '16px';
+                colorBox.style.borderRadius = '3px';
+                colorBox.style.marginRight = '6px';
+                colorBox.style.flexShrink = '0';
+                
+                // Create label
+                const colorLabel = document.createElement('span');
+                colorLabel.className = 'radix-digit-label';
+                colorLabel.textContent = 'Digit ' + digit;
+                
+                colorItem.appendChild(colorBox);
+                colorItem.appendChild(colorLabel);
                 colorGrid.appendChild(colorItem);
             }
             

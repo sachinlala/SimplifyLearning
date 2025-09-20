@@ -2374,11 +2374,29 @@ body.dark-mode .viz-cell.complete {
 }
 
 .radix-color-box {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    flex-shrink: 0;
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 3px !important;
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+    flex-shrink: 0 !important;
+    display: inline-block !important;
+    margin-right: 6px !important;
+    vertical-align: middle !important;
+}
+
+/* Ensure specific digit color boxes display properly */
+.radix-color-box.digit-0,
+.radix-color-box.digit-1,
+.radix-color-box.digit-2,
+.radix-color-box.digit-3,
+.radix-color-box.digit-4,
+.radix-color-box.digit-5,
+.radix-color-box.digit-6,
+.radix-color-box.digit-7,
+.radix-color-box.digit-8,
+.radix-color-box.digit-9 {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .radix-digit-label {
@@ -2475,7 +2493,22 @@ body.dark-mode .radix-digit-label {
 }
 
 body.dark-mode .radix-color-box {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+body.dark-mode .radix-color-box.digit-0,
+body.dark-mode .radix-color-box.digit-1,
+body.dark-mode .radix-color-box.digit-2,
+body.dark-mode .radix-color-box.digit-3,
+body.dark-mode .radix-color-box.digit-4,
+body.dark-mode .radix-color-box.digit-5,
+body.dark-mode .radix-color-box.digit-6,
+body.dark-mode .radix-color-box.digit-7,
+body.dark-mode .radix-color-box.digit-8,
+body.dark-mode .radix-color-box.digit-9 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 body.dark-mode .digit-display {
