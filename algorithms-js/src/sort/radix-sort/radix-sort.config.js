@@ -463,11 +463,20 @@ const RadixSortConfig = {
             
             const colorRow = document.createElement('div');
             colorRow.className = 'radix-color-row';
+            colorRow.style.display = 'flex';
+            colorRow.style.flexDirection = 'row';
+            colorRow.style.justifyContent = 'center';
+            colorRow.style.alignItems = 'center';
+            colorRow.style.gap = '8px';
+            colorRow.style.flexWrap = 'wrap';
             
             for (let digit = 0; digit <= 9; digit++) {
                 const colorItem = document.createElement('div');
                 colorItem.className = 'radix-color-item';
                 colorItem.title = 'Digit ' + digit + ' - ' + digitColors[digit];
+                colorItem.style.display = 'inline-block';
+                colorItem.style.margin = '0';
+                colorItem.style.padding = '0';
                 
                 // Create color circle with digit inside
                 const colorCircle = document.createElement('div');
@@ -484,6 +493,7 @@ const RadixSortConfig = {
                 colorCircle.style.borderRadius = '50%';
                 colorCircle.style.border = '2px solid rgba(0,0,0,0.2)';
                 colorCircle.style.textShadow = '0 1px 1px rgba(0,0,0,0.5)';
+                colorCircle.style.flexShrink = '0';
                 colorCircle.textContent = digit;
                 
                 colorItem.appendChild(colorCircle);

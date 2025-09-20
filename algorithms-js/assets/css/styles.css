@@ -2357,16 +2357,20 @@ body.dark-mode .viz-cell.complete {
 }
 
 .radix-color-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
 }
 
 .radix-color-item {
+    display: inline-block !important;
     cursor: help;
     transition: transform 0.2s ease;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .radix-color-item:hover {
@@ -2377,6 +2381,19 @@ body.dark-mode .viz-cell.complete {
     position: relative;
     transition: all 0.2s ease;
     cursor: help;
+    display: inline-flex !important;
+    vertical-align: top !important;
+}
+
+/* Force horizontal layout debugging */
+.radix-color-guide * {
+    box-sizing: border-box;
+}
+
+.radix-color-row::after {
+    content: '';
+    clear: both;
+    display: table;
 }
 
 .radix-color-circle:hover {
