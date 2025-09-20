@@ -538,6 +538,13 @@ const BucketSortConfig = {
             const arrayViz = document.getElementById('array-visualization');
             const stepsContainer = document.getElementById('steps-container');
             
+            // Define bucket colors - shared between legend and animation
+            const bucketColors = [
+                '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', 
+                '#f0932b', '#eb4d4b', '#6c5ce7', '#74b9ff',
+                '#00b894', '#fdcb6e'
+            ];
+            
             // Clear previous visualization
             arrayViz.innerHTML = '';
             stepsContainer.innerHTML = '';
@@ -562,15 +569,10 @@ const BucketSortConfig = {
             const bucketInfoDiv = document.createElement('div');
             bucketInfoDiv.className = 'bucket-info';
             bucketInfoDiv.id = 'bucket-info';
-            const bucketColorValues = [
-                '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', 
-                '#f0932b', '#eb4d4b', '#6c5ce7', '#74b9ff',
-                '#00b894', '#fdcb6e'
-            ];
             
             let bucketColorsHTML = '';
             for (let i = 0; i < bucketCount; i++) {
-                const color = bucketColorValues[i % bucketColorValues.length];
+                const color = bucketColors[i % bucketColors.length];
                 bucketColorsHTML += '<span class="bucket-color bucket-' + i + '" style="background-color: ' + color + ' !important; color: white; padding: 6px 10px; margin: 3px 5px; border-radius: 6px; display: inline-block; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 2px 4px rgba(0,0,0,0.2);">B' + i + '</span> ';
             }
             bucketInfoDiv.innerHTML = '<div class="bucket-legend"><strong>Bucket Color Guide:</strong><br>' + bucketColorsHTML + '</div>';
@@ -610,13 +612,6 @@ const BucketSortConfig = {
             function updateBucketVisualization(step) {
                 const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('bucket-status');
-                
-                // Define bucket colors (same as CSS)
-                const bucketColors = [
-                    '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', 
-                    '#f0932b', '#eb4d4b', '#6c5ce7', '#74b9ff',
-                    '#00b894', '#fdcb6e'
-                ];
                 
                 // Reset all cell classes
                 cells.forEach(cell => {
