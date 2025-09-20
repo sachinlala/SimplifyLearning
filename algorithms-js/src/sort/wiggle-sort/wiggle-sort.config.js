@@ -280,7 +280,94 @@ const WIGGLE_SORT_CONFIG = {
                 disadvantages: ["O(n log n) time", "Extra space needed"]
             }
         }
-    }
+    },
+    
+    customDemoFunction: `
+        function runDemo() {
+            const arrayInputStr = document.getElementById('array-input').value;
+            const variant = document.getElementById('variant').value;
+            const resultContainer = document.getElementById('result');
+            const errorContainer = document.getElementById('error-message');
+            const visualizationSection = document.getElementById('visualization-section');
+
+            // Clear previous error and result
+            errorContainer.innerHTML = '';
+            errorContainer.style.display = 'none';
+            resultContainer.innerHTML = '';
+            visualizationSection.style.display = 'none';
+
+            // Parse input array
+            let arrayInput;
+            try {
+                arrayInput = arrayInputStr.split(',').map(item => {
+                    const trimmed = item.trim();
+                    const asNumber = parseInt(trimmed);
+                    if (isNaN(asNumber)) {
+                        throw new Error('All elements must be integers');
+                    }
+                    return asNumber;
+                });
+            } catch (e) {
+                showError('Invalid array format. Please use comma-separated integers.');
+                return;
+            }
+
+            // Validate input
+            if (arrayInput.length === 0) {
+                showError('Array cannot be empty');
+                return;
+            }
+            
+            if (arrayInput.length > 15) {
+                showError('Array size limited to 15 elements for demo purposes');
+                return;
+            }
+
+            try {
+                const startTime = performance.now();
+                
+                // Execute wiggle sort using correct core function
+                let result;
+                if (window.WiggleSortCore) {
+                    if (variant === 'II') {
+                        result = window.WiggleSortCore.wiggleSortII(arrayInput);
+                    } else {
+                        result = window.WiggleSortCore.wiggleSortI(arrayInput);
+                    }
+                } else {
+                    // Fallback if core not loaded
+                    result = { sortedArray: [...arrayInput].sort((a, b) => a - b), metrics: { comparisons: 0, swaps: 0 } };
+                }
+                
+                const endTime = performance.now();
+                const executionTime = (endTime - startTime).toFixed(4);
+                
+                // Analyze the pattern of the result
+                const patternAnalysis = window.WiggleSortConfigUtils ? 
+                    window.WiggleSortConfigUtils.analyzeWigglePattern(result.sortedArray) : 
+                    { pattern: 'N/A', isValid: 'Unknown' };
+                
+                // Show result
+                let resultHTML = \`
+                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
+                    <strong>Wiggle Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
+                    <strong>Variant:</strong> Wiggle Sort \${variant}<br>
+                    <strong>Pattern:</strong> \${patternAnalysis.pattern}<br>
+                    <strong>Valid Wiggle:</strong> \${patternAnalysis.isValid ? 'Yes' : 'No'}<br>
+                    <strong>Comparisons:</strong> \${result.metrics.comparisons || 0}<br>
+                    <strong>Swaps:</strong> \${result.metrics.swaps || 0}<br>
+                    <strong>Time Complexity:</strong> \${variant === 'II' ? 'O(n log n)' : 'O(n)'}<br>
+                    <strong>Space Complexity:</strong> \${variant === 'II' ? 'O(n)' : 'O(1)'}<br>
+                    <strong>Execution Time:</strong> \${executionTime} ms
+                \`;
+                
+                resultContainer.innerHTML = resultHTML;
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+    `
 };
 
 // Utility functions for config
@@ -389,77 +476,7 @@ const WiggleSortConfigUtils = {
             violations,
             isValid: violations === 0
         };
-    },
-    
-    customDemoFunction: `
-        function runDemo() {
-            const arrayInputStr = document.getElementById('array-input').value;
-            const variant = document.getElementById('variant').value;
-            const resultContainer = document.getElementById('result');
-            const errorContainer = document.getElementById('error-message');
-            const visualizationSection = document.getElementById('visualization-section');
-
-            // Clear previous error and result
-            errorContainer.innerHTML = '';
-            errorContainer.style.display = 'none';
-            resultContainer.innerHTML = '';
-            visualizationSection.style.display = 'none';
-
-            // Parse input array
-            let arrayInput;
-            try {
-                arrayInput = arrayInputStr.split(',').map(item => {
-                    const trimmed = item.trim();
-                    const asNumber = parseInt(trimmed);
-                    if (isNaN(asNumber)) {
-                        throw new Error('All elements must be integers');
-                    }
-                    return asNumber;
-                });
-            } catch (e) {
-                showError('Invalid array format. Please use comma-separated integers.');
-                return;
-            }
-
-            // Validate input
-            if (arrayInput.length === 0) {
-                showError('Array cannot be empty');
-                return;
-            }
-            
-            if (arrayInput.length > 15) {
-                showError('Array size limited to 15 elements for demo purposes');
-                return;
-            }
-
-            try {
-                const startTime = performance.now();
-                
-                // Execute wiggle sort
-                const result = window.WiggleSortCore ? 
-                    window.WiggleSortCore.wiggleSort(arrayInput, variant) : 
-                    wiggleSort(arrayInput, variant);
-                
-                const endTime = performance.now();
-                const executionTime = (endTime - startTime).toFixed(4);
-                
-                // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Wiggle Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Variant:</strong> \${variant}<br>
-                    <strong>Pattern:</strong> \${result.pattern || 'a0 < a1 > a2 < a3 > ...'}<br>
-                    <strong>Total Swaps:</strong> \${result.metrics.swaps || 0}<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
-                
-                resultContainer.innerHTML = resultHTML;
-                
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-    `
+    }
 };
 
 // Export for both Node.js and browser environments
