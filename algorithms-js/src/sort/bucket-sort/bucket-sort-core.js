@@ -12,13 +12,9 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import utilities for reusable functions
-// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
 if (typeof require !== 'undefined') {
-    // Node.js environment
     const SortingUtils = require('../utils/sorting-utils.js');
 }
-// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Core bucket sort algorithm for floating-point numbers in range [0, 1)
@@ -33,7 +29,6 @@ function bucketSort(arr) {
         };
     }
 
-    // Validate input - should be numbers
     for (let i = 0; i < arr.length; i++) {
         if (typeof arr[i] !== 'number' || isNaN(arr[i])) {
             throw new Error(`Bucket sort requires numbers. Found: ${arr[i]} at index ${i}`);
@@ -46,12 +41,10 @@ function bucketSort(arr) {
     let swaps = 0;
     let bucketSorts = 0;
 
-    // Determine range of data
     const min = Math.min(...sortedArray);
     const max = Math.max(...sortedArray);
     const range = max - min;
     
-    // Handle edge case where all elements are the same
     if (range === 0) {
         return {
             sortedArray,

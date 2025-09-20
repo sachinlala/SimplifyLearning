@@ -14,14 +14,10 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import utilities for reusable functions
-// Import utilities for reusable functions
-// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
+// SortingUtils is available globally via window.SortingUtils when loaded by universal loader
 if (typeof require !== 'undefined') {
-    // Node.js environment
     const SortingUtils = require('../utils/sorting-utils.js');
 }
-// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Wiggle Sort I - In-place O(n) algorithm
@@ -42,18 +38,15 @@ function wiggleSortI(arr) {
     let comparisons = 0;
     let swaps = 0;
 
-    // In-place wiggle sort algorithm
     for (let i = 0; i < n - 1; i++) {
         comparisons++;
         
         if (i % 2 === 0) {
-            // Even index: should be less than next (valley)
             if (sortedArray[i] > sortedArray[i + 1]) {
                 SortingUtils.swap(sortedArray, i, i + 1);
                 swaps++;
             }
         } else {
-            // Odd index: should be greater than next (peak)
             if (sortedArray[i] < sortedArray[i + 1]) {
                 SortingUtils.swap(sortedArray, i, i + 1);
                 swaps++;
