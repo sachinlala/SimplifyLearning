@@ -562,9 +562,16 @@ const BucketSortConfig = {
             const bucketInfoDiv = document.createElement('div');
             bucketInfoDiv.className = 'bucket-info';
             bucketInfoDiv.id = 'bucket-info';
+            const bucketColorValues = [
+                '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', 
+                '#f0932b', '#eb4d4b', '#6c5ce7', '#74b9ff',
+                '#00b894', '#fdcb6e'
+            ];
+            
             let bucketColorsHTML = '';
             for (let i = 0; i < bucketCount; i++) {
-                bucketColorsHTML += '<span class="bucket-color bucket-' + i + '">B' + i + '</span> ';
+                const color = bucketColorValues[i % bucketColorValues.length];
+                bucketColorsHTML += '<span class="bucket-color bucket-' + i + '" style="background-color: ' + color + ' !important; color: white; padding: 6px 10px; margin: 3px 5px; border-radius: 6px; display: inline-block; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 2px 4px rgba(0,0,0,0.2);">B' + i + '</span> ';
             }
             bucketInfoDiv.innerHTML = '<div class="bucket-legend"><strong>Bucket Color Guide:</strong><br>' + bucketColorsHTML + '</div>';
             arrayViz.appendChild(bucketInfoDiv);
