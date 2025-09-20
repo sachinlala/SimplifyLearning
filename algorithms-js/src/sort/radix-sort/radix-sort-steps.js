@@ -189,6 +189,18 @@ if (typeof window !== 'undefined') {
         getDigit,
         getMaxDigits
     };
+    
+    // Additional exports for universal loader compatibility
+    window.radixSortWithSteps = radixSortWithSteps;
+    window.getDigit = getDigit;
+    window.getMaxDigits = getMaxDigits;
+    
+    // Alternative naming variants
+    window.RADIX_SORT_STEPS = {
+        radixSortWithSteps,
+        getDigit,
+        getMaxDigits
+    };
 }
 
 // Export for CommonJS compatibility

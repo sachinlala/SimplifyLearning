@@ -370,26 +370,322 @@ const RadixSortConfig = {
             try {
                 const startTime = performance.now();
                 
-                // Execute radix sort
-                const result = window.RadixSortCore ? window.RadixSortCore.radixSort(arrayInput) : radixSort(arrayInput);
+                // Execute radix sort using steps function for animation
+                let result;
+                if (window.RadixSortSteps) {
+                    result = window.RadixSortSteps.radixSortWithSteps(arrayInput);
+                } else if (window.radixSortWithSteps) {
+                    result = window.radixSortWithSteps(arrayInput);
+                } else if (window.RadixSortCore) {
+                    const coreResult = window.RadixSortCore.radixSort(arrayInput);
+                    result = { ...coreResult, steps: [] };
+                } else {
+                    result = { sortedArray: [...arrayInput].sort((a, b) => a - b), metrics: { passes: 0, bucketOperations: 0, maxDigits: 0 }, steps: [] };
+                }
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
                 
                 // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Max Digits (d):</strong> \${result.metrics.maxDigits}<br>
-                    <strong>Passes:</strong> \${result.metrics.passes}<br>
-                    <strong>Total Operations:</strong> \${result.metrics.totalOperations}<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
+                let resultHTML = 
+                    '<strong>Original Array:</strong> [' + arrayInput.join(', ') + ']<br>' +
+                    '<strong>Sorted Array:</strong> [' + result.sortedArray.join(', ') + ']<br>' +
+                    '<strong>Max Digits (d):</strong> ' + (result.metrics.maxDigits || 0) + '<br>' +
+                    '<strong>Passes:</strong> ' + (result.metrics.passes || 0) + '<br>' +
+                    '<strong>Bucket Operations:</strong> ' + (result.metrics.bucketOperations || 0) + '<br>' +
+                    '<strong>Execution Time:</strong> ' + executionTime + ' ms';
                 
                 resultContainer.innerHTML = resultHTML;
                 
+                // Show the visualization section with radix sort animation
+                if (result.steps && result.steps.length > 0) {
+                    showRadixSortVisualization(arrayInput, result.steps);
+                    visualizationSection.style.display = 'block';
+                }
+                
             } catch (error) {
                 showError(error.message);
+            }
+        }
+        
+        function showRadixSortVisualization(originalArray, steps) {
+            const arrayViz = document.getElementById('array-visualization');
+            const stepsContainer = document.getElementById('steps-container');
+            
+            // Clear previous visualization
+            arrayViz.innerHTML = '';
+            stepsContainer.innerHTML = '';
+            
+            // Create array visualization
+            const arrayDiv = document.createElement('div');
+            arrayDiv.className = 'array-visualization';
+            arrayDiv.id = 'radix-array-display';
+            
+            originalArray.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.textContent = value;
+                cell.className = 'viz-cell radix-cell';
+                cell.setAttribute('data-index', index);
+                cell.setAttribute('data-value', value);
+                
+                // Add digit display container
+                const digitDisplay = document.createElement('div');
+                digitDisplay.className = 'digit-display';
+                digitDisplay.textContent = '';
+                cell.appendChild(digitDisplay);
+                
+                arrayDiv.appendChild(cell);
+            });
+            
+            arrayViz.appendChild(arrayDiv);
+            
+            // Create digit position display
+            const digitInfoDiv = document.createElement('div');
+            digitInfoDiv.className = 'digit-info';
+            digitInfoDiv.id = 'digit-info';
+            digitInfoDiv.innerHTML = '<div class="digit-legend"><strong>Current Digit Position:</strong> <span id="current-digit-pos">Ready to start...</span></div>';
+            arrayViz.appendChild(digitInfoDiv);
+            
+            // Create buckets visualization
+            const bucketsDiv = document.createElement('div');
+            bucketsDiv.className = 'radix-buckets-container';
+            bucketsDiv.id = 'radix-buckets';
+            bucketsDiv.style.display = 'none'; // Hidden initially
+            
+            // Create 10 buckets for digits 0-9
+            for (let i = 0; i < 10; i++) {
+                const bucketDiv = document.createElement('div');
+                bucketDiv.className = 'radix-bucket';
+                bucketDiv.id = 'radix-bucket-' + i;
+                bucketDiv.innerHTML = '<div class="radix-bucket-header">Bucket ' + i + '</div><div class="radix-bucket-content"></div>';
+                bucketsDiv.appendChild(bucketDiv);
+            }
+            
+            arrayViz.appendChild(bucketsDiv);
+            
+            // Add controls with legend
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = 
+                '<h4>Radix Sort Visualization</h4>' +
+                '<button id="start-radix-animation" class="viz-button start">Start Animation</button>' +
+                '<button id="pause-radix-animation" class="viz-button pause" disabled>Pause</button>' +
+                '<button id="reset-radix-animation" class="viz-button reset">Reset</button>' +
+                '<div class="viz-legend" id="radixsort-legend">' +
+                    '<span class="viz-legend-desktop">* Extract Digits | + Distribute to Buckets | - Collect from Buckets | ! Complete</span>' +
+                    '<div class="viz-legend-mobile" style="display: none;">' +
+                        '<div class="viz-legend-item">* Extract digit from each number</div>' +
+                        '<div class="viz-legend-item">+ Distribute numbers to digit buckets</div>' +
+                        '<div class="viz-legend-item">- Collect numbers from buckets in order</div>' +
+                        '<div class="viz-legend-item">! Sorting completed</div>' +
+                    '</div>' +
+                '</div>';
+            arrayViz.appendChild(controlsDiv);
+            
+            // Status display
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'radix-status';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start radix sort animation...';
+            arrayViz.appendChild(statusDiv);
+            
+            // Animation variables
+            let currentStepIndex = 0;
+            let animationRunning = false;
+            let animationInterval;
+            
+            function updateRadixVisualization(step) {
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                const statusDiv = document.getElementById('radix-status');
+                const bucketsContainer = document.getElementById('radix-buckets');
+                const digitPosSpan = document.getElementById('current-digit-pos');
+                
+                // Reset all cell classes
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell radix-cell';
+                    const digitDisplay = cell.querySelector('.digit-display');
+                    if (digitDisplay) digitDisplay.textContent = '';
+                });
+                
+                // Update array values if changed
+                if (step.array) {
+                    step.array.forEach((value, index) => {
+                        if (cells[index]) {
+                            cells[index].textContent = value;
+                            cells[index].setAttribute('data-value', value);
+                        }
+                    });
+                }
+                
+                // Update digit position display
+                if (step.digitPosition !== undefined) {
+                    const positionName = ['Ones', 'Tens', 'Hundreds', 'Thousands'][step.digitPosition] || 'Position ' + (step.digitPosition + 1);
+                    digitPosSpan.textContent = positionName + ' (' + (step.digitPosition + 1) + ')'; 
+                }
+                
+                // Show/hide buckets based on phase
+                if (step.phase === 'digit-processing' || step.phase === 'distribution' || step.phase === 'collection') {
+                    bucketsContainer.style.display = 'grid';
+                } else {
+                    bucketsContainer.style.display = 'none';
+                }
+                
+                // Handle different step types
+                if (step.type === 'distribute') {
+                    // Highlight current element being distributed
+                    if (step.currentElementIndex !== undefined && cells[step.currentElementIndex]) {
+                        cells[step.currentElementIndex].classList.add('distributing');
+                        
+                        // Show extracted digit
+                        const digitDisplay = cells[step.currentElementIndex].querySelector('.digit-display');
+                        if (digitDisplay && step.extractedDigit !== undefined) {
+                            digitDisplay.textContent = step.extractedDigit;
+                            digitDisplay.classList.add('digit-highlight');
+                        }
+                    }
+                } else if (step.type === 'collect') {
+                    // Highlight element being collected
+                    if (step.collectedTo !== undefined && cells[step.collectedTo]) {
+                        cells[step.collectedTo].classList.add('collecting');
+                    }
+                }
+                
+                // Update bucket displays
+                if (step.buckets) {
+                    step.buckets.forEach((bucket, bucketIndex) => {
+                        const bucketDiv = document.getElementById('radix-bucket-' + bucketIndex);
+                        if (bucketDiv) {
+                            const bucketContent = bucketDiv.querySelector('.radix-bucket-content');
+                            bucketContent.innerHTML = '';
+                            
+                            bucket.forEach(value => {
+                                const bucketItem = document.createElement('div');
+                                bucketItem.className = 'radix-bucket-item';
+                                bucketItem.textContent = value;
+                                bucketContent.appendChild(bucketItem);
+                            });
+                            
+                            // Highlight active bucket
+                            if (step.targetBucket === bucketIndex || step.currentBucket === bucketIndex) {
+                                bucketDiv.classList.add('active-bucket');
+                            } else {
+                                bucketDiv.classList.remove('active-bucket');
+                            }
+                        }
+                    });
+                }
+                
+                // Final completion state
+                if (step.type === 'complete') {
+                    cells.forEach(cell => {
+                        cell.classList.add('complete');
+                        const digitDisplay = cell.querySelector('.digit-display');
+                        if (digitDisplay) {
+                            digitDisplay.textContent = '';
+                            digitDisplay.classList.remove('digit-highlight');
+                        }
+                    });
+                    digitPosSpan.textContent = 'Sorting Complete!';
+                    bucketsContainer.style.display = 'none';
+                }
+                
+                // Update status
+                statusDiv.textContent = step.message;
+                
+                // Show step info in container
+                const stepInfo = document.createElement('div');
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+                
+                let stepTypeColor = '#007acc';
+                if (step.type === 'complete') stepTypeColor = '#28a745';
+                else if (step.type === 'distribute') stepTypeColor = '#ff9800';
+                else if (step.type === 'collect') stepTypeColor = '#4caf50';
+                else if (step.phase === 'digit-processing') stepTypeColor = '#2196f3';
+                
+                stepInfo.style.borderLeftColor = stepTypeColor;
+                
+                let phaseEmoji = '*';
+                if (step.type === 'distribute') phaseEmoji = '+';
+                else if (step.type === 'collect') phaseEmoji = '-';
+                else if (step.type === 'complete') phaseEmoji = '!';
+                else if (step.type === 'pass-start') phaseEmoji = '>';
+                
+                stepInfo.innerHTML = 
+                    '<strong>' + phaseEmoji + ' Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<small>' +
+                        'Phase: ' + (step.phase || 'processing') + ' | ' +
+                        'Pass: ' + (step.passNumber || 'N/A') + ' | ' +
+                        'Operations: ' + (step.metrics.bucketOperations || 0) +
+                    '</small>';
+                
+                if (stepsContainer.children.length > 8) {
+                    stepsContainer.removeChild(stepsContainer.firstChild);
+                }
+                stepsContainer.appendChild(stepInfo);
+            }
+            
+            function startRadixAnimation() {
+                if (animationRunning || currentStepIndex >= steps.length) return;
+                
+                animationRunning = true;
+                document.getElementById('start-radix-animation').disabled = true;
+                document.getElementById('pause-radix-animation').disabled = false;
+                
+                animationInterval = setInterval(() => {
+                    if (currentStepIndex >= steps.length) {
+                        clearInterval(animationInterval);
+                        animationRunning = false;
+                        document.getElementById('start-radix-animation').disabled = false;
+                        document.getElementById('pause-radix-animation').disabled = true;
+                        return;
+                    }
+                    
+                    updateRadixVisualization(steps[currentStepIndex]);
+                    currentStepIndex++;
+                }, 1200); // 1.2 second delay between steps
+            }
+            
+            function pauseRadixAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                document.getElementById('start-radix-animation').disabled = false;
+                document.getElementById('pause-radix-animation').disabled = true;
+            }
+            
+            function resetRadixAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                currentStepIndex = 0;
+                document.getElementById('start-radix-animation').disabled = false;
+                document.getElementById('pause-radix-animation').disabled = true;
+                stepsContainer.innerHTML = '';
+                
+                // Reset visualization
+                const bucketsContainer = document.getElementById('radix-buckets');
+                bucketsContainer.style.display = 'none';
+                document.getElementById('current-digit-pos').textContent = 'Ready to start...';
+                
+                // Clear buckets
+                for (let i = 0; i < 10; i++) {
+                    const bucketContent = document.getElementById('radix-bucket-' + i).querySelector('.radix-bucket-content');
+                    bucketContent.innerHTML = '';
+                    document.getElementById('radix-bucket-' + i).classList.remove('active-bucket');
+                }
+                
+                if (steps.length > 0) {
+                    updateRadixVisualization(steps[0]);
+                }
+                document.getElementById('radix-status').textContent = 'Ready to start radix sort animation...';
+            }
+            
+            // Bind control events
+            document.getElementById('start-radix-animation').addEventListener('click', startRadixAnimation);
+            document.getElementById('pause-radix-animation').addEventListener('click', pauseRadixAnimation);
+            document.getElementById('reset-radix-animation').addEventListener('click', resetRadixAnimation);
+            
+            // Show initial state
+            if (steps.length > 0) {
+                updateRadixVisualization(steps[0]);
             }
         }
     `
