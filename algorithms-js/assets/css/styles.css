@@ -2343,11 +2343,12 @@ body.dark-mode .viz-cell.complete {
 /* Radix sort color guide */
 .radix-color-guide {
     margin: 15px 0;
-    padding: 12px 16px;
+    padding: 16px 20px;
     background: rgba(33, 150, 243, 0.06);
     border: 1px solid rgba(33, 150, 243, 0.2);
     border-radius: 8px;
     text-align: center;
+    overflow: visible;
 }
 
 .radix-color-header {
@@ -2357,48 +2358,29 @@ body.dark-mode .viz-cell.complete {
 }
 
 .radix-color-row {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 8px !important;
-    flex-wrap: wrap !important;
-    flex-direction: row !important;
-}
-
-.radix-color-item {
-    display: inline-block !important;
-    cursor: help;
-    transition: transform 0.2s ease;
-    margin: 0 !important;
+    text-align: center !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin: 8px 0 !important;
     padding: 0 !important;
 }
 
-.radix-color-item:hover {
-    transform: scale(1.1);
+.radix-color-row * {
+    display: inline-block !important;
 }
 
 .radix-color-circle {
-    position: relative;
-    transition: all 0.2s ease;
-    cursor: help;
-    display: inline-flex !important;
-    vertical-align: top !important;
-}
-
-/* Force horizontal layout debugging */
-.radix-color-guide * {
-    box-sizing: border-box;
-}
-
-.radix-color-row::after {
-    content: '';
-    clear: both;
-    display: table;
+    cursor: help !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+    margin: 0 4px !important;
+    vertical-align: middle !important;
 }
 
 .radix-color-circle:hover {
-    transform: scale(1.15);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
+    z-index: 10 !important;
 }
 
 /* Ensure all digit circles are visible */

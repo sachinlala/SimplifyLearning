@@ -463,41 +463,33 @@ const RadixSortConfig = {
             
             const colorRow = document.createElement('div');
             colorRow.className = 'radix-color-row';
-            colorRow.style.display = 'flex';
-            colorRow.style.flexDirection = 'row';
-            colorRow.style.justifyContent = 'center';
-            colorRow.style.alignItems = 'center';
-            colorRow.style.gap = '8px';
-            colorRow.style.flexWrap = 'wrap';
+            colorRow.style.textAlign = 'center';
+            colorRow.style.lineHeight = '1';
+            colorRow.style.whiteSpace = 'nowrap';
+            colorRow.style.margin = '8px 0';
             
             for (let digit = 0; digit <= 9; digit++) {
-                const colorItem = document.createElement('div');
-                colorItem.className = 'radix-color-item';
-                colorItem.title = 'Digit ' + digit + ' - ' + digitColors[digit];
-                colorItem.style.display = 'inline-block';
-                colorItem.style.margin = '0';
-                colorItem.style.padding = '0';
-                
-                // Create color circle with digit inside
-                const colorCircle = document.createElement('div');
+                // Create color circle with digit inside - directly append to row
+                const colorCircle = document.createElement('span');
                 colorCircle.className = 'radix-color-circle digit-' + digit;
+                colorCircle.title = 'Digit ' + digit + ' - ' + digitColors[digit];
                 colorCircle.style.backgroundColor = digitColors[digit];
                 colorCircle.style.color = 'white';
                 colorCircle.style.fontWeight = 'bold';
                 colorCircle.style.fontSize = '11px';
-                colorCircle.style.display = 'flex';
-                colorCircle.style.alignItems = 'center';
-                colorCircle.style.justifyContent = 'center';
+                colorCircle.style.display = 'inline-block';
+                colorCircle.style.textAlign = 'center';
+                colorCircle.style.lineHeight = '24px';
                 colorCircle.style.width = '24px';
                 colorCircle.style.height = '24px';
                 colorCircle.style.borderRadius = '50%';
                 colorCircle.style.border = '2px solid rgba(0,0,0,0.2)';
                 colorCircle.style.textShadow = '0 1px 1px rgba(0,0,0,0.5)';
-                colorCircle.style.flexShrink = '0';
+                colorCircle.style.margin = '0 4px';
+                colorCircle.style.verticalAlign = 'middle';
                 colorCircle.textContent = digit;
                 
-                colorItem.appendChild(colorCircle);
-                colorRow.appendChild(colorItem);
+                colorRow.appendChild(colorCircle);
             }
             
             colorGuide.appendChild(colorRow);
