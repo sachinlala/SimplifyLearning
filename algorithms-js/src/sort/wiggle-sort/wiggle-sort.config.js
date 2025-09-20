@@ -37,6 +37,14 @@ const WIGGLE_SORT_CONFIG = {
         }
     ],
     
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/wiggle-sort/wiggle-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/wiggle",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
+    
     explanation: {
         description: 'Wiggle Sort rearranges an array so that elements alternate between being smaller and larger than their neighbors, creating a "wiggling" pattern. Wiggle Sort I achieves this in O(n) time by making local adjustments, while Wiggle Sort II handles duplicates more carefully to avoid adjacent identical elements.'
     },
