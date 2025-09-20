@@ -633,7 +633,7 @@ const BucketSortConfig = {
                     if (step.currentElementIndex !== undefined && cells[step.currentElementIndex]) {
                         cells[step.currentElementIndex].classList.add('distributing');
                         const targetColor = bucketColors[step.targetBucket % bucketColors.length];
-                        cells[step.currentElementIndex].style.backgroundColor = targetColor + '60'; // 38% opacity preview
+                        cells[step.currentElementIndex].style.backgroundColor = targetColor; // Exact color match with legend
                         cells[step.currentElementIndex].style.borderColor = targetColor;
                         cells[step.currentElementIndex].style.color = '#ffffff';
                         cells[step.currentElementIndex].style.fontWeight = 'bold';
@@ -649,7 +649,7 @@ const BucketSortConfig = {
                                     parseFloat(cell.textContent) === value || cell.textContent === value.toString()
                                 );
                                 matchingCells.forEach(cell => {
-                                    cell.style.backgroundColor = bucketColors[bucketIndex % bucketColors.length] + '80'; // 50% opacity for better visibility
+                                    cell.style.backgroundColor = bucketColors[bucketIndex % bucketColors.length]; // Exact color match with legend
                                     cell.style.borderColor = bucketColors[bucketIndex % bucketColors.length];
                                     cell.style.color = '#ffffff'; // White text for better contrast
                                     cell.style.fontWeight = 'bold';
