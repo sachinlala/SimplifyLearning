@@ -637,7 +637,7 @@ const BucketSortConfig = {
                         cells[step.currentElementIndex].style.fontWeight = 'bold';
                         cells[step.currentElementIndex].setAttribute('data-bucket', step.targetBucket);
                     }
-                }
+                } else if (step.phase === 'distribution-complete' || step.phase === 'bucket-sorting' || step.phase === 'collection') {
                     // Color all elements by their bucket assignment
                     if (step.buckets) {
                         step.buckets.forEach((bucket, bucketIndex) => {
