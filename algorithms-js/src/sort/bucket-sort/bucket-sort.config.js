@@ -566,7 +566,7 @@ const BucketSortConfig = {
             for (let i = 0; i < bucketCount; i++) {
                 bucketColorsHTML += '<span class="bucket-color bucket-' + i + '">B' + i + '</span> ';
             }
-            bucketInfoDiv.innerHTML = '<div class="bucket-legend">Bucket Colors: ' + bucketColorsHTML + '</div>';
+            bucketInfoDiv.innerHTML = '<div class="bucket-legend"><strong>🎨 Bucket Color Guide:</strong><br>' + bucketColorsHTML + '</div>';
             arrayViz.appendChild(bucketInfoDiv);
             
             // Add controls with legend
@@ -578,13 +578,12 @@ const BucketSortConfig = {
                 '<button id="pause-bucket-animation" class="viz-button pause" disabled>Pause</button>' +
                 '<button id="reset-bucket-animation" class="viz-button reset">Reset</button>' +
                 '<div class="viz-legend" id="bucketsort-legend">' +
-                    '<span class="viz-legend-desktop">🏷️ Distribute | 🔄 Sort Buckets | 📤 Collect | ⚡ Current | ✅ Complete</span>' +
+                    '<span class="viz-legend-desktop">🎨 Color by Bucket | 🔄 Sort Each Color Group | 📦 Collect Results | ✅ Complete</span>' +
                     '<div class="viz-legend-mobile" style="display: none;">' +
-                        '<div class="viz-legend-item">🏷️ Distribute to Buckets</div>' +
-                        '<div class="viz-legend-item">🔄 Sort Individual Buckets</div>' +
-                        '<div class="viz-legend-item">📤 Collect from Buckets</div>' +
-                        '<div class="viz-legend-item">⚡ Currently Processing</div>' +
-                        '<div class="viz-legend-item">✅ Completed</div>' +
+                        '<div class="viz-legend-item">🎨 Elements get colored by bucket</div>' +
+                        '<div class="viz-legend-item">🔄 Sort each color group individually</div>' +
+                        '<div class="viz-legend-item">📦 Collect sorted groups in order</div>' +
+                        '<div class="viz-legend-item">✅ Final sorted array</div>' +
                     '</div>' +
                 '</div>';
             arrayViz.appendChild(controlsDiv);
@@ -628,13 +627,17 @@ const BucketSortConfig = {
                 
                 // Apply bucket color coding based on step type and phase
                 if (step.type === 'distribute' && step.targetBucket !== undefined) {
-                    // Show current element being distributed
+                    // Show current element being distributed with preview of target bucket color
                     if (step.currentElementIndex !== undefined && cells[step.currentElementIndex]) {
                         cells[step.currentElementIndex].classList.add('distributing');
-                        cells[step.currentElementIndex].style.borderColor = bucketColors[step.targetBucket % bucketColors.length];
+                        const targetColor = bucketColors[step.targetBucket % bucketColors.length];
+                        cells[step.currentElementIndex].style.backgroundColor = targetColor + '60'; // 38% opacity preview
+                        cells[step.currentElementIndex].style.borderColor = targetColor;
+                        cells[step.currentElementIndex].style.color = '#ffffff';
+                        cells[step.currentElementIndex].style.fontWeight = 'bold';
                         cells[step.currentElementIndex].setAttribute('data-bucket', step.targetBucket);
                     }
-                } else if (step.phase === 'distribution-complete' || step.phase === 'bucket-sorting' || step.phase === 'collection') {
+                }
                     // Color all elements by their bucket assignment
                     if (step.buckets) {
                         step.buckets.forEach((bucket, bucketIndex) => {
@@ -644,17 +647,11 @@ const BucketSortConfig = {
                                     parseFloat(cell.textContent) === value || cell.textContent === value.toString()
                                 );
                                 matchingCells.forEach(cell => {
-                                    cell.style.backgroundColor = bucketColors[bucketIndex % bucketColors.length] + '40'; // 25% opacity
+                                    cell.style.backgroundColor = bucketColors[bucketIndex % bucketColors.length] + '80'; // 50% opacity for better visibility
                                     cell.style.borderColor = bucketColors[bucketIndex % bucketColors.length];
+                                    cell.style.color = '#ffffff'; // White text for better contrast
+                                    cell.style.fontWeight = 'bold';
                                     cell.setAttribute('data-bucket', bucketIndex);
-                                    
-                                    // Add bucket indicator
-                                    if (!cell.querySelector('.bucket-indicator')) {
-                                        const indicator = document.createElement('div');
-                                        indicator.className = 'bucket-indicator';
-                                        indicator.textContent = 'B' + bucketIndex;
-                                        cell.appendChild(indicator);
-                                    }
                                 });
                             });
                         });
@@ -683,11 +680,9 @@ const BucketSortConfig = {
                 if (step.type === 'complete') {
                     cells.forEach(cell => {
                         cell.classList.add('complete');
-                        // Remove bucket indicators on completion
-                        const indicator = cell.querySelector('.bucket-indicator');
-                        if (indicator) {
-                            indicator.remove();
-                        }
+                        // Reset to default text styling
+                        cell.style.color = '';
+                        cell.style.fontWeight = '';
                     });
                 }
                 
@@ -707,10 +702,11 @@ const BucketSortConfig = {
                 stepInfo.style.borderLeftColor = stepTypeColor;
                 
                 let phaseEmoji = '🔄';
-                if (step.type === 'distribute') phaseEmoji = '🏷️';
+                if (step.type === 'distribute') phaseEmoji = '🎨';
                 else if (step.phase === 'bucket-sorting') phaseEmoji = '🔄';
-                else if (step.type === 'collect') phaseEmoji = '📤';
+                else if (step.type === 'collect') phaseEmoji = '📦';
                 else if (step.type === 'complete') phaseEmoji = '✅';
+                else if (step.type === 'initialize') phaseEmoji = '🔍';
                 
                 stepInfo.innerHTML = 
                     '<strong>' + phaseEmoji + ' Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
@@ -768,13 +764,9 @@ const BucketSortConfig = {
                     cell.className = 'viz-cell';
                     cell.style.backgroundColor = '';
                     cell.style.borderColor = '';
+                    cell.style.color = '';
+                    cell.style.fontWeight = '';
                     cell.removeAttribute('data-bucket');
-                    
-                    // Remove bucket indicators
-                    const indicator = cell.querySelector('.bucket-indicator');
-                    if (indicator) {
-                        indicator.remove();
-                    }
                 });
                 
                 // Reset visualization to initial state

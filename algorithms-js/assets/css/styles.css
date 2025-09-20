@@ -2155,20 +2155,22 @@ body.dark-mode .viz-cell.blue-partition {
 }
 
 .bucket-legend {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 13px;
     text-align: center;
+    line-height: 1.4;
 }
 
 .bucket-color {
     display: inline-block;
-    margin: 2px 4px;
-    padding: 4px 8px;
-    border-radius: 4px;
+    margin: 3px 5px;
+    padding: 6px 10px;
+    border-radius: 6px;
     font-size: 12px;
     font-weight: bold;
     color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* Bucket color definitions */
@@ -2183,19 +2185,6 @@ body.dark-mode .viz-cell.blue-partition {
 .bucket-8 { background-color: #00b894; }
 .bucket-9 { background-color: #fdcb6e; }
 
-/* Bucket indicator inside cells */
-.bucket-indicator {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    font-size: 8px;
-    font-weight: bold;
-    padding: 1px 3px;
-    border-radius: 3px;
-    line-height: 1;
-}
 
 /* Animation states for bucket sort */
 .viz-cell.distributing {
@@ -2255,10 +2244,6 @@ body.dark-mode .bucket-info {
     color: #e3f2fd;
 }
 
-body.dark-mode .bucket-indicator {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-}
 
 body.dark-mode .viz-cell.collected {
     background: rgba(76, 175, 80, 0.3) !important;
@@ -2282,12 +2267,6 @@ body.dark-mode .viz-cell.complete {
         font-size: 10px;
     }
     
-    .bucket-indicator {
-        top: -6px;
-        right: -6px;
-        font-size: 7px;
-        padding: 1px 2px;
-    }
 }
 
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
