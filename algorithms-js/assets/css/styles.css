@@ -2174,16 +2174,16 @@ body.dark-mode .viz-cell.blue-partition {
 }
 
 /* Bucket color definitions */
-.bucket-0 { background-color: #ff6b6b; }
-.bucket-1 { background-color: #4ecdc4; }
-.bucket-2 { background-color: #45b7d1; }
-.bucket-3 { background-color: #f9ca24; }
-.bucket-4 { background-color: #f0932b; }
-.bucket-5 { background-color: #eb4d4b; }
-.bucket-6 { background-color: #6c5ce7; }
-.bucket-7 { background-color: #74b9ff; }
-.bucket-8 { background-color: #00b894; }
-.bucket-9 { background-color: #fdcb6e; }
+.bucket-color.bucket-0 { background-color: #ff6b6b !important; }
+.bucket-color.bucket-1 { background-color: #4ecdc4 !important; }
+.bucket-color.bucket-2 { background-color: #45b7d1 !important; }
+.bucket-color.bucket-3 { background-color: #f9ca24 !important; }
+.bucket-color.bucket-4 { background-color: #f0932b !important; }
+.bucket-color.bucket-5 { background-color: #eb4d4b !important; }
+.bucket-color.bucket-6 { background-color: #6c5ce7 !important; }
+.bucket-color.bucket-7 { background-color: #74b9ff !important; }
+.bucket-color.bucket-8 { background-color: #00b894 !important; }
+.bucket-color.bucket-9 { background-color: #fdcb6e !important; }
 
 
 /* Animation states for bucket sort */
