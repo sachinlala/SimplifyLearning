@@ -689,11 +689,15 @@ if (typeof module !== 'undefined' && module.exports) {
         WiggleSortConfigUtils
     };
 } else if (typeof window !== 'undefined') {
+    // Primary exports
     window.WIGGLE_SORT_CONFIG = WIGGLE_SORT_CONFIG;
     window.WiggleSortConfigUtils = WiggleSortConfigUtils;
     
-    // Additional exports for universal loader compatibility
+    // Universal loader compatibility - these are the names the loader looks for
+    window.wigglesortConfig = WIGGLE_SORT_CONFIG;     // algorithmName.replace(/-/g, '') + 'Config'
+    window.wigglesortconfig = WIGGLE_SORT_CONFIG;     // algorithmName.replace(/-/g, '').toLowerCase() + 'Config'  
+    window.wiggleSortConfig = WIGGLE_SORT_CONFIG;     // toCamelCase(algorithmName) + 'Config'
+    
+    // Legacy compatibility
     window.WiggleSortConfig = WIGGLE_SORT_CONFIG;
-    window.wigglesortConfig = WIGGLE_SORT_CONFIG;
-    window.wigglesortconfig = WIGGLE_SORT_CONFIG;
 }
