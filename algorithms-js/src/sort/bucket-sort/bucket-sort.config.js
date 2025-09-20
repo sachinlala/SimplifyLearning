@@ -367,7 +367,7 @@ const BucketSortConfig = {
                     bucketSorts: result.metrics.bucketSorts,
                     comparisons: result.metrics.comparisons,
                     swaps: result.metrics.swaps,
-                    timeComplexity: `O(n + k) where n=${result.sortedArray.length}, k=${result.metrics.buckets}`
+                    timeComplexity: 'O(n + k) where n=' + result.sortedArray.length + ', k=' + (result.metrics.buckets || 'unknown')
                 }
             };
         }

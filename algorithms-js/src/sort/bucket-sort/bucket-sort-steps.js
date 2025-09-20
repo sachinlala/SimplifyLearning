@@ -184,7 +184,10 @@ function bucketSortWithSteps(arr, bucketCount = null) {
     return {
         sortedArray: finalArray,
         steps: steps,
-        metrics: metrics
+        metrics: {
+            ...metrics,
+            buckets: bucketCount
+        }
     };
 }
 
