@@ -2145,212 +2145,148 @@ body.dark-mode .viz-cell.blue-partition {
 }
 
 /* ===== BUCKET SORT VISUALIZATION STYLES ===== */
-/* Buckets container layout */
-.buckets-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    padding: 10px;
+/* Bucket info and legend display */
+.bucket-info {
+    margin: 10px 0;
+    padding: 8px;
     background: rgba(0, 123, 255, 0.05);
     border: 1px solid rgba(0, 123, 255, 0.2);
-    border-radius: 8px;
-    /* Reserve space to prevent layout shift */
-    min-height: 120px;
-}
-
-/* Individual bucket visualization */
-.bucket-visualization {
-    display: flex;
-    flex-direction: column;
-    min-width: 80px;
-    margin: 5px;
-    border: 2px solid #007acc;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
 }
 
-/* Placeholder state for buckets (before animation starts) */
-.bucket-visualization.bucket-placeholder {
-    border-color: rgba(0, 122, 204, 0.3);
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.bucket-visualization.bucket-placeholder .bucket-header {
-    background: rgba(0, 122, 204, 0.3);
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* Bucket header styling */
-.bucket-header {
-    background: #007acc;
-    color: white;
-    text-align: center;
-    padding: 5px;
+.bucket-legend {
+    font-size: 14px;
     font-weight: bold;
-    font-size: 12px;
+    text-align: center;
 }
 
-/* Bucket content area */
-.bucket-content {
-    min-height: 80px; /* Increased to prevent layout shift */
-    height: 80px; /* Fixed height to prevent CLS */
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow-y: auto; /* Allow scrolling if too many items */
-}
-
-/* Individual items in buckets */
-.bucket-item {
-    background: #e3f2fd;
-    border: 1px solid #2196f3;
-    border-radius: 4px;
-    margin: 2px;
+.bucket-color {
+    display: inline-block;
+    margin: 2px 4px;
     padding: 4px 8px;
-    font-size: 11px;
+    border-radius: 4px;
+    font-size: 12px;
     font-weight: bold;
-    color: #1976d2;
-    text-align: center;
-    transition: all 0.3s ease;
-    min-width: 35px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Current bucket being processed */
-.bucket-visualization.current-bucket {
-    border-color: #ff9800;
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-    transform: scale(1.05);
+/* Bucket color definitions */
+.bucket-0 { background-color: #ff6b6b; }
+.bucket-1 { background-color: #4ecdc4; }
+.bucket-2 { background-color: #45b7d1; }
+.bucket-3 { background-color: #f9ca24; }
+.bucket-4 { background-color: #f0932b; }
+.bucket-5 { background-color: #eb4d4b; }
+.bucket-6 { background-color: #6c5ce7; }
+.bucket-7 { background-color: #74b9ff; }
+.bucket-8 { background-color: #00b894; }
+.bucket-9 { background-color: #fdcb6e; }
+
+/* Bucket indicator inside cells */
+.bucket-indicator {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 1px 3px;
+    border-radius: 3px;
+    line-height: 1;
 }
 
-.bucket-visualization.current-bucket .bucket-header {
-    background: #ff9800;
-    animation: bucket-pulse 1s ease-in-out infinite alternate;
-}
-
-@keyframes bucket-pulse {
-    from { background: #ff9800; }
-    to { background: #f57c00; }
-}
-
-/* Distribution phase highlighting */
+/* Animation states for bucket sort */
 .viz-cell.distributing {
-    background: #2196f3 !important;
-    color: white !important;
-    border-color: #1976d2 !important;
-    animation: distribute-bounce 0.8s ease-in-out;
+    animation: bucket-distribute 1s ease-in-out;
+    transform: scale(1.1);
+    z-index: 10;
 }
 
-@keyframes distribute-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+@keyframes bucket-distribute {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1.1); }
 }
 
-/* Phase-based styling for array */
-.array-visualization.distribution-phase {
-    border-left: 4px solid #2196f3;
+.viz-cell.bucket-sorting {
+    animation: bucket-sort-pulse 1.2s ease-in-out infinite alternate;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
 }
 
-.array-visualization.sorting-phase {
-    border-left: 4px solid #ff9800;
+@keyframes bucket-sort-pulse {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.8; transform: scale(1.05); }
 }
 
-.array-visualization.collection-phase {
-    border-left: 4px solid #4caf50;
+.viz-cell.collected {
+    background: #e8f5e8 !important;
+    border-color: #4caf50 !important;
+    animation: bucket-collect 0.8s ease-out;
 }
 
-.array-visualization.complete-phase {
-    border-left: 4px solid #8bc34a;
+@keyframes bucket-collect {
+    0% { transform: translateY(-10px); opacity: 0.7; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Ensure cells have relative positioning for bucket indicators */
+.viz-cell {
+    position: relative;
+}
+
+.viz-cell.complete {
+    background: #c8e6c9 !important;
+    border-color: #4caf50 !important;
+    animation: completion-glow 1s ease-out;
+}
+
+@keyframes completion-glow {
+    0% { box-shadow: 0 0 0 rgba(76, 175, 80, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); }
+    100% { box-shadow: 0 0 0 rgba(76, 175, 80, 0.4); }
 }
 
 /* Dark mode overrides for bucket sort */
-body.dark-mode .buckets-container {
-    background: rgba(0, 123, 255, 0.1);
-    border-color: rgba(0, 123, 255, 0.3);
-}
-
-body.dark-mode .bucket-visualization {
-    background: rgba(66, 66, 66, 0.9);
-    border-color: #42a5f5;
-}
-
-body.dark-mode .bucket-header {
-    background: #42a5f5;
-    color: #fff;
-}
-
-body.dark-mode .bucket-item {
-    background: rgba(33, 150, 243, 0.2);
-    border-color: #42a5f5;
-    color: #90caf9;
-}
-
-body.dark-mode .bucket-visualization.current-bucket {
-    border-color: #ffa726;
-    box-shadow: 0 0 8px rgba(255, 167, 38, 0.6);
-}
-
-body.dark-mode .bucket-visualization.current-bucket .bucket-header {
-    background: #ffa726;
-}
-
-@keyframes bucket-pulse-dark {
-    from { background: #ffa726; }
-    to { background: #ff8f00; }
-}
-
-body.dark-mode .bucket-visualization.current-bucket .bucket-header {
-    animation: bucket-pulse-dark 1s ease-in-out infinite alternate;
-}
-
-body.dark-mode .viz-cell.distributing {
-    background: #42a5f5 !important;
-    color: #fff !important;
-    border-color: #1e88e5 !important;
-}
-
-/* Dark mode placeholder state */
-body.dark-mode .bucket-visualization.bucket-placeholder {
+body.dark-mode .bucket-info {
+    background: rgba(66, 165, 245, 0.1);
     border-color: rgba(66, 165, 245, 0.3);
-    background: rgba(66, 66, 66, 0.5);
+    color: #e3f2fd;
 }
 
-body.dark-mode .bucket-visualization.bucket-placeholder .bucket-header {
-    background: rgba(66, 165, 245, 0.3);
-    color: rgba(255, 255, 255, 0.5);
+body.dark-mode .bucket-indicator {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
 }
 
-/* Mobile responsive adjustments for buckets */
+body.dark-mode .viz-cell.collected {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border-color: #81c784 !important;
+}
+
+body.dark-mode .viz-cell.complete {
+    background: rgba(165, 214, 167, 0.4) !important;
+    border-color: #81c784 !important;
+}
+
+/* Mobile responsive adjustments for bucket sort */
 @media (max-width: 768px) {
-    .buckets-container {
-        flex-direction: column;
-        align-items: center;
-        min-height: 140px; /* Maintain space reservation on mobile */
-    }
-    
-    .bucket-visualization {
-        min-width: 120px;
-        margin: 8px;
-    }
-    
-    .bucket-content {
-        height: 90px; /* Slightly taller on mobile */
-        min-height: 90px;
-    }
-    
-    .bucket-header {
-        font-size: 14px;
-        padding: 8px;
-    }
-    
-    .bucket-item {
+    .bucket-legend {
         font-size: 12px;
-        padding: 6px 10px;
-        margin: 3px;
-        min-width: 40px;
+    }
+    
+    .bucket-color {
+        margin: 1px 2px;
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+    
+    .bucket-indicator {
+        top: -6px;
+        right: -6px;
+        font-size: 7px;
+        padding: 1px 2px;
     }
 }
 

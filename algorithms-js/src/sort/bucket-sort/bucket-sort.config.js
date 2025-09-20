@@ -558,21 +558,16 @@ const BucketSortConfig = {
             
             arrayViz.appendChild(arrayDiv);
             
-            // Create buckets visualization (show container, hide content initially to prevent CLS)
-            const bucketsDiv = document.createElement('div');
-            bucketsDiv.className = 'buckets-container';
-            bucketsDiv.id = 'bucket-display';
-            
+            // Create bucket info display (color legend only)
+            const bucketInfoDiv = document.createElement('div');
+            bucketInfoDiv.className = 'bucket-info';
+            bucketInfoDiv.id = 'bucket-info';
+            let bucketColorsHTML = '';
             for (let i = 0; i < bucketCount; i++) {
-                const bucketDiv = document.createElement('div');
-                bucketDiv.className = 'bucket-visualization bucket-placeholder';
-                bucketDiv.id = 'bucket-' + i;
-                bucketDiv.innerHTML = '<div class="bucket-header">Bucket ' + i + '</div><div class="bucket-content"></div>';
-                bucketDiv.style.opacity = '0.3'; // Make placeholders subtle
-                bucketsDiv.appendChild(bucketDiv);
+                bucketColorsHTML += '<span class="bucket-color bucket-' + i + '">B' + i + '</span> ';
             }
-            
-            arrayViz.appendChild(bucketsDiv);
+            bucketInfoDiv.innerHTML = '<div class="bucket-legend">Bucket Colors: ' + bucketColorsHTML + '</div>';
+            arrayViz.appendChild(bucketInfoDiv);
             
             // Add controls with legend
             const controlsDiv = document.createElement('div');
@@ -583,13 +578,13 @@ const BucketSortConfig = {
                 '<button id="pause-bucket-animation" class="viz-button pause" disabled>Pause</button>' +
                 '<button id="reset-bucket-animation" class="viz-button reset">Reset</button>' +
                 '<div class="viz-legend" id="bucketsort-legend">' +
-                    '<span class="viz-legend-desktop">🔄 Distribution | 🔧 Sorting | 📥 Collection | 🟡 Current | 🟢 Complete</span>' +
+                    '<span class="viz-legend-desktop">🏷️ Distribute | 🔄 Sort Buckets | 📤 Collect | ⚡ Current | ✅ Complete</span>' +
                     '<div class="viz-legend-mobile" style="display: none;">' +
-                        '<div class="viz-legend-item">🔄 Distribution</div>' +
-                        '<div class="viz-legend-item">🔧 Sorting</div>' +
-                        '<div class="viz-legend-item">📥 Collection</div>' +
-                        '<div class="viz-legend-item">🟡 Current</div>' +
-                        '<div class="viz-legend-item">🟢 Complete</div>' +
+                        '<div class="viz-legend-item">🏷️ Distribute to Buckets</div>' +
+                        '<div class="viz-legend-item">🔄 Sort Individual Buckets</div>' +
+                        '<div class="viz-legend-item">📤 Collect from Buckets</div>' +
+                        '<div class="viz-legend-item">⚡ Currently Processing</div>' +
+                        '<div class="viz-legend-item">✅ Completed</div>' +
                     '</div>' +
                 '</div>';
             arrayViz.appendChild(controlsDiv);
@@ -609,16 +604,13 @@ const BucketSortConfig = {
             function updateBucketVisualization(step) {
                 const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('bucket-status');
-                const bucketsContainer = document.getElementById('bucket-display');
                 
-                // Activate buckets when first distribution step starts
-                if (step.type === 'distribute') {
-                    const buckets = bucketsContainer.querySelectorAll('.bucket-visualization');
-                    buckets.forEach(bucket => {
-                        bucket.style.opacity = '1';
-                        bucket.classList.remove('bucket-placeholder');
-                    });
-                }
+                // Define bucket colors (same as CSS)
+                const bucketColors = [
+                    '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', 
+                    '#f0932b', '#eb4d4b', '#6c5ce7', '#74b9ff',
+                    '#00b894', '#fdcb6e'
+                ];
                 
                 // Reset all cell classes
                 cells.forEach(cell => {
@@ -634,47 +626,69 @@ const BucketSortConfig = {
                     });
                 }
                 
-                // Highlight current element for distribution
-                if (step.type === 'distribute' && step.currentElementIndex !== undefined) {
-                    if (cells[step.currentElementIndex]) {
+                // Apply bucket color coding based on step type and phase
+                if (step.type === 'distribute' && step.targetBucket !== undefined) {
+                    // Show current element being distributed
+                    if (step.currentElementIndex !== undefined && cells[step.currentElementIndex]) {
                         cells[step.currentElementIndex].classList.add('distributing');
+                        cells[step.currentElementIndex].style.borderColor = bucketColors[step.targetBucket % bucketColors.length];
+                        cells[step.currentElementIndex].setAttribute('data-bucket', step.targetBucket);
+                    }
+                } else if (step.phase === 'distribution-complete' || step.phase === 'bucket-sorting' || step.phase === 'collection') {
+                    // Color all elements by their bucket assignment
+                    if (step.buckets) {
+                        step.buckets.forEach((bucket, bucketIndex) => {
+                            bucket.forEach(value => {
+                                // Find the cell with this value and color it
+                                const matchingCells = Array.from(cells).filter(cell => 
+                                    parseFloat(cell.textContent) === value || cell.textContent === value.toString()
+                                );
+                                matchingCells.forEach(cell => {
+                                    cell.style.backgroundColor = bucketColors[bucketIndex % bucketColors.length] + '40'; // 25% opacity
+                                    cell.style.borderColor = bucketColors[bucketIndex % bucketColors.length];
+                                    cell.setAttribute('data-bucket', bucketIndex);
+                                    
+                                    // Add bucket indicator
+                                    if (!cell.querySelector('.bucket-indicator')) {
+                                        const indicator = document.createElement('div');
+                                        indicator.className = 'bucket-indicator';
+                                        indicator.textContent = 'B' + bucketIndex;
+                                        cell.appendChild(indicator);
+                                    }
+                                });
+                            });
+                        });
                     }
                 }
                 
-                // Update bucket displays
-                if (step.buckets) {
-                    step.buckets.forEach((bucket, bucketIndex) => {
-                        const bucketDiv = document.getElementById('bucket-' + bucketIndex);
-                        if (bucketDiv) {
-                            const bucketContent = bucketDiv.querySelector('.bucket-content');
-                            bucketContent.innerHTML = '';
-                            
-                            bucket.forEach((value, index) => {
-                                const bucketItem = document.createElement('div');
-                                bucketItem.className = 'bucket-item';
-                                bucketItem.textContent = value;
-                                bucketContent.appendChild(bucketItem);
-                            });
-                            
-                            // Highlight current bucket being worked on
-                            if (step.currentBucket === bucketIndex) {
-                                bucketDiv.classList.add('current-bucket');
-                            } else {
-                                bucketDiv.classList.remove('current-bucket');
-                            }
+                // Highlight current bucket being sorted
+                if (step.currentBucket !== undefined && step.phase === 'bucket-sorting') {
+                    cells.forEach(cell => {
+                        if (cell.getAttribute('data-bucket') === step.currentBucket.toString()) {
+                            cell.classList.add('bucket-sorting');
                         }
                     });
                 }
                 
-                // Color coding based on phase
-                if (step.phase === 'distribution') {
-                    arrayDiv.classList.add('distribution-phase');
-                } else if (step.phase === 'bucket-sorting') {
-                    arrayDiv.classList.add('sorting-phase');
-                } else if (step.phase === 'collection') {
-                    arrayDiv.classList.add('collection-phase');
-                } else if (step.phase === 'complete') {
-                    arrayDiv.classList.add('complete-phase');
+                // Show collection phase
+                if (step.type === 'collect') {
+                    cells.forEach((cell, index) => {
+                        if (index <= step.collectedTo) {
+                            cell.classList.add('collected');
+                        }
+                    });
+                }
+                
+                // Final completion state
+                if (step.type === 'complete') {
+                    cells.forEach(cell => {
+                        cell.classList.add('complete');
+                        // Remove bucket indicators on completion
+                        const indicator = cell.querySelector('.bucket-indicator');
+                        if (indicator) {
+                            indicator.remove();
+                        }
+                    });
                 }
                 
                 // Update status
@@ -692,8 +706,14 @@ const BucketSortConfig = {
                 
                 stepInfo.style.borderLeftColor = stepTypeColor;
                 
+                let phaseEmoji = '🔄';
+                if (step.type === 'distribute') phaseEmoji = '🏷️';
+                else if (step.phase === 'bucket-sorting') phaseEmoji = '🔄';
+                else if (step.type === 'collect') phaseEmoji = '📤';
+                else if (step.type === 'complete') phaseEmoji = '✅';
+                
                 stepInfo.innerHTML = 
-                    '<strong>Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<strong>' + phaseEmoji + ' Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
                     '<small>' +
                         'Phase: ' + (step.phase || 'processing') + ' | ' +
                         'Comparisons: ' + (step.metrics.comparisons || 0) + ' | ' +
@@ -742,20 +762,22 @@ const BucketSortConfig = {
                 document.getElementById('pause-bucket-animation').disabled = true;
                 stepsContainer.innerHTML = '';
                 
-                // Reset buckets to placeholder state
-                const bucketsContainer = document.getElementById('bucket-display');
-                const buckets = bucketsContainer.querySelectorAll('.bucket-visualization');
-                buckets.forEach(bucket => {
-                    bucket.style.opacity = '0.3';
-                    bucket.classList.add('bucket-placeholder');
-                    // Clear bucket contents
-                    const bucketContent = bucket.querySelector('.bucket-content');
-                    if (bucketContent) {
-                        bucketContent.innerHTML = '';
+                // Reset all cells to default state
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell';
+                    cell.style.backgroundColor = '';
+                    cell.style.borderColor = '';
+                    cell.removeAttribute('data-bucket');
+                    
+                    // Remove bucket indicators
+                    const indicator = cell.querySelector('.bucket-indicator');
+                    if (indicator) {
+                        indicator.remove();
                     }
                 });
                 
-                // Reset visualization
+                // Reset visualization to initial state
                 if (steps.length > 0) {
                     updateBucketVisualization(steps[0]);
                 }
