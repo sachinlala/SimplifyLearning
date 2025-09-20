@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧪 Algorithm Testing Lab</title>
+    <title>Testing Lab</title>
     <style>
         :root {
             --primary-color: #007acc;
@@ -50,10 +50,22 @@
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 122, 204, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .theme-toggle:hover {
+            background: #005a99;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
         }
         
         .test-section {
@@ -228,7 +240,7 @@
         
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 10px;
             }
             
             .metrics-grid {
@@ -238,14 +250,54 @@
             .header {
                 flex-direction: column;
                 gap: 15px;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+                margin: 0;
+            }
+            
+            .tab-container {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .form-group {
+                margin: 10px 0;
+            }
+            
+            .form-group input, .form-group select {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            button {
+                width: 100%;
+                margin: 5px 0;
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .test-section {
+                padding: 15px;
+                margin: 15px 0;
             }
         }
     </style>
 </head>
 <body data-theme="light">
     <div class="header">
-        <h1>🧪 Algorithm Testing Lab</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+        <h1>🧪 Testing Lab</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
     </div>
     
     <div class="test-section">
@@ -376,10 +428,10 @@
             
             if (body.dataset.theme === 'light') {
                 body.dataset.theme = 'dark';
-                button.textContent = '☀️ Light Mode';
+                button.textContent = '☀️ Light';
             } else {
                 body.dataset.theme = 'light';
-                button.textContent = '🌙 Dark Mode';
+                button.textContent = '🌙 Dark';
             }
         }
         
@@ -808,7 +860,7 @@
         
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🧪 Algorithm Testing Lab initialized');
+            console.log('🧪 Testing Lab initialized');
             console.log('📍 Current URL:', window.location.href);
             console.log('🔧 Available global functions:', Object.keys(window).filter(key => typeof window[key] === 'function'));
         });

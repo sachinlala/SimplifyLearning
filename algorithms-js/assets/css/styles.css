@@ -2035,6 +2035,74 @@ body.dark-mode .demo-icon:hover {
     box-shadow: 0 4px 8px rgba(88, 166, 255, 0.4);
 }
 
+/* ===== WIGGLE SORT VISUALIZATION STYLES ===== */
+/* Valley (even positions) - blue colors */
+.viz-cell.valley {
+    background: rgba(33, 150, 243, 0.8) !important;
+    border-color: #1976d2 !important;
+    color: white !important;
+}
+
+/* Peak (odd positions) - red colors */
+.viz-cell.peak {
+    background: rgba(244, 67, 54, 0.8) !important;
+    border-color: #c62828 !important;
+    color: white !important;
+}
+
+/* Comparing elements - yellow */
+.viz-cell.comparing {
+    background: rgba(255, 193, 7, 0.9) !important;
+    border-color: #f57c00 !important;
+    color: #333 !important;
+    animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+/* Swapping elements - green */
+.viz-cell.swapping {
+    background: rgba(76, 175, 80, 0.9) !important;
+    border-color: #388e3c !important;
+    color: white !important;
+    animation: bounce 0.6s ease-in-out;
+}
+
+/* Dark mode overrides for wiggle sort */
+body.dark-mode .viz-cell.valley {
+    background: rgba(30, 136, 229, 0.9) !important;
+    border-color: #0d47a1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.peak {
+    background: rgba(229, 57, 53, 0.9) !important;
+    border-color: #b71c1c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.comparing {
+    background: rgba(255, 193, 7, 0.85) !important;
+    border-color: #f57c00 !important;
+    color: #333 !important;
+}
+
+body.dark-mode .viz-cell.swapping {
+    background: rgba(76, 175, 80, 0.85) !important;
+    border-color: #2e7d32 !important;
+    color: #fff !important;
+}
+
+/* Animations for wiggle sort */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    80% { transform: translateY(-4px); }
+}
+
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
 /* These rules override inline styles in existing algorithm configs to ensure dark mode compatibility */
 
