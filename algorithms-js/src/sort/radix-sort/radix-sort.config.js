@@ -416,6 +416,12 @@ const RadixSortConfig = {
             arrayViz.innerHTML = '';
             stepsContainer.innerHTML = '';
             
+            // Define digit bucket colors (10 distinct colors for digits 0-9)
+            const digitColors = [
+                '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57',
+                '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43'
+            ];
+            
             // Create array visualization
             const arrayDiv = document.createElement('div');
             arrayDiv.className = 'array-visualization';
@@ -446,22 +452,24 @@ const RadixSortConfig = {
             digitInfoDiv.innerHTML = '<div class="digit-legend"><strong>Current Digit Position:</strong> <span id="current-digit-pos">Ready to start...</span></div>';
             arrayViz.appendChild(digitInfoDiv);
             
-            // Create buckets visualization
-            const bucketsDiv = document.createElement('div');
-            bucketsDiv.className = 'radix-buckets-container';
-            bucketsDiv.id = 'radix-buckets';
-            bucketsDiv.style.display = 'none'; // Hidden initially
+            // Create color legend for digit assignments
+            const colorGuide = document.createElement('div');
+            colorGuide.className = 'radix-color-guide';
+            colorGuide.innerHTML = '<h4>Digit Color Guide:</h4>';
             
-            // Create 10 buckets for digits 0-9
-            for (let i = 0; i < 10; i++) {
-                const bucketDiv = document.createElement('div');
-                bucketDiv.className = 'radix-bucket';
-                bucketDiv.id = 'radix-bucket-' + i;
-                bucketDiv.innerHTML = '<div class="radix-bucket-header">Bucket ' + i + '</div><div class="radix-bucket-content"></div>';
-                bucketsDiv.appendChild(bucketDiv);
+            const colorGrid = document.createElement('div');
+            colorGrid.className = 'radix-color-grid';
+            
+            for (let digit = 0; digit <= 9; digit++) {
+                const colorItem = document.createElement('div');
+                colorItem.className = 'radix-color-item';
+                colorItem.innerHTML = '<span class="radix-color-box digit-' + digit + '" style="background-color: ' + digitColors[digit] + ' !important;"></span>' + 
+                                   '<span class="radix-digit-label">Digit ' + digit + '</span>';
+                colorGrid.appendChild(colorItem);
             }
             
-            arrayViz.appendChild(bucketsDiv);
+            colorGuide.appendChild(colorGrid);
+            arrayViz.appendChild(colorGuide);
             
             // Add controls with legend
             const controlsDiv = document.createElement('div');
@@ -472,12 +480,13 @@ const RadixSortConfig = {
                 '<button id="pause-radix-animation" class="viz-button pause" disabled>Pause</button>' +
                 '<button id="reset-radix-animation" class="viz-button reset">Reset</button>' +
                 '<div class="viz-legend" id="radixsort-legend">' +
-                    '<span class="viz-legend-desktop">* Extract Digits | + Distribute to Buckets | - Collect from Buckets | ! Complete</span>' +
+                    '<span class="viz-legend-desktop">✋ Extract | 🎨 Color by Digit | 📦 Distribute | 🔄 Collect | ✅ Complete</span>' +
                     '<div class="viz-legend-mobile" style="display: none;">' +
-                        '<div class="viz-legend-item">* Extract digit from each number</div>' +
-                        '<div class="viz-legend-item">+ Distribute numbers to digit buckets</div>' +
-                        '<div class="viz-legend-item">- Collect numbers from buckets in order</div>' +
-                        '<div class="viz-legend-item">! Sorting completed</div>' +
+                        '<div class="viz-legend-item">✋ Extract digit from number</div>' +
+                        '<div class="viz-legend-item">🎨 Color elements by their digit</div>' +
+                        '<div class="viz-legend-item">📦 Distribute to digit groups</div>' +
+                        '<div class="viz-legend-item">🔄 Collect back in digit order</div>' +
+                        '<div class="viz-legend-item">✅ Pass completed</div>' +
                     '</div>' +
                 '</div>';
             arrayViz.appendChild(controlsDiv);
@@ -497,14 +506,19 @@ const RadixSortConfig = {
             function updateRadixVisualization(step) {
                 const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('radix-status');
-                const bucketsContainer = document.getElementById('radix-buckets');
                 const digitPosSpan = document.getElementById('current-digit-pos');
                 
-                // Reset all cell classes
+                // Reset all cell classes and styles
                 cells.forEach(cell => {
                     cell.className = 'viz-cell radix-cell';
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    cell.style.borderColor = '';
                     const digitDisplay = cell.querySelector('.digit-display');
-                    if (digitDisplay) digitDisplay.textContent = '';
+                    if (digitDisplay) {
+                        digitDisplay.textContent = '';
+                        digitDisplay.classList.remove('digit-highlight');
+                    }
                 });
                 
                 // Update array values if changed
@@ -523,14 +537,7 @@ const RadixSortConfig = {
                     digitPosSpan.textContent = positionName + ' (' + (step.digitPosition + 1) + ')'; 
                 }
                 
-                // Show/hide buckets based on phase
-                if (step.phase === 'digit-processing' || step.phase === 'distribution' || step.phase === 'collection') {
-                    bucketsContainer.style.display = 'grid';
-                } else {
-                    bucketsContainer.style.display = 'none';
-                }
-                
-                // Handle different step types
+                // Handle different step types with color coding
                 if (step.type === 'distribute') {
                     // Highlight current element being distributed
                     if (step.currentElementIndex !== undefined && cells[step.currentElementIndex]) {
@@ -542,43 +549,46 @@ const RadixSortConfig = {
                             digitDisplay.textContent = step.extractedDigit;
                             digitDisplay.classList.add('digit-highlight');
                         }
+                        
+                        // Apply color based on extracted digit
+                        if (step.extractedDigit !== undefined) {
+                            const digitColor = digitColors[step.extractedDigit];
+                            cells[step.currentElementIndex].style.backgroundColor = digitColor;
+                            cells[step.currentElementIndex].style.color = 'white';
+                            cells[step.currentElementIndex].style.borderColor = digitColor;
+                        }
                     }
                 } else if (step.type === 'collect') {
                     // Highlight element being collected
                     if (step.collectedTo !== undefined && cells[step.collectedTo]) {
                         cells[step.collectedTo].classList.add('collecting');
                     }
-                }
-                
-                // Update bucket displays
-                if (step.buckets) {
-                    step.buckets.forEach((bucket, bucketIndex) => {
-                        const bucketDiv = document.getElementById('radix-bucket-' + bucketIndex);
-                        if (bucketDiv) {
-                            const bucketContent = bucketDiv.querySelector('.radix-bucket-content');
-                            bucketContent.innerHTML = '';
-                            
-                            bucket.forEach(value => {
-                                const bucketItem = document.createElement('div');
-                                bucketItem.className = 'radix-bucket-item';
-                                bucketItem.textContent = value;
-                                bucketContent.appendChild(bucketItem);
-                            });
-                            
-                            // Highlight active bucket
-                            if (step.targetBucket === bucketIndex || step.currentBucket === bucketIndex) {
-                                bucketDiv.classList.add('active-bucket');
-                            } else {
-                                bucketDiv.classList.remove('active-bucket');
-                            }
+                } else if (step.type === 'distribution-complete') {
+                    // Color all elements by their current digit
+                    step.array.forEach((value, index) => {
+                        if (cells[index] && step.digitPosition !== undefined) {
+                            const digit = Math.floor(value / Math.pow(10, step.digitPosition)) % 10;
+                            const digitColor = digitColors[digit];
+                            cells[index].style.backgroundColor = digitColor;
+                            cells[index].style.color = 'white';
+                            cells[index].style.borderColor = digitColor;
+                            cells[index].classList.add('digit-colored');
                         }
+                    });
+                } else if (step.type === 'pass-complete') {
+                    // Show completion of pass with gentle pulse
+                    cells.forEach(cell => {
+                        cell.classList.add('pass-complete');
                     });
                 }
                 
                 // Final completion state
                 if (step.type === 'complete') {
                     cells.forEach(cell => {
-                        cell.classList.add('complete');
+                        cell.className = 'viz-cell radix-cell complete';
+                        cell.style.backgroundColor = '';
+                        cell.style.color = '';
+                        cell.style.borderColor = '';
                         const digitDisplay = cell.querySelector('.digit-display');
                         if (digitDisplay) {
                             digitDisplay.textContent = '';
@@ -586,7 +596,6 @@ const RadixSortConfig = {
                         }
                     });
                     digitPosSpan.textContent = 'Sorting Complete!';
-                    bucketsContainer.style.display = 'none';
                 }
                 
                 // Update status
@@ -661,16 +670,21 @@ const RadixSortConfig = {
                 stepsContainer.innerHTML = '';
                 
                 // Reset visualization
-                const bucketsContainer = document.getElementById('radix-buckets');
-                bucketsContainer.style.display = 'none';
                 document.getElementById('current-digit-pos').textContent = 'Ready to start...';
                 
-                // Clear buckets
-                for (let i = 0; i < 10; i++) {
-                    const bucketContent = document.getElementById('radix-bucket-' + i).querySelector('.radix-bucket-content');
-                    bucketContent.innerHTML = '';
-                    document.getElementById('radix-bucket-' + i).classList.remove('active-bucket');
-                }
+                // Reset all cells to default state
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell radix-cell';
+                    cell.style.backgroundColor = '';
+                    cell.style.color = '';
+                    cell.style.borderColor = '';
+                    const digitDisplay = cell.querySelector('.digit-display');
+                    if (digitDisplay) {
+                        digitDisplay.textContent = '';
+                        digitDisplay.classList.remove('digit-highlight');
+                    }
+                });
                 
                 if (steps.length > 0) {
                     updateRadixVisualization(steps[0]);
