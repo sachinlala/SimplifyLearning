@@ -2144,6 +2144,184 @@ body.dark-mode .viz-cell.blue-partition {
     color: #fff !important;
 }
 
+/* ===== BUCKET SORT VISUALIZATION STYLES ===== */
+/* Buckets container layout */
+.buckets-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(0, 123, 255, 0.05);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* Individual bucket visualization */
+.bucket-visualization {
+    display: flex;
+    flex-direction: column;
+    min-width: 80px;
+    margin: 5px;
+    border: 2px solid #007acc;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+/* Bucket header styling */
+.bucket-header {
+    background: #007acc;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* Bucket content area */
+.bucket-content {
+    min-height: 60px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Individual items in buckets */
+.bucket-item {
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    border-radius: 4px;
+    margin: 2px;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #1976d2;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-width: 35px;
+}
+
+/* Current bucket being processed */
+.bucket-visualization.current-bucket {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+    transform: scale(1.05);
+}
+
+.bucket-visualization.current-bucket .bucket-header {
+    background: #ff9800;
+    animation: bucket-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes bucket-pulse {
+    from { background: #ff9800; }
+    to { background: #f57c00; }
+}
+
+/* Distribution phase highlighting */
+.viz-cell.distributing {
+    background: #2196f3 !important;
+    color: white !important;
+    border-color: #1976d2 !important;
+    animation: distribute-bounce 0.8s ease-in-out;
+}
+
+@keyframes distribute-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Phase-based styling for array */
+.array-visualization.distribution-phase {
+    border-left: 4px solid #2196f3;
+}
+
+.array-visualization.sorting-phase {
+    border-left: 4px solid #ff9800;
+}
+
+.array-visualization.collection-phase {
+    border-left: 4px solid #4caf50;
+}
+
+.array-visualization.complete-phase {
+    border-left: 4px solid #8bc34a;
+}
+
+/* Dark mode overrides for bucket sort */
+body.dark-mode .buckets-container {
+    background: rgba(0, 123, 255, 0.1);
+    border-color: rgba(0, 123, 255, 0.3);
+}
+
+body.dark-mode .bucket-visualization {
+    background: rgba(66, 66, 66, 0.9);
+    border-color: #42a5f5;
+}
+
+body.dark-mode .bucket-header {
+    background: #42a5f5;
+    color: #fff;
+}
+
+body.dark-mode .bucket-item {
+    background: rgba(33, 150, 243, 0.2);
+    border-color: #42a5f5;
+    color: #90caf9;
+}
+
+body.dark-mode .bucket-visualization.current-bucket {
+    border-color: #ffa726;
+    box-shadow: 0 0 8px rgba(255, 167, 38, 0.6);
+}
+
+body.dark-mode .bucket-visualization.current-bucket .bucket-header {
+    background: #ffa726;
+}
+
+@keyframes bucket-pulse-dark {
+    from { background: #ffa726; }
+    to { background: #ff8f00; }
+}
+
+body.dark-mode .bucket-visualization.current-bucket .bucket-header {
+    animation: bucket-pulse-dark 1s ease-in-out infinite alternate;
+}
+
+body.dark-mode .viz-cell.distributing {
+    background: #42a5f5 !important;
+    color: #fff !important;
+    border-color: #1e88e5 !important;
+}
+
+/* Mobile responsive adjustments for buckets */
+@media (max-width: 768px) {
+    .buckets-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bucket-visualization {
+        min-width: 120px;
+        margin: 8px;
+    }
+    
+    .bucket-header {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .bucket-item {
+        font-size: 12px;
+        padding: 6px 10px;
+        margin: 3px;
+        min-width: 40px;
+    }
+}
+
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
 /* These rules override inline styles in existing algorithm configs to ensure dark mode compatibility */
 

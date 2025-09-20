@@ -18,7 +18,7 @@ const BucketSortConfig = {
         {
             id: 'array-input',
             type: 'text',
-            label: 'Array Elements (decimals 0.0-1.0)',
+            label: 'Array Elements (integers or decimals)',
             defaultValue: '0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12',
             width: '280px'
         },
@@ -248,6 +248,27 @@ const BucketSortConfig = {
             description: 'Very close values - most will go to same bucket',
             expected: [0.1, 0.11, 0.12, 0.13, 0.14, 0.15],
             difficulty: 'hard'
+        },
+        {
+            name: 'Integer Array',
+            input: [64, 34, 25, 12, 22, 11, 90],
+            description: 'Integer array - will be normalized for bucket sort',
+            expected: [11, 12, 22, 25, 34, 64, 90],
+            difficulty: 'easy'
+        },
+        {
+            name: 'Small Integers',
+            input: [5, 2, 8, 1, 9, 3],
+            description: 'Small integer values',
+            expected: [1, 2, 3, 5, 8, 9],
+            difficulty: 'easy'
+        },
+        {
+            name: 'Large Range Integers',
+            input: [100, 50, 200, 10, 150, 75],
+            description: 'Integers with large range - tests normalization',
+            expected: [10, 50, 75, 100, 150, 200],
+            difficulty: 'medium'
         }
     ],
     
@@ -409,7 +430,7 @@ const BucketSortConfig = {
                     return asNumber;
                 });
             } catch (e) {
-                showError('Invalid array format. Please use comma-separated decimal numbers (0.0-1.0).');
+                showError('Invalid array format. Please use comma-separated numbers.');
                 return;
             }
 
@@ -424,13 +445,29 @@ const BucketSortConfig = {
                 return;
             }
             
-            // Validate range
-            for (let i = 0; i < arrayInput.length; i++) {
-                if (arrayInput[i] < 0 || arrayInput[i] > 1) {
-                    showError('All elements should be between 0.0 and 1.0 for optimal bucket sort performance');
-                    return;
+            // Auto-normalize the array if it's not in 0.0-1.0 range
+            const min = Math.min(...arrayInput);
+            const max = Math.max(...arrayInput);
+            const range = max - min;
+            
+            let normalizedArray = [...arrayInput];
+            let isNormalized = false;
+            
+            // Check if normalization is needed
+            if (min < 0 || max > 1 || range > 1) {
+                if (range === 0) {
+                    // All elements are the same
+                    normalizedArray = arrayInput.map(() => 0.5);
+                } else {
+                    // Normalize to [0,1] range
+                    normalizedArray = arrayInput.map(x => (x - min) / range);
+                    isNormalized = true;
                 }
             }
+            
+            // Update arrayInput to the normalized version for processing
+            const originalArray = [...arrayInput];
+            arrayInput = normalizedArray;
             
             // Parse bucket count
             const bucketCount = parseInt(bucketCountStr);
@@ -442,27 +479,274 @@ const BucketSortConfig = {
             try {
                 const startTime = performance.now();
                 
-                // Execute bucket sort
-                const result = window.BucketSortCore ? window.BucketSortCore.bucketSort(arrayInput) : bucketSort(arrayInput);
+                // Execute bucket sort using steps function for animation
+                let result;
+                if (window.BucketSortSteps) {
+                    result = window.BucketSortSteps.bucketSortWithSteps(arrayInput, bucketCount);
+                } else if (window.bucketSortWithSteps) {
+                    result = window.bucketSortWithSteps(arrayInput, bucketCount);
+                } else if (window.BucketSortCore) {
+                    const coreResult = window.BucketSortCore.bucketSort(arrayInput);
+                    result = { ...coreResult, steps: [] };
+                } else {
+                    result = { sortedArray: [...arrayInput].sort((a, b) => a - b), metrics: { comparisons: 0, swaps: 0, bucketOperations: 0 }, steps: [] };
+                }
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
                 
                 // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Buckets Used:</strong> \${result.metrics.buckets}<br>
-                    <strong>Buckets Sorted:</strong> \${result.metrics.bucketSorts}<br>
-                    <strong>Total Comparisons:</strong> \${result.metrics.comparisons}<br>
-                    <strong>Total Swaps:</strong> \${result.metrics.swaps}<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
+                let resultHTML = 
+                    '<strong>Original Array:</strong> [' + originalArray.join(', ') + ']<br>';
+                
+                if (isNormalized) {
+                    resultHTML += 
+                        '<strong>Normalized for Processing:</strong> [' + arrayInput.map(x => x.toFixed(3)).join(', ') + ']<br>' +
+                        '<em>Note: Array was normalized to [0,1] range for optimal bucket sort performance</em><br>';
+                }
+                
+                // Map normalized result back to original scale for display
+                let displaySortedArray;
+                if (isNormalized && range > 0) {
+                    displaySortedArray = result.sortedArray.map(x => (x * range + min));
+                } else {
+                    displaySortedArray = result.sortedArray;
+                }
+                
+                resultHTML += 
+                    '<strong>Sorted Array:</strong> [' + displaySortedArray.map(x => typeof x === 'number' ? x.toFixed(3) : x).join(', ') + ']<br>' +
+                    '<strong>Buckets Used:</strong> ' + bucketCount + '<br>' +
+                    '<strong>Bucket Operations:</strong> ' + (result.metrics.bucketOperations || 0) + '<br>' +
+                    '<strong>Total Comparisons:</strong> ' + (result.metrics.comparisons || 0) + '<br>' +
+                    '<strong>Total Insertions:</strong> ' + (result.metrics.insertions || 0) + '<br>' +
+                    '<strong>Execution Time:</strong> ' + executionTime + ' ms';
                 
                 resultContainer.innerHTML = resultHTML;
                 
+                // Show the visualization section with bucket sort animation
+                if (result.steps && result.steps.length > 0) {
+                    showBucketSortVisualization(originalArray, result.steps, bucketCount, isNormalized, min, range);
+                    visualizationSection.style.display = 'block';
+                }
+                
             } catch (error) {
                 showError(error.message);
+            }
+        }
+        
+        function showBucketSortVisualization(originalArray, steps, bucketCount, isNormalized = false, minVal = 0, rangeVal = 1) {
+            const arrayViz = document.getElementById('array-visualization');
+            const stepsContainer = document.getElementById('steps-container');
+            
+            // Clear previous visualization
+            arrayViz.innerHTML = '';
+            stepsContainer.innerHTML = '';
+            
+            // Create array visualization
+            const arrayDiv = document.createElement('div');
+            arrayDiv.className = 'array-visualization';
+            arrayDiv.id = 'bucket-array-display';
+            
+            originalArray.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.textContent = value;
+                cell.className = 'viz-cell';
+                cell.setAttribute('data-index', index);
+                cell.setAttribute('data-value', value);
+                arrayDiv.appendChild(cell);
+            });
+            
+            arrayViz.appendChild(arrayDiv);
+            
+            // Create buckets visualization
+            const bucketsDiv = document.createElement('div');
+            bucketsDiv.className = 'buckets-container';
+            bucketsDiv.id = 'bucket-display';
+            
+            for (let i = 0; i < bucketCount; i++) {
+                const bucketDiv = document.createElement('div');
+                bucketDiv.className = 'bucket-visualization';
+                bucketDiv.id = 'bucket-' + i;
+                bucketDiv.innerHTML = '<div class="bucket-header">Bucket ' + i + '</div><div class="bucket-content"></div>';
+                bucketsDiv.appendChild(bucketDiv);
+            }
+            
+            arrayViz.appendChild(bucketsDiv);
+            
+            // Add controls with legend
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = 
+                '<h4>Bucket Sort Visualization (' + bucketCount + ' buckets)</h4>' +
+                '<button id="start-bucket-animation" class="viz-button start">Start Animation</button>' +
+                '<button id="pause-bucket-animation" class="viz-button pause" disabled>Pause</button>' +
+                '<button id="reset-bucket-animation" class="viz-button reset">Reset</button>' +
+                '<div class="viz-legend" id="bucketsort-legend">' +
+                    '<span class="viz-legend-desktop">🔄 Distribution | 🔧 Sorting | 📥 Collection | 🟡 Current | 🟢 Complete</span>' +
+                    '<div class="viz-legend-mobile" style="display: none;">' +
+                        '<div class="viz-legend-item">🔄 Distribution</div>' +
+                        '<div class="viz-legend-item">🔧 Sorting</div>' +
+                        '<div class="viz-legend-item">📥 Collection</div>' +
+                        '<div class="viz-legend-item">🟡 Current</div>' +
+                        '<div class="viz-legend-item">🟢 Complete</div>' +
+                    '</div>' +
+                '</div>';
+            arrayViz.appendChild(controlsDiv);
+            
+            // Status display
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'bucket-status';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start bucket sort animation...';
+            arrayViz.appendChild(statusDiv);
+            
+            // Animation variables
+            let currentStepIndex = 0;
+            let animationRunning = false;
+            let animationInterval;
+            
+            function updateBucketVisualization(step) {
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                const statusDiv = document.getElementById('bucket-status');
+                const bucketsContainer = document.getElementById('bucket-display');
+                
+                // Reset all cell classes
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell';
+                });
+                
+                // Update array values if changed
+                if (step.array) {
+                    step.array.forEach((value, index) => {
+                        if (cells[index] && value !== null && value !== undefined) {
+                            cells[index].textContent = value;
+                        }
+                    });
+                }
+                
+                // Highlight current element for distribution
+                if (step.type === 'distribute' && step.currentElementIndex !== undefined) {
+                    if (cells[step.currentElementIndex]) {
+                        cells[step.currentElementIndex].classList.add('distributing');
+                    }
+                }
+                
+                // Update bucket displays
+                if (step.buckets) {
+                    step.buckets.forEach((bucket, bucketIndex) => {
+                        const bucketDiv = document.getElementById('bucket-' + bucketIndex);
+                        if (bucketDiv) {
+                            const bucketContent = bucketDiv.querySelector('.bucket-content');
+                            bucketContent.innerHTML = '';
+                            
+                            bucket.forEach((value, index) => {
+                                const bucketItem = document.createElement('div');
+                                bucketItem.className = 'bucket-item';
+                                bucketItem.textContent = value;
+                                bucketContent.appendChild(bucketItem);
+                            });
+                            
+                            // Highlight current bucket being worked on
+                            if (step.currentBucket === bucketIndex) {
+                                bucketDiv.classList.add('current-bucket');
+                            } else {
+                                bucketDiv.classList.remove('current-bucket');
+                            }
+                        }
+                    });
+                }
+                
+                // Color coding based on phase
+                if (step.phase === 'distribution') {
+                    arrayDiv.classList.add('distribution-phase');
+                } else if (step.phase === 'bucket-sorting') {
+                    arrayDiv.classList.add('sorting-phase');
+                } else if (step.phase === 'collection') {
+                    arrayDiv.classList.add('collection-phase');
+                } else if (step.phase === 'complete') {
+                    arrayDiv.classList.add('complete-phase');
+                }
+                
+                // Update status
+                statusDiv.textContent = step.message;
+                
+                // Show step info in container
+                const stepInfo = document.createElement('div');
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+                
+                let stepTypeColor = '#007acc';
+                if (step.type === 'complete') stepTypeColor = '#28a745';
+                else if (step.type === 'distribute') stepTypeColor = '#2196f3';
+                else if (step.phase === 'bucket-sorting') stepTypeColor = '#ff9800';
+                else if (step.type === 'collect') stepTypeColor = '#4caf50';
+                
+                stepInfo.style.borderLeftColor = stepTypeColor;
+                
+                stepInfo.innerHTML = 
+                    '<strong>Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<small>' +
+                        'Phase: ' + (step.phase || 'processing') + ' | ' +
+                        'Comparisons: ' + (step.metrics.comparisons || 0) + ' | ' +
+                        'Operations: ' + (step.metrics.bucketOperations || 0) +
+                    '</small>';
+                
+                if (stepsContainer.children.length > 8) {
+                    stepsContainer.removeChild(stepsContainer.firstChild);
+                }
+                stepsContainer.appendChild(stepInfo);
+            }
+            
+            function startBucketAnimation() {
+                if (animationRunning || currentStepIndex >= steps.length) return;
+                
+                animationRunning = true;
+                document.getElementById('start-bucket-animation').disabled = true;
+                document.getElementById('pause-bucket-animation').disabled = false;
+                
+                animationInterval = setInterval(() => {
+                    if (currentStepIndex >= steps.length) {
+                        clearInterval(animationInterval);
+                        animationRunning = false;
+                        document.getElementById('start-bucket-animation').disabled = false;
+                        document.getElementById('pause-bucket-animation').disabled = true;
+                        return;
+                    }
+                    
+                    updateBucketVisualization(steps[currentStepIndex]);
+                    currentStepIndex++;
+                }, 1500); // 1.5 second delay between steps
+            }
+            
+            function pauseBucketAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                document.getElementById('start-bucket-animation').disabled = false;
+                document.getElementById('pause-bucket-animation').disabled = true;
+            }
+            
+            function resetBucketAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                currentStepIndex = 0;
+                document.getElementById('start-bucket-animation').disabled = false;
+                document.getElementById('pause-bucket-animation').disabled = true;
+                stepsContainer.innerHTML = '';
+                
+                // Reset visualization
+                if (steps.length > 0) {
+                    updateBucketVisualization(steps[0]);
+                }
+                document.getElementById('bucket-status').textContent = 'Ready to start bucket sort animation...';
+            }
+            
+            // Bind control events
+            document.getElementById('start-bucket-animation').addEventListener('click', startBucketAnimation);
+            document.getElementById('pause-bucket-animation').addEventListener('click', pauseBucketAnimation);
+            document.getElementById('reset-bucket-animation').addEventListener('click', resetBucketAnimation);
+            
+            // Show initial state
+            if (steps.length > 0) {
+                updateBucketVisualization(steps[0]);
             }
         }
     `
@@ -470,12 +754,17 @@ const BucketSortConfig = {
 
 // Export for both Node.js and browser environments
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = BucketSortConfig;
+    module.exports = {
+        BUCKET_SORT_CONFIG: BucketSortConfig,
+        BucketSortConfig
+    };
 } else if (typeof window !== 'undefined') {
+    // Primary exports
+    window.BUCKET_SORT_CONFIG = BucketSortConfig;
     window.BucketSortConfig = BucketSortConfig;
     
-    // Additional exports for universal loader compatibility
-    window.BUCKET_SORT_CONFIG = BucketSortConfig;
-    window.bucketsortConfig = BucketSortConfig;
-    window.bucketsortconfig = BucketSortConfig;
+    // Universal loader compatibility - these are the names the loader looks for
+    window.bucketsortConfig = BucketSortConfig;     // algorithmName.replace(/-/g, '') + 'Config'
+    window.bucketsortconfig = BucketSortConfig;     // algorithmName.replace(/-/g, '').toLowerCase() + 'Config'  
+    window.bucketSortConfig = BucketSortConfig;     // toCamelCase(algorithmName) + 'Config'
 }
