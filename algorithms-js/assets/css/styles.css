@@ -2103,6 +2103,47 @@ body.dark-mode .viz-cell.swapping {
     80% { transform: translateY(-4px); }
 }
 
+/* ===== DUTCH FLAG SORT VISUALIZATION STYLES ===== */
+/* Red partition (first group) */
+.viz-cell.red-partition {
+    background: rgba(244, 67, 54, 0.8) !important;
+    border-color: #c62828 !important;
+    color: white !important;
+}
+
+/* White/Other partition (middle group) */
+.viz-cell.white-partition {
+    background: rgba(238, 238, 238, 0.9) !important;
+    border-color: #bdbdbd !important;
+    color: #333 !important;
+}
+
+/* Blue partition (last group) */
+.viz-cell.blue-partition {
+    background: rgba(33, 150, 243, 0.8) !important;
+    border-color: #1976d2 !important;
+    color: white !important;
+}
+
+/* Dark mode overrides for dutch flag sort */
+body.dark-mode .viz-cell.red-partition {
+    background: rgba(229, 57, 53, 0.9) !important;
+    border-color: #b71c1c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.white-partition {
+    background: rgba(189, 189, 189, 0.3) !important;
+    border-color: #757575 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.blue-partition {
+    background: rgba(30, 136, 229, 0.9) !important;
+    border-color: #0d47a1 !important;
+    color: #fff !important;
+}
+
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
 /* These rules override inline styles in existing algorithm configs to ensure dark mode compatibility */
 
