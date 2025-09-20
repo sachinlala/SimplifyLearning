@@ -2155,6 +2155,8 @@ body.dark-mode .viz-cell.blue-partition {
     background: rgba(0, 123, 255, 0.05);
     border: 1px solid rgba(0, 123, 255, 0.2);
     border-radius: 8px;
+    /* Reserve space to prevent layout shift */
+    min-height: 120px;
 }
 
 /* Individual bucket visualization */
@@ -2169,6 +2171,17 @@ body.dark-mode .viz-cell.blue-partition {
     transition: all 0.3s ease;
 }
 
+/* Placeholder state for buckets (before animation starts) */
+.bucket-visualization.bucket-placeholder {
+    border-color: rgba(0, 122, 204, 0.3);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.bucket-visualization.bucket-placeholder .bucket-header {
+    background: rgba(0, 122, 204, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+}
+
 /* Bucket header styling */
 .bucket-header {
     background: #007acc;
@@ -2181,12 +2194,14 @@ body.dark-mode .viz-cell.blue-partition {
 
 /* Bucket content area */
 .bucket-content {
-    min-height: 60px;
+    min-height: 80px; /* Increased to prevent layout shift */
+    height: 80px; /* Fixed height to prevent CLS */
     padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    overflow-y: auto; /* Allow scrolling if too many items */
 }
 
 /* Individual items in buckets */
@@ -2297,16 +2312,33 @@ body.dark-mode .viz-cell.distributing {
     border-color: #1e88e5 !important;
 }
 
+/* Dark mode placeholder state */
+body.dark-mode .bucket-visualization.bucket-placeholder {
+    border-color: rgba(66, 165, 245, 0.3);
+    background: rgba(66, 66, 66, 0.5);
+}
+
+body.dark-mode .bucket-visualization.bucket-placeholder .bucket-header {
+    background: rgba(66, 165, 245, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+}
+
 /* Mobile responsive adjustments for buckets */
 @media (max-width: 768px) {
     .buckets-container {
         flex-direction: column;
         align-items: center;
+        min-height: 140px; /* Maintain space reservation on mobile */
     }
     
     .bucket-visualization {
         min-width: 120px;
         margin: 8px;
+    }
+    
+    .bucket-content {
+        height: 90px; /* Slightly taller on mobile */
+        min-height: 90px;
     }
     
     .bucket-header {

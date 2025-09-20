@@ -558,16 +558,17 @@ const BucketSortConfig = {
             
             arrayViz.appendChild(arrayDiv);
             
-            // Create buckets visualization
+            // Create buckets visualization (show container, hide content initially to prevent CLS)
             const bucketsDiv = document.createElement('div');
             bucketsDiv.className = 'buckets-container';
             bucketsDiv.id = 'bucket-display';
             
             for (let i = 0; i < bucketCount; i++) {
                 const bucketDiv = document.createElement('div');
-                bucketDiv.className = 'bucket-visualization';
+                bucketDiv.className = 'bucket-visualization bucket-placeholder';
                 bucketDiv.id = 'bucket-' + i;
                 bucketDiv.innerHTML = '<div class="bucket-header">Bucket ' + i + '</div><div class="bucket-content"></div>';
+                bucketDiv.style.opacity = '0.3'; // Make placeholders subtle
                 bucketsDiv.appendChild(bucketDiv);
             }
             
@@ -609,6 +610,15 @@ const BucketSortConfig = {
                 const cells = arrayDiv.querySelectorAll('.viz-cell');
                 const statusDiv = document.getElementById('bucket-status');
                 const bucketsContainer = document.getElementById('bucket-display');
+                
+                // Activate buckets when first distribution step starts
+                if (step.type === 'distribute') {
+                    const buckets = bucketsContainer.querySelectorAll('.bucket-visualization');
+                    buckets.forEach(bucket => {
+                        bucket.style.opacity = '1';
+                        bucket.classList.remove('bucket-placeholder');
+                    });
+                }
                 
                 // Reset all cell classes
                 cells.forEach(cell => {
@@ -731,6 +741,19 @@ const BucketSortConfig = {
                 document.getElementById('start-bucket-animation').disabled = false;
                 document.getElementById('pause-bucket-animation').disabled = true;
                 stepsContainer.innerHTML = '';
+                
+                // Reset buckets to placeholder state
+                const bucketsContainer = document.getElementById('bucket-display');
+                const buckets = bucketsContainer.querySelectorAll('.bucket-visualization');
+                buckets.forEach(bucket => {
+                    bucket.style.opacity = '0.3';
+                    bucket.classList.add('bucket-placeholder');
+                    // Clear bucket contents
+                    const bucketContent = bucket.querySelector('.bucket-content');
+                    if (bucketContent) {
+                        bucketContent.innerHTML = '';
+                    }
+                });
                 
                 // Reset visualization
                 if (steps.length > 0) {
