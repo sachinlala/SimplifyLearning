@@ -566,7 +566,7 @@ const BucketSortConfig = {
             for (let i = 0; i < bucketCount; i++) {
                 bucketColorsHTML += '<span class="bucket-color bucket-' + i + '">B' + i + '</span> ';
             }
-            bucketInfoDiv.innerHTML = '<div class="bucket-legend"><strong>🎨 Bucket Color Guide:</strong><br>' + bucketColorsHTML + '</div>';
+            bucketInfoDiv.innerHTML = '<div class="bucket-legend"><strong>Bucket Color Guide:</strong><br>' + bucketColorsHTML + '</div>';
             arrayViz.appendChild(bucketInfoDiv);
             
             // Add controls with legend
@@ -578,12 +578,12 @@ const BucketSortConfig = {
                 '<button id="pause-bucket-animation" class="viz-button pause" disabled>Pause</button>' +
                 '<button id="reset-bucket-animation" class="viz-button reset">Reset</button>' +
                 '<div class="viz-legend" id="bucketsort-legend">' +
-                    '<span class="viz-legend-desktop">🎨 Color by Bucket | 🔄 Sort Each Color Group | 📦 Collect Results | ✅ Complete</span>' +
+                    '<span class="viz-legend-desktop">Color by Bucket | Sort Each Color Group | Collect Results | Complete</span>' +
                     '<div class="viz-legend-mobile" style="display: none;">' +
-                        '<div class="viz-legend-item">🎨 Elements get colored by bucket</div>' +
-                        '<div class="viz-legend-item">🔄 Sort each color group individually</div>' +
-                        '<div class="viz-legend-item">📦 Collect sorted groups in order</div>' +
-                        '<div class="viz-legend-item">✅ Final sorted array</div>' +
+                        '<div class="viz-legend-item">Elements get colored by bucket</div>' +
+                        '<div class="viz-legend-item">Sort each color group individually</div>' +
+                        '<div class="viz-legend-item">Collect sorted groups in order</div>' +
+                        '<div class="viz-legend-item">Final sorted array</div>' +
                     '</div>' +
                 '</div>';
             arrayViz.appendChild(controlsDiv);
@@ -701,12 +701,12 @@ const BucketSortConfig = {
                 
                 stepInfo.style.borderLeftColor = stepTypeColor;
                 
-                let phaseEmoji = '🔄';
-                if (step.type === 'distribute') phaseEmoji = '🎨';
-                else if (step.phase === 'bucket-sorting') phaseEmoji = '🔄';
-                else if (step.type === 'collect') phaseEmoji = '📦';
-                else if (step.type === 'complete') phaseEmoji = '✅';
-                else if (step.type === 'initialize') phaseEmoji = '🔍';
+                let phaseEmoji = '*';
+                if (step.type === 'distribute') phaseEmoji = '+';
+                else if (step.phase === 'bucket-sorting') phaseEmoji = '~';
+                else if (step.type === 'collect') phaseEmoji = '-';
+                else if (step.type === 'complete') phaseEmoji = '!';
+                else if (step.type === 'initialize') phaseEmoji = '?';
                 
                 stepInfo.innerHTML = 
                     '<strong>' + phaseEmoji + ' Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
