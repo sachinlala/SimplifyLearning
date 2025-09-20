@@ -181,6 +181,13 @@ algorithms-js/
 
 ## 💡 Tips for AI Assistants
 
+### **Reading GitHub Issues**
+- **Use curl for reading GitHub issues**: When you need to read a GitHub issue, use curl instead of gh CLI
+- **Command format**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues/ISSUE_NUMBER"`
+- **Get specific fields**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues/ISSUE_NUMBER" | jq '{title: .title, body: .body, state: .state}'`
+- **List all issues**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues"`
+- This approach is more reliable than gh CLI for programmatic access
+
 ### **🚨 CRITICAL: Workflow Requirements**
 - **NEVER push directly to `master` branch - use feature branches only**
 - **NEVER merge PRs without explicit approval from maintainer**
