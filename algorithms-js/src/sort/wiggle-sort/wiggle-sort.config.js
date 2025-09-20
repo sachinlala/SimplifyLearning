@@ -359,18 +359,17 @@ const WIGGLE_SORT_CONFIG = {
                     { pattern: 'N/A', isValid: 'Unknown' };
                 
                 // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Wiggle Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Variant:</strong> Wiggle Sort \${variant}<br>
-                    <strong>Pattern:</strong> \${patternAnalysis.pattern}<br>
-                    <strong>Valid Wiggle:</strong> \${patternAnalysis.isValid ? 'Yes' : 'No'}<br>
-                    <strong>Comparisons:</strong> \${result.metrics.comparisons || 0}<br>
-                    <strong>Swaps:</strong> \${result.metrics.swaps || 0}<br>
-                    <strong>Time Complexity:</strong> \${variant === 'II' ? 'O(n log n)' : 'O(n)'}<br>
-                    <strong>Space Complexity:</strong> \${variant === 'II' ? 'O(n)' : 'O(1)'}<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
+                let resultHTML = 
+                    '<strong>Original Array:</strong> [' + arrayInput.join(', ') + ']<br>' +
+                    '<strong>Wiggle Sorted Array:</strong> [' + result.sortedArray.join(', ') + ']<br>' +
+                    '<strong>Variant:</strong> Wiggle Sort ' + variant + '<br>' +
+                    '<strong>Pattern:</strong> ' + patternAnalysis.pattern + '<br>' +
+                    '<strong>Valid Wiggle:</strong> ' + (patternAnalysis.isValid ? 'Yes' : 'No') + '<br>' +
+                    '<strong>Comparisons:</strong> ' + (result.metrics.comparisons || 0) + '<br>' +
+                    '<strong>Swaps:</strong> ' + (result.metrics.swaps || 0) + '<br>' +
+                    '<strong>Time Complexity:</strong> ' + (variant === 'II' ? 'O(n log n)' : 'O(n)') + '<br>' +
+                    '<strong>Space Complexity:</strong> ' + (variant === 'II' ? 'O(n)' : 'O(1)') + '<br>' +
+                    '<strong>Execution Time:</strong> ' + executionTime + ' ms';
                 
                 resultContainer.innerHTML = resultHTML;
                 
@@ -412,22 +411,21 @@ const WIGGLE_SORT_CONFIG = {
             // Add controls with legend
             const controlsDiv = document.createElement('div');
             controlsDiv.className = 'viz-controls';
-            controlsDiv.innerHTML = `
-                <h4>Wiggle Sort ${variant} Visualization</h4>
-                <button id="start-wiggle-animation" class="viz-button start">Start Animation</button>
-                <button id="pause-wiggle-animation" class="viz-button pause" disabled>Pause</button>
-                <button id="reset-wiggle-animation" class="viz-button reset">Reset</button>
-                <div class="viz-legend" id="wigglesort-legend">
-                    <span class="viz-legend-desktop">🔵 Valley (Even) | 🔴 Peak (Odd) | 🟡 Comparing | 🟢 Swapping | ✅ Complete</span>
-                    <div class="viz-legend-mobile" style="display: none;">
-                        <div class="viz-legend-item">🔵 Valley (Even)</div>
-                        <div class="viz-legend-item">🔴 Peak (Odd)</div>
-                        <div class="viz-legend-item">🟡 Comparing</div>
-                        <div class="viz-legend-item">🟢 Swapping</div>
-                        <div class="viz-legend-item">✅ Complete</div>
-                    </div>
-                </div>
-            `;
+            controlsDiv.innerHTML = 
+                '<h4>Wiggle Sort ' + variant + ' Visualization</h4>' +
+                '<button id="start-wiggle-animation" class="viz-button start">Start Animation</button>' +
+                '<button id="pause-wiggle-animation" class="viz-button pause" disabled>Pause</button>' +
+                '<button id="reset-wiggle-animation" class="viz-button reset">Reset</button>' +
+                '<div class="viz-legend" id="wigglesort-legend">' +
+                    '<span class="viz-legend-desktop">🔵 Valley (Even) | 🔴 Peak (Odd) | 🟡 Comparing | 🟢 Swapping | ✅ Complete</span>' +
+                    '<div class="viz-legend-mobile" style="display: none;">' +
+                        '<div class="viz-legend-item">🔵 Valley (Even)</div>' +
+                        '<div class="viz-legend-item">🔴 Peak (Odd)</div>' +
+                        '<div class="viz-legend-item">🟡 Comparing</div>' +
+                        '<div class="viz-legend-item">🟢 Swapping</div>' +
+                        '<div class="viz-legend-item">✅ Complete</div>' +
+                    '</div>' +
+                '</div>';
             arrayViz.appendChild(controlsDiv);
             
             // Status display
@@ -501,15 +499,14 @@ const WIGGLE_SORT_CONFIG = {
                 
                 stepInfo.style.borderLeftColor = stepTypeColor;
                 
-                stepInfo.innerHTML = `
-                    <strong>Step ${currentStepIndex + 1}:</strong> ${step.message}<br>
-                    <small>
-                        Phase: ${step.phase} | 
-                        Comparisons: ${step.comparisons || 0} | 
-                        Swaps: ${step.swaps || 0} |
-                        Pattern: ${step.patternFixed || step.expectedPattern || 'N/A'}
-                    </small>
-                `;
+                stepInfo.innerHTML = 
+                    '<strong>Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<small>' +
+                        'Phase: ' + (step.phase) + ' | ' +
+                        'Comparisons: ' + (step.comparisons || 0) + ' | ' +
+                        'Swaps: ' + (step.swaps || 0) + ' | ' +
+                        'Pattern: ' + (step.patternFixed || step.expectedPattern || 'N/A') +
+                    '</small>';
                 
                 if (stepsContainer.children.length > 8) {
                     stepsContainer.removeChild(stepsContainer.firstChild);
