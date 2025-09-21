@@ -228,6 +228,12 @@ if (typeof module !== 'undefined' && module.exports) {
     window.CountingSortSteps = {
         countingSortWithSteps
     };
-    // Expose commonly used functions in global scope for demo configs
+    
+    // Additional exports for universal loader compatibility
     window.countingSortWithSteps = countingSortWithSteps;
+    
+    // Alternative naming variants
+    window.COUNTING_SORT_STEPS = {
+        countingSortWithSteps
+    };
 }
