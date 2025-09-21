@@ -105,11 +105,22 @@ algorithms-js/
 ## 🚀 Development Workflow
 
 ### **Testing Approach**
+- **Algorithm Testing Lab**: Use `http://localhost:8080/test-algorithm.html` for comprehensive testing
 - Test algorithm functionality first (core logic)
 - Verify UI/visualization works correctly
+- Test step-by-step animations and tracking
 - Check responsive design on multiple screen sizes
 - Test dark/light mode switching
 - Validate in browser console (no 404s or errors)
+- Use external browser (not terminal web viewers) for JavaScript execution
+
+### **Algorithm Testing Workflow**
+1. **Dependencies**: Test if all scripts load correctly
+2. **Configuration**: Verify config objects are exported properly
+3. **Core Functions**: Test algorithm logic and basic functionality
+4. **Step Tracking**: Verify animation step generation works
+5. **Demo Simulation**: Test the full demo interface functionality
+6. **Cross-browser Testing**: Test in Chrome, Firefox, Safari
 
 ### **Code Quality**
 - Write clear, self-documenting code
@@ -123,6 +134,15 @@ algorithms-js/
 - Optimize for smooth user experience
 
 ## 🐛 Common Issues & Solutions
+
+### **JavaScript Execution Issues**
+- **Warp Terminal Browser**: Warp's built-in web rendering may not execute JavaScript properly
+- **Symptom**: "You need to enable JavaScript to run this app" message
+- **Solutions**:
+  - Use external browser (Chrome, Firefox, Safari) for testing demos
+  - Use the permanent test page: `http://localhost:8080/test-algorithm.html`
+  - Test individual components using Node.js for core functionality
+- **Testing Strategy**: Always verify demos in a full browser, not just terminal web viewers
 
 ### **404 Errors**
 - Often caused by missing `-core.js` files
@@ -180,6 +200,13 @@ algorithms-js/
 - Cross-browser compatibility testing
 
 ## 💡 Tips for AI Assistants
+
+### **Reading GitHub Issues**
+- **Use curl for reading GitHub issues**: When you need to read a GitHub issue, use curl instead of gh CLI
+- **Command format**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues/ISSUE_NUMBER"`
+- **Get specific fields**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues/ISSUE_NUMBER" | jq '{title: .title, body: .body, state: .state}'`
+- **List all issues**: `curl -s "https://api.github.com/repos/sachinlala/SimplifyLearning/issues"`
+- This approach is more reliable than gh CLI for programmatic access
 
 ### **🚨 CRITICAL: Workflow Requirements**
 - **NEVER push directly to `master` branch - use feature branches only**

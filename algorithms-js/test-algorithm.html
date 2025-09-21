@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Lab</title>
+    <style>
+        :root {
+            --primary-color: #007acc;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --warning-color: #ffc107;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --border-color: #dee2e6;
+            --code-bg: #f8f9fa;
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --border-color: #444444;
+            --code-bg: #2d2d2d;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 122, 204, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .theme-toggle:hover {
+            background: #005a99;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 204, 0.3);
+        }
+        
+        .test-section {
+            margin: 25px 0;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+        }
+        
+        .status-indicator.success { background: var(--success-color); }
+        .status-indicator.error { background: var(--error-color); }
+        .status-indicator.warning { background: var(--warning-color); }
+        
+        .error {
+            color: var(--error-color);
+            font-weight: 600;
+            background: rgba(220, 53, 69, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--error-color);
+        }
+        
+        .success {
+            color: var(--success-color);
+            font-weight: 600;
+            background: rgba(40, 167, 69, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .warning {
+            color: #856404;
+            font-weight: 600;
+            background: rgba(255, 193, 7, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 8px 5px 8px 0;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #005a99;
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        input, select, textarea {
+            padding: 10px;
+            margin: 8px 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin: 15px 0;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin: 10px 0;
+        }
+        
+        .result-container {
+            margin-top: 20px;
+            min-height: 50px;
+        }
+        
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .metric-card {
+            padding: 15px;
+            background: rgba(0, 122, 204, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+                margin: 0;
+            }
+            
+            .tab-container {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .form-group {
+                margin: 10px 0;
+            }
+            
+            .form-group input, .form-group select {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            button {
+                width: 100%;
+                margin: 5px 0;
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .test-section {
+                padding: 15px;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="header">
+        <h1>🧪 Testing Lab</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Algorithm Selection</h2>
+        <p>Select an algorithm to test its implementation, step tracking, and demo functionality.</p>
+        
+        <div class="form-group">
+            <label>Algorithm Category:</label>
+            <select id="category" onchange="updateAlgorithmList()">
+                <option value="">Select Category</option>
+                <option value="sort">Sorting Algorithms</option>
+                <option value="search">Search Algorithms</option>
+                <option value="patterns">Pattern/Sequence Algorithms</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Algorithm:</label>
+            <select id="algorithm" onchange="updateTestInputs()">
+                <option value="">Select Algorithm</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Test Input:</label>
+            <input type="text" id="test-input" placeholder="e.g., 3, 5, 2, 1, 6, 4" style="width: 300px;">
+            <button onclick="generateRandomInput()">🎲 Random</button>
+        </div>
+        
+        <div id="algorithm-specific-inputs"></div>
+        
+        <button onclick="runAllTests()">🚀 Run All Tests</button>
+        <button onclick="clearResults()">🗑️ Clear Results</button>
+    </div>
+    
+    <div class="tab-container">
+        <div class="tab active" onclick="switchTab('dependencies')">📦 Dependencies</div>
+        <div class="tab" onclick="switchTab('configuration')">⚙️ Configuration</div>
+        <div class="tab" onclick="switchTab('core-functions')">🔧 Core Functions</div>
+        <div class="tab" onclick="switchTab('step-tracking')">🎬 Step Tracking</div>
+        <div class="tab" onclick="switchTab('demo-simulation')">🎭 Demo Simulation</div>
+    </div>
+    
+    <div id="dependencies" class="tab-content active">
+        <div class="test-section">
+            <h2><span class="status-indicator" id="deps-status"></span>Dependency Loading Test</h2>
+            <p>Testing if all required scripts and dependencies load correctly...</p>
+            <button onclick="testDependencies()">Test Dependencies</button>
+            <div class="result-container" id="deps-result"></div>
+        </div>
+    </div>
+    
+    <div id="configuration" class="tab-content">
+        <div class="test-section">
+            <h2><span class="status-indicator" id="config-status"></span>Configuration Loading Test</h2>
+            <p>Testing if algorithm configuration loads and exports correctly...</p>
+            <button onclick="testConfiguration()">Test Configuration</button>
+            <div class="result-container" id="config-result"></div>
+        </div>
+    </div>
+    
+    <div id="core-functions" class="tab-content">
+        <div class="test-section">
+            <h2><span class="status-indicator" id="core-status"></span>Core Functions Test</h2>
+            <p>Testing if algorithm core functions are available and working...</p>
+            <button onclick="testCoreFunctions()">Test Core Functions</button>
+            <div class="result-container" id="core-result"></div>
+        </div>
+    </div>
+    
+    <div id="step-tracking" class="tab-content">
+        <div class="test-section">
+            <h2><span class="status-indicator" id="steps-status"></span>Step Tracking Test</h2>
+            <p>Testing if step-by-step tracking works for animations...</p>
+            <button onclick="testStepTracking()">Test Step Tracking</button>
+            <div class="result-container" id="steps-result"></div>
+        </div>
+    </div>
+    
+    <div id="demo-simulation" class="tab-content">
+        <div class="test-section">
+            <h2><span class="status-indicator" id="demo-status"></span>Demo Simulation</h2>
+            <p>Simulating the actual demo interface with full functionality...</p>
+            <button onclick="runDemoSimulation()">Run Demo</button>
+            <div class="result-container" id="demo-result"></div>
+        </div>
+    </div>
+
+    <div class="test-section" style="margin-top: 40px;">
+        <h2>🔗 Quick Links</h2>
+        <button onclick="openFullDemo()">Open Full Demo</button>
+        <button onclick="viewSourceCode()">View Source Code</button>
+        <button onclick="checkUniversalLoader()">Test Universal Loader</button>
+    </div>
+
+    <script>
+        let currentAlgorithm = null;
+        let loadedScripts = [];
+        
+        // Algorithm definitions
+        const algorithms = {
+            sort: [
+                { id: 'bubble-sort', name: 'Bubble Sort', hasSteps: true },
+                { id: 'selection-sort', name: 'Selection Sort', hasSteps: true },
+                { id: 'insertion-sort', name: 'Insertion Sort', hasSteps: true },
+                { id: 'merge-sort', name: 'Merge Sort', hasSteps: true },
+                { id: 'quick-sort', name: 'Quick Sort', hasSteps: true },
+                { id: 'heap-sort', name: 'Heap Sort', hasSteps: true },
+                { id: 'counting-sort', name: 'Counting Sort', hasSteps: true },
+                { id: 'radix-sort', name: 'Radix Sort', hasSteps: true },
+                { id: 'bucket-sort', name: 'Bucket Sort', hasSteps: true },
+                { id: 'wiggle-sort', name: 'Wiggle Sort', hasSteps: true },
+                { id: 'dutch-flag-sort', name: 'Dutch Flag Sort', hasSteps: true }
+            ],
+            search: [
+                { id: 'binary-search', name: 'Binary Search', hasSteps: true },
+                { id: 'linear-search', name: 'Linear Search', hasSteps: true }
+            ],
+            patterns: [
+                { id: 'count-and-say', name: 'Count and Say', hasSteps: true },
+                { id: 'look-and-say', name: 'Look and Say', hasSteps: true }
+            ]
+        };
+        
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (body.dataset.theme === 'light') {
+                body.dataset.theme = 'dark';
+                button.textContent = '☀️ Light';
+            } else {
+                body.dataset.theme = 'light';
+                button.textContent = '🌙 Dark';
+            }
+        }
+        
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Mark selected tab as active
+            event.target.classList.add('active');
+        }
+        
+        function updateAlgorithmList() {
+            const category = document.getElementById('category').value;
+            const algorithmSelect = document.getElementById('algorithm');
+            
+            algorithmSelect.innerHTML = '<option value="">Select Algorithm</option>';
+            
+            if (category && algorithms[category]) {
+                algorithms[category].forEach(algo => {
+                    const option = document.createElement('option');
+                    option.value = algo.id;
+                    option.textContent = algo.name;
+                    algorithmSelect.appendChild(option);
+                });
+            }
+        }
+        
+        function updateTestInputs() {
+            const algorithm = document.getElementById('algorithm').value;
+            const category = document.getElementById('category').value;
+            
+            if (algorithm) {
+                currentAlgorithm = { id: algorithm, category: category };
+                
+                // Set appropriate test input based on algorithm
+                const testInput = document.getElementById('test-input');
+                if (category === 'sort') {
+                    testInput.value = '3, 5, 2, 1, 6, 4';
+                    testInput.placeholder = 'e.g., 3, 5, 2, 1, 6, 4';
+                } else if (category === 'search') {
+                    testInput.value = '1, 2, 3, 4, 5, 6, 7, 8, 9, 10';
+                    testInput.placeholder = 'e.g., 1, 2, 3, 4, 5, 6, 7, 8, 9, 10';
+                } else {
+                    testInput.value = '5';
+                    testInput.placeholder = 'e.g., 5';
+                }
+                
+                // Add algorithm-specific inputs
+                updateAlgorithmSpecificInputs(algorithm, category);
+            }
+        }
+        
+        function updateAlgorithmSpecificInputs(algorithm, category) {
+            const container = document.getElementById('algorithm-specific-inputs');
+            container.innerHTML = '';
+            
+            if (algorithm === 'wiggle-sort') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <label>Wiggle Sort Variant:</label>
+                        <select id="variant">
+                            <option value="I">Wiggle Sort I (O(n))</option>
+                            <option value="II">Wiggle Sort II (O(n log n))</option>
+                        </select>
+                    </div>
+                `;
+            } else if (algorithm === 'dutch-flag-sort') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <label>Red Value:</label>
+                        <input type="text" id="red-value" value="0" style="width: 80px;">
+                        <label>White Value:</label>
+                        <input type="text" id="white-value" value="1" style="width: 80px;">
+                        <label>Blue Value:</label>
+                        <input type="text" id="blue-value" value="2" style="width: 80px;">
+                    </div>
+                `;
+            } else if (algorithm === 'binary-search') {
+                container.innerHTML = `
+                    <div class="form-group">
+                        <label>Search Target:</label>
+                        <input type="number" id="search-target" value="5" style="width: 100px;">
+                    </div>
+                `;
+            }
+        }
+        
+        function generateRandomInput() {
+            const category = document.getElementById('category').value;
+            const testInput = document.getElementById('test-input');
+            
+            if (category === 'sort') {
+                const size = 6 + Math.floor(Math.random() * 5); // 6-10 elements
+                const array = Array.from({length: size}, () => Math.floor(Math.random() * 20) + 1);
+                testInput.value = array.join(', ');
+            } else if (category === 'search') {
+                const size = 8 + Math.floor(Math.random() * 5); // 8-12 elements
+                const array = Array.from({length: size}, (_, i) => i + 1);
+                testInput.value = array.join(', ');
+            } else {
+                testInput.value = Math.floor(Math.random() * 10) + 1;
+            }
+        }
+        
+        async function loadAlgorithmScripts() {
+            if (!currentAlgorithm) return false;
+            
+            const { id, category } = currentAlgorithm;
+            const basePath = `src/${category}/${id}/`;
+            
+            const scripts = [
+                'assets/js/utils.js',
+                `src/${category}/utils/${category === 'sort' ? 'sorting' : category}-utils.js`,
+                `${basePath}${id}-core.js`,
+                `${basePath}${id}-steps.js`,
+                `${basePath}${id}.config.js`,
+                `${basePath}${id}.js`
+            ];
+            
+            const results = {};
+            
+            for (const scriptPath of scripts) {
+                try {
+                    await loadScript(scriptPath);
+                    results[scriptPath] = 'loaded';
+                } catch (error) {
+                    results[scriptPath] = `error: ${error.message}`;
+                }
+            }
+            
+            return results;
+        }
+        
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                // Check if script is already loaded
+                if (loadedScripts.includes(src)) {
+                    resolve();
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => {
+                    loadedScripts.push(src);
+                    resolve();
+                };
+                script.onerror = () => reject(new Error(`Failed to load ${src}`));
+                document.head.appendChild(script);
+            });
+        }
+        
+        function setStatus(elementId, status) {
+            const indicator = document.getElementById(elementId);
+            indicator.className = `status-indicator ${status}`;
+        }
+        
+        async function testDependencies() {
+            const resultDiv = document.getElementById('deps-result');
+            resultDiv.innerHTML = '<div>Loading scripts...</div>';
+            
+            try {
+                const loadResults = await loadAlgorithmScripts();
+                
+                let html = '<div class="success">✅ Script Loading Results:</div>';
+                html += '<div class="code-block">';
+                
+                Object.entries(loadResults).forEach(([script, result]) => {
+                    const status = result === 'loaded' ? '✅' : '❌';
+                    html += `${status} ${script}: ${result}<br>`;
+                });
+                
+                html += '</div>';
+                
+                resultDiv.innerHTML = html;
+                setStatus('deps-status', 'success');
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                setStatus('deps-status', 'error');
+            }
+        }
+        
+        function testConfiguration() {
+            const resultDiv = document.getElementById('config-result');
+            
+            if (!currentAlgorithm) {
+                resultDiv.innerHTML = '<div class="warning">⚠️ Please select an algorithm first</div>';
+                setStatus('config-status', 'warning');
+                return;
+            }
+            
+            try {
+                const configName = currentAlgorithm.id.toUpperCase().replace(/-/g, '_') + '_CONFIG';
+                const config = window[configName];
+                
+                if (config) {
+                    let html = '<div class="success">✅ Configuration loaded successfully!</div>';
+                    html += '<div class="metrics-grid">';
+                    html += `<div class="metric-card"><div class="metric-value">${config.name || 'N/A'}</div><div class="metric-label">Name</div></div>`;
+                    html += `<div class="metric-card"><div class="metric-value">${config.hasVisualization ? 'Yes' : 'No'}</div><div class="metric-label">Has Visualization</div></div>`;
+                    html += `<div class="metric-card"><div class="metric-value">${config.hasStepsFile ? 'Yes' : 'No'}</div><div class="metric-label">Has Steps File</div></div>`;
+                    html += `<div class="metric-card"><div class="metric-value">${config.inputs?.length || 0}</div><div class="metric-label">Input Fields</div></div>`;
+                    html += '</div>';
+                    
+                    if (config.explanation?.description) {
+                        html += `<div class="code-block">${config.explanation.description}</div>`;
+                    }
+                    
+                    resultDiv.innerHTML = html;
+                    setStatus('config-status', 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Configuration not found: ${configName}</div>`;
+                    setStatus('config-status', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                setStatus('config-status', 'error');
+            }
+        }
+        
+        function testCoreFunctions() {
+            const resultDiv = document.getElementById('core-result');
+            
+            if (!currentAlgorithm) {
+                resultDiv.innerHTML = '<div class="warning">⚠️ Please select an algorithm first</div>';
+                setStatus('core-status', 'warning');
+                return;
+            }
+            
+            try {
+                const coreObjectName = currentAlgorithm.id.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join('') + 'Core';
+                
+                const coreObject = window[coreObjectName];
+                
+                if (coreObject) {
+                    const testInput = parseTestInput();
+                    
+                    let html = '<div class="success">✅ Core functions available!</div>';
+                    html += `<div><strong>Core Object:</strong> ${coreObjectName}</div>`;
+                    html += `<div><strong>Available Functions:</strong> ${Object.keys(coreObject).join(', ')}</div>`;
+                    
+                    // Try to run a core function
+                    if (currentAlgorithm.category === 'sort') {
+                        const mainFunction = Object.keys(coreObject)[0];
+                        if (mainFunction) {
+                            const result = coreObject[mainFunction](testInput);
+                            html += `<div><strong>Test Result:</strong> [${result.sortedArray?.join(', ') || result.join?.(', ') || JSON.stringify(result)}]</div>`;
+                        }
+                    }
+                    
+                    resultDiv.innerHTML = html;
+                    setStatus('core-status', 'success');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Core object not found: ${coreObjectName}</div>`;
+                    setStatus('core-status', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                setStatus('core-status', 'error');
+            }
+        }
+        
+        function testStepTracking() {
+            const resultDiv = document.getElementById('steps-result');
+            
+            if (!currentAlgorithm) {
+                resultDiv.innerHTML = '<div class="warning">⚠️ Please select an algorithm first</div>';
+                setStatus('steps-status', 'warning');
+                return;
+            }
+            
+            try {
+                const stepsObjectName = currentAlgorithm.id.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join('') + 'Steps';
+                
+                const stepsObject = window[stepsObjectName];
+                
+                if (stepsObject) {
+                    const testInput = parseTestInput();
+                    const mainStepsFunction = Object.keys(stepsObject)[0];
+                    
+                    if (mainStepsFunction) {
+                        const result = stepsObject[mainStepsFunction](testInput);
+                        
+                        let html = '<div class="success">✅ Step tracking available!</div>';
+                        html += '<div class="metrics-grid">';
+                        html += `<div class="metric-card"><div class="metric-value">${result.steps?.length || 0}</div><div class="metric-label">Steps Generated</div></div>`;
+                        html += `<div class="metric-card"><div class="metric-value">[${result.sortedArray?.join?.(', ') || 'N/A'}]</div><div class="metric-label">Result</div></div>`;
+                        html += `<div class="metric-card"><div class="metric-value">${result.metrics?.comparisons || 0}</div><div class="metric-label">Comparisons</div></div>`;
+                        html += `<div class="metric-card"><div class="metric-value">${result.metrics?.swaps || 0}</div><div class="metric-label">Swaps</div></div>`;
+                        html += '</div>';
+                        
+                        resultDiv.innerHTML = html;
+                        setStatus('steps-status', 'success');
+                    }
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Steps object not found: ${stepsObjectName}</div>`;
+                    setStatus('steps-status', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                setStatus('steps-status', 'error');
+            }
+        }
+        
+        function runDemoSimulation() {
+            const resultDiv = document.getElementById('demo-result');
+            
+            if (!currentAlgorithm) {
+                resultDiv.innerHTML = '<div class="warning">⚠️ Please select an algorithm first</div>';
+                setStatus('demo-status', 'warning');
+                return;
+            }
+            
+            try {
+                if (typeof window.runAlgorithm === 'function') {
+                    const testInput = document.getElementById('test-input').value;
+                    const variant = document.getElementById('variant')?.value;
+                    
+                    let demoResult;
+                    if (currentAlgorithm.id === 'wiggle-sort' && variant) {
+                        demoResult = window.runAlgorithm(testInput, variant);
+                    } else {
+                        demoResult = window.runAlgorithm(testInput);
+                    }
+                    
+                    let html = '<div class="success">✅ Demo simulation successful!</div>';
+                    html += `<div class="code-block">${demoResult}</div>`;
+                    
+                    resultDiv.innerHTML = html;
+                    setStatus('demo-status', 'success');
+                } else {
+                    resultDiv.innerHTML = '<div class="error">❌ runAlgorithm function not found</div>';
+                    setStatus('demo-status', 'error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                setStatus('demo-status', 'error');
+            }
+        }
+        
+        function parseTestInput() {
+            const input = document.getElementById('test-input').value;
+            return input.split(',').map(item => {
+                const trimmed = item.trim();
+                const num = parseFloat(trimmed);
+                return isNaN(num) ? trimmed : num;
+            });
+        }
+        
+        async function runAllTests() {
+            if (!currentAlgorithm) {
+                alert('Please select an algorithm first');
+                return;
+            }
+            
+            // Reset all status indicators
+            ['deps-status', 'config-status', 'core-status', 'steps-status', 'demo-status'].forEach(id => {
+                setStatus(id, 'warning');
+            });
+            
+            await testDependencies();
+            setTimeout(testConfiguration, 500);
+            setTimeout(testCoreFunctions, 1000);
+            setTimeout(testStepTracking, 1500);
+            setTimeout(runDemoSimulation, 2000);
+        }
+        
+        function clearResults() {
+            document.querySelectorAll('.result-container').forEach(div => {
+                div.innerHTML = '';
+            });
+            
+            ['deps-status', 'config-status', 'core-status', 'steps-status', 'demo-status'].forEach(id => {
+                document.getElementById(id).className = 'status-indicator';
+            });
+        }
+        
+        function openFullDemo() {
+            if (!currentAlgorithm) {
+                alert('Please select an algorithm first');
+                return;
+            }
+            
+            const url = `demo.html?algo=${currentAlgorithm.category}/${currentAlgorithm.id}`;
+            window.open(url, '_blank');
+        }
+        
+        function viewSourceCode() {
+            if (!currentAlgorithm) {
+                alert('Please select an algorithm first');
+                return;
+            }
+            
+            const url = `https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-js/src/${currentAlgorithm.category}/${currentAlgorithm.id}`;
+            window.open(url, '_blank');
+        }
+        
+        function checkUniversalLoader() {
+            const resultDiv = document.getElementById('demo-result');
+            
+            try {
+                if (typeof window.UniversalAlgorithmLoader !== 'undefined') {
+                    resultDiv.innerHTML = '<div class="success">✅ Universal Loader is available</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="warning">⚠️ Universal Loader not found (this is expected in the test environment)</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error checking Universal Loader: ${error.message}</div>`;
+            }
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Testing Lab initialized');
+            console.log('📍 Current URL:', window.location.href);
+            console.log('🔧 Available global functions:', Object.keys(window).filter(key => typeof window[key] === 'function'));
+        });
+    </script>
+</body>
+</html>

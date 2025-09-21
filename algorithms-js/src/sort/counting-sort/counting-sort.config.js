@@ -355,25 +355,330 @@ const CountingSortConfig = {
             try {
                 const startTime = performance.now();
                 
-                // Execute counting sort
-                const result = window.CountingSortCore ? window.CountingSortCore.countingSort(arrayInput) : countingSort(arrayInput);
+                // Execute counting sort using steps function for animation
+                let result;
+                if (window.CountingSortSteps) {
+                    result = window.CountingSortSteps.countingSortWithSteps(arrayInput);
+                } else if (window.countingSortWithSteps) {
+                    result = window.countingSortWithSteps(arrayInput);
+                } else if (window.CountingSortCore) {
+                    const coreResult = window.CountingSortCore.countingSort(arrayInput);
+                    result = { ...coreResult, steps: [] };
+                } else {
+                    result = { sortedArray: [...arrayInput].sort((a, b) => a - b), metrics: { comparisons: 0, counts: 0, range: 0 }, steps: [] };
+                }
                 
                 const endTime = performance.now();
                 const executionTime = (endTime - startTime).toFixed(4);
                 
                 // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Range (k):</strong> \${result.metrics.range} (0 to \${result.metrics.maxValue})<br>
-                    <strong>Space Used:</strong> O(n + k) = O(\${arrayInput.length} + \${result.metrics.range})<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
+                let resultHTML = 
+                    '<strong>Original Array:</strong> [' + arrayInput.join(', ') + ']<br>' +
+                    '<strong>Sorted Array:</strong> [' + result.sortedArray.join(', ') + ']<br>' +
+                    '<strong>Range (k):</strong> ' + (result.metrics.range || 'N/A') + '<br>' +
+                    '<strong>Comparisons:</strong> ' + (result.metrics.comparisons || 0) + '<br>' +
+                    '<strong>Count Operations:</strong> ' + (result.metrics.counts || 0) + '<br>' +
+                    '<strong>Execution Time:</strong> ' + executionTime + ' ms';
                 
                 resultContainer.innerHTML = resultHTML;
                 
+                // Show the visualization section with counting sort animation
+                if (result.steps && result.steps.length > 0) {
+                    showCountingSortVisualization(arrayInput, result.steps);
+                    visualizationSection.style.display = 'block';
+                }
+                
             } catch (error) {
                 showError(error.message);
+            }
+        }
+        
+        function showCountingSortVisualization(originalArray, steps) {
+            const arrayViz = document.getElementById('array-visualization');
+            const stepsContainer = document.getElementById('steps-container');
+            
+            // Clear previous visualization
+            arrayViz.innerHTML = '';
+            stepsContainer.innerHTML = '';
+            
+            // Create main containers
+            const originalArrayDiv = document.createElement('div');
+            originalArrayDiv.className = 'counting-sort-section';
+            originalArrayDiv.innerHTML = '<h4>Original Array</h4>';
+            
+            const arrayDisplay = document.createElement('div');
+            arrayDisplay.className = 'array-visualization';
+            arrayDisplay.id = 'counting-original-array';
+            
+            originalArray.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.textContent = value;
+                cell.className = 'viz-cell counting-cell';
+                cell.setAttribute('data-index', index);
+                cell.setAttribute('data-value', value);
+                arrayDisplay.appendChild(cell);
+            });
+            
+            originalArrayDiv.appendChild(arrayDisplay);
+            arrayViz.appendChild(originalArrayDiv);
+            
+            // Create counting array section
+            const countingSection = document.createElement('div');
+            countingSection.className = 'counting-sort-section';
+            countingSection.innerHTML = '<h4>Counting Array</h4>';
+            countingSection.id = 'counting-array-section';
+            countingSection.style.display = 'none';
+            
+            const countingArrayDiv = document.createElement('div');
+            countingArrayDiv.className = 'counting-array-display';
+            countingArrayDiv.id = 'counting-array-display';
+            countingSection.appendChild(countingArrayDiv);
+            
+            arrayViz.appendChild(countingSection);
+            
+            // Create output array section
+            const outputSection = document.createElement('div');
+            outputSection.className = 'counting-sort-section';
+            outputSection.innerHTML = '<h4>Output Array (Building Result)</h4>';
+            outputSection.id = 'output-array-section';
+            outputSection.style.display = 'none';
+            
+            const outputArrayDiv = document.createElement('div');
+            outputArrayDiv.className = 'array-visualization';
+            outputArrayDiv.id = 'counting-output-array';
+            outputSection.appendChild(outputArrayDiv);
+            
+            arrayViz.appendChild(outputSection);
+            
+            // Add controls with legend
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = 
+                '<h4>Counting Sort Visualization</h4>' +
+                '<button id="start-counting-animation" class="viz-button start">Start Animation</button>' +
+                '<button id="pause-counting-animation" class="viz-button pause" disabled>Pause</button>' +
+                '<button id="reset-counting-animation" class="viz-button reset">Reset</button>' +
+                '<div class="viz-legend" id="countingsort-legend">' +
+                    '<span class="viz-legend-desktop">🔍 Find Max | 📊 Count Values | 🔢 Cumulative Sum | 📍 Place Elements | ✅ Complete</span>' +
+                    '<div class="viz-legend-mobile" style="display: none;">' +
+                        '<div class="viz-legend-item">🔍 Find the maximum value</div>' +
+                        '<div class="viz-legend-item">📊 Count occurrences of each value</div>' +
+                        '<div class="viz-legend-item">🔢 Convert counts to starting positions</div>' +
+                        '<div class="viz-legend-item">📍 Place elements in sorted positions</div>' +
+                        '<div class="viz-legend-item">✅ Sorting completed</div>' +
+                    '</div>' +
+                '</div>';
+            arrayViz.appendChild(controlsDiv);
+            
+            // Status display
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'counting-status';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start counting sort animation...';
+            arrayViz.appendChild(statusDiv);
+            
+            // Animation variables
+            let currentStepIndex = 0;
+            let animationRunning = false;
+            let animationInterval;
+            
+            function updateCountingVisualization(step) {
+                const originalCells = arrayDisplay.querySelectorAll('.viz-cell');
+                const statusDiv = document.getElementById('counting-status');
+                const countingSection = document.getElementById('counting-array-section');
+                const outputSection = document.getElementById('output-array-section');
+                const countingDisplay = document.getElementById('counting-array-display');
+                const outputDisplay = document.getElementById('counting-output-array');
+                
+                // Reset all original array cell classes
+                originalCells.forEach(cell => {
+                    cell.className = 'viz-cell counting-cell';
+                });
+                
+                // Handle different phases
+                if (step.phase === 'find-max') {
+                    step.highlightIndices.forEach(index => {
+                        if (originalCells[index]) {
+                            originalCells[index].classList.add('finding-max');
+                        }
+                    });
+                } else if (step.phase === 'count') {
+                    countingSection.style.display = 'block';
+                    
+                    // Create/update counting array display
+                    if (step.countArray) {
+                        countingDisplay.innerHTML = '';
+                        step.countArray.forEach((count, value) => {
+                            const countCell = document.createElement('div');
+                            countCell.className = 'counting-cell-container';
+                            
+                            const valueLabel = document.createElement('div');
+                            valueLabel.className = 'counting-value-label';
+                            valueLabel.textContent = value;
+                            
+                            const countValue = document.createElement('div');
+                            countValue.className = 'counting-count-value';
+                            countValue.textContent = count;
+                            countValue.setAttribute('data-count', count);
+                            
+                            if (step.countingValue === value) {
+                                countValue.classList.add('counting-active');
+                            }
+                            
+                            countCell.appendChild(valueLabel);
+                            countCell.appendChild(countValue);
+                            countingDisplay.appendChild(countCell);
+                        });
+                    }
+                    
+                    step.highlightIndices.forEach(index => {
+                        if (originalCells[index]) {
+                            originalCells[index].classList.add('being-counted');
+                        }
+                    });
+                } else if (step.phase === 'cumulative') {
+                    // Update counting array to show cumulative sums
+                    if (step.countArray) {
+                        const countCells = countingDisplay.querySelectorAll('.counting-count-value');
+                        step.countArray.forEach((count, value) => {
+                            if (countCells[value]) {
+                                countCells[value].textContent = count;
+                                countCells[value].setAttribute('data-count', count);
+                                
+                                if (step.cumulativeIndex === value) {
+                                    countCells[value].classList.add('cumulative-active');
+                                }
+                            }
+                        });
+                    }
+                } else if (step.phase === 'place') {
+                    outputSection.style.display = 'block';
+                    
+                    // Create/update output array display
+                    if (step.output) {
+                        outputDisplay.innerHTML = '';
+                        step.output.forEach((value, index) => {
+                            const cell = document.createElement('div');
+                            cell.className = 'viz-cell output-cell';
+                            if (value !== undefined) {
+                                cell.textContent = value;
+                                cell.classList.add('placed');
+                                
+                                if (step.placingPosition === index) {
+                                    cell.classList.add('just-placed');
+                                }
+                            }
+                            outputDisplay.appendChild(cell);
+                        });
+                    }
+                    
+                    step.highlightIndices.forEach(index => {
+                        if (originalCells[index]) {
+                            originalCells[index].classList.add('being-placed');
+                        }
+                    });
+                } else if (step.phase === 'complete') {
+                    originalCells.forEach(cell => {
+                        cell.classList.add('complete');
+                    });
+                    
+                    const outputCells = outputDisplay.querySelectorAll('.viz-cell');
+                    outputCells.forEach(cell => {
+                        cell.classList.add('complete');
+                    });
+                }
+                
+                // Update status
+                statusDiv.textContent = step.message;
+                
+                // Show step info in container
+                const stepInfo = document.createElement('div');
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+                
+                let stepTypeColor = '#007acc';
+                if (step.phase === 'find-max') stepTypeColor = '#f44336';
+                else if (step.phase === 'count') stepTypeColor = '#4caf50';
+                else if (step.phase === 'cumulative') stepTypeColor = '#ff9800';
+                else if (step.phase === 'place') stepTypeColor = '#2196f3';
+                else if (step.phase === 'complete') stepTypeColor = '#8bc34a';
+                
+                stepInfo.style.borderLeftColor = stepTypeColor;
+                
+                let phaseEmoji = '🔄';
+                if (step.phase === 'find-max') phaseEmoji = '🔍';
+                else if (step.phase === 'count') phaseEmoji = '📊';
+                else if (step.phase === 'cumulative') phaseEmoji = '🔢';
+                else if (step.phase === 'place') phaseEmoji = '📍';
+                else if (step.phase === 'complete') phaseEmoji = '✅';
+                
+                stepInfo.innerHTML = 
+                    '<strong>' + phaseEmoji + ' Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<small>' +
+                        'Phase: ' + (step.phase || 'processing') + ' | ' +
+                        'Comparisons: ' + (step.comparisons || 0) + ' | ' +
+                        'Count Ops: ' + (step.counts || 0) +
+                    '</small>';
+                
+                if (stepsContainer.children.length > 8) {
+                    stepsContainer.removeChild(stepsContainer.firstChild);
+                }
+                stepsContainer.appendChild(stepInfo);
+            }
+            
+            function startCountingAnimation() {
+                if (animationRunning || currentStepIndex >= steps.length) return;
+                
+                animationRunning = true;
+                document.getElementById('start-counting-animation').disabled = true;
+                document.getElementById('pause-counting-animation').disabled = false;
+                
+                animationInterval = setInterval(() => {
+                    if (currentStepIndex >= steps.length) {
+                        clearInterval(animationInterval);
+                        animationRunning = false;
+                        document.getElementById('start-counting-animation').disabled = false;
+                        document.getElementById('pause-counting-animation').disabled = true;
+                        return;
+                    }
+                    
+                    updateCountingVisualization(steps[currentStepIndex]);
+                    currentStepIndex++;
+                }, 1000); // 1 second delay between steps
+            }
+            
+            function pauseCountingAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                document.getElementById('start-counting-animation').disabled = false;
+                document.getElementById('pause-counting-animation').disabled = true;
+            }
+            
+            function resetCountingAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                currentStepIndex = 0;
+                document.getElementById('start-counting-animation').disabled = false;
+                document.getElementById('pause-counting-animation').disabled = true;
+                stepsContainer.innerHTML = '';
+                
+                // Reset visualization
+                document.getElementById('counting-array-section').style.display = 'none';
+                document.getElementById('output-array-section').style.display = 'none';
+                
+                if (steps.length > 0) {
+                    updateCountingVisualization(steps[0]);
+                }
+                document.getElementById('counting-status').textContent = 'Ready to start counting sort animation...';
+            }
+            
+            // Bind control events
+            document.getElementById('start-counting-animation').addEventListener('click', startCountingAnimation);
+            document.getElementById('pause-counting-animation').addEventListener('click', pauseCountingAnimation);
+            document.getElementById('reset-counting-animation').addEventListener('click', resetCountingAnimation);
+            
+            // Show initial state
+            if (steps.length > 0) {
+                updateCountingVisualization(steps[0]);
             }
         }
     `

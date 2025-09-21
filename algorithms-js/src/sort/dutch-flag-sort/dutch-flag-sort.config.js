@@ -444,29 +444,227 @@ DUTCH_FLAG_SORT_CONFIG.customDemoFunction = `
         try {
             const startTime = performance.now();
             
-            // Execute dutch flag sort
-            const result = window.DutchFlagSortCore ? 
-                window.DutchFlagSortCore.dutchFlagSort(arrayInput, redValue, blueValue) : 
-                dutchFlagSort(arrayInput, redValue, blueValue);
+            // Execute dutch flag sort using steps function for animation
+            let result;
+            if (window.DutchFlagSortSteps) {
+                result = window.DutchFlagSortSteps.dutchFlagSortWithSteps(arrayInput, redValue, null, blueValue);
+            } else if (window.dutchFlagSortWithSteps) {
+                result = window.dutchFlagSortWithSteps(arrayInput, redValue, null, blueValue);
+            } else if (window.DutchFlagSortCore) {
+                const coreResult = window.DutchFlagSortCore.dutchFlagSort(arrayInput, redValue, blueValue);
+                result = { ...coreResult, steps: [] };
+            } else {
+                result = { sortedArray: [...arrayInput].sort(), metrics: { comparisons: 0, swaps: 0 }, steps: [] };
+            }
             
             const endTime = performance.now();
             const executionTime = (endTime - startTime).toFixed(4);
             
             // Show result
-            let resultHTML = \`
-                <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                <strong>Partitioned Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                <strong>Red Group (\${redValue}):</strong> positions 0 to \${result.metrics.redEnd || 'N/A'}<br>
-                <strong>White/Other Group:</strong> middle section<br>
-                <strong>Blue Group (\${blueValue}):</strong> end section<br>
-                <strong>Total Swaps:</strong> \${result.metrics.swaps || 0}<br>
-                <strong>Execution Time:</strong> \${executionTime} ms
-            \`;
+            let resultHTML = 
+                '<strong>Original Array:</strong> [' + arrayInput.join(', ') + ']<br>' +
+                '<strong>Partitioned Array:</strong> [' + result.sortedArray.join(', ') + ']<br>' +
+                '<strong>Red Group (' + redValue + '):</strong> first section<br>' +
+                '<strong>White/Other Group:</strong> middle section<br>' +
+                '<strong>Blue Group (' + blueValue + '):</strong> end section<br>' +
+                '<strong>Total Swaps:</strong> ' + (result.metrics.swaps || 0) + '<br>' +
+                '<strong>Execution Time:</strong> ' + executionTime + ' ms';
             
             resultContainer.innerHTML = resultHTML;
             
+            // Show the visualization section with dutch flag animation
+            if (result.steps && result.steps.length > 0) {
+                showDutchFlagVisualization(arrayInput, result.steps, redValue, blueValue);
+                visualizationSection.style.display = 'block';
+            }
+            
         } catch (error) {
             showError(error.message);
+        }
+    }
+    
+    function showDutchFlagVisualization(originalArray, steps, redValue, blueValue) {
+        const arrayViz = document.getElementById('array-visualization');
+        const stepsContainer = document.getElementById('steps-container');
+        
+        // Clear previous visualization
+        arrayViz.innerHTML = '';
+        stepsContainer.innerHTML = '';
+        
+        // Create array visualization
+        const arrayDiv = document.createElement('div');
+        arrayDiv.className = 'array-visualization';
+        arrayDiv.id = 'dutch-flag-array-display';
+        
+        originalArray.forEach((value, index) => {
+            const cell = document.createElement('div');
+            cell.textContent = value;
+            cell.className = 'viz-cell';
+            cell.setAttribute('data-index', index);
+            cell.setAttribute('data-value', value);
+            arrayDiv.appendChild(cell);
+        });
+        
+        arrayViz.appendChild(arrayDiv);
+        
+        // Add controls with legend
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'viz-controls';
+        controlsDiv.innerHTML = 
+            '<h4>Dutch Flag Sort Visualization</h4>' +
+            '<button id="start-dutch-animation" class="viz-button start">Start Animation</button>' +
+            '<button id="pause-dutch-animation" class="viz-button pause" disabled>Pause</button>' +
+            '<button id="reset-dutch-animation" class="viz-button reset">Reset</button>' +
+            '<div class="viz-legend" id="dutchflag-legend">' +
+                '<span class="viz-legend-desktop">🔴 Red (' + redValue + ') | ⚪ White/Other | 🔵 Blue (' + blueValue + ') | 🟡 Comparing | 🟢 Swapping</span>' +
+                '<div class="viz-legend-mobile" style="display: none;">' +
+                    '<div class="viz-legend-item">🔴 Red (' + redValue + ')</div>' +
+                    '<div class="viz-legend-item">⚪ White/Other</div>' +
+                    '<div class="viz-legend-item">🔵 Blue (' + blueValue + ')</div>' +
+                    '<div class="viz-legend-item">🟡 Comparing</div>' +
+                    '<div class="viz-legend-item">🟢 Swapping</div>' +
+                '</div>' +
+            '</div>';
+        arrayViz.appendChild(controlsDiv);
+        
+        // Status display
+        const statusDiv = document.createElement('div');
+        statusDiv.id = 'dutch-flag-status';
+        statusDiv.className = 'viz-status';
+        statusDiv.textContent = 'Ready to start dutch flag sort animation...';
+        arrayViz.appendChild(statusDiv);
+        
+        // Animation variables
+        let currentStepIndex = 0;
+        let animationRunning = false;
+        let animationInterval;
+        
+        function updateDutchFlagVisualization(step) {
+            const cells = arrayDiv.querySelectorAll('.viz-cell');
+            const statusDiv = document.getElementById('dutch-flag-status');
+            
+            // Reset all cell classes
+            cells.forEach(cell => {
+                cell.className = 'viz-cell';
+            });
+            
+            // Update array values
+            step.array.forEach((value, index) => {
+                if (cells[index]) {
+                    cells[index].textContent = value;
+                }
+            });
+            
+            // Color cells based on their partition group
+            step.array.forEach((value, index) => {
+                if (cells[index]) {
+                    if (value === redValue) {
+                        cells[index].classList.add('red-partition');
+                    } else if (value === blueValue) {
+                        cells[index].classList.add('blue-partition');
+                    } else {
+                        cells[index].classList.add('white-partition');
+                    }
+                }
+            });
+            
+            // Highlight current indices being processed
+            if (step.highlightIndices) {
+                step.highlightIndices.forEach(index => {
+                    if (cells[index]) {
+                        cells[index].classList.add('comparing');
+                    }
+                });
+            }
+            
+            // Highlight swapped indices
+            if (step.swappedIndices) {
+                step.swappedIndices.forEach(index => {
+                    if (cells[index]) {
+                        cells[index].classList.add('swapping');
+                    }
+                });
+            }
+            
+            // Update status
+            statusDiv.textContent = step.message;
+            
+            // Show step info in container
+            const stepInfo = document.createElement('div');
+            stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+            
+            let stepTypeColor = '#007acc';
+            if (step.type === 'complete') stepTypeColor = '#28a745';
+            else if (step.type === 'swap') stepTypeColor = '#dc3545';
+            else if (step.type === 'compare') stepTypeColor = '#ffc107';
+            
+            stepInfo.style.borderLeftColor = stepTypeColor;
+            
+            stepInfo.innerHTML = 
+                '<strong>Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                '<small>' +
+                    'Phase: ' + (step.phase || 'processing') + ' | ' +
+                    'Comparisons: ' + (step.comparisons || 0) + ' | ' +
+                    'Swaps: ' + (step.swaps || 0) +
+                '</small>';
+            
+            if (stepsContainer.children.length > 8) {
+                stepsContainer.removeChild(stepsContainer.firstChild);
+            }
+            stepsContainer.appendChild(stepInfo);
+        }
+        
+        function startDutchFlagAnimation() {
+            if (animationRunning || currentStepIndex >= steps.length) return;
+            
+            animationRunning = true;
+            document.getElementById('start-dutch-animation').disabled = true;
+            document.getElementById('pause-dutch-animation').disabled = false;
+            
+            animationInterval = setInterval(() => {
+                if (currentStepIndex >= steps.length) {
+                    clearInterval(animationInterval);
+                    animationRunning = false;
+                    document.getElementById('start-dutch-animation').disabled = false;
+                    document.getElementById('pause-dutch-animation').disabled = true;
+                    return;
+                }
+                
+                updateDutchFlagVisualization(steps[currentStepIndex]);
+                currentStepIndex++;
+            }, 1200); // 1.2 second delay between steps
+        }
+        
+        function pauseDutchFlagAnimation() {
+            clearInterval(animationInterval);
+            animationRunning = false;
+            document.getElementById('start-dutch-animation').disabled = false;
+            document.getElementById('pause-dutch-animation').disabled = true;
+        }
+        
+        function resetDutchFlagAnimation() {
+            clearInterval(animationInterval);
+            animationRunning = false;
+            currentStepIndex = 0;
+            document.getElementById('start-dutch-animation').disabled = false;
+            document.getElementById('pause-dutch-animation').disabled = true;
+            stepsContainer.innerHTML = '';
+            
+            // Reset visualization
+            if (steps.length > 0) {
+                updateDutchFlagVisualization(steps[0]);
+            }
+            document.getElementById('dutch-flag-status').textContent = 'Ready to start dutch flag sort animation...';
+        }
+        
+        // Bind control events
+        document.getElementById('start-dutch-animation').addEventListener('click', startDutchFlagAnimation);
+        document.getElementById('pause-dutch-animation').addEventListener('click', pauseDutchFlagAnimation);
+        document.getElementById('reset-dutch-animation').addEventListener('click', resetDutchFlagAnimation);
+        
+        // Show initial state
+        if (steps.length > 0) {
+            updateDutchFlagVisualization(steps[0]);
         }
     }
 `;

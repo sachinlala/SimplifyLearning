@@ -12,6 +12,7 @@ const WIGGLE_SORT_CONFIG = {
     name: "Wiggle Sort",
     category: "sort",
     hasStepsFile: true,
+    hasVisualization: true,
     problem: "Arrange array elements in a wiggling pattern where arr[0] < arr[1] > arr[2] < arr[3] > arr[4]... Elements alternate between peaks and valleys.",
     
     // Inputs for the demo interface
@@ -35,6 +36,14 @@ const WIGGLE_SORT_CONFIG = {
             ]
         }
     ],
+    
+    // Multi-language source code paths
+    sourceCode: {
+        javascript: "https://github.com/sachinlala/SimplifyLearning/blob/master/algorithms-js/src/sort/wiggle-sort/wiggle-sort-core.js",
+        java: "https://github.com/sachinlala/SimplifyLearning/tree/master/algorithms-java/src/main/java/com/sl/algorithms/sort/wiggle",
+        python: "", // Coming soon
+        go: "" // Coming soon
+    },
     
     explanation: {
         description: 'Wiggle Sort rearranges an array so that elements alternate between being smaller and larger than their neighbors, creating a "wiggling" pattern. Wiggle Sort I achieves this in O(n) time by making local adjustments, while Wiggle Sort II handles duplicates more carefully to avoid adjacent identical elements.'
@@ -279,7 +288,294 @@ const WIGGLE_SORT_CONFIG = {
                 disadvantages: ["O(n log n) time", "Extra space needed"]
             }
         }
-    }
+    },
+    
+    customDemoFunction: `
+        function runDemo() {
+            const arrayInputStr = document.getElementById('array-input').value;
+            const variant = document.getElementById('variant').value;
+            const resultContainer = document.getElementById('result');
+            const errorContainer = document.getElementById('error-message');
+            const visualizationSection = document.getElementById('visualization-section');
+
+            // Clear previous error and result
+            errorContainer.innerHTML = '';
+            errorContainer.style.display = 'none';
+            resultContainer.innerHTML = '';
+            visualizationSection.style.display = 'none';
+
+            // Parse input array
+            let arrayInput;
+            try {
+                arrayInput = arrayInputStr.split(',').map(item => {
+                    const trimmed = item.trim();
+                    const asNumber = parseInt(trimmed);
+                    if (isNaN(asNumber)) {
+                        throw new Error('All elements must be integers');
+                    }
+                    return asNumber;
+                });
+            } catch (e) {
+                showError('Invalid array format. Please use comma-separated integers.');
+                return;
+            }
+
+            // Validate input
+            if (arrayInput.length === 0) {
+                showError('Array cannot be empty');
+                return;
+            }
+            
+            if (arrayInput.length > 15) {
+                showError('Array size limited to 15 elements for demo purposes');
+                return;
+            }
+
+            try {
+                const startTime = performance.now();
+                
+                // Execute wiggle sort using steps function for animation
+                let result;
+                if (window.WiggleSortSteps) {
+                    if (variant === 'II') {
+                        result = window.WiggleSortSteps.wiggleSortIIWithSteps(arrayInput);
+                    } else {
+                        result = window.WiggleSortSteps.wiggleSortIWithSteps(arrayInput);
+                    }
+                } else if (window.wiggleSortWithSteps) {
+                    result = window.wiggleSortWithSteps(arrayInput, variant);
+                } else if (window.WiggleSortCore) {
+                    // Fallback to core functions without steps
+                    if (variant === 'II') {
+                        const coreResult = window.WiggleSortCore.wiggleSortII(arrayInput);
+                        result = { ...coreResult, steps: [] };
+                    } else {
+                        const coreResult = window.WiggleSortCore.wiggleSortI(arrayInput);
+                        result = { ...coreResult, steps: [] };
+                    }
+                } else {
+                    // Fallback if nothing loaded
+                    result = { sortedArray: [...arrayInput].sort((a, b) => a - b), metrics: { comparisons: 0, swaps: 0 }, steps: [] };
+                }
+                
+                const endTime = performance.now();
+                const executionTime = (endTime - startTime).toFixed(4);
+                
+                // Analyze the pattern of the result
+                const patternAnalysis = window.WiggleSortConfigUtils ? 
+                    window.WiggleSortConfigUtils.analyzeWigglePattern(result.sortedArray) : 
+                    { pattern: 'N/A', isValid: 'Unknown' };
+                
+                // Show result
+                let resultHTML = 
+                    '<strong>Original Array:</strong> [' + arrayInput.join(', ') + ']<br>' +
+                    '<strong>Wiggle Sorted Array:</strong> [' + result.sortedArray.join(', ') + ']<br>' +
+                    '<strong>Variant:</strong> Wiggle Sort ' + variant + '<br>' +
+                    '<strong>Pattern:</strong> ' + patternAnalysis.pattern + '<br>' +
+                    '<strong>Valid Wiggle:</strong> ' + (patternAnalysis.isValid ? 'Yes' : 'No') + '<br>' +
+                    '<strong>Comparisons:</strong> ' + (result.metrics.comparisons || 0) + '<br>' +
+                    '<strong>Swaps:</strong> ' + (result.metrics.swaps || 0) + '<br>' +
+                    '<strong>Time Complexity:</strong> ' + (variant === 'II' ? 'O(n log n)' : 'O(n)') + '<br>' +
+                    '<strong>Space Complexity:</strong> ' + (variant === 'II' ? 'O(n)' : 'O(1)') + '<br>' +
+                    '<strong>Execution Time:</strong> ' + executionTime + ' ms';
+                
+                resultContainer.innerHTML = resultHTML;
+                
+                // Show the visualization section with wiggle sort animation
+                if (result.steps && result.steps.length > 0) {
+                    showWiggleSortVisualization(arrayInput, result.steps, variant);
+                    visualizationSection.style.display = 'block';
+                }
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+        
+        function showWiggleSortVisualization(originalArray, steps, variant) {
+            const arrayViz = document.getElementById('array-visualization');
+            const stepsContainer = document.getElementById('steps-container');
+            
+            // Clear previous visualization
+            arrayViz.innerHTML = '';
+            stepsContainer.innerHTML = '';
+            
+            // Create array visualization
+            const arrayDiv = document.createElement('div');
+            arrayDiv.className = 'array-visualization';
+            arrayDiv.id = 'wiggle-array-display';
+            
+            originalArray.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.textContent = value;
+                cell.className = 'viz-cell';
+                cell.setAttribute('data-index', index);
+                cell.setAttribute('data-value', value);
+                arrayDiv.appendChild(cell);
+            });
+            
+            arrayViz.appendChild(arrayDiv);
+            
+            // Add controls with legend
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'viz-controls';
+            controlsDiv.innerHTML = 
+                '<h4>Wiggle Sort ' + variant + ' Visualization</h4>' +
+                '<button id="start-wiggle-animation" class="viz-button start">Start Animation</button>' +
+                '<button id="pause-wiggle-animation" class="viz-button pause" disabled>Pause</button>' +
+                '<button id="reset-wiggle-animation" class="viz-button reset">Reset</button>' +
+                '<div class="viz-legend" id="wigglesort-legend">' +
+                    '<span class="viz-legend-desktop">🔵 Valley (Even) | 🔴 Peak (Odd) | 🟡 Comparing | 🟢 Swapping | ✅ Complete</span>' +
+                    '<div class="viz-legend-mobile" style="display: none;">' +
+                        '<div class="viz-legend-item">🔵 Valley (Even)</div>' +
+                        '<div class="viz-legend-item">🔴 Peak (Odd)</div>' +
+                        '<div class="viz-legend-item">🟡 Comparing</div>' +
+                        '<div class="viz-legend-item">🟢 Swapping</div>' +
+                        '<div class="viz-legend-item">✅ Complete</div>' +
+                    '</div>' +
+                '</div>';
+            arrayViz.appendChild(controlsDiv);
+            
+            // Status display
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'wiggle-status';
+            statusDiv.className = 'viz-status';
+            statusDiv.textContent = 'Ready to start wiggle sort animation...';
+            arrayViz.appendChild(statusDiv);
+            
+            // Animation variables
+            let currentStepIndex = 0;
+            let animationRunning = false;
+            let animationInterval;
+            
+            function updateWiggleVisualization(step) {
+                const cells = arrayDiv.querySelectorAll('.viz-cell');
+                const statusDiv = document.getElementById('wiggle-status');
+                
+                // Reset all cell classes
+                cells.forEach(cell => {
+                    cell.className = 'viz-cell';
+                });
+                
+                // Update array values
+                step.array.forEach((value, index) => {
+                    if (cells[index]) {
+                        cells[index].textContent = value;
+                    }
+                });
+                
+                // Color cells based on their position (valley or peak pattern)
+                step.array.forEach((value, index) => {
+                    if (cells[index]) {
+                        if (index % 2 === 0) {
+                            cells[index].classList.add('valley'); // Even positions = valleys
+                        } else {
+                            cells[index].classList.add('peak');   // Odd positions = peaks
+                        }
+                    }
+                });
+                
+                // Highlight current indices being processed
+                if (step.highlightIndices) {
+                    step.highlightIndices.forEach(index => {
+                        if (cells[index]) {
+                            cells[index].classList.add('comparing');
+                        }
+                    });
+                }
+                
+                // Highlight swapped indices
+                if (step.swappedIndices) {
+                    step.swappedIndices.forEach(index => {
+                        if (cells[index]) {
+                            cells[index].classList.add('swapping');
+                        }
+                    });
+                }
+                
+                // Update status
+                statusDiv.textContent = step.message;
+                
+                // Show step info in container
+                const stepInfo = document.createElement('div');
+                stepInfo.className = step.type === 'complete' ? 'viz-step-info complete' : 'viz-step-info';
+                
+                let stepTypeColor = '#007acc';
+                if (step.type === 'complete') stepTypeColor = '#28a745';
+                else if (step.type === 'swap') stepTypeColor = '#dc3545';
+                else if (step.type === 'compare') stepTypeColor = '#ffc107';
+                
+                stepInfo.style.borderLeftColor = stepTypeColor;
+                
+                stepInfo.innerHTML = 
+                    '<strong>Step ' + (currentStepIndex + 1) + ':</strong> ' + step.message + '<br>' +
+                    '<small>' +
+                        'Phase: ' + (step.phase) + ' | ' +
+                        'Comparisons: ' + (step.comparisons || 0) + ' | ' +
+                        'Swaps: ' + (step.swaps || 0) + ' | ' +
+                        'Pattern: ' + (step.patternFixed || step.expectedPattern || 'N/A') +
+                    '</small>';
+                
+                if (stepsContainer.children.length > 8) {
+                    stepsContainer.removeChild(stepsContainer.firstChild);
+                }
+                stepsContainer.appendChild(stepInfo);
+            }
+            
+            function startWiggleAnimation() {
+                if (animationRunning || currentStepIndex >= steps.length) return;
+                
+                animationRunning = true;
+                document.getElementById('start-wiggle-animation').disabled = true;
+                document.getElementById('pause-wiggle-animation').disabled = false;
+                
+                animationInterval = setInterval(() => {
+                    if (currentStepIndex >= steps.length) {
+                        clearInterval(animationInterval);
+                        animationRunning = false;
+                        document.getElementById('start-wiggle-animation').disabled = false;
+                        document.getElementById('pause-wiggle-animation').disabled = true;
+                        return;
+                    }
+                    
+                    updateWiggleVisualization(steps[currentStepIndex]);
+                    currentStepIndex++;
+                }, 1500); // 1.5 second delay between steps
+            }
+            
+            function pauseWiggleAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                document.getElementById('start-wiggle-animation').disabled = false;
+                document.getElementById('pause-wiggle-animation').disabled = true;
+            }
+            
+            function resetWiggleAnimation() {
+                clearInterval(animationInterval);
+                animationRunning = false;
+                currentStepIndex = 0;
+                document.getElementById('start-wiggle-animation').disabled = false;
+                document.getElementById('pause-wiggle-animation').disabled = true;
+                stepsContainer.innerHTML = '';
+                
+                // Reset visualization
+                if (steps.length > 0) {
+                    updateWiggleVisualization(steps[0]);
+                }
+                document.getElementById('wiggle-status').textContent = 'Ready to start wiggle sort animation...';
+            }
+            
+            // Bind control events
+            document.getElementById('start-wiggle-animation').addEventListener('click', startWiggleAnimation);
+            document.getElementById('pause-wiggle-animation').addEventListener('click', pauseWiggleAnimation);
+            document.getElementById('reset-wiggle-animation').addEventListener('click', resetWiggleAnimation);
+            
+            // Show initial state
+            if (steps.length > 0) {
+                updateWiggleVisualization(steps[0]);
+            }
+        }
+    `
 };
 
 // Utility functions for config
@@ -388,77 +684,7 @@ const WiggleSortConfigUtils = {
             violations,
             isValid: violations === 0
         };
-    },
-    
-    customDemoFunction: `
-        function runDemo() {
-            const arrayInputStr = document.getElementById('array-input').value;
-            const variant = document.getElementById('variant').value;
-            const resultContainer = document.getElementById('result');
-            const errorContainer = document.getElementById('error-message');
-            const visualizationSection = document.getElementById('visualization-section');
-
-            // Clear previous error and result
-            errorContainer.innerHTML = '';
-            errorContainer.style.display = 'none';
-            resultContainer.innerHTML = '';
-            visualizationSection.style.display = 'none';
-
-            // Parse input array
-            let arrayInput;
-            try {
-                arrayInput = arrayInputStr.split(',').map(item => {
-                    const trimmed = item.trim();
-                    const asNumber = parseInt(trimmed);
-                    if (isNaN(asNumber)) {
-                        throw new Error('All elements must be integers');
-                    }
-                    return asNumber;
-                });
-            } catch (e) {
-                showError('Invalid array format. Please use comma-separated integers.');
-                return;
-            }
-
-            // Validate input
-            if (arrayInput.length === 0) {
-                showError('Array cannot be empty');
-                return;
-            }
-            
-            if (arrayInput.length > 15) {
-                showError('Array size limited to 15 elements for demo purposes');
-                return;
-            }
-
-            try {
-                const startTime = performance.now();
-                
-                // Execute wiggle sort
-                const result = window.WiggleSortCore ? 
-                    window.WiggleSortCore.wiggleSort(arrayInput, variant) : 
-                    wiggleSort(arrayInput, variant);
-                
-                const endTime = performance.now();
-                const executionTime = (endTime - startTime).toFixed(4);
-                
-                // Show result
-                let resultHTML = \`
-                    <strong>Original Array:</strong> [\${arrayInput.join(', ')}]<br>
-                    <strong>Wiggle Sorted Array:</strong> [\${result.sortedArray.join(', ')}]<br>
-                    <strong>Variant:</strong> \${variant}<br>
-                    <strong>Pattern:</strong> \${result.pattern || 'a0 < a1 > a2 < a3 > ...'}<br>
-                    <strong>Total Swaps:</strong> \${result.metrics.swaps || 0}<br>
-                    <strong>Execution Time:</strong> \${executionTime} ms
-                \`;
-                
-                resultContainer.innerHTML = resultHTML;
-                
-            } catch (error) {
-                showError(error.message);
-            }
-        }
-    `
+    }
 };
 
 // Export for both Node.js and browser environments
@@ -468,11 +694,15 @@ if (typeof module !== 'undefined' && module.exports) {
         WiggleSortConfigUtils
     };
 } else if (typeof window !== 'undefined') {
+    // Primary exports
     window.WIGGLE_SORT_CONFIG = WIGGLE_SORT_CONFIG;
     window.WiggleSortConfigUtils = WiggleSortConfigUtils;
     
-    // Additional exports for universal loader compatibility
+    // Universal loader compatibility - these are the names the loader looks for
+    window.wigglesortConfig = WIGGLE_SORT_CONFIG;     // algorithmName.replace(/-/g, '') + 'Config'
+    window.wigglesortconfig = WIGGLE_SORT_CONFIG;     // algorithmName.replace(/-/g, '').toLowerCase() + 'Config'  
+    window.wiggleSortConfig = WIGGLE_SORT_CONFIG;     // toCamelCase(algorithmName) + 'Config'
+    
+    // Legacy compatibility
     window.WiggleSortConfig = WIGGLE_SORT_CONFIG;
-    window.wigglesortConfig = WIGGLE_SORT_CONFIG;
-    window.wigglesortconfig = WIGGLE_SORT_CONFIG;
 }

@@ -13,14 +13,10 @@
  * @see https://github.com/sachinlala/SimplifyLearning
  */
 
-// Import utilities for reusable functions
-// Import utilities for reusable functions
-// Note: SortingUtils is available globally via window.SortingUtils when loaded by universal loader
+// SortingUtils is available globally via window.SortingUtils when loaded by universal loader
 if (typeof require !== 'undefined') {
-    // Node.js environment
     const SortingUtils = require('../utils/sorting-utils.js');
 }
-// In browser environment, SortingUtils is available via window.SortingUtils
 
 /**
  * Core Dutch National Flag sort algorithm

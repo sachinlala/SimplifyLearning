@@ -2035,6 +2035,825 @@ body.dark-mode .demo-icon:hover {
     box-shadow: 0 4px 8px rgba(88, 166, 255, 0.4);
 }
 
+/* ===== WIGGLE SORT VISUALIZATION STYLES ===== */
+/* Valley (even positions) - blue colors */
+.viz-cell.valley {
+    background: rgba(33, 150, 243, 0.8) !important;
+    border-color: #1976d2 !important;
+    color: white !important;
+}
+
+/* Peak (odd positions) - red colors */
+.viz-cell.peak {
+    background: rgba(244, 67, 54, 0.8) !important;
+    border-color: #c62828 !important;
+    color: white !important;
+}
+
+/* Comparing elements - yellow */
+.viz-cell.comparing {
+    background: rgba(255, 193, 7, 0.9) !important;
+    border-color: #f57c00 !important;
+    color: #333 !important;
+    animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+/* Swapping elements - green */
+.viz-cell.swapping {
+    background: rgba(76, 175, 80, 0.9) !important;
+    border-color: #388e3c !important;
+    color: white !important;
+    animation: bounce 0.6s ease-in-out;
+}
+
+/* Dark mode overrides for wiggle sort */
+body.dark-mode .viz-cell.valley {
+    background: rgba(30, 136, 229, 0.9) !important;
+    border-color: #0d47a1 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.peak {
+    background: rgba(229, 57, 53, 0.9) !important;
+    border-color: #b71c1c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.comparing {
+    background: rgba(255, 193, 7, 0.85) !important;
+    border-color: #f57c00 !important;
+    color: #333 !important;
+}
+
+body.dark-mode .viz-cell.swapping {
+    background: rgba(76, 175, 80, 0.85) !important;
+    border-color: #2e7d32 !important;
+    color: #fff !important;
+}
+
+/* Animations for wiggle sort */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    80% { transform: translateY(-4px); }
+}
+
+/* ===== DUTCH FLAG SORT VISUALIZATION STYLES ===== */
+/* Red partition (first group) */
+.viz-cell.red-partition {
+    background: rgba(244, 67, 54, 0.8) !important;
+    border-color: #c62828 !important;
+    color: white !important;
+}
+
+/* White/Other partition (middle group) */
+.viz-cell.white-partition {
+    background: rgba(238, 238, 238, 0.9) !important;
+    border-color: #bdbdbd !important;
+    color: #333 !important;
+}
+
+/* Blue partition (last group) */
+.viz-cell.blue-partition {
+    background: rgba(33, 150, 243, 0.8) !important;
+    border-color: #1976d2 !important;
+    color: white !important;
+}
+
+/* Dark mode overrides for dutch flag sort */
+body.dark-mode .viz-cell.red-partition {
+    background: rgba(229, 57, 53, 0.9) !important;
+    border-color: #b71c1c !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.white-partition {
+    background: rgba(189, 189, 189, 0.3) !important;
+    border-color: #757575 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .viz-cell.blue-partition {
+    background: rgba(30, 136, 229, 0.9) !important;
+    border-color: #0d47a1 !important;
+    color: #fff !important;
+}
+
+/* ===== BUCKET SORT VISUALIZATION STYLES ===== */
+/* Bucket info and legend display */
+.bucket-info {
+    margin: 10px 0;
+    padding: 8px;
+    background: rgba(0, 123, 255, 0.05);
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    border-radius: 6px;
+}
+
+.bucket-legend {
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.bucket-color {
+    display: inline-block;
+    margin: 3px 5px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Bucket color definitions */
+.bucket-color.bucket-0 { background-color: #ff6b6b !important; }
+.bucket-color.bucket-1 { background-color: #4ecdc4 !important; }
+.bucket-color.bucket-2 { background-color: #45b7d1 !important; }
+.bucket-color.bucket-3 { background-color: #f9ca24 !important; }
+.bucket-color.bucket-4 { background-color: #f0932b !important; }
+.bucket-color.bucket-5 { background-color: #eb4d4b !important; }
+.bucket-color.bucket-6 { background-color: #6c5ce7 !important; }
+.bucket-color.bucket-7 { background-color: #74b9ff !important; }
+.bucket-color.bucket-8 { background-color: #00b894 !important; }
+.bucket-color.bucket-9 { background-color: #fdcb6e !important; }
+
+
+/* Animation states for bucket sort */
+.viz-cell.distributing {
+    animation: bucket-distribute 1s ease-in-out;
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+@keyframes bucket-distribute {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    100% { transform: scale(1.1); }
+}
+
+.viz-cell.bucket-sorting {
+    animation: bucket-sort-pulse 1.2s ease-in-out infinite alternate;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+}
+
+@keyframes bucket-sort-pulse {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.8; transform: scale(1.05); }
+}
+
+.viz-cell.collected {
+    background: #e8f5e8 !important;
+    border-color: #4caf50 !important;
+    animation: bucket-collect 0.8s ease-out;
+}
+
+@keyframes bucket-collect {
+    0% { transform: translateY(-10px); opacity: 0.7; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Ensure cells have relative positioning for bucket indicators */
+.viz-cell {
+    position: relative;
+}
+
+.viz-cell.complete {
+    background: #c8e6c9 !important;
+    border-color: #4caf50 !important;
+    animation: completion-glow 1s ease-out;
+}
+
+@keyframes completion-glow {
+    0% { box-shadow: 0 0 0 rgba(76, 175, 80, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.6); }
+    100% { box-shadow: 0 0 0 rgba(76, 175, 80, 0.4); }
+}
+
+/* Dark mode overrides for bucket sort */
+body.dark-mode .bucket-info {
+    background: rgba(66, 165, 245, 0.1);
+    border-color: rgba(66, 165, 245, 0.3);
+    color: #e3f2fd;
+}
+
+
+body.dark-mode .viz-cell.collected {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border-color: #81c784 !important;
+}
+
+body.dark-mode .viz-cell.complete {
+    background: rgba(165, 214, 167, 0.4) !important;
+    border-color: #81c784 !important;
+}
+
+/* Mobile responsive adjustments for bucket sort */
+@media (max-width: 768px) {
+    .bucket-legend {
+        font-size: 12px;
+    }
+    
+    .bucket-color {
+        margin: 1px 2px;
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+    
+}
+
+/* ===== RADIX SORT VISUALIZATION STYLES ===== */
+/* Radix sort specific cell styling */
+.viz-cell.radix-cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Digit display within cells */
+.digit-display {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff9800;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 16px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.digit-display.digit-highlight {
+    opacity: 1;
+    animation: digit-pulse 1.5s ease-in-out;
+    background: #f44336 !important;
+    color: white !important;
+    box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+}
+
+@keyframes digit-pulse {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1); 
+        box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.3); 
+        box-shadow: 0 0 15px rgba(244, 67, 54, 0.9);
+    }
+}
+
+/* Current digit position display */
+.digit-info {
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(33, 150, 243, 0.1);
+    border: 2px solid #2196f3;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.digit-legend {
+    font-size: 16px;
+    color: #2196f3;
+}
+
+#current-digit-pos {
+    font-weight: bold;
+    color: #1976d2;
+    font-size: 18px;
+}
+
+/* Radix sort color guide */
+.radix-color-guide {
+    margin: 15px 0;
+    padding: 16px 20px;
+    background: rgba(33, 150, 243, 0.06);
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    overflow: visible;
+}
+
+.radix-color-header {
+    margin-bottom: 8px;
+    color: #1976d2;
+    font-size: 14px;
+}
+
+.radix-color-row {
+    text-align: center !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin: 8px 0 !important;
+    padding: 0 !important;
+}
+
+.radix-color-row * {
+    display: inline-block !important;
+}
+
+.radix-color-circle {
+    cursor: help !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+    margin: 0 4px !important;
+    vertical-align: middle !important;
+}
+
+.radix-color-circle:hover {
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
+    z-index: 10 !important;
+}
+
+/* Ensure all digit circles are visible */
+.radix-color-circle.digit-0,
+.radix-color-circle.digit-1,
+.radix-color-circle.digit-2,
+.radix-color-circle.digit-3,
+.radix-color-circle.digit-4,
+.radix-color-circle.digit-5,
+.radix-color-circle.digit-6,
+.radix-color-circle.digit-7,
+.radix-color-circle.digit-8,
+.radix-color-circle.digit-9 {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Animation states for radix sort */
+.viz-cell.distributing {
+    animation: radix-distribute 1.0s ease-in-out;
+    z-index: 10;
+    transform-origin: center;
+}
+
+@keyframes radix-distribute {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.15) rotate(3deg); }
+    50% { transform: scale(1.25) rotate(-3deg); }
+    75% { transform: scale(1.15) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.viz-cell.collecting {
+    animation: radix-collect 0.8s ease-out;
+}
+
+@keyframes radix-collect {
+    0% { transform: translateY(-20px) scale(1.1); opacity: 0.8; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.viz-cell.digit-colored {
+    animation: radix-color-reveal 0.6s ease-out;
+}
+
+@keyframes radix-color-reveal {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.viz-cell.pass-complete {
+    animation: radix-pass-done 1.2s ease-in-out;
+}
+
+@keyframes radix-pass-done {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
+}
+
+.viz-cell.complete {
+    background: #8bc34a !important;
+    color: white !important;
+    border-color: #7cb342 !important;
+    animation: radix-completion 1s ease-out;
+}
+
+@keyframes radix-completion {
+    0% { box-shadow: 0 0 0 rgba(139, 195, 74, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(139, 195, 74, 0.8); }
+    100% { box-shadow: 0 0 0 rgba(139, 195, 74, 0.4); }
+}
+
+/* Dark mode overrides for radix sort */
+body.dark-mode .digit-info {
+    background: rgba(66, 165, 245, 0.2);
+    border-color: #42a5f5;
+}
+
+body.dark-mode .digit-legend {
+    color: #90caf9;
+}
+
+body.dark-mode #current-digit-pos {
+    color: #64b5f6;
+}
+
+body.dark-mode .radix-color-guide {
+    background: rgba(66, 165, 245, 0.1);
+    border-color: rgba(66, 165, 245, 0.3);
+}
+
+body.dark-mode .radix-color-header {
+    color: #90caf9;
+}
+
+body.dark-mode .radix-color-circle {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+body.dark-mode .radix-color-circle:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+body.dark-mode .digit-display {
+    background: #ffb74d;
+    color: #333;
+}
+
+body.dark-mode .digit-display.digit-highlight {
+    background: #ff5252 !important;
+    color: white !important;
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.7);
+}
+
+/* Mobile responsive adjustments for radix sort */
+@media (max-width: 768px) {
+    .radix-color-guide {
+        padding: 10px 12px;
+    }
+    
+    .radix-color-row {
+        gap: 6px;
+    }
+    
+    .radix-color-circle {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 10px !important;
+    }
+    
+    .digit-display {
+        bottom: -18px;
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+    
+    .digit-info {
+        margin: 10px 0;
+        padding: 8px;
+    }
+    
+    .digit-legend {
+        font-size: 14px;
+    }
+    
+    #current-digit-pos {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .radix-color-guide {
+        padding: 8px 10px;
+    }
+    
+    .radix-color-header {
+        font-size: 13px;
+    }
+    
+    .radix-color-row {
+        gap: 4px;
+    }
+    
+    .radix-color-circle {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 9px !important;
+    }
+    
+    .viz-cell.radix-cell {
+        min-height: 50px;
+        font-size: 12px;
+    }
+}
+
+/* ===== COUNTING SORT VISUALIZATION STYLES ===== */
+/* Counting sort section containers */
+.counting-sort-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 2px solid rgba(76, 175, 80, 0.3);
+    border-radius: 12px;
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.counting-sort-section h4 {
+    margin: 0 0 15px 0;
+    color: #2e7d32;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Counting array specific styling */
+.counting-array-display {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    min-height: 80px;
+}
+
+.counting-cell-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+    transition: all 0.3s ease;
+}
+
+.counting-value-label {
+    background: #e8f5e8;
+    color: #2e7d32;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    border: 1px solid #4caf50;
+}
+
+.counting-count-value {
+    background: #4caf50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 32px;
+    text-align: center;
+    border: 2px solid #45a049;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.counting-count-value[data-count="0"] {
+    background: #f5f5f5;
+    color: #999;
+    border-color: #ddd;
+}
+
+.counting-count-value.counting-active {
+    background: #ff9800 !important;
+    color: white !important;
+    border-color: #f57c00 !important;
+    animation: count-increment 0.8s ease-out;
+    transform: scale(1.1);
+}
+
+@keyframes count-increment {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); background: #ff5722; }
+    100% { transform: scale(1.1); }
+}
+
+.counting-count-value.cumulative-active {
+    background: #2196f3 !important;
+    color: white !important;
+    border-color: #1976d2 !important;
+    animation: cumulative-update 1s ease-in-out;
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.6);
+}
+
+@keyframes cumulative-update {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2) rotate(5deg); }
+    50% { transform: scale(1.1) rotate(-5deg); }
+    75% { transform: scale(1.15) rotate(2deg); }
+    100% { transform: scale(1); }
+}
+
+/* Original array cell states */
+.viz-cell.counting-cell {
+    transition: all 0.4s ease;
+}
+
+.viz-cell.finding-max {
+    background: #f44336 !important;
+    color: white !important;
+    border-color: #d32f2f !important;
+    animation: finding-max-pulse 1s ease-in-out;
+    transform: scale(1.1);
+}
+
+@keyframes finding-max-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(244, 67, 54, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(244, 67, 54, 0.8); }
+}
+
+.viz-cell.being-counted {
+    background: #4caf50 !important;
+    color: white !important;
+    border-color: #45a049 !important;
+    animation: being-counted 1s ease-out;
+    transform: scale(1.05);
+}
+
+@keyframes being-counted {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.15) rotate(5deg); }
+    50% { transform: scale(1.1) rotate(-5deg); }
+    75% { transform: scale(1.05) rotate(2deg); }
+    100% { transform: scale(1.05) rotate(0deg); }
+}
+
+.viz-cell.being-placed {
+    background: #2196f3 !important;
+    color: white !important;
+    border-color: #1976d2 !important;
+    animation: being-placed 1.2s ease-out;
+}
+
+@keyframes being-placed {
+    0% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-20px) scale(1.1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Output array cells */
+.viz-cell.output-cell {
+    background: #f5f5f5;
+    color: #999;
+    border: 2px dashed #ddd;
+    transition: all 0.5s ease;
+}
+
+.viz-cell.output-cell.placed {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 2px solid #2196f3;
+    font-weight: bold;
+}
+
+.viz-cell.output-cell.just-placed {
+    animation: just-placed 1s ease-out;
+}
+
+@keyframes just-placed {
+    0% { 
+        background: #ffeb3b; 
+        transform: scale(1.3); 
+        box-shadow: 0 0 20px rgba(255, 235, 59, 0.8);
+    }
+    100% { 
+        background: #e3f2fd; 
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+.viz-cell.complete {
+    background: #8bc34a !important;
+    color: white !important;
+    border-color: #7cb342 !important;
+    animation: counting-completion 1.5s ease-out;
+}
+
+@keyframes counting-completion {
+    0% { box-shadow: 0 0 0 rgba(139, 195, 74, 0.4); }
+    50% { box-shadow: 0 0 30px rgba(139, 195, 74, 0.8); }
+    100% { box-shadow: 0 0 0 rgba(139, 195, 74, 0.4); }
+}
+
+/* Dark mode overrides for counting sort */
+body.dark-mode .counting-sort-section {
+    border-color: rgba(102, 187, 106, 0.4);
+    background: rgba(102, 187, 106, 0.1);
+}
+
+body.dark-mode .counting-sort-section h4 {
+    color: #a5d6a7;
+}
+
+body.dark-mode .counting-value-label {
+    background: rgba(102, 187, 106, 0.3);
+    color: #c8e6c9;
+    border-color: #66bb6a;
+}
+
+body.dark-mode .counting-count-value {
+    background: #66bb6a;
+    border-color: #4caf50;
+}
+
+body.dark-mode .counting-count-value[data-count="0"] {
+    background: rgba(66, 66, 66, 0.8);
+    color: #999;
+    border-color: #555;
+}
+
+body.dark-mode .viz-cell.output-cell {
+    background: rgba(66, 66, 66, 0.8);
+    color: #999;
+    border-color: #555;
+}
+
+body.dark-mode .viz-cell.output-cell.placed {
+    background: rgba(33, 150, 243, 0.3);
+    color: #90caf9;
+    border-color: #42a5f5;
+}
+
+/* Mobile responsive adjustments for counting sort */
+@media (max-width: 768px) {
+    .counting-sort-section {
+        margin: 15px 0;
+        padding: 12px;
+    }
+    
+    .counting-array-display {
+        gap: 6px;
+    }
+    
+    .counting-cell-container {
+        min-width: 35px;
+    }
+    
+    .counting-value-label {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+    
+    .counting-count-value {
+        font-size: 12px;
+        padding: 6px 8px;
+        min-width: 28px;
+    }
+    
+    .viz-cell.counting-cell,
+    .viz-cell.output-cell {
+        min-width: 35px;
+        min-height: 35px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .counting-sort-section h4 {
+        font-size: 14px;
+    }
+    
+    .counting-array-display {
+        gap: 4px;
+    }
+    
+    .counting-cell-container {
+        min-width: 30px;
+    }
+    
+    .counting-value-label {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+    
+    .counting-count-value {
+        font-size: 11px;
+        padding: 4px 6px;
+        min-width: 24px;
+    }
+    
+    .viz-cell.counting-cell,
+    .viz-cell.output-cell {
+        min-width: 30px;
+        min-height: 30px;
+        font-size: 11px;
+    }
+}
+
 /* ===== GLOBAL OVERRIDES FOR EXISTING ALGORITHM VISUALIZATIONS ===== */
 /* These rules override inline styles in existing algorithm configs to ensure dark mode compatibility */
 

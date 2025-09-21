@@ -184,7 +184,10 @@ function bucketSortWithSteps(arr, bucketCount = null) {
     return {
         sortedArray: finalArray,
         steps: steps,
-        metrics: metrics
+        metrics: {
+            ...metrics,
+            buckets: bucketCount
+        }
     };
 }
 
@@ -193,6 +196,8 @@ if (typeof window !== 'undefined') {
     window.BucketSortSteps = {
         bucketSortWithSteps
     };
+    // Expose commonly used function in global scope for demo configs
+    window.bucketSortWithSteps = bucketSortWithSteps;
 }
 
 // Export for CommonJS compatibility
